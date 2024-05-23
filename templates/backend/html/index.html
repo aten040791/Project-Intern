@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default"
+  data-assets-path="../assets/" data-template="vertical-menu-template-free">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap&subset=vietnamese"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="../assets/css/demo.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+
+  <link rel="stylesheet" href="path/to/carousel.css">
+  <script src="path/to/carousel.js"></script>
+
+  <!-- Helpers -->
+  <script src="../assets/vendor/js/helpers.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/base.js"></script>
+</head>
+
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <div class="app-brand demo">
+          <a href="index.html" class="app-brand-link">
+             <span class="app-brand-logo demo">
+               <img src="../assets/img/layouts/logo1.jpg" alt="" style="width: 170px;">
+             </span>
+          </a>
+
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+          </a>
+        </div>
+        <ul class="menu-inner py-1">
+          <!-- Dashboards -->
+          <li class="menu-item">
+            <a href="index.html" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Basic">Dashboards</div>
+            </a>
+          </li>
+
+          <!-- Home -->
+          <li class="menu-item  active">
+            <a href="index.html" class="menu-link">
+              <i class='menu-icon bx bx-home'></i>
+              <div data-i18n="Basic">Home</div>
+            </a>
+          </li>
+
+          <!-- Post -->
+          <li class="menu-item">
+            <a href="post.html" class="menu-link">
+              <i class='menu-icon bx bx-book-content'></i>
+              <div data-i18n="Basic">Post</div>
+            </a>
+          </li>
+
+          <!-- Pages -->
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Account Settings">Account Settings</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="pages-account-settings-account.html" class="menu-link">
+                  <div data-i18n="Account">Account</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+              <div data-i18n="Authentications">Authentications</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                  <div data-i18n="Basic">Login</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                  <div data-i18n="Basic">Register</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
+                  <div data-i18n="Basic">Forgot Password</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+      <!-- / Menu -->
+
+      <!-- Layout page -->
+      <div class="layout-page">
+        <!-- Navbar -->
+        <nav
+          class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme navbar-custom"
+          id="layout-navbar">
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i class="bx bx-menu bx-sm"></i>
+            </a>
+          </div>
+
+          <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+            <!-- Search -->
+            <div class="navbar-nav d-none d-xl-flex justify-content-between align-items-center" style="width: 65%;">
+              <div class="nav-item d-flex align-items-center">
+                <i class="bx bx-search fs-4 lh-0"></i>
+                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
+                  aria-label="Search..." />
+              </div>
+              <div class="">
+                <a href="index.html" class="btn btn-link p-0">
+                  <i class='bx bxs-home' style="font-size: 30px;"></i>
+                </a>
+              </div>
+              <div class="">
+                <a href="post.html" class="btn btn-link p-0">
+                  <i class='bx bxs-book-content' style="font-size: 30px;"></i>
+                </a>
+              </div>
+              <div class="">
+                <a href="profile.html" class="btn btn-link p-0">
+                  <i class='bx bxs-user-circle' style="font-size: 30px;"></i>
+                </a>
+              </div>
+            </div>
+            <!-- /Search -->
+
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+              <!-- language -->
+              <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <i class="bx bx-globe bx-sm"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item active" href="javascript:void(0);" data-language="en"
+                      data-text-direction="ltr">
+                      <span class="align-middle">English</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
+                      <span class="align-middle">French</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
+                      <span class="align-middle">Arabic</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
+                      <span class="align-middle">German</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- language -->
+              <!-- notification -->
+              <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
+                  data-bs-auto-close="outside" aria-expanded="false">
+                  <i class="bx bx-bell bx-sm"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end py-0" style="width: 350px;">
+                  <li class="dropdown-menu-header border-bottom">
+                    <div class="dropdown-header d-flex align-items-center py-3">
+                      <h5 class="text-body mb-0 me-auto">Notification</h5>
+                      <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip"
+                        data-bs-placement="top" aria-label="Mark all as read"
+                        data-bs-original-title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
+                    </div>
+                  </li>
+                  <li class="dropdown-notifications-list scrollable-container ps">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar">
+                              <img src="../../assets/img/avatars/6.png" alt="" class="w-px-40 h-auto rounded-circle">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="mb-1">New message from Jane</h6>
+                            <p class="mb-0">Your have new message from Jane</p>
+                            <small class="text-muted">5 days ago</small>
+                          </div>
+                          <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <a href="javascript:void(0)" class="dropdown-notifications-read"><span
+                                class="badge badge-dot"></span></a>
+                            <a href="javascript:void(0)" class="dropdown-notifications-archive"><span
+                                class="bx bx-x"></span></a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar">
+                              <span class="avatar-initial rounded-circle bg-label-warning"><i
+                                  class="bx bx-error"></i></span>
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="mb-1">CPU is running high</h6>
+                            <p class="mb-0">CPU Utilization Percent is currently at 88.63%,
+                            </p>
+                            <small class="text-muted">5 days ago</small>
+                          </div>
+                          <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <a href="javascript:void(0)" class="dropdown-notifications-read"><span
+                                class="badge badge-dot"></span></a>
+                            <a href="javascript:void(0)" class="dropdown-notifications-archive"><span
+                                class="bx bx-x"></span></a>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                      <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                      <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                  </li>
+                  <li class="dropdown-menu-footer border-top p-3">
+                    <button class="btn btn-primary text-uppercase w-100">view all
+                      notifications</button>
+                  </li>
+                </ul>
+              </li>
+              <!-- notification -->
+              <!-- Place this tag where you want the button to render. -->
+              <!-- User -->
+              <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <div class="avatar avatar-online">
+                    <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <div class="avatar avatar-online">
+                            <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                          </div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <span class="fw-medium d-block">John Doe</span>
+                          <small class="text-muted">Admin</small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <i class="bx bx-user me-2"></i>
+                      <span class="align-middle">My Profile</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <i class="bx bx-cog me-2"></i>
+                      <span class="align-middle">Settings</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <span class="d-flex align-items-center align-middle">
+                        <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                        <span class="flex-grow-1 align-middle ms-1">Billing</span>
+                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="javascript:void(0);">
+                      <i class="bx bx-power-off me-2"></i>
+                      <span class="align-middle">Log Out</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--/ User -->
+            </ul>
+          </div>
+        </nav>
+        <!-- / Navbar -->
+
+       
+        
+        <div style="padding: 10px 50px 5px 130px;">
+          <h2><b>Articles</b></h2>
+          <p class="date text-muted">May 21, 2024</p>
+        </div>
+        <!-- Content -->
+        <main class="container mt-4">
+          <article class="blog-post mb-4 p-4 bg-light rounded shadow">
+            <span class="article--post__author-name"><a class="red" href="/author/Le-Hong-Quan"><u>Le Hong Quan</u></a>
+              <em class="light-grey">wrote</em></span>
+              <h2 class="article--post__title h2"><a
+                  href="detail.html"><b>Quốc hội sẽ phê
+                    chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a></h2>
+              <div class="article--post__stats">
+                <ul style="list-style-type: none;">
+                  <li class=""><i class='bx bx-calendar'> 17  min read</i></li>
+                  <li class="article--post__comments-count"><a
+                      href="#"><i class='bx bx-comment-dots' ><span> comments</span></i></a></li>
+                </ul>
+              </div>
+              <div class="article--post__content">
+                <p class="date text-muted">May 21, 2024</p>
+                <p class="article--post__teaser">
+                  Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê chuẩn đề nghị của Thủ tướng về việc miễn
+                  nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm. Dự kiến, nội dung này được bố trí để Quốc hội thực hiện cùng
+                  với quy trình bầu Chủ tịch nước tại phiên họp chiều 21/5 và sáng 22/5.
+                </p>
+                <a href="detail.html"
+                class="read-more-link"><u>Read more…</u></a>
+            </div>
+          </article>
+          <article class="blog-post mb-4 p-4 bg-light rounded shadow">
+            <span class="article--post__author-name"><a class="red" href="/author/Le-Hong-Quan"><u>Le Hong Quan</u></a>
+              <em class="light-grey">wrote</em></span>
+              <h2 class="article--post__title h2"><a
+                  href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"><b>Quốc hội sẽ phê
+                    chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a></h2>
+              <div class="article--post__stats">
+                <ul style="list-style-type: none;">
+                  <li class=""><i class='bx bx-calendar'> 17  min read</i></li>
+                  <li class="article--post__comments-count"><a
+                      href="#"><i class='bx bx-comment-dots' ><span> comments</span></i></a></li>
+                </ul>
+              </div>
+              <div class="article--post__content">
+                <p class="date text-muted">May 21, 2024</p>
+                <p class="article--post__teaser">
+                  Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê chuẩn đề nghị của Thủ tướng về việc miễn
+                  nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm. Dự kiến, nội dung này được bố trí để Quốc hội thực hiện cùng
+                  với quy trình bầu Chủ tịch nước tại phiên họp chiều 21/5 và sáng 22/5.
+                </p>
+                <a href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"
+                class="read-more-link"><u>Read more…</u></a>
+            </div>
+          </article>
+          <article class="blog-post mb-4 p-4 bg-light rounded shadow">
+            <span class="article--post__author-name"><a class="red" href="/author/Le-Hong-Quan"><u>Le Hong Quan</u></a>
+              <em class="light-grey">wrote</em></span>
+              <h2 class="article--post__title h2"><a
+                  href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"><b>Quốc hội sẽ phê
+                    chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a></h2>
+              <div class="article--post__stats">
+                <ul style="list-style-type: none;">
+                  <li class=""><i class='bx bx-calendar'> 17  min read</i></li>
+                  <li class="article--post__comments-count"><a
+                      href="#"><i class='bx bx-comment-dots' ><span> comments</span></i></a></li>
+                </ul>
+              </div>
+              <div class="article--post__content">
+                <p class="date text-muted">May 21, 2024</p>
+                <p class="article--post__teaser">
+                  Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê chuẩn đề nghị của Thủ tướng về việc miễn
+                  nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm. Dự kiến, nội dung này được bố trí để Quốc hội thực hiện cùng
+                  với quy trình bầu Chủ tịch nước tại phiên họp chiều 21/5 và sáng 22/5.
+                </p>
+                <a href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"
+                class="read-more-link"><u>Read more…</u></a>
+            </div>
+          </article>
+          <article class="blog-post mb-4 p-4 bg-light rounded shadow">
+            <span class="article--post__author-name"><a class="red" href="/author/Le-Hong-Quan"><u>Le Hong Quan</u></a>
+              <em class="light-grey">wrote</em></span>
+              <h2 class="article--post__title h2"><a
+                  href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"><b>Quốc hội sẽ phê
+                    chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a></h2>
+              <div class="article--post__stats">
+                <ul style="list-style-type: none;">
+                  <li class=""><i class='bx bx-calendar'> 17  min read</i></li>
+                  <li class="article--post__comments-count"><a
+                      href="#"><i class='bx bx-comment-dots' ><span> comments</span></i></a></li>
+                </ul>
+              </div>
+              <div class="article--post__content">
+                <p class="date text-muted">May 21, 2024</p>
+                <p class="article--post__teaser">
+                  Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê chuẩn đề nghị của Thủ tướng về việc miễn
+                  nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm. Dự kiến, nội dung này được bố trí để Quốc hội thực hiện cùng
+                  với quy trình bầu Chủ tịch nước tại phiên họp chiều 21/5 và sáng 22/5.
+                </p>
+                <a href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"
+                class="read-more-link"><u>Read more…</u></a>
+            </div>
+          </article>
+          <article class="blog-post mb-4 p-4 bg-light rounded shadow">
+            <span class="article--post__author-name"><a class="red" href="/author/Le-Hong-Quan"><u>Le Hong Quan</u></a>
+              <em class="light-grey">wrote</em></span>
+              <h2 class="article--post__title h2"><a
+                  href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"><b>Quốc hội sẽ phê
+                    chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a></h2>
+              <div class="article--post__stats">
+                <ul style="list-style-type: none;">
+                  <li class=""><i class='bx bx-calendar'> 17  min read</i></li>
+                  <li class="article--post__comments-count"><a
+                      href="#"><i class='bx bx-comment-dots' ><span> comments</span></i></a></li>
+                </ul>
+              </div>
+              <div class="article--post__content">
+                <p class="date text-muted">May 21, 2024</p>
+                <p class="article--post__teaser">
+                  Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê chuẩn đề nghị của Thủ tướng về việc miễn
+                  nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm. Dự kiến, nội dung này được bố trí để Quốc hội thực hiện cùng
+                  với quy trình bầu Chủ tịch nước tại phiên họp chiều 21/5 và sáng 22/5.
+                </p>
+                <a href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"
+                class="read-more-link"><u>Read more…</u></a>
+            </div>
+          </article>
+          <article class="blog-post mb-4 p-4 bg-light rounded shadow">
+            <span class="article--post__author-name"><a class="red" href="/author/Le-Hong-Quan"><u>Le Hong Quan</u></a>
+              <em class="light-grey">wrote</em></span>
+              <h2 class="article--post__title h2"><a
+                  href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"><b>Quốc hội sẽ phê
+                    chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a></h2>
+              <div class="article--post__stats">
+                <ul style="list-style-type: none;">
+                  <li class=""><i class='bx bx-calendar'> 17  min read</i></li>
+                  <li class="article--post__comments-count"><a
+                      href="#"><i class='bx bx-comment-dots' ><span> comments</span></i></a></li>
+                </ul>
+              </div>
+              <div class="article--post__content">
+                <p class="date text-muted">May 21, 2024</p>
+                <p class="article--post__teaser">
+                  Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê chuẩn đề nghị của Thủ tướng về việc miễn
+                  nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm. Dự kiến, nội dung này được bố trí để Quốc hội thực hiện cùng
+                  với quy trình bầu Chủ tịch nước tại phiên họp chiều 21/5 và sáng 22/5.
+                </p>
+                <a href="https://vnexpress.net/quoc-hoi-se-mien-nhiem-bo-truong-cong-an-to-lam-4748640.html"
+                class="read-more-link"><u>Read more…</u></a>
+            </div>
+          </article>
+          <!-- Add more articles here -->
+        </main>
+        <!-- / Content -->
+        
+        </div>
+      <!-- / Layout page -->
+    </div>
+
+  </div>
+  </div>
+  <!-- / Layout wrapper -->
+
+
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
+
+  <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../assets/vendor/libs/popper/popper.js"></script>
+  <script src="../assets/vendor/js/bootstrap.js"></script>
+  <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="../assets/vendor/js/menu.js"></script>
+
+  <!-- endbuild -->
+
+  <!-- Vendors JS -->
+
+  <!-- Main JS -->
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/custom.js"></script>
+
+  <!-- Page JS -->
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>
