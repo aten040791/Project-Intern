@@ -832,7 +832,7 @@
                 <div class="page-list bg-white">
                   <div class="card">
                     <div class="card-header border-bottom">
-                      <div class="row">
+                      <div class="row justify-content-between">
                         <div class="col-md-4 px-0">
                           <div class="search-input ps-re">
                             <a
@@ -849,41 +849,21 @@
                             />
                           </div>
                         </div>
-                        <div
-                          class="col-md-8 d-flex align-items-center justify-content-end"
-                        >
-                          <div class="col-md-2 text-center me-3">
-                            <div
-                              class="dataTables_length"
-                              id="DataTables_Table_0_length"
+                        <div class="col-md-1 col-2">
+                          <div
+                            class="dataTables_length"
+                            id="DataTables_Table_0_length"
+                          >
+                            <select
+                              name="DataTables_Table_0_length"
+                              aria-controls="DataTables_Table_0"
+                              class="form-select"
                             >
-                              <select
-                                name="DataTables_Table_0_length"
-                                aria-controls="DataTables_Table_0"
-                                class="form-select"
-                              >
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="sort">
-                            <div
-                              class="form-sort br-8 flex align-center justify-sb opacity-08"
-                            >
-                              <div class="icon p-10">
-                                <i class="fa-solid fa-arrow-down-z-a"></i>
-                              </div>
-                              <div class="text">
-                                <p class="w-100 fs-14 mb-0">Sort by date</p>
-                                <!-- <p class="w-100 fs-14 opacity-08">Newest</p> -->
-                              </div>
-                              <div class="icon p-10">
-                                <i class="fa-solid fa-angle-down"></i>
-                              </div>
-                            </div>
+                              <option value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
                           </div>
                         </div>
                       </div>
