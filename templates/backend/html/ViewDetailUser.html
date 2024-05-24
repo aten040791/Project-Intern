@@ -15,7 +15,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Manage Language</title>
+    <title>View Detail</title>
 
     <meta name="description" content="" />
 
@@ -65,7 +65,7 @@
       href="../assets/vendor/libs/apex-charts/apex-charts.css"
     />
 
-    <link rel="stylesheet" href="../assets/vendor/css/categoryStyle.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/userStyle.css" />
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -85,7 +85,6 @@
           id="layout-menu"
           class="layout-menu menu-vertical menu bg-menu-theme"
         >
-          <!-- logo -->
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <img
@@ -95,7 +94,6 @@
                 height="170"
               />
             </a>
-
             <a
               href="javascript:void(0);"
               class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
@@ -126,13 +124,13 @@
             </li>
 
             <!-- Pages -->
-            <li class="menu-item">
+            <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Account Settings">Users</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="user.html" class="menu-link">
                     <div data-i18n="Categories">List</div>
                   </a>
@@ -157,13 +155,13 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item active open">
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-globe"></i>
                 <div data-i18n="Account Settings">Language</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a href="languages.html" class="menu-link">
                     <div data-i18n="Languages">Language List</div>
                   </a>
@@ -319,6 +317,7 @@
                     </li>
                   </ul>
                 </li>
+
                 <!-- Notification -->
                 <li
                   class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"
@@ -366,7 +365,7 @@
                             <div class="flex-shrink-0 me-3">
                               <div class="avatar">
                                 <img
-                                  src="../../assets/img/avatars/1.png"
+                                  src="../assets/img/avatars/1.png"
                                   alt=""
                                   class="w-px-40 h-auto rounded-circle"
                                 />
@@ -791,499 +790,745 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="content">
-                <div
-                  class="page-header flex justify-sb align-center mb-24 bb-none"
-                >
-                  <div class="title flex direction-col">
-                    <h2 class="my-0">Language list</h2>
-                  </div>
-                  <button
-                    class="btn btn-secondary delete-item btn-danger me-3 ms-auto"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasAddUser"
-                  >
-                    <span
-                      ><i class="fa-regular fa-trash-can"></i
-                      ><span class="d-none d-sm-inline-block ms-2"
-                        >Delete All</span
-                      ></span
-                    >
-                  </button>
-                  <button
-                    class="btn btn-secondary add-item btn-primary"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasAddUser"
-                  >
-                    <span
-                      ><i class="bx bx-plus me-0 me-sm-1"></i
-                      ><span class="d-none d-sm-inline-block"
-                        >Create new language</span
-                      ></span
-                    >
-                  </button>
-                </div>
-                <div class="page-list bg-white">
-                  <div class="card">
-                    <div class="card-header border-bottom">
-                      <div class="row justify-content-between">
-                        <div class="col-md-4 px-0">
-                          <div class="search-input ps-re">
+                <h4 class="py-3 mb-4">Detail Account</h4>
+                <div class="row">
+                  <!-- User Sidebar -->
+                  <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                    <!-- User Card -->
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="user-avatar-section">
+                          <div class="d-flex align-items-center flex-column">
+                            <img
+                              class="img-fluid rounded my-4"
+                              src="../assets/img/avatars/5.png"
+                              height="110"
+                              width="110"
+                              alt="User avatar"
+                            />
+                            <div class="user-info text-center">
+                              <h4 class="mb-2">Violet Mendoza</h4>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="d-flex justify-content-around flex-wrap my-4 py-3"
+                        >
+                          <div class="d-flex align-items-center mt-3 gap-3">
+                            <span class="badge bg-label-primary p-2 rounded"
+                              ><i class="bx bx-customize bx-sm"></i
+                            ></span>
+                            <div>
+                              <h5 class="mb-0">568 post</h5>
+                            </div>
+                          </div>
+                        </div>
+                        <h5 class="pb-2 border-bottom mb-4">Details</h5>
+                        <div class="info-container">
+                          <ul class="list-unstyled">
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Fullname:</span>
+                              <span>Hà Đình Hoàng</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Username:</span>
+                              <span>violet.dev</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Email:</span>
+                              <span>vafgot@vultukir.org</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Status:</span>
+                              <span class="badge bg-label-success">Active</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Role:</span>
+                              <span>Owner</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Phone:</span>
+                              <span>(123) 456-7890</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Languages:</span>
+                              <span>French</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-medium me-2">Address:</span>
+                              <span>England</span>
+                            </li>
+                          </ul>
+                          <div
+                            id="detail-control"
+                            class="d-flex justify-content-center pt-3"
+                          >
                             <a
-                              class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08"
                               href="#"
+                              class="btn btn-primary me-3"
+                              data-bs-target="#edit-dialog"
+                              data-bs-toggle="modal"
+                              >Edit</a
                             >
-                              <i class="fa-solid fa-magnifying-glass"></i>
-                            </a>
+                            <a
+                              href="#"
+                              class="btn btn-danger"
+                              data-bs-target="#delete-dialog"
+                              >Suspended</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /User Card -->
+                  </div>
+                  <!--/ User Sidebar -->
+
+                  <!-- User Content -->
+                  <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                    <!-- User Pills -->
+                    <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#"
+                          ><i class="bx bx-user me-1"></i>Account</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#"
+                          ><i class="bx bx-lock-alt me-1"></i>Security</a
+                        >
+                      </li>
+                    </ul>
+                    <!--/ User Pills -->
+
+                    <!-- Project table -->
+                    <div class="card mb-4">
+                      <h5 class="card-header">User's Post List</h5>
+                      <div class="table-responsive mb-3">
+                        <div
+                          id="DataTables_Table_0_wrapper"
+                          class="dataTables_wrapper dt-bootstrap5 no-footer"
+                        >
+                          <div
+                            class="d-flex justify-content-between align-items-center flex-column flex-sm-row mx-4 row"
+                          >
+                            <div
+                              class="col-sm-4 col-12 d-flex align-items-center justify-content-sm-start justify-content-center"
+                            >
+                              <div
+                                class="dataTables_length"
+                                id="DataTables_Table_0_length"
+                              >
+                                <label
+                                  >Show
+                                  <select
+                                    name="DataTables_Table_0_length"
+                                    aria-controls="DataTables_Table_0"
+                                    class="form-select"
+                                  >
+                                    <option value="7">7</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="75">75</option>
+                                    <option value="100">100</option>
+                                  </select></label
+                                >
+                              </div>
+                            </div>
+                            <div
+                              class="col-sm-8 col-12 d-flex align-items-center justify-content-sm-end justify-content-center"
+                            >
+                              <div
+                                id="DataTables_Table_0_filter"
+                                class="dataTables_filter"
+                              >
+                                <label
+                                  >Search:<input
+                                    type="search"
+                                    class="form-control"
+                                    placeholder="Search Post"
+                                    aria-controls="DataTables_Table_0"
+                                /></label>
+                              </div>
+                            </div>
+                          </div>
+                          <table
+                            class="table datatable-project border-top dataTable no-footer dtr-column collapsed"
+                            id="DataTables_Table_0"
+                            aria-describedby="DataTables_Table_0_info"
+                            style="width: 918px"
+                          >
+                            <thead>
+                              <tr>
+                                <th
+                                  class="control sorting_disabled"
+                                  rowspan="1"
+                                  colspan="1"
+                                  style="width: 0px"
+                                  aria-label=""
+                                ></th>
+                                <th
+                                  class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
+                                  rowspan="1"
+                                  colspan="1"
+                                  style="width: 18px"
+                                  data-col="1"
+                                  aria-label=""
+                                >
+                                  <input
+                                    id="select-all"
+                                    type="checkbox"
+                                    class="form-check-input"
+                                  />
+                                </th>
+                                <th>Post</th>
+                                <th>Status</th>
+                                <th>Created On</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="odd">
+                                <td tabindex="0" style=""></td>
+                                <td class="dt-checkboxes-cell">
+                                  <input
+                                    type="checkbox"
+                                    class="dt-checkboxes form-check-input"
+                                  />
+                                </td>
+                                <td>
+                                  <div class="d-flex flex-column">
+                                    <span class="text-truncate fw-medium"
+                                      >Title</span
+                                    >
+                                    <small class="text-muted">Sub title</small>
+                                  </div>
+                                </td>
+                                <td>
+                                  <span class="badge bg-label-success me-1"
+                                    >Active</span
+                                  >
+                                </td>
+                                <td class="" style="">21 May, 2024</td>
+                              </tr>
+                              <tr class="even">
+                                <td tabindex="0" style=""></td>
+                                <td class="dt-checkboxes-cell">
+                                  <input
+                                    type="checkbox"
+                                    class="dt-checkboxes form-check-input"
+                                  />
+                                </td>
+                                <td>
+                                  <div class="d-flex flex-column">
+                                    <span class="text-truncate fw-medium"
+                                      >Title</span
+                                    >
+                                    <small class="text-muted">Sub title</small>
+                                  </div>
+                                </td>
+                                <td>
+                                  <span class="badge bg-label-success me-1"
+                                    >Active</span
+                                  >
+                                </td>
+                                <td class="" style="">21 May, 2024</td>
+                              </tr>
+                              <tr class="odd">
+                                <td tabindex="0" style=""></td>
+                                <td class="dt-checkboxes-cell">
+                                  <input
+                                    type="checkbox"
+                                    class="dt-checkboxes form-check-input"
+                                  />
+                                </td>
+                                <td>
+                                  <div class="d-flex flex-column">
+                                    <span class="text-truncate fw-medium"
+                                      >Title</span
+                                    >
+                                    <small class="text-muted">Sub title</small>
+                                  </div>
+                                </td>
+                                <td>
+                                  <span class="badge bg-label-success me-1"
+                                    >Active</span
+                                  >
+                                </td>
+                                <td class="" style="">21 May, 2024</td>
+                              </tr>
+                              <tr class="even">
+                                <td tabindex="0" style=""></td>
+                                <td class="dt-checkboxes-cell">
+                                  <input
+                                    type="checkbox"
+                                    class="dt-checkboxes form-check-input"
+                                  />
+                                </td>
+                                <td>
+                                  <div class="d-flex flex-column">
+                                    <span class="text-truncate fw-medium"
+                                      >Title</span
+                                    >
+                                    <small class="text-muted">Sub title</small>
+                                  </div>
+                                </td>
+                                <td>
+                                  <span class="badge bg-label-success me-1"
+                                    >Active</span
+                                  >
+                                </td>
+                                <td class="" style="">21 May, 2024</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="d-flex justify-content-between mx-4 row">
+                            <div class="col-sm-12 col-md-6">
+                              <div
+                                class="dataTables_info"
+                                id="DataTables_Table_0_info"
+                                role="status"
+                                aria-live="polite"
+                              >
+                                Showing 1 to 7 of 11 entries
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                              <div
+                                class="dataTables_paginate paging_simple_numbers"
+                                id="DataTables_Table_0_paginate"
+                              >
+                                <ul
+                                  class="pagination align-items-center justify-content-end"
+                                >
+                                  <li
+                                    class="paginate_button page-item previous disabled"
+                                    id="DataTables_Table_0_previous"
+                                  >
+                                    <a
+                                      aria-controls="DataTables_Table_0"
+                                      aria-disabled="true"
+                                      role="link"
+                                      data-dt-idx="previous"
+                                      tabindex="-1"
+                                      class="page-link"
+                                      >Previous</a
+                                    >
+                                  </li>
+                                  <li class="paginate_button page-item active">
+                                    <a
+                                      href="#"
+                                      aria-controls="DataTables_Table_0"
+                                      role="link"
+                                      aria-current="page"
+                                      data-dt-idx="0"
+                                      tabindex="0"
+                                      class="page-link"
+                                      >1</a
+                                    >
+                                  </li>
+                                  <li class="paginate_button page-item">
+                                    <a
+                                      href="#"
+                                      aria-controls="DataTables_Table_0"
+                                      role="link"
+                                      data-dt-idx="1"
+                                      tabindex="0"
+                                      class="page-link"
+                                      >2</a
+                                    >
+                                  </li>
+                                  <li class="paginate_button page-item">
+                                    <a
+                                      href="#"
+                                      aria-controls="DataTables_Table_0"
+                                      role="link"
+                                      data-dt-idx="2"
+                                      tabindex="0"
+                                      class="page-link"
+                                      >3</a
+                                    >
+                                  </li>
+                                  <li
+                                    class="paginate_button page-item next"
+                                    id="DataTables_Table_0_next"
+                                  >
+                                    <a
+                                      href="#"
+                                      aria-controls="DataTables_Table_0"
+                                      role="link"
+                                      data-dt-idx="next"
+                                      tabindex="0"
+                                      class="page-link"
+                                      >Next</a
+                                    >
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div style="width: 1%"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Project table -->
+                  </div>
+                  <!--/ User Content -->
+                </div>
+              </div>
+
+              <!-- Modal -->
+              <!-- Edit User Modal -->
+              <!-- <div
+                class="modal fade"
+                id="editUser"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+                  <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                      <div class="text-center mb-4">
+                        <h3>Edit User Information</h3>
+                        <p>
+                          Updating user details will receive a privacy audit.
+                        </p>
+                      </div>
+                      <form
+                        id="editUserForm"
+                        class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
+                        onsubmit="return false"
+                        novalidate="novalidate"
+                      >
+                        <div class="col-12 col-md-6 fv-plugins-icon-container">
+                          <label class="form-label" for="modalEditUserFirstName"
+                            >First Name</label
+                          >
+                          <input
+                            type="text"
+                            id="modalEditUserFirstName"
+                            name="modalEditUserFirstName"
+                            class="form-control"
+                            placeholder="John"
+                          />
+                          <div
+                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+                          ></div>
+                        </div>
+                        <div class="col-12 col-md-6 fv-plugins-icon-container">
+                          <label class="form-label" for="modalEditUserLastName"
+                            >Last Name</label
+                          >
+                          <input
+                            type="text"
+                            id="modalEditUserLastName"
+                            name="modalEditUserLastName"
+                            class="form-control"
+                            placeholder="Doe"
+                          />
+                          <div
+                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+                          ></div>
+                        </div>
+                        <div class="col-12 fv-plugins-icon-container">
+                          <label class="form-label" for="modalEditUserName"
+                            >Username</label
+                          >
+                          <input
+                            type="text"
+                            id="modalEditUserName"
+                            name="modalEditUserName"
+                            class="form-control"
+                            placeholder="john.doe.007"
+                          />
+                          <div
+                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+                          ></div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserEmail"
+                            >Email</label
+                          >
+                          <input
+                            type="text"
+                            id="modalEditUserEmail"
+                            name="modalEditUserEmail"
+                            class="form-control"
+                            placeholder="example@domain.com"
+                          />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserStatus"
+                            >Status</label
+                          >
+                          <select
+                            id="modalEditUserStatus"
+                            name="modalEditUserStatus"
+                            class="form-select"
+                            aria-label="Default select example"
+                          >
+                            <option selected="">Status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
+                            <option value="3">Suspended</option>
+                          </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditTaxID"
+                            >Tax ID</label
+                          >
+                          <input
+                            type="text"
+                            id="modalEditTaxID"
+                            name="modalEditTaxID"
+                            class="form-control modal-edit-tax-id"
+                            placeholder="123 456 7890"
+                          />
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserPhone"
+                            >Phone Number</label
+                          >
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text">+1</span>
                             <input
-                              class="form-control ms-2"
                               type="text"
-                              value=""
-                              placeholder="Language"
+                              id="modalEditUserPhone"
+                              name="modalEditUserPhone"
+                              class="form-control phone-number-mask"
+                              placeholder="202 555 0111"
                             />
                           </div>
                         </div>
-                        <div class="col-md-1 col-2">
-                          <div
-                            class="dataTables_length"
-                            id="DataTables_Table_0_length"
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserLanguage"
+                            >Language</label
                           >
+                          <div class="position-relative">
                             <select
-                              name="DataTables_Table_0_length"
-                              aria-controls="DataTables_Table_0"
-                              class="form-select"
+                              id="modalEditUserLanguage"
+                              name="modalEditUserLanguage"
+                              class="select2 form-select select2-hidden-accessible"
+                              multiple=""
+                              data-select2-id="modalEditUserLanguage"
+                              tabindex="-1"
+                              aria-hidden="true"
                             >
-                              <option value="10">10</option>
-                              <option value="20">20</option>
-                              <option value="50">50</option>
-                              <option value="100">100</option>
-                            </select>
+                              <option value="">Select</option>
+                              <option
+                                value="english"
+                                selected=""
+                                data-select2-id="2"
+                              >
+                                English
+                              </option>
+                              <option value="spanish">Spanish</option>
+                              <option value="french">French</option>
+                              <option value="german">German</option>
+                              <option value="dutch">Dutch</option>
+                              <option value="hebrew">Hebrew</option>
+                              <option value="sanskrit">Sanskrit</option>
+                              <option value="hindi">Hindi</option></select
+                            ><span
+                              class="select2 select2-container select2-container--default"
+                              dir="ltr"
+                              data-select2-id="1"
+                              style="width: auto"
+                              ><span class="selection"
+                                ><span
+                                  class="select2-selection select2-selection--multiple"
+                                  role="combobox"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                  tabindex="-1"
+                                  aria-disabled="false"
+                                  ><ul class="select2-selection__rendered">
+                                    <li
+                                      class="select2-selection__choice"
+                                      title="English"
+                                      data-select2-id="3"
+                                    >
+                                      <span
+                                        class="select2-selection__choice__remove"
+                                        role="presentation"
+                                        >×</span
+                                      >English
+                                    </li>
+                                    <li
+                                      class="select2-search select2-search--inline"
+                                    >
+                                      <input
+                                        class="select2-search__field"
+                                        type="search"
+                                        tabindex="0"
+                                        autocomplete="off"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        spellcheck="false"
+                                        role="searchbox"
+                                        aria-autocomplete="list"
+                                        placeholder=""
+                                        style="width: 0.75em"
+                                      />
+                                    </li></ul></span></span
+                              ><span
+                                class="dropdown-wrapper"
+                                aria-hidden="true"
+                              ></span
+                            ></span>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="table-responsive text-nowrap">
-                      <table
-                        class="table table-striped border-bottom datatables-users dataTable no-footer dtr-column"
-                      >
-                        <thead>
-                          <tr>
-                            <th
-                              class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
-                              rowspan="1"
-                              colspan="1"
-                              style="width: 18px"
-                              data-col="1"
-                              aria-label=""
-                            >
-                              <input
-                                id="select-all"
-                                type="checkbox"
-                                class="form-check-input"
-                              />
-                            </th>
-                            <th>id</th>
-                            <th>Language</th>
-                            <th>Locale</th>
-                            <th>flag</th>
-                            <th>Created On</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                          <tr class="odd" data-index="1">
-                            <td class="dt-checkboxes-cell">
-                              <input
-                                type="checkbox"
-                                class="dt-checkboxes form-check-input"
-                              />
-                            </td>
-                            <td>#1</td>
-                            <td>Viet Nam</td>
-                            <td>vi</td>
-                            <td>
-                              <div class="avatar-wrapper">
-                                <div class="flag">
-                                  <img
-                                    class=""
-                                    src="../assets/img/avatars/vn_flag.png"
-                                    alt=""
-                                    width="32"
-                                    height="20"
-                                  />
-                                </div>
-                              </div>
-                            </td>
-                            <td>21 May, 2024</td>
-                            <td>
-                              <span class="badge bg-label-success me-1"
-                                >active</span
-                              >
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-primary cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="bx bx-edit menu-icon tf-icons"
-                                    ></i>
-                                  </div>
-                                </a>
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-danger cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="menu-icon tf-icons bx bx-trash"
-                                    ></i>
-                                  </div>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr class="even" data-index="2">
-                            <td class="dt-checkboxes-cell">
-                              <input
-                                type="checkbox"
-                                class="dt-checkboxes form-check-input"
-                              />
-                            </td>
-                            <td>#2</td>
-                            <td>English</td>
-                            <td>en</td>
-                            <td>
-                              <div class="avatar-wrapper">
-                                <div class="flag">
-                                  <img
-                                    src="../assets/img/avatars/en_flag.jpg"
-                                    alt=""
-                                    width="32"
-                                    height="20"
-                                  />
-                                </div>
-                              </div>
-                            </td>
-                            <td>21 May, 2024</td>
-                            <td>
-                              <span class="badge bg-label-secondary me-1"
-                                >inactive</span
-                              >
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-primary cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="bx bx-edit menu-icon tf-icons"
-                                    ></i>
-                                  </div>
-                                </a>
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-danger cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="menu-icon tf-icons bx bx-trash"
-                                    ></i>
-                                  </div>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr class="odd" data-index="3">
-                            <td class="dt-checkboxes-cell">
-                              <input
-                                type="checkbox"
-                                class="dt-checkboxes form-check-input"
-                              />
-                            </td>
-                            <td>#1</td>
-                            <td>Viet Nam</td>
-                            <td>vi</td>
-                            <td>
-                              <div class="avatar-wrapper">
-                                <div class="flag">
-                                  <img
-                                    class=""
-                                    src="../assets/img/avatars/vn_flag.png"
-                                    alt=""
-                                    width="32"
-                                    height="20"
-                                  />
-                                </div>
-                              </div>
-                            </td>
-                            <td>21 May, 2024</td>
-                            <td>
-                              <span class="badge bg-label-secondary me-1"
-                                >inactive</span
-                              >
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-primary cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="bx bx-edit menu-icon tf-icons"
-                                    ></i>
-                                  </div>
-                                </a>
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-danger cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="menu-icon tf-icons bx bx-trash"
-                                    ></i>
-                                  </div>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr class="even" data-index="4">
-                            <td class="dt-checkboxes-cell">
-                              <input
-                                type="checkbox"
-                                class="dt-checkboxes form-check-input"
-                              />
-                            </td>
-                            <td>#2</td>
-                            <td>English</td>
-                            <td>en</td>
-                            <td>
-                              <div class="avatar-wrapper">
-                                <div class="flag">
-                                  <img
-                                    src="../assets/img/avatars/en_flag.jpg"
-                                    alt=""
-                                    width="32"
-                                    height="20"
-                                  />
-                                </div>
-                              </div>
-                            </td>
-                            <td>21 May, 2024</td>
-                            <td>
-                              <span class="badge bg-label-secondary me-1"
-                                >inactive</span
-                              >
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-primary cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="bx bx-edit menu-icon tf-icons"
-                                    ></i>
-                                  </div>
-                                </a>
-                                <a
-                                  href="javascript:;"
-                                  class="mr-8 text-danger cursor"
-                                >
-                                  <div class="icon fs-14">
-                                    <i
-                                      class="menu-icon tf-icons bx bx-trash"
-                                    ></i>
-                                  </div>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="row mx-2">
-                      <div class="col-sm-12 col-md-6">
-                        <div
-                          class="dataTables_info"
-                          id="DataTables_Table_0_info"
-                          role="status"
-                          aria-live="polite"
-                        >
-                          1 - 8 of 8 items
-                        </div>
-                      </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div
-                          class="dataTables_paginate paging_simple_numbers"
-                          id="DataTables_Table_0_paginate"
-                        >
-                          <ul
-                            class="pagination align-items-center justify-content-end"
+                        <div class="col-12 col-md-6">
+                          <label class="form-label" for="modalEditUserCountry"
+                            >Country</label
                           >
-                            <!-- <li
-                              class="paginate_button page-item previous disabled"
-                              id="DataTables_Table_0_previous"
+                          <div class="position-relative">
+                            <select
+                              id="modalEditUserCountry"
+                              name="modalEditUserCountry"
+                              class="select2 form-select select2-hidden-accessible"
+                              data-allow-clear="true"
+                              data-select2-id="modalEditUserCountry"
+                              tabindex="-1"
+                              aria-hidden="true"
                             >
-                              <a
-                                aria-controls="DataTables_Table_0"
-                                aria-disabled="true"
-                                role="link"
-                                data-dt-idx="previous"
-                                tabindex="-1"
-                                class="page-link"
-                                >Previous</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item active">
-                              <a
-                                href="#"
-                                aria-controls="DataTables_Table_0"
-                                role="link"
-                                aria-current="page"
-                                data-dt-idx="0"
-                                tabindex="0"
-                                class="page-link"
-                                >1</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="DataTables_Table_0"
-                                role="link"
-                                data-dt-idx="1"
-                                tabindex="0"
-                                class="page-link"
-                                >2</a
-                              >
-                            </li>
-                            <li class="paginate_button page-item">
-                              <a
-                                href="#"
-                                aria-controls="DataTables_Table_0"
-                                role="link"
-                                data-dt-idx="2"
-                                tabindex="0"
-                                class="page-link"
-                                >3</a
-                              >
-                            </li>
-                            <li
-                              class="paginate_button page-item next"
-                              id="DataTables_Table_0_next"
-                            >
-                              <a
-                                href="#"
-                                aria-controls="DataTables_Table_0"
-                                role="link"
-                                data-dt-idx="next"
-                                tabindex="0"
-                                class="page-link"
-                                >Next</a
-                              >
-                            </li> -->
-                          </ul>
+                              <option value="" data-select2-id="5">
+                                Select
+                              </option>
+                              <option value="Australia">Australia</option>
+                              <option value="Bangladesh">Bangladesh</option>
+                              <option value="Belarus">Belarus</option>
+                              <option value="Brazil">Brazil</option>
+                              <option value="Canada">Canada</option>
+                              <option value="China">China</option>
+                              <option value="France">France</option>
+                              <option value="Germany">Germany</option>
+                              <option value="India">India</option>
+                              <option value="Indonesia">Indonesia</option>
+                              <option value="Israel">Israel</option>
+                              <option value="Italy">Italy</option>
+                              <option value="Japan">Japan</option>
+                              <option value="Korea">Korea, Republic of</option>
+                              <option value="Mexico">Mexico</option>
+                              <option value="Philippines">Philippines</option>
+                              <option value="Russia">Russian Federation</option>
+                              <option value="South Africa">South Africa</option>
+                              <option value="Thailand">Thailand</option>
+                              <option value="Turkey">Turkey</option>
+                              <option value="Ukraine">Ukraine</option>
+                              <option value="United Arab Emirates">
+                                United Arab Emirates
+                              </option>
+                              <option value="United Kingdom">
+                                United Kingdom
+                              </option>
+                              <option value="United States">
+                                United States
+                              </option></select
+                            ><span
+                              class="select2 select2-container select2-container--default"
+                              dir="ltr"
+                              data-select2-id="4"
+                              style="width: auto"
+                              ><span class="selection"
+                                ><span
+                                  class="select2-selection select2-selection--single"
+                                  role="combobox"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                  tabindex="0"
+                                  aria-disabled="false"
+                                  aria-labelledby="select2-modalEditUserCountry-container"
+                                  ><span
+                                    class="select2-selection__rendered"
+                                    id="select2-modalEditUserCountry-container"
+                                    role="textbox"
+                                    aria-readonly="true"
+                                    ><span
+                                      class="select2-selection__placeholder"
+                                      >Select value</span
+                                    ></span
+                                  ><span
+                                    class="select2-selection__arrow"
+                                    role="presentation"
+                                    ><b
+                                      role="presentation"
+                                    ></b></span></span></span
+                              ><span
+                                class="dropdown-wrapper"
+                                aria-hidden="true"
+                              ></span
+                            ></span>
+                          </div>
                         </div>
-                      </div>
+                        <div class="col-12">
+                          <label class="switch">
+                            <input type="checkbox" class="switch-input" />
+                            <span class="switch-toggle-slider">
+                              <span class="switch-on"></span>
+                              <span class="switch-off"></span>
+                            </span>
+                            <span class="switch-label"
+                              >Use as a billing address?</span
+                            >
+                          </label>
+                        </div>
+                        <div class="col-12 text-center">
+                          <button
+                            type="submit"
+                            class="btn btn-primary me-sm-3 me-1"
+                          >
+                            Submit
+                          </button>
+                          <button
+                            type="reset"
+                            class="btn btn-label-secondary"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                        <input type="hidden" />
+                      </form>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
+              <!--/ Edit User Modal -->
+
+              <!-- /Modal -->
             </div>
             <!-- / Content -->
 
-            <!-- Footer -->
-            <!-- <footer class="content-footer footer bg-footer-theme">
-              <div
-                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column"
-              >
-                <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  <a
-                    href="https://themeselection.com"
-                    target="_blank"
-                    class="footer-link fw-medium"
-                    >VCCorp</a
-                  >
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a
-                    href="https://themeselection.com/license/"
-                    class="footer-link me-4"
-                    target="_blank"
-                    >License</a
-                  >
-                  <a
-                    href="https://themeselection.com/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >More Themes</a
-                  >
-
-                  <a
-                    href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer> -->
-            <!-- / Footer -->
-
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-      </div>
+          <!-- / Content -->
 
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
+          <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
+      </div>
+      <!-- / Layout page -->
     </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
     <!-- / Layout wrapper -->
 
-    <!-- <div class="buy-now">
-      <a
-        href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/"
-        target="_blank"
-        class="btn btn-danger btn-buy-now"
-        >Upgrade to Pro</a
-      >
-    </div> -->
-
     <!-- Dialog -->
-
     <div class="modal" id="add-dialog" style="display: none">
       <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
         <div class="modal-content">
           <div class="modal-header flex justify-sb">
             <div class="dialog-title">
-              <h3 class="fs-18 text-title fw-600 mb-0">Create New Language</h3>
+              <h3 class="fs-18 text-title fw-600 mb-0">Create New User</h3>
             </div>
             <div class="dialog-btn">
               <a class="text-close text-decoration-none cursor">
@@ -1296,53 +1541,68 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="mb-3">
-                    <label class="fw-400" for="">Language</label>
+                    <label class="fw-400" for="">Full name</label>
                     <input
                       class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
                       type="text"
-                      name="name_language"
+                      name=""
                       id=""
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="mb-3">
-                    <label class="fw-400" for="">Locale</label>
+                    <label class="fw-400" for="">Username</label>
                     <input
                       class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
                       type="text"
-                      name="name_language"
+                      name="nameCate"
                       id=""
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="mb-3">
-                    <label class="fw-400" for="">Status</label>
-                    <div
-                      class="dataTables_length"
-                      id="DataTables_Table_0_length"
-                    >
-                      <select
-                        name="DataTables_Table_0_length"
-                        aria-controls="DataTables_Table_0"
-                        class="form-select"
-                      >
-                        <option value="active">active</option>
-                        <option value="inactive">inactive</option>
+                    <label class="fw-400" for="">Phone</label>
+                    <input
+                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      type="text"
+                      name="nameCate"
+                      id=""
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="fw-400" for="">Email</label>
+                    <input
+                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      type="text"
+                      name="nameCate"
+                      id=""
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="fw-400" for="">Role</label>
+                    <div class="select bd-ip-light br-8">
+                      <select id="UserPlan" class="form-select text-capitalize">
+                        <option value="admin">admin</option>
+                        <option value="owner">owner</option>
+                        <option value="user">user</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="mb-3">
-                    <label class="fw-400 form-label" for="">flag</label>
+                    <label class="fw-400" for="">Address</label>
                     <input
                       class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
-                      type="file"
-                      class="form-control"
-                      id="file"
-                      name="name_language"
+                      type="text"
+                      name=""
+                      id=""
                     />
                   </div>
                 </div>
@@ -1367,7 +1627,7 @@
         <div class="modal-content">
           <div class="modal-header flex justify-sb">
             <div class="dialog-title">
-              <h3 class="fs-18 text-title fw-600 mb-0">Update language</h3>
+              <h3 class="fs-18 text-title fw-600 mb-0">Update User</h3>
             </div>
             <div class="dialog-btn">
               <a class="text-close text-decoration-none cursor">
@@ -1380,53 +1640,67 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="mb-3">
-                    <label class="fw-400" for="">Language</label>
+                    <label class="fw-400" for="">Full name</label>
                     <input
                       class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
                       type="text"
-                      name="language"
-                      id="language"
+                      name=""
+                      id=""
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="mb-3">
-                    <label class="fw-400" for="">Locale</label>
+                    <label class="fw-400" for="">Username</label>
                     <input
                       class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
                       type="text"
-                      name="locale"
-                      id="locale"
+                      name="username"
+                      id="username"
                     />
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="mb-3">
-                    <label class="fw-400" for="">Status</label>
-                    <div
-                      class="dataTables_length"
-                      id="DataTables_Table_0_length"
-                    >
-                      <select
-                        name="DataTables_Table_0_length"
-                        aria-controls="DataTables_Table_0"
-                        class="form-select"
-                      >
-                        <option value="active">active</option>
-                        <option value="inactive">inactive</option>
+                    <label class="fw-400" for="">Phone</label>
+                    <input
+                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      type="text"
+                      name="nameCate"
+                      id=""
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="fw-400" for="">Email</label>
+                    <input
+                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      type="email"
+                      name="email"
+                      id="email"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="mb-3">
+                    <label class="fw-400" for="">Role</label>
+                    <div class="select bd-ip-light br-8">
+                      <select id="UserPlan" class="form-select text-capitalize">
+                        <option value="admin">admin</option>
+                        <option value="owner">owner</option>
                       </select>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="mb-3">
-                    <label class="fw-400 form-label" for="">flag</label>
+                    <label class="fw-400" for="">Address</label>
                     <input
                       class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
-                      type="file"
-                      class="form-control"
-                      id="file"
-                      name="flag"
+                      type="text"
+                      name=""
+                      id=""
                     />
                   </div>
                 </div>
@@ -1447,7 +1721,7 @@
       </div>
     </div>
     <div class="modal" id="delete-dialog" style="display: none">
-      <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-delete bd-1-main br-8 bg-white fade">
         <div class="modal-content">
           <div class="modal-header justify-content-center">
             <h2 class="mb-0">Are you sure ?</h2>
@@ -1497,17 +1771,22 @@
       </div>
     </div>
 
+    <!-- Side bar -->
+    <script src="../assets/js/SideBar.js"></script>
+
     <!-- pagination -->
     <script src="../assets/js/pagination.js"></script>
+
+    <!-- Dialog -->
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <!-- <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <!-- <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script> -->
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script> -->
 
     <!-- endbuild -->
 
@@ -1516,15 +1795,15 @@
     <!-- <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script> -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <!-- <script src="../assets/js/main.js"></script> -->
 
     <!-- Page JS -->
     <!-- <script src="../assets/js/dashboards-analytics.js"></script> -->
 
-    <!-- Click Slide -->
-    <script src="../assets/js/SideBar.js"></script>
+    <!-- check box JS -->
+    <script src="../assets/js/checkboxall.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

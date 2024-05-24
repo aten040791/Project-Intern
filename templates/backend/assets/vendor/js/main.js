@@ -1,3 +1,4 @@
+// <dialog>
 const dialogAdd = document.getElementById("add-dialog");
 const dialogEdit = document.getElementById("edit-dialog");
 const dialogDelete = document.getElementById("delete-dialog");
@@ -12,6 +13,7 @@ const btnCancelDelete = document.querySelector("#delete-dialog .btn_cancel");
 const btnSaveAdd = document.querySelector("#add-dialog .btn_ok");
 const btnSaveEdit = document.querySelector("#edit-dialog .btn_ok");
 const btnSaveDelete = document.querySelector("#delete-dialog .btn_ok");
+// </dialog>
 
 const addBtn = document.querySelector(".content .page-header .add-item");
 const deleteBtn = document.querySelector(".content .page-header .delete-item");
@@ -34,7 +36,9 @@ const inputRePassword = document.querySelector("#edit-dialog input#RePassword");
 const inputLanguage = document.querySelector("#edit-dialog input#language");
 const localeLanguage = document.querySelector("#edit-dialog input#locale");
 const statusLanguage = document.querySelector("#edit-dialog select");
-// console.log(statusLanguage);
+
+// view details
+const detailCrl = document.getElementById("detail-control");
 
 // check cate
 let isHiddenAddCate = false;
@@ -47,33 +51,37 @@ let isHiddenEditUser = false;
 let isHiddenDeleteUser = false;
 
 // ! category
-addBtn.addEventListener("click", function () {
-  if (isHiddenAddCate === false || isHiddenAddUser === false) {
-    dialogAdd.style.display = "block";
-    content.style.opacity = "0.4";
-    isHiddenAddCate = true;
-    isHiddenAddUser = true;
-  } else {
-    dialogAdd.style.display = "none";
-    content.style.opacity = "1";
-    isHiddenAddCate = false;
-    isHiddenAddUser = false;
-  }
-});
+if (addBtn !== null) {
+  addBtn.addEventListener("click", function () {
+    if (isHiddenAddCate === false || isHiddenAddUser === false) {
+      dialogAdd.style.display = "block";
+      content.style.opacity = "0.4";
+      isHiddenAddCate = true;
+      isHiddenAddUser = true;
+    } else {
+      dialogAdd.style.display = "none";
+      content.style.opacity = "1";
+      isHiddenAddCate = false;
+      isHiddenAddUser = false;
+    }
+  });
+}
 
-deleteBtn.addEventListener("click", function () {
-  if (isHiddenDeleteCate === false || isHiddenDeleteUser === false) {
-    dialogDelete.style.display = "block";
-    content.style.opacity = "0.4";
-    isHiddenDeleteCate = true;
-    isHiddenDeleteUser = true;
-  } else {
-    dialogDelete.style.display = "none";
-    content.style.opacity = "1";
-    isHiddenDeleteCate = false;
-    isHiddenDeleteUser = false;
-  }
-});
+if (deleteBtn !== null) {
+  deleteBtn.addEventListener("click", function () {
+    if (isHiddenDeleteCate === false || isHiddenDeleteUser === false) {
+      dialogDelete.style.display = "block";
+      content.style.opacity = "0.4";
+      isHiddenDeleteCate = true;
+      isHiddenDeleteUser = true;
+    } else {
+      dialogDelete.style.display = "none";
+      content.style.opacity = "1";
+      isHiddenDeleteCate = false;
+      isHiddenDeleteUser = false;
+    }
+  });
+}
 
 btnCloseAdd.addEventListener("click", function () {
   if (isHiddenAddCate === true || isHiddenAddUser === true) {
@@ -160,7 +168,7 @@ if (input != null) {
 }
 
 // ! user
-if (inputUserName != null) {
+if (inputUserName != null && table !== null) {
   table.addEventListener("click", function (e) {
     const category = e.target.closest("tr");
     if (e.target.closest(".text-primary")) {
@@ -231,6 +239,44 @@ if (inputLanguage != null) {
         content.style.opacity = "1";
         isHiddenDeleteCate = false;
         isHiddenDeleteUser = false;
+      }
+    }
+  });
+}
+
+// ! detail view
+if (detailCrl !== null) {
+  detailCrl.addEventListener("click", function (e) {
+    const target = e.target.closest("a");
+    if (target.closest(".btn-primary")) {
+      // console.log(category.children[2].textContent);
+      if (isHiddenEditUser === false || isHiddenEditCate == false) {
+        dialogEdit.style.display = "block";
+        content.style.opacity = "0.4";
+        isHiddenEditUser = true;
+        isHiddenEditCate = true;
+        // inputUserName.value = category.children[2].textContent;
+        // inputPassword.value = category.children[3].textContent;
+        // inputRePassword.value = category.children[3].textContent;
+        // inputEmail.value = category.children[3].textContent;
+        // inputRole.value = category.children[4].textContent;
+      } else {
+        dialogEdit.style.display = "none";
+        content.style.opacity = "1";
+        isHiddenEditUser = false;
+        isHiddenEditCate = false;
+      }
+    } else if (target.closest(".btn-danger")) {
+      if (isHiddenDeleteUser === false || isHiddenDeleteCate === false) {
+        dialogDelete.style.display = "block";
+        content.style.opacity = "0.4";
+        isHiddenDeleteUser = true;
+        isHiddenDeleteCate = true;
+      } else {
+        dialogDelete.style.display = "none";
+        content.style.opacity = "1";
+        isHiddenDeleteUser = false;
+        isHiddenDeleteCate = false;
       }
     }
   });
