@@ -43,14 +43,11 @@
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core-dark.css" />
     <link
       rel="stylesheet"
-      href="../assets/vendor/css/core.css"
-      class="template-customizer-core-css"
-    />
-    <link
-      rel="stylesheet"
-      href="../assets/vendor/css/theme-default.css"
+      type="text/css"
+      href="../assets/vendor/css/theme-default-dark.css"
       class="template-customizer-theme-css"
     />
     <link rel="stylesheet" href="../assets/css/demo.css" />
@@ -88,7 +85,7 @@
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <img
-                src="../assets/img/logo/vccorp.jpg"
+                src="../assets/img/logo/logo.png"
                 alt=""
                 width="170"
                 height="170"
@@ -225,7 +222,7 @@
         <!-- / Menu -->
 
         <!-- Layout container -->
-        <div class="layout-page bg-main">
+        <div class="layout-page bg-dark-demo">
           <!-- Navbar -->
 
           <nav
@@ -849,10 +846,6 @@
                             <li class="mb-3">
                               <span class="fw-medium me-2">Phone:</span>
                               <span>(123) 456-7890</span>
-                            </li>
-                            <li class="mb-3">
-                              <span class="fw-medium me-2">Languages:</span>
-                              <span>French</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-medium me-2">Address:</span>
@@ -1524,7 +1517,7 @@
 
     <!-- Dialog -->
     <div class="modal" id="add-dialog" style="display: none">
-      <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-fixed bd-1-main br-05rem bg-white fade">
         <div class="modal-content">
           <div class="modal-header flex justify-sb">
             <div class="dialog-title">
@@ -1543,7 +1536,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Full name</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name=""
                       id=""
@@ -1554,7 +1547,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Username</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="nameCate"
                       id=""
@@ -1565,7 +1558,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Phone</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="nameCate"
                       id=""
@@ -1576,7 +1569,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Email</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="nameCate"
                       id=""
@@ -1586,7 +1579,7 @@
                 <div class="col-lg-6">
                   <div class="mb-3">
                     <label class="fw-400" for="">Role</label>
-                    <div class="select bd-ip-light br-8">
+                    <div class="select br-05rem">
                       <select id="UserPlan" class="form-select text-capitalize">
                         <option value="admin">admin</option>
                         <option value="owner">owner</option>
@@ -1599,7 +1592,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Address</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name=""
                       id=""
@@ -1623,7 +1616,7 @@
       </div>
     </div>
     <div class="modal" id="edit-dialog" style="display: none">
-      <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-fixed bd-1-main br-05rem bg-white fade">
         <div class="modal-content">
           <div class="modal-header flex justify-sb">
             <div class="dialog-title">
@@ -1642,7 +1635,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Full name</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name=""
                       id=""
@@ -1653,7 +1646,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Username</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="username"
                       id="username"
@@ -1664,7 +1657,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Phone</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="nameCate"
                       id=""
@@ -1675,7 +1668,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Email</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="email"
                       name="email"
                       id="email"
@@ -1685,7 +1678,7 @@
                 <div class="col-lg-6">
                   <div class="mb-3">
                     <label class="fw-400" for="">Role</label>
-                    <div class="select bd-ip-light br-8">
+                    <div class="select br-05rem">
                       <select id="UserPlan" class="form-select text-capitalize">
                         <option value="admin">admin</option>
                         <option value="owner">owner</option>
@@ -1697,7 +1690,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Address</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name=""
                       id=""
@@ -1721,7 +1714,7 @@
       </div>
     </div>
     <div class="modal" id="delete-dialog" style="display: none">
-      <div class="modal-dialog dialog-delete bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-delete bd-1-main br-05rem bg-white fade">
         <div class="modal-content">
           <div class="modal-header justify-content-center">
             <h2 class="mb-0">Are you sure ?</h2>
@@ -1731,16 +1724,14 @@
               <p>You won't be able to revert this!</p>
               <div class="btn_bottom mt-24 fl-r text-center">
                 <button
-                  class="btn_cancel text-white p-8-14 bg-cancel br-8 fs-14 mr-8"
-                  type="button"
+                  type="reset"
+                  class="btn_cancel btn btn-label-secondary bd-1-main me-sm-3 me-1"
+                  data-bs-dismiss="offcanvas"
                 >
                   Cancel
                 </button>
-                <button
-                  class="bg-danger text-white p-8-14 br-8 bg-ok fs-14"
-                  type="submit"
-                >
-                  Yes, delete it
+                <button type="submit" class="btn_ok btn btn-danger data-submit">
+                  Yes, suspended it
                 </button>
               </div>
             </form>
@@ -1749,7 +1740,7 @@
       </div>
     </div>
     <div class="modal" id="deleteSuccess-dialog" style="display: none">
-      <div class="dialog-delete-user bd-1-main br-8 bg-white fade">
+      <div class="dialog-delete-user bd-1-main br-05rem bg-white fade">
         <div class="dialog-header text-center">
           <div class="dialog-title">
             <h2 class="opacity-08">Deleted!</h2>
@@ -1760,7 +1751,7 @@
             <p class="opacity-08">Your file has been deleted.</p>
             <div class="btn_bottom mt-24 fl-r text-center">
               <button
-                class="btn_cancel text-white p-11-34 bg-green-ok br-8 fs-18"
+                class="btn_cancel text-white p-11-34 bg-green-ok br-05rem fs-18"
                 type="button"
               >
                 ok
@@ -1771,9 +1762,6 @@
       </div>
     </div>
 
-    <!-- Side bar -->
-    <script src="../assets/js/SideBar.js"></script>
-
     <!-- pagination -->
     <script src="../assets/js/pagination.js"></script>
 
@@ -1782,11 +1770,11 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-    <!-- <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
     <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../assets/vendor/js/menu.js"></script> -->
+    <!-- <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script> -->
+    <script src="../assets/vendor/js/menu.js"></script>
 
     <!-- endbuild -->
 
@@ -1802,6 +1790,9 @@
 
     <!-- check box JS -->
     <script src="../assets/js/checkboxall.js"></script>
+
+    <!-- Side bar -->
+    <script src="../assets/js/SideBar.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

@@ -43,14 +43,11 @@
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core-dark.css" />
     <link
       rel="stylesheet"
-      href="../assets/vendor/css/core.css"
-      class="template-customizer-core-css"
-    />
-    <link
-      rel="stylesheet"
-      href="../assets/vendor/css/theme-default.css"
+      type="text/css"
+      href="../assets/vendor/css/theme-default-dark.css"
       class="template-customizer-theme-css"
     />
     <link rel="stylesheet" href="../assets/css/demo.css" />
@@ -89,7 +86,7 @@
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <img
-                src="../assets/img/logo/vccorp.jpg"
+                src="../assets/img/logo/logo.png"
                 alt=""
                 width="170"
                 height="170"
@@ -152,7 +149,7 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="category.html" class="menu-link">
-                    <div data-i18n="Categories">Category List</div>
+                    <div data-i18n="Categories">List</div>
                   </a>
                 </li>
               </ul>
@@ -165,44 +162,7 @@
               <ul class="menu-sub">
                 <li class="menu-item active">
                   <a href="languages.html" class="menu-link">
-                    <div data-i18n="Languages">Language List</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Account -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Account Setting</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Account Settings">Account</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a
-                    href="pages-account-settings-account.html"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Account">Account</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a
-                    href="pages-account-settings-notifications.html"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Notifications">Notifications</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a
-                    href="pages-account-settings-connections.html"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Connections">Connections</div>
+                    <div data-i18n="Languages">List</div>
                   </a>
                 </li>
               </ul>
@@ -227,7 +187,7 @@
         <!-- / Menu -->
 
         <!-- Layout container -->
-        <div class="layout-page bg-main">
+        <div class="layout-page bg-dark-demo">
           <!-- Navbar -->
 
           <nav
@@ -791,45 +751,45 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="content">
-                <div
-                  class="page-header flex justify-sb align-center mb-24 bb-none"
-                >
-                  <div class="title flex direction-col">
-                    <h2 class="my-0">Language list</h2>
-                  </div>
-                  <button
-                    class="btn btn-secondary delete-item btn-danger me-3 ms-auto"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasAddUser"
-                  >
-                    <span
-                      ><i class="fa-regular fa-trash-can"></i
-                      ><span class="d-none d-sm-inline-block ms-2"
-                        >Delete All</span
-                      ></span
-                    >
-                  </button>
-                  <button
-                    class="btn btn-secondary add-item btn-primary"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasAddUser"
-                  >
-                    <span
-                      ><i class="bx bx-plus me-0 me-sm-1"></i
-                      ><span class="d-none d-sm-inline-block"
-                        >Create new language</span
-                      ></span
-                    >
-                  </button>
-                </div>
-                <div class="page-list bg-white">
+                <div class="page-list">
                   <div class="card">
+                    <div
+                      class="page-header flex justify-content-between align-items-center p-24 border-bottom"
+                    >
+                      <div class="title flex direction-col">
+                        <h2 class="my-0">Languages</h2>
+                      </div>
+                      <button
+                        class="btn btn-secondary delete-item btn-danger me-3 ms-auto"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasAddUser"
+                      >
+                        <span
+                          ><i class="fa-regular fa-trash-can"></i
+                          ><span class="d-none d-sm-inline-block ms-2"
+                            >Delete All</span
+                          ></span
+                        >
+                      </button>
+                      <button
+                        class="btn btn-secondary add-item btn-primary"
+                        tabindex="0"
+                        aria-controls="DataTables_Table_0"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasAddUser"
+                      >
+                        <span
+                          ><i class="bx bx-plus me-0 me-sm-1"></i
+                          ><span class="d-none d-sm-inline-block"
+                            >Add New Language</span
+                          ></span
+                        >
+                      </button>
+                    </div>
                     <div class="card-header border-bottom">
                       <div class="row justify-content-between">
                         <div class="col-md-4 px-0">
@@ -838,7 +798,9 @@
                               class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08"
                               href="#"
                             >
-                              <i class="fa-solid fa-magnifying-glass"></i>
+                              <i
+                                class="fa-solid fa-magnifying-glass bg-navbar-theme"
+                              ></i>
                             </a>
                             <input
                               class="form-control ms-2"
@@ -1279,11 +1241,11 @@
     <!-- Dialog -->
 
     <div class="modal" id="add-dialog" style="display: none">
-      <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-fixed bd-1-main br-05rem bg-white fade">
         <div class="modal-content">
           <div class="modal-header flex justify-sb">
             <div class="dialog-title">
-              <h3 class="fs-18 text-title fw-600 mb-0">Create New Language</h3>
+              <h3 class="text-title mb-0">Add Language</h3>
             </div>
             <div class="dialog-btn">
               <a class="text-close text-decoration-none cursor">
@@ -1298,7 +1260,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Language</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="bd-ip-light p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="name_language"
                       id=""
@@ -1309,7 +1271,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Locale</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="bd-ip-light p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="name_language"
                       id=""
@@ -1338,7 +1300,7 @@
                   <div class="mb-3">
                     <label class="fw-400 form-label" for="">flag</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="bd-ip-light p-8-14 w-100 br-05rem form-control"
                       type="file"
                       class="form-control"
                       id="file"
@@ -1363,11 +1325,11 @@
       </div>
     </div>
     <div class="modal" id="edit-dialog" style="display: none">
-      <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-fixed bd-1-main br-05rem bg-white fade">
         <div class="modal-content">
           <div class="modal-header flex justify-sb">
             <div class="dialog-title">
-              <h3 class="fs-18 text-title fw-600 mb-0">Update language</h3>
+              <h3 class="text-title mb-0">Update Language</h3>
             </div>
             <div class="dialog-btn">
               <a class="text-close text-decoration-none cursor">
@@ -1382,7 +1344,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Language</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="bd-ip-light p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="language"
                       id="language"
@@ -1393,7 +1355,7 @@
                   <div class="mb-3">
                     <label class="fw-400" for="">Locale</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="bd-ip-light p-8-14 w-100 br-05rem form-control"
                       type="text"
                       name="locale"
                       id="locale"
@@ -1422,7 +1384,7 @@
                   <div class="mb-3">
                     <label class="fw-400 form-label" for="">flag</label>
                     <input
-                      class="bd-ip-light p-8-14 w-100 text-ip br-8 form-control"
+                      class="bd-ip-light p-8-14 w-100 br-05rem form-control"
                       type="file"
                       class="form-control"
                       id="file"
@@ -1447,7 +1409,7 @@
       </div>
     </div>
     <div class="modal" id="delete-dialog" style="display: none">
-      <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-dialog dialog-fixed bd-1-main br-05rem bg-white fade">
         <div class="modal-content">
           <div class="modal-header justify-content-center">
             <h2 class="mb-0">Are you sure ?</h2>
@@ -1457,16 +1419,17 @@
               <p>You won't be able to revert this!</p>
               <div class="btn_bottom mt-24 fl-r text-center">
                 <button
-                  class="btn_cancel text-white p-8-14 bg-cancel br-8 fs-14 mr-8"
-                  type="button"
+                  type="reset"
+                  class="btn_cancel btn btn-label-secondary bd-1-main me-sm-3 me-1"
+                  data-bs-dismiss="offcanvas"
                 >
                   Cancel
                 </button>
                 <button
-                  class="bg-danger text-white p-8-14 br-8 bg-ok fs-14"
                   type="submit"
+                  class="btn_ok btn-danger btn data-submit text-white"
                 >
-                  Yes, delete it
+                  Yes, delete this
                 </button>
               </div>
             </form>
@@ -1475,7 +1438,7 @@
       </div>
     </div>
     <div class="modal" id="deleteSuccess-dialog" style="display: none">
-      <div class="dialog-delete-user bd-1-main br-8 bg-white fade">
+      <div class="dialog-delete-user bd-1-main br-05rem bg-white fade">
         <div class="dialog-header text-center">
           <div class="dialog-title">
             <h2 class="opacity-08">Deleted!</h2>
@@ -1486,7 +1449,7 @@
             <p class="opacity-08">Your file has been deleted.</p>
             <div class="btn_bottom mt-24 fl-r text-center">
               <button
-                class="btn_cancel text-white p-11-34 bg-green-ok br-8 fs-18"
+                class="btn_cancel text-white p-11-34 bg-green-ok br-05rem fs-18"
                 type="button"
               >
                 ok

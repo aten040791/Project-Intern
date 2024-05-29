@@ -100,6 +100,10 @@ body {
     padding: 10px;
 }
 
+.p-24 {
+    padding: 24px;
+}
+
 .p-4-8 {
     padding: 4px 8px;
 }
@@ -172,6 +176,10 @@ body {
 
 .bt-1-main {
     border-top: 1px solid var(--outline-color);
+}
+
+.br-05rem {
+    border-radius: 0.5rem;
 }
 
 .br-8 {
@@ -270,7 +278,11 @@ body {
     /* margin: 80px 0; */
     /* margin-top: 80px; */
     /* margin-bottom: 100px; */
-    background-color: var(--bg-color-main);
+    /* background-color: var(--bg-color-main); */
+}
+
+.page-header {
+    background-color: #2b2c40;
 }
 
 /* table-list */
