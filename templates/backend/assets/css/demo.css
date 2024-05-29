@@ -139,3 +139,9 @@ div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTab
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.bg-dark-demo {
+  background-color: #232333;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

@@ -136,7 +136,7 @@ body {
     line-height: var(--bs-body-line-height);
     color: var(--bs-body-color);
     text-align: var(--bs-body-text-align);
-    background-color: var(--bs-body-bg);
+    background-color: var(--bs-body-bg) !important;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0)
 }
@@ -3305,9 +3305,9 @@ textarea.form-control-lg {
 }
 
 .dropdown-item.active,.dropdown-item:active {
-    color: var(--bs-dropdown-link-active-color);
+    /* color: var(--bs-dropdown-link-active-color); */
     text-decoration: none;
-    background-color: var(--bs-dropdown-link-active-bg)
+    /* background-color: var(--bs-dropdown-link-active-bg) */
 }
 
 .dropdown-item.disabled,.dropdown-item:disabled {
@@ -4090,7 +4090,7 @@ textarea.form-control-lg {
     height: var(--bs-card-height);
     color: var(--bs-body-color);
     word-wrap: break-word;
-    background-color: var(--bs-card-bg);
+    background-color: var(--bs-card-bg) !important;
     background-clip: border-box;
     border: var(--bs-card-border-width) solid var(--bs-card-border-color);
     border-radius: var(--bs-card-border-radius)
@@ -11046,7 +11046,7 @@ form select.selectpicker.is-invalid~.btn {
 }
 
 .fv-plugins-bootstrap5 .invalid-feedback,.fv-plugins-bootstrap5 .invalid-tooltip {
-    display: block
+    display: none
 }
 
 .fv-plugins-bootstrap5-row-invalid .tagify.tagify--empty {
@@ -23319,7 +23319,8 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
     height: 3.875rem;
     flex-wrap: nowrap;
     color: #a3a4cc;
-    z-index: 2
+    z-index: 2;
+    background-color: #2b2c40
 }
 
 .layout-navbar .navbar {
