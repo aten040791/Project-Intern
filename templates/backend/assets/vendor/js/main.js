@@ -211,7 +211,7 @@ if (inputLanguage != null) {
   table.addEventListener("click", function (e) {
     const category = e.target.closest("tr");
     if (e.target.closest(".text-primary")) {
-      const vlSelect = category.children[6].querySelector("span").textContent;
+      const vlSelect = category.children[5].querySelector("span").textContent;
       // console.log(category.children[6].querySelector("span").textContent);
       if (isHiddenEditCate === false || isHiddenEditUser === false) {
         dialogEdit.style.display = "block";
