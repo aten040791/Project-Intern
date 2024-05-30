@@ -7,6 +7,12 @@
 
     <meta name="description" content="" />
 
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
     <!-- Favicon -->
     <link
       rel="icon"
@@ -80,7 +86,7 @@
               <form
                 id="formAuthentication"
                 class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework"
-                action="index.html"
+                action="user.html"
                 method="GET"
                 novalidate="novalidate"
               >
@@ -100,8 +106,19 @@
                   <div
                     class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
                   >
-                    <div data-field="email-username" data-validator="notEmpty">
+                    <div
+                      class="notEmpty d-none"
+                      data-field="email-username"
+                      data-validator="notEmpty"
+                    >
                       Please enter email / username
+                    </div>
+                    <div
+                      class="stringLength d-none"
+                      data-field="email-username"
+                      data-validator="stringLength"
+                    >
+                      Username must be more than 6 characters
                     </div>
                   </div>
                 </div>
@@ -110,7 +127,7 @@
                 >
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
-                    <a href="auth-forgot-password-basic.html">
+                    <a href="#">
                       <small>Forgot Password?</small>
                     </a>
                   </div>
@@ -124,9 +141,11 @@
                       aria-describedby="password"
                       required
                     />
-                    <span class="input-group-text cursor-pointer"
-                      ><i class="bx bx-hide"></i
-                    ></span>
+                    <span class="input-group-text cursor-pointer">
+                      <!-- <i class="bx bx-hide"></i> -->
+                      <i class="fa-regular fa-eye-slash d-block"></i>
+                      <i class="fa-regular fa-eye d-none"></i>
+                    </span>
                   </div>
                   <div
                     class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
@@ -154,7 +173,7 @@
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
+                <a href="#">
                   <span>Create an account</span>
                 </a>
               </p>
@@ -188,7 +207,7 @@
         </div>
       </div>
     </div>
-    <!-- <script src="../assets/js/validate.js"></script> -->
+    <script src="../assets/js/validate.js"></script>
 
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/popper/popper.js"></script>
