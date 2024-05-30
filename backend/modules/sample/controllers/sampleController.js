@@ -7,6 +7,14 @@ const sampleController = {
         return responseUtils.ok(res, {
             'a': result
         })
+    },
+
+    validate: (req, res) => {
+        console.log(res.data)
+        const result = sampleService.list()
+        return responseUtils.ok(res, {
+            'a': result
+        }) 
     }
 }
 
