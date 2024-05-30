@@ -11046,7 +11046,7 @@ form select.selectpicker.is-invalid~.btn {
 }
 
 .fv-plugins-bootstrap5 .invalid-feedback,.fv-plugins-bootstrap5 .invalid-tooltip {
-    display: none
+    display: block
 }
 
 .fv-plugins-bootstrap5-row-invalid .tagify.tagify--empty {
