@@ -9,11 +9,11 @@ Sau đó vào packages.json và xem các script
 # Workflow
 Bắt đầu từ `routes/api.js` trước, gọi controller và hàm tương ứng, kết nối với cơ sở dữ liệu sử dụng Sequelize
 
-Với api response đã được format thông qua `response.ok()`: Xem chi tiết ở `modules/auth/controllers/authController.js` hàm `helloWorld()`
+Với api response đã được format thông qua `responseUtil.ok()`: Xem chi tiết ở `modules/sample/controllers/sample.js` hàm `helloWorld()`. Chú ý không xóa thư mục này
 
-Đối với api response not found sẽ được format thông qua `response.notFound(res)`
+Đối với api response not found sẽ được format thông qua `responseUtil.[tên_method](res, data)`
 
-Chi tiết về response được viết trong `services/response.js`
+Chi tiết về response được viết trong `services/responseUtil.js`. Xem mẫu thư mục `modules/sample` để nắm được cách làm
 
 # Packages
 * Express-validator: Dùng để validate request (required, min-length, ...)
