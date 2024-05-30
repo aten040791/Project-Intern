@@ -53,41 +53,12 @@
                     </li>
 
                     <!-- Pages -->
+
                     <li class="menu-item">
-                        <a href="#" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Account Settings">Account Settings</div>
+                        <a href="pages-account-settings-account.html" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-dock-top'></i>
+                            <div data-i18n="Account">Account</div>
                         </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="pages-account-settings-account.html" class="menu-link">
-                                    <div data-i18n="Account">Account</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-item">
-                        <a href="#" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                            <div data-i18n="Authentications">Authentications</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">Login</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">Register</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                                    <div data-i18n="Basic">Forgot Password</div>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </aside>
@@ -297,19 +268,19 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <div >
+                    <div>
                         <div class="header-container"
                             style="display: flex; align-items: center; justify-content: space-between; margin: 10px 0px 30px 0px;">
                             <div class="title flex direction-col">
-                                <h2 class="my-0">Post list</h2>
+                                <h2 class="my-0">POST LIST</h2>
                             </div>
                             <div>
-                                <button class="btn btn-secondary delete-item btn-danger me-3 ms-auto">
-                                    <span>Delete All</span>
-                                </button>
                                 <a href="create-blog.html" class="">
-                                    <button class="btn btn-secondary delete-item btn-primary me-3 ms-auto">Create
-                                        new</button>
+                                    <button class="btn btn-secondary add-item btn-primary">
+                                        <span><i class="bx bx-plus me-0 me-sm-1"></i><span
+                                                class="d-none d-sm-inline-block">Create
+                                                new</span></span>
+                                    </button>
                                 </a>
                             </div>
                         </div>
@@ -319,16 +290,49 @@
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap5">
                                         <div class="row" style="margin: 15px 0px 15px 0px;">
                                             <div id="DataTables_Table_1_filter" class="dataTables_filter">
-                                                <div class="col-md-4 px-0">
-                                                    <div class="search-input ps-re">
-                                                      <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08" href="#">
-                                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                                      </a>
-                                                      <input class="form-control ms-2" type="text" value="" placeholder="Username or email" />
+                                                <div class="row">
+                                                    <div class="col-md-4 px-0">
+                                                        <div class="search-input ps-re">
+                                                            <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08"
+                                                                href="#">
+                                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                            </a>
+                                                            <input class="form-control ms-2" type="text" value=""
+                                                                placeholder="Search ..." />
+                                                        </div>
                                                     </div>
-                                                  </div>
+                                                    <div class="col-md-1 offset-md-7 px-0">
+                                                        <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i
+                                                                class="fa-regular fa-list-alt menu-icon tf-icons"></i><span
+                                                                style="font-size: 15px;">Actions</span>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end m-0">
+                                                            <a href="javascript:;" class="dropdown-item"
+                                                                id="update-language">
+                                                                <span class="ms-1">Update language</span>
+                                                            </a>
+                                                            <a href="javascript:;" class="dropdown-item"
+                                                                id="update-category">
+                                                                <span class="ms-1">Update category</span>
+                                                            </a>
+                                                            <a href="javascript:;" class="dropdown-item"
+                                                                id="update-status">
+                                                                <span class="ms-1">Update status</span>
+                                                            </a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a href="javascript:;"
+                                                                class="dropdown-item text-danger delete-record align-items-center fs-15"
+                                                                id="delete-record" onclick="showModal()">
+                                                                <span class="ms-1">Delete</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                         <table class="dt-fixedheader table border-top dataTable dtr-column"
                                             id="DataTables_Table_1" aria-describedby="DataTables_Table_1_info">
                                             <!-- Header của bảng -->
@@ -347,7 +351,8 @@
                                                     <th class="sorting">Category</th>
                                                     <th class="sorting">Language</th>
                                                     <th class="sorting">Status</th>
-                                                    <th class="sorting" style="width: 120px; text-align-last: center;">Actions</th>
+                                                    <th class="sorting" style="width: 120px; text-align-last: center;">
+                                                        Actions</th>
                                                 </tr>
                                             </thead>
                                             <!-- Dữ liệu của bảng -->
@@ -401,14 +406,27 @@
                                                     <td>vi-VI</td>
                                                     <td><span class="badge  bg-label-danger">Hidden</span></td>
                                                     <td>
-                                                        <a href="edit-blog.html" class="btn b tn-sm btn-icon item-edit"><i class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" ><a href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
+                                                        <div class="d-flex justify-content-center">
+                                                            <button
+                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i
+                                                                    class="bx bx-dots-vertical-rounded menu-icon tf-icons"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end m-0" style="">
+                                                                <a href="edit-blog.html" class="dropdown-item"><i
+                                                                        class="fa-regular fa-edit"></i>
+                                                                    <span class="ms-1">Update</span></a>
+                                                                <a href="detail.html" class="dropdown-item"><i
+                                                                        class="fa-regular fa-eye"></i>
+                                                                    <span class="ms-1">Details</span></a>
                                                                 <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;" class="dropdown-item text-danger delete-record"><i class='bx bxs-trash'></i>
-                                                                    Delete</a>
+                                                                <a href="javascript:;"
+                                                                    class="dropdown-item text-danger delete-record align-items-center fs-15"
+                                                                    data-id="#" onclick="showModal()">
+                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                    <span class="ms-1">Delete</span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -462,21 +480,28 @@
                                                     <td>vi-VI</td>
                                                     <td><span class="badge  bg-label-success">Professional</span></td>
                                                     <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
+                                                        <div class="d-flex justify-content-center">
+                                                            <button
                                                                 class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i
+                                                                    class="bx bx-dots-vertical-rounded menu-icon tf-icons"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end m-0" style="">
+                                                                <a href="edit-blog.html" class="dropdown-item"><i
+                                                                        class="fa-regular fa-edit"></i>
+                                                                    <span class="ms-1">Update</span></a>
+                                                                <a href="detail.html" class="dropdown-item"><i
+                                                                        class="fa-regular fa-eye"></i>
+                                                                    <span class="ms-1">Details</span></a>
                                                                 <div class="dropdown-divider"></div>
+
                                                                 <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
+                                                                    class="dropdown-item text-danger delete-record align-items-center fs-15"
+                                                                    data-id="#" onclick="showModal()">
+                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                    <span class="ms-1">Delete</span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -530,565 +555,29 @@
                                                     <td>vi-VI</td>
                                                     <td><span class="badge  bg-label-success">Professional</span></td>
                                                     <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
+                                                        <div class="d-flex justify-content-center">
+                                                            <button
                                                                 class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i
+                                                                    class="bx bx-dots-vertical-rounded menu-icon tf-icons"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end m-0" style="">
+                                                                <a href="edit-blog.html" class="dropdown-item"><i
+                                                                        class="fa-regular fa-edit"></i>
+                                                                    <span class="ms-1">Update</span></a>
+                                                                <a href="detail.html" class="dropdown-item"><i
+                                                                        class="fa-regular fa-eye"></i>
+                                                                    <span class="ms-1">Details</span></a>
                                                                 <div class="dropdown-divider"></div>
+
                                                                 <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">4.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
+                                                                    class="dropdown-item text-danger delete-record align-items-center fs-15"
+                                                                    data-id="#" onclick="showModal()">
+                                                                    <i class="fa-regular fa-trash-can"></i>
+                                                                    <span class="ms-1">Delete</span>
+                                                                </a>
 
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">5.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">6.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">7.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">8.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn btn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">9.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate">10.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                                            class="dt-checkboxes form-check-input"></td>
-                                                    <td>
-                                                        <div class="d-flex justify-content-start align-items-center">
-                                                            <div class="d-flex flex-column"><span
-                                                                    class="emp_name text-truncate"> 11.Đại
-                                                                    tướng Tô Lâm làm Chủ tịch nước</span></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="">
-                                                            <p class="card-text">
-                                                                Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết
-                                                                bầu đại
-                                                                tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026.
-                                                                <span class="more-content">
-                                                                    Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị
-                                                                    quyết bầu
-                                                                    đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ
-                                                                    2021-2026.
-
-                                                                    Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực
-                                                                    hiện
-                                                                    nghi lễ tuyên thệ.
-
-                                                                    Tay trái đặt trên Hiến pháp, tay phải giơ cao, ông
-                                                                    nói:
-                                                                    "Dưới cờ đỏ sao vàng thiêng liêng của Tổ quốc, trước
-                                                                    Quốc
-                                                                    hội và đồng bào cử tri cả nước, tôi - Chủ tịch nước
-                                                                    nước
-                                                                    Cộng hòa Xã hội Chủ nghĩa Việt Nam, xin tuyên thệ:
-                                                                    Tuyệt đối
-                                                                    trung thành với Tổ quốc, nhân dân, Hiến pháp, nỗ lực
-                                                                    công
-                                                                    tác để hoàn thành tốt nhiệm vụ được Đảng, Nhà nước
-                                                                    và nhân
-                                                                    dân giao phó".
-                                                                </span>
-                                                            </p>
-                                                            <a href="#" class="read-more-btn">Read More</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>04/06/2023</td>
-                                                    <td>News</td>
-                                                    <td>vi-VI</td>
-                                                    <td><span class="badge  bg-label-success">Professional</span></td>
-                                                    <td>
-                                                        <a href="edit-blog.html"
-                                                            class="btn b tn-sm btn-icon item-edit"><i
-                                                                class="bx bxs-edit"></i></a>
-                                                        <div class="d-inline-block"><a href="javascript:;"
-                                                                class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                                    class="bx bx-dots-vertical-rounded"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-end m-0" style=""><a
-                                                                    href="detail.html" class="dropdown-item"><i
-                                                                        class='bx bx-show-alt'></i> Details</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="javascript:;"
-                                                                    class="dropdown-item text-danger delete-record"><i
-                                                                        class='bx bxs-trash'></i>
-                                                                    Delete</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -1103,17 +592,17 @@
                                         <div class="row" style="margin-top: 40px;">
                                             <div class="col-sm-6 d-flex" style="padding-left: 30px;">
                                                 <div class="col-md-2 text-center me-3">
-                                                  <div class="dataTables_length" id="DataTables_Table_0_length">
-                                                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                                      class="form-select">
-                                                      <option value="10">10</option>
-                                                      <option value="20">20</option>
-                                                      <option value="30">30</option>
-                                                      <option value="50">50</option>
-                                                    </select>
-                                                  </div>
+                                                    <div class="dataTables_length" id="DataTables_Table_0_length">
+                                                        <select name="DataTables_Table_0_length"
+                                                            aria-controls="DataTables_Table_0" class="form-select">
+                                                            <option value="10">10</option>
+                                                            <option value="20">20</option>
+                                                            <option value="30">30</option>
+                                                            <option value="50">50</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                              </div>
+                                            </div>
                                             <div class="col-sm-6">
                                                 <nav aria-label="Page navigation example" style="float: right;">
                                                     <ul class="pagination">
@@ -1137,64 +626,160 @@
 
         <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
 
-
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <!-- Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <!-- Modal -->
+        <div id="delete-dialog" class="modal">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div>
+                    <b style="float: left;">Xác nhận xóa</b>
                 </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this record?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                <p style="text-align: left;">Bạn có chắc chắn muốn xóa không?</p>
+                <div class="button-container">
+                    <button class="btn_cancel modal-button cancel-button">Hủy</button>
+                    <button class="btn_ok modal-button confirm-button">Đồng ý</button>
                 </div>
             </div>
         </div>
+
+        <!-- Update Language Modal -->
+        <div class="modal" id="edit-language-dialog" style="display: none">
+            <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+                <div class="modal-content">
+                    <div class="modal-header flex justify-sb">
+                        <div class="dialog-title">
+                            <h3 class="fs-18 text-title fw-600 mb-0">Update Language</h3>
+                        </div>
+                        <div class="dialog-btn">
+                            <a class="text-close text-decoration-none cursor">
+                                <div class="icon fs-20"><i class="fa-solid fa-xmark"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <div>
+                                            <div class="custom-select" id="language-select">
+                                                <div class="select-selected">-- Choose language --</div>
+                                                <div class="select-items">
+                                                    <div data-value="vn"><img
+                                                            src="https://tienichhay.net/uploads/flags/flat/24x24/vn.png">
+                                                        Viet Nam</div>
+                                                    <div data-value="gb"><img
+                                                            src="https://tienichhay.net/uploads/flags/flat/24x24/gb.png">
+                                                        English</div>
+                                                    <div data-value="cn"><img
+                                                            src="https://tienichhay.net/uploads/flags/flat/24x24/cn.png">
+                                                        China</div>
+                                                    <div data-value="kr"><img
+                                                            src="https://tienichhay.net/uploads/flags/flat/24x24/kr.png">
+                                                        Korea</div>
+                                                </div>
+                                            </div>
+                                            <select class="form-select" id="language" required style="display:none;">
+                                                <option value="" selected disabled>--Choose language--</option>
+                                                <option value="1">Viet Nam</option>
+                                                <option value="2">English</option>
+                                                <option value="3">China</option>
+                                                <option value="4">Korea</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <button type="submit" class="btn_ok btn btn-primary data-submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Update Status Modal -->
+        <div class="modal" id="edit-status-dialog" style="display: none">
+            <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+                <div class="modal-content">
+                    <div class="modal-header flex justify-sb">
+                        <div class="dialog-title">
+                            <h3 class="fs-18 text-title fw-600 mb-0">Update Status</h3>
+                        </div>
+                        <div class="dialog-btn">
+                            <a class="text-close text-decoration-none cursor">
+                                <div class="icon fs-20"><i class="fa-solid fa-xmark"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" id="status-form">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label"></label>
+                                        <select class="form-select" id="status" required>
+                                            <option value="active" selected>Active</option>
+                                            <option value="inactive">Inactive</option>
+                                            <option value="pending">Pending</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <button type="submit" class="btn_ok btn btn-primary data-submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Update Category Modal -->
+        <div class="modal" id="edit-category-dialog" style="display: none">
+            <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+                <div class="modal-content">
+                    <div class="modal-header flex justify-sb">
+                        <div class="dialog-title">
+                            <h3 class="fs-18 text-title fw-600 mb-0">Update Category</h3>
+                        </div>
+                        <div class="dialog-btn">
+                            <a class="text-close text-decoration-none cursor">
+                                <div class="icon fs-20"><i class="fa-solid fa-xmark"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" id="category-form">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label"></label>
+                                        <select class="form-select" id="category" required>
+                                            <option value="" selected disabled>-- Choose category --</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="science">Science</option>
+                                            <option value="arts">Arts</option>
+                                            <option value="business">Business</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <button type="submit" class="btn_ok btn btn-primary data-submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End form update category -->
     </div>
+    <!-- / Layout wrapper -->
 
     <script src="../assets/js/pagination.js"></script>
 
-    <!-- Notification delete -->
-    <script>
-        $(document).ready(function () {
-            var recordToDelete;
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/js/main.js"></script>
 
-            $('.delete-record').on('click', function () {
-                recordToDelete = $(this); // Lưu trữ phần tử sẽ bị xóa
-                $('#deleteModal').modal('show');
-            });
-
-            $('#confirmDelete').on('click', function () {
-                // Thực hiện hành động xóa ở đây, ví dụ gọi ajax để xóa record từ server
-                alert('Record has been deleted.');
-                $('#deleteModal').modal('hide');
-                // $.ajax({
-                //     url: 'your-delete-endpoint-url',
-                //     method: 'DELETE',
-                //     success: function(response) {
-                //         alert('Record has been deleted.');
-                //         // Optional: You can also remove the item from the DOM if needed
-                //         recordToDelete.remove();
-                //     },
-                //     error: function(error) {
-                //         alert('Error deleting record.');
-                //     }
-                // });
-            });
-        });
-    </script>
 
     <!-- Read more -->
     <script src="../assets/js/read-more.js"></script>
@@ -1208,6 +793,7 @@
     <script src="../assets/vendor/js/bootstrap.js"></script>
     <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/vendor/js/main.js"></script>
 
     <!-- endbuild -->
     <!-- Main JS -->
