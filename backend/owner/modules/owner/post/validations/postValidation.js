@@ -1,5 +1,4 @@
 const { BodyWithLocale, ParamWithLocale } = require("kernels/rules");
-const { getById } = require("../services/postService");
 
 const postValidation = {
     index: [
