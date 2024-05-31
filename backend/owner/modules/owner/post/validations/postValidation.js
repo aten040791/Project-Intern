@@ -1,13 +1,25 @@
-const { BodyWithLocale } = require("kernels/rules");
-const { index } = require("../controllers/postController");
+const { BodyWithLocale, ParamWithLocale } = require("kernels/rules");
 
 const postValidation = {
     index: [
-        new BodyWithLocale('title').notEmpty(),
         //other rules goes here
     ],
+
+    getById: [
+        new ParamWithLocale('id').notEmpty(),
+    ],
+
     create: [
-        //rules
+        new BodyWithLocale('title').notEmpty(),
+        new BodyWithLocale('body').notEmpty(),
+    ],
+    update: [
+        new ParamWithLocale('id').notEmpty(),
+        new BodyWithLocale('title').notEmpty(),
+        new BodyWithLocale('body').notEmpty(),
+    ],
+    delete: [
+        new ParamWithLocale('id').notEmpty(),
     ]
 }
 

@@ -5,6 +5,7 @@ const middlewares = require("kernels/middlewares");
 const sampleController = require("modules/sample/controllers/sampleController");
 const sampleValidation = require("modules/sample/validations/sampleValidation");
 const postController = require("modules/owner/post/controllers/postController");
+const postValidation = require("modules/owner/post/validations/postValidation")
 const router = express.Router({ mergeParams: true });
 
 // router.group("/posts",middlewares([authenticated, role("owner")]), validate([]),(router) => {
@@ -15,8 +16,11 @@ const router = express.Router({ mergeParams: true });
 // );
 
 router.group('/post', (router) => {
-  router.get('/', postController.index),
-  router.post('/create', postController.create)
+  router.get('/', validate([postValidation.index]), postController.index),
+  router.get('/:id', validate([postValidation.getById]), postController.getById),
+  router.post('/create', validate([postValidation.create]), postController.create),
+  router.put('/update/:id', validate([postValidation.update]), postController.update),
+  router.delete('/delete/:id', validate([postValidation.delete]), postController.delete)
 })
 
 router.group('/sample', (router) => {
