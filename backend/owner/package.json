@@ -1,7 +1,7 @@
 {
   "name": "nodejs-core",
   "version": "1.0.0",
-  "description": "",
+  "description": "`npm install`",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -20,6 +20,7 @@
     "express-router-group": "^0.1.4",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
     "mysql2": "^3.9.7",
     "rootpath": "^0.1.2",
     "sequelize": "^6.37.3",
@@ -36,5 +37,9 @@
     "sequelize-cli": "^6.6.2",
     "supertest": "^7.0.0",
     "umzug": "^3.8.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": []
 }
