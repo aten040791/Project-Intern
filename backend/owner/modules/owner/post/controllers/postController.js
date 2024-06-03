@@ -2,11 +2,11 @@ const postService = require("modules/owner/post/services/postService");
 const responseUtils = require("utils/responseUtils");
 
 const postController = {
-  //Get post list 
+  //Get post list
   index: async (req, res) => {
     try {
       const posts = await postService.list();
-      return responseUtils.ok(res, { 'data': posts });
+      return responseUtils.ok(res, posts);
     } catch (error) {
       return responseUtils.notFound(res);
     }
@@ -17,9 +17,9 @@ const postController = {
     try {
       const { id } = req.params;
       const post = await postService.getById(id);
-      return responseUtils.ok(res, { 'data': post });
+      return responseUtils.ok(res, post);
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.userError(res, error.message);
     }
   },
 
@@ -28,9 +28,9 @@ const postController = {
     try {
       const post = req.body;
       const newPost = await postService.create(post);
-      return responseUtils.ok(res, { 'data': newPost });
+      return responseUtils.ok(res, newPost);
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.userError(res, error.message);
     }
   },
 
@@ -40,23 +40,23 @@ const postController = {
       const { id } = req.params;
       const updatedPostData = req.body;
       const updatedPost = await postService.update(id, updatedPostData);
-      return responseUtils.ok(res, { 'data': updatedPost });
+      return responseUtils.ok(res, updatedPost);
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.userError(res, error.message);
     }
   },
 
   //Delete post
   delete: async (req, res) => {
     try {
-      const { id } = req.params;
-      await postService.delete(id);
-      return responseUtils.ok(res, { message: 'Post deleted successfully' });
+      const { ids } = req.params;
+      const idsArray = ids.split(",");
+      await postService.delete(idsArray);
+      return responseUtils.ok(res, { message: "Posts deleted successfully" });
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.userError(res, error.message);
     }
   },
-
 };
 
 module.exports = postController;
