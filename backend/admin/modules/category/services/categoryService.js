@@ -7,16 +7,28 @@ module.exports = {
   },
   createCategory: async (ctg) => {
     const category = await db.Category.create(ctg);
-    return category;
+    if (category) {
+      return category;
+    } else {
+      throw new Error("Can't create this category");
+    }
   },
   updateCategory: async (id, ctg) => {
     const category = await db.Category.update(ctg, { where: id });
-    return category;
+    if (category) {
+      return category;
+    } else {
+      throw new Error("Can't update this category");
+    }
   },
   deleteCategory: async (id) => {
     const category = await db.Category.destroy({
       where: id,
     });
-    return category;
+    if (category) {
+      return category;
+    } else {
+      throw new Error("Can't delete this category");
+    }
   },
 };

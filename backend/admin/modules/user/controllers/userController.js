@@ -9,7 +9,7 @@ module.exports = {
       const result = await userService.list();
       return responseUtils.ok(res, { users: result });
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.notFound(res, error.message);
     }
   },
   // todo: create a user
@@ -21,7 +21,7 @@ module.exports = {
       const newUser = await userService.createUser(user);
       return responseUtils.ok(res, { newuser: newUser });
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.notFound(res, error.message);
     }
   },
   // todo: delete a user
@@ -31,7 +31,7 @@ module.exports = {
       const userDeleted = await userService.deleteUser(userId);
       return responseUtils.ok(res, { numberUserDeleted: userDeleted });
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.notFound(res, error.message);
     }
   },
   updateUser: async (req, res) => {
@@ -41,7 +41,7 @@ module.exports = {
       const newUser = await userService.updateUser(userId, user);
       return responseUtils.ok(res, { user: newUser });
     } catch (error) {
-      return responseUtils.notFound(res);
+      return responseUtils.notFound(res, error.message);
     }
   },
 };
