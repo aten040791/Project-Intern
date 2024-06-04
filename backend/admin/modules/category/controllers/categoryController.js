@@ -7,7 +7,7 @@ module.exports = {
       const categories = await categoryService.list();
       return responseUntils.ok(res, { categories: categories });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
   createCategory: async (req, res) => {
@@ -16,7 +16,7 @@ module.exports = {
       const result = await categoryService.createCategory(category);
       return responseUntils.ok(res, { category: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
   updateCategory: async (req, res) => {
@@ -28,7 +28,7 @@ module.exports = {
       const result = await categoryService.updateCategory(id, category);
       return responseUntils.ok(res, { category: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
   deleteCategory: async (req, res) => {
@@ -37,7 +37,7 @@ module.exports = {
       const result = await categoryService.deleteCategory(id);
       return responseUntils.ok(res, { numberCategoryDeleted: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
 };

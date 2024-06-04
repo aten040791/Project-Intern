@@ -3,20 +3,36 @@ const db = require("models/index");
 module.exports = {
   list: async () => {
     const languages = await db.Language.findAll({});
-    return languages;
+    if (languages) {
+      return languages;
+    } else {
+      throw new Error("Not found");
+    }
   },
   createLanguage: async (lg) => {
     const language = await db.Language.create(lg);
-    return language;
+    if (language) {
+      return language;
+    } else {
+      throw new Error("Can not create this language");
+    }
   },
   updateLanguage: async (id, lg) => {
     const language = await db.Language.update(lg, { where: id });
-    return language;
+    if (language) {
+      return language;
+    } else {
+      throw new Error("Can not update this language");
+    }
   },
   deleteLanguage: async (id) => {
     const language = await db.Language.destroy({
       where: id,
     });
-    return language;
+    if (language) {
+      return language;
+    } else {
+      throw new Error("Can not delete this language");
+    }
   },
 };

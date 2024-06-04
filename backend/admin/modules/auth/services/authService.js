@@ -8,7 +8,7 @@ module.exports = {
     if (result) {
       return result.dataValues;
     } else {
-      return null;
+      throw new Error("Email is not exists");
     }
   },
   getRole: async (user) => {

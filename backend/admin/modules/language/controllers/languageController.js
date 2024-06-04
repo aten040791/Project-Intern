@@ -7,7 +7,7 @@ module.exports = {
       const languages = await languageService.list();
       return responseUntils.ok(res, { languages: languages });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
   createLanguage: async (req, res) => {
@@ -16,7 +16,7 @@ module.exports = {
       const result = await languageService.createLanguage(language);
       return responseUntils.ok(res, { language: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
   updateLanguage: async (req, res) => {
@@ -26,7 +26,7 @@ module.exports = {
       const result = await languageService.updateLanguage(id, language);
       return responseUntils.ok(res, { language: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
   deleteLanguage: async (req, res) => {
@@ -35,7 +35,7 @@ module.exports = {
       const result = await languageService.deleteLanguage(id);
       return responseUntils.ok(res, { numberLanguageDeleted: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.notFound(res, error.message);
     }
   },
 };
