@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const db = require("models/index");
+// const crypto = require('crypto');
 
 const secretKey = process.env.JWT_SECRET_KEY;
+// const refreshSecretKey = crypto.randomBytes(32).toString('hex');
 
 const authService = {
   login: async (email, password) => {
@@ -16,6 +18,12 @@ const authService = {
     if (!role) throw new Error("Role not found");
 
     const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
+    
+    // const accessToken = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+    // const refreshToken = jwt.sign({ userId: user.id }, refreshSecretKey, { expiresIn: '7d' });
+
+    // user.refreshToken = refreshToken;
+    // await user.save();
 
     return {
       user: {
@@ -27,6 +35,8 @@ const authService = {
         updated_at: user.updatedAt,
       },
       access_token: token,
+      //  accessToken,
+      //  refreshToken
     };
   },
 

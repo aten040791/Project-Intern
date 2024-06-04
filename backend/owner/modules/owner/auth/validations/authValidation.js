@@ -1,27 +1,10 @@
 const { BodyWithLocale, ParamWithLocale } = require("kernels/rules");
 
-const postValidation = {
+const authValidation = {
     index: [
         //other rules goes here
-    ],
-
-    getById: [
-        new ParamWithLocale('id').notEmpty(),
-    ],
-
-    create: [
-        new BodyWithLocale('title').notEmpty(),
-        new BodyWithLocale('body').notEmpty(),
-    ],
-    update: [
-        new ParamWithLocale('id').notEmpty(),
-        new BodyWithLocale('title').notEmpty(),
-        new BodyWithLocale('body').notEmpty(),
-    ],
-    delete: [
-        new ParamWithLocale('ids').notEmpty(),
     ]
 }
 
 
-module.exports = postValidation
+module.exports = authValidation
