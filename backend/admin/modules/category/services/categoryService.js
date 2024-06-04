@@ -6,6 +6,9 @@ module.exports = {
     return categories;
   },
   createCategory: async (ctg) => {
+    if (!ctg) {
+      throw new Error("Category is required");
+    }
     const category = await db.Category.create(ctg);
     if (category) {
       return category;
@@ -14,6 +17,8 @@ module.exports = {
     }
   },
   updateCategory: async (id, ctg) => {
+    if (!id) throw new Error("ID is required");
+    if (!ctg) throw new Error("Catagory is required");
     const category = await db.Category.update(ctg, { where: id });
     if (category) {
       return category;
@@ -22,6 +27,7 @@ module.exports = {
     }
   },
   deleteCategory: async (id) => {
+    if (!id) throw new Error("ID is required");
     const category = await db.Category.destroy({
       where: id,
     });
