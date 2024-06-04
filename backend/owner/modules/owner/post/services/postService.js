@@ -14,17 +14,17 @@ const postService = {
   },
 
   create: async (post) => {
-    if (!post.title || !post.content)
-      throw new Error("Title and content are required");
+    if (!post.title || !post.body)
+      throw new Error("Title and body are required");
     const newPost = await db.Post.create(post);
     return newPost;
   },
 
   update: async (id, updatedPostData) => {
     if (!id) throw new Error("Post ID is required");
-    if (!updatedPostData.title && !updatedPostData.content) {
+    if (!updatedPostData.title && !updatedPostData.body) {
       throw new Error(
-        "At least one field (title or content) is required for update"
+        "At least one field (title or body) is required for update"
       );
     }
 

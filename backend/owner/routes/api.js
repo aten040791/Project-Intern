@@ -8,6 +8,7 @@ const postController = require("modules/owner/post/controllers/postController");
 const postValidation = require("modules/owner/post/validations/postValidation");
 const authController = require("modules/owner/auth/controllers/authController");
 const authValidation = require("modules/owner/auth/validations/authValidation");
+const authenticateToken = require("kernels/middlewares/authenticateToken")
 const router = express.Router({ mergeParams: true });
 
 // router.group("/posts",middlewares([authenticated, role("owner")]), validate([]),(router) => {
@@ -17,7 +18,10 @@ const router = express.Router({ mergeParams: true });
 //   }
 // );
 
+// router.post('/refresh-token', authController.refreshToken);
+
 router.group('/post', (router) => {
+  router.use(authenticateToken);
   router.get('/', validate([postValidation.index]), postController.index),
   router.get('/:id', validate([postValidation.getById]), postController.getById),
   router.post('/create', validate([postValidation.create]), postController.create),
