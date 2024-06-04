@@ -1,4 +1,5 @@
 const db = require("models/index");
+const { updateUser } = require("../controllers/userController");
 
 module.exports = {
   // todo: selet * from users
@@ -17,5 +18,11 @@ module.exports = {
       where: userId,
     });
     return user;
+  },
+  updateUser: async (userId, user) => {
+    const result = await db.update(user, {
+      where: userId,
+    });
+    return result;
   },
 };

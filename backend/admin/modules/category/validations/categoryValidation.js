@@ -7,24 +7,17 @@ const { update } = require("modules/sample/validations/sampleValidation");
 
 const categoryValidation = {
   index: [
-    new BodyWithLocale("title").notEmpty(),
+    // new BodyWithLocale("title").notEmpty(),
     //other rules goes here
   ],
   create: [
-    new BodyWithLocale("name").notEmpty(),
-    new BodyWithLocale("name").isString(),
-    new BodyWithLocale("slug").notEmpty(),
-    new BodyWithLocale("slug").isString(),
+    new BodyWithLocale("name").notEmpty().isString(),
+    new BodyWithLocale("slug").notEmpty().isString(),
   ],
-  delete: [
-    new ParamWithLocale("id").notEmpty(),
-    new ParamWithLocale("id").isNumberic(),
-  ],
+  delete: [new ParamWithLocale("id").notEmpty().isNumberic()],
   update: [
-    new BodyWithLocale("name").notEmpty(),
-    new BodyWithLocale("name").isString(),
-    new BodyWithLocale("slug").notEmpty(),
-    new BodyWithLocale("slug").isString(),
+    new BodyWithLocale("name").notEmpty().isString(),
+    new BodyWithLocale("slug").notEmpty().isString(),
   ],
 };
 
