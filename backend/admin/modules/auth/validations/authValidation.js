@@ -11,13 +11,13 @@ const options = {
 
 const sampleValidation = {
   index: [
-    // new BodyWithLocale("title").notEmpty(),
-    //other rules goes here
+    new QueryWithLocale("email").isEmail().notEmpty(),
+    new QueryWithLocale("password").isString().notEmpty(),
   ],
   create: [
     new BodyWithLocale("username").notEmpty(),
     new BodyWithLocale("email").isEmail().notEmpty(),
-    new BodyWithLocale("password").isLength(options).notEmpty(),
+    new BodyWithLocale("password").notEmpty().isLength(options),
     new BodyWithLocale("role_id").isNumberic(),
     new BodyWithLocale("status").isString(),
   ],

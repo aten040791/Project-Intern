@@ -6,21 +6,18 @@ const {
 
 const languageValidation = {
   index: [
-    new BodyWithLocale("title").notEmpty(),
+    // new BodyWithLocale("title").notEmpty(),
     //other rules goes here
   ],
   create: [
-    new BodyWithLocale("name").notEmpty(),
-    new BodyWithLocale("locale").isString(),
+    new BodyWithLocale("name").notEmpty().isString(),
+    new BodyWithLocale("locale").isString().notEmpty(),
     new BodyWithLocale("flag").isString(),
   ],
-  delete: [
-    new ParamWithLocale("id").notEmpty(),
-    new ParamWithLocale("id").isNumberic(),
-  ],
+  delete: [new ParamWithLocale("id").notEmpty().isNumberic()],
   update: [
-    new BodyWithLocale("name").notEmpty(),
-    new BodyWithLocale("locale").isString(),
+    new BodyWithLocale("name").notEmpty().isString(),
+    new BodyWithLocale("locale").isString().notEmpty(),
     new BodyWithLocale("flag").isString(),
   ],
 };

@@ -1,5 +1,6 @@
 module.exports = {
-    secret : process.env.JWT_SECRET || 'secret',
+  secret: process.env.JWT_SECRET || "secret",
 
-    ttl: '1h'
-}
+  //   1h
+  ttl: "20s",
+};

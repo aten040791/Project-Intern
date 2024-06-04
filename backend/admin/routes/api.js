@@ -2,15 +2,16 @@ require("express-router-group");
 const express = require("express");
 const { validate } = require("kernels/validations");
 const middlewares = require("kernels/middlewares");
-// const sampleController = require("modules/sample/controllers/sampleController");
-// const sampleValidation = require("modules/sample/validations/sampleValidation");
 const router = express.Router({ mergeParams: true });
+const authController = require("modules/auth/controllers/authController");
+const authValidation = require("modules/auth/validations/authValidation");
 const userController = require("modules/user/controllers/userController");
-const categoryController = require("modules/category/controllers/categoryController");
 const userValidation = require("modules/user/validations/userValidation");
+const categoryController = require("modules/category/controllers/categoryController");
 const categoryValidation = require("modules/category/validations/categoryValidation");
-const languageValidation = require("modules/language/validations/languageValidation");
 const languageController = require("modules/language/controllers/languageController");
+const languageValidation = require("modules/language/validations/languageValidation");
+const { auth, admin, user } = require("middlewares/authVerify");
 
 // router.group("/posts",middlewares([authenticated, role("owner")]), validate([]),(router) => {
 //     router.post("/create",validate([createPostRequest]),postsController.create);
@@ -24,7 +25,17 @@ const languageController = require("modules/language/controllers/languageControl
 //   router.post('/with-validation', validate([sampleValidation.index]), sampleController.validate)
 // })
 
-router.group("/users", (router) => {
+router.group("/auth", (router) => {
+  router.post("/sign-up", authController.register);
+  router.get(
+    "/sign-in",
+    validate([authValidation.index]),
+    authController.login
+  );
+  router.get("/user", auth, authController.getUser);
+});
+
+router.group("/users", admin, (router) => {
   router.delete("/delete/:id", userController.deleteUser);
   router.post(
     "/create",
@@ -34,7 +45,7 @@ router.group("/users", (router) => {
   router.get("/", userController.index);
 });
 
-router.group("/categories", (router) => {
+router.group("/categories", admin, (router) => {
   router.delete(
     "/delete/:id",
     validate([categoryValidation.delete]),
@@ -53,7 +64,7 @@ router.group("/categories", (router) => {
   router.get("/", categoryController.index);
 });
 
-router.group("/languages", (router) => {
+router.group("/languages", admin, (router) => {
   router.delete(
     "/delete/:id",
     validate([languageValidation.delete]),
