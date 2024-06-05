@@ -2328,6 +2328,7 @@ textarea.form-control-lg {
 }
 
 .form-check-input {
+  cursor: pointer;
   --bs-form-check-bg: #fff;
   flex-shrink: 0;
   width: 1.2em;

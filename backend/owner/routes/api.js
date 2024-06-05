@@ -20,6 +20,7 @@ const router = express.Router({ mergeParams: true });
 
 router.group('/post', (router) => {
   router.use(authenticateToken);
+  router.get('/search', postController.search),
   router.get('/', validate([postValidation.index]), postController.index),
   router.get('/:id', validate([postValidation.getById]), postController.getById),
   router.get('/category/:id', postController.getCategory),
