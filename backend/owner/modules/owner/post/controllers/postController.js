@@ -12,6 +12,16 @@ const postController = {
     }
   },
 
+  getCategory: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const category = await postService.category(id);
+      return responseUtils.ok(res, category);
+    } catch (error) {
+      return responseUtils.userError(res, error.message);
+    }
+  },
+
   //Get post by ID
   getById: async (req, res) => {
     try {

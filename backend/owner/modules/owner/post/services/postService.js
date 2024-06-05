@@ -13,6 +13,13 @@ const postService = {
     return post;
   },
 
+  category: async (id) => {
+    if (!id) throw new Error("Category ID is required");
+    const category = await db.Post.findAll({ where: { category_id: id } });
+    if (!category || category.length === 0) throw new Error("Haven't Post");
+    return category;
+    },
+
   create: async (post) => {
     if (!post.title || !post.body)
       throw new Error("Title and body are required");

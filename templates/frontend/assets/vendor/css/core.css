@@ -7358,8 +7358,8 @@ label.btn {
 .btn-secondary.disabled,
 .btn-secondary:disabled {
   color: #fff !important;
-  background-color: #8592a3 !important;
-  border-color: #8592a3 !important;
+  background-color: #8592a36b !important;
+  border-color: #8592a36b !important;
   box-shadow: none !important;
 }
 
