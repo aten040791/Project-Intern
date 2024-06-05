@@ -46,8 +46,7 @@ const postService = {
   updateMultiple: async (ids, updatedPostData) => {
     if (!ids || !Array.isArray(ids) || ids.length === 0) throw new Error("Array of post IDs is required");
     const posts = await db.Post.findAll({ where: { id: ids } });
-    if (!posts || posts.length === 0)
-      throw new Error("No posts found with the given IDs");
+    if (!posts || posts.length === 0) throw new Error("No posts found with the given IDs");
     const updatedPosts = [];
     for (let i = 0; i < posts.length; i++) {
       const post = posts[i];
