@@ -297,6 +297,7 @@ body {
 
 /* Select flag */
 .custom-select {
+  width: 100%;
   position: relative;
   display: inline-block;
 }
@@ -307,6 +308,7 @@ body {
 }
 
 .select-selected {
+  text-align: left;
   width: 100%;
   padding: 8px;
   color: #7e8b9ceb;
@@ -348,6 +350,7 @@ body {
 }
 
 .modal {
+  cursor: pointer;
   display: none;
   position: fixed;
   z-index: 1;
@@ -413,4 +416,10 @@ body {
       width: 100%;
       padding: 10px;
   }
+}
+
+.action-item {
+  background-color: rgb(224, 224, 224);
+  color: #333;
+  border: 0px;
 }

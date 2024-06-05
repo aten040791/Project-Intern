@@ -38,10 +38,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      refreshToken: {
-        type: DataTypes.STRING,
-        allowNull: true
       }
     });
   },

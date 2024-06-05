@@ -18,12 +18,11 @@ const router = express.Router({ mergeParams: true });
 //   }
 // );
 
-// router.post('/refresh-token', authController.refreshToken);
-
 router.group('/post', (router) => {
   router.use(authenticateToken);
   router.get('/', validate([postValidation.index]), postController.index),
   router.get('/:id', validate([postValidation.getById]), postController.getById),
+  router.get('/category/:id', postController.getCategory),
   router.post('/create', validate([postValidation.create]), postController.create),
   router.put('/update/:id', validate([postValidation.update]), postController.update),
   router.delete('/delete/:ids', validate([postValidation.delete]), postController.delete)
@@ -31,9 +30,9 @@ router.group('/post', (router) => {
 
 router.group('/auth',(router) => {
   router.post('/sign-in', authController.signIn),
-  router.post('/sign-up', authController.signUp)
-  // router.post('/recover-password', authController.recPass),
+  router.post('/sign-up', authController.signUp),
   router.put('/reset-password', authController.resPass)
+  // router.post('/recover-password', authController.recPass),
 })
 
 router.group('/sample', (router) => {
