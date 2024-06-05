@@ -25,7 +25,8 @@ router.group('/post', (router) => {
   router.get('/category/:id', postController.getCategory),
   router.post('/create', validate([postValidation.create]), postController.create),
   router.put('/update/:id', validate([postValidation.update]), postController.update),
-  router.delete('/delete/:ids', validate([postValidation.delete]), postController.delete)
+  router.delete('/delete/:ids', validate([postValidation.delete]), postController.delete),
+  router.patch('/update-multiple', postController.updateMultiple)
 })
 
 router.group('/auth',(router) => {

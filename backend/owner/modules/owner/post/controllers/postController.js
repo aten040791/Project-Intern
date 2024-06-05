@@ -67,6 +67,22 @@ const postController = {
       return responseUtils.userError(res, error.message);
     }
   },
+
+  updateMultiple: async (req, res) => {
+    try {
+        const { ids, value, type } = req.body;
+        const updatedPostData = {
+            value: value,
+            type: type
+        };
+        const updatedPosts = await postService.updateMultiple(ids, updatedPostData);
+        return responseUtils.ok(res, updatedPosts);
+    } catch (error) {
+        return responseUtils.userError(res, error.message);
+    }
+},
+
+  
 };
 
 module.exports = postController;
