@@ -15,7 +15,7 @@ const authService = {
     const role = await db.Role.findOne({ where: { id: user.role_id } });
     if (!role) throw new Error("Role not found");
 
-    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1y" });
 
     return {
       user: {

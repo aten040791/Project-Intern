@@ -1,4 +1,5 @@
 const db = require("models/index");
+const { Op, Sequelize } = require('sequelize');
 
 const postService = {
   list: async () => {
@@ -11,6 +12,22 @@ const postService = {
     const post = await db.Post.findByPk(id);
     if (!post) throw new Error("Post not found");
     return post;
+  },
+
+  search: async (keyword) => {
+    if (!keyword) throw new Error("Keyword is required");
+    const lowerKeyword = keyword.toLowerCase();
+    console.log(`Searching for keyword: ${lowerKeyword}`); 
+    const posts = await db.Post.findAll({
+      where: {
+        [Op.or]: [
+            Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Op.like]: `%${lowerKeyword}%` }),
+            Sequelize.where(Sequelize.fn('lower', Sequelize.col('body')), { [Op.like]: `%${lowerKeyword}%` })
+        ]
+    }
+  });
+    if (!posts || posts.length === 0) throw new Error("Post not found");
+    return posts;
   },
 
   category: async (id) => {
@@ -36,7 +53,8 @@ const postService = {
   },
 
   delete: async (ids) => {
-    if (!Array.isArray(ids) || ids.length === 0) throw new Error("Array of post IDs is required");
+    if (!Array.isArray(ids) || ids.length === 0)
+      throw new Error("Array of post IDs is required");
     const posts = await db.Post.findAll({ where: { id: ids } });
     if (posts.length === 0) throw new Error("No posts found");
     await db.Post.destroy({ where: { id: ids } });
@@ -44,7 +62,8 @@ const postService = {
   },
 
   updateMultiple: async (ids, updatedPostData) => {
-    if (!ids || !Array.isArray(ids) || ids.length === 0) throw new Error("Array of post IDs is required");
+    if (!ids || !Array.isArray(ids) || ids.length === 0)
+      throw new Error("Array of post IDs is required");
     const posts = await db.Post.findAll({ where: { id: ids } });
     if (!posts || posts.length === 0)
       throw new Error("No posts found with the given IDs");

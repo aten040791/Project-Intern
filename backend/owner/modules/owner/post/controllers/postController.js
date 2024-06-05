@@ -33,6 +33,17 @@ const postController = {
     }
   },
 
+  //Search...
+  search: async (req, res) => {
+    try {
+      const keyword = req.query.keyword;
+      const post = await postService.search(keyword);
+      return responseUtils.ok(res, post);
+    } catch (error) {
+      return responseUtils.userError(res, error.message);
+    } 
+  },
+
   //Create new post
   create: async (req, res) => {
     try {
