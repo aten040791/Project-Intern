@@ -26,12 +26,20 @@ module.exports = {
   },
   // todo: delete a user
   deleteUser: async (req, res) => {
+    // try {
+    //   const userId = req.params;
+    //   const userDeleted = await userService.deleteUser(userId);
+    //   return responseUtils.ok(res, { Delete: "Successfull" });
+    // } catch (error) {
+    //   return responseUtils.errorAdmin(res, "Delete User Failed");
+    // }
     try {
-      const userId = req.params;
-      const userDeleted = await userService.deleteUser(userId);
-      return responseUtils.ok(res, { Delete: "Successfull" });
+      const { id } = req.params;
+      const idsArray = id.split(",");
+      await userService.deleteUser(idsArray);
+      return responseUtils.ok(res, { message: "Users deleted successfully" });
     } catch (error) {
-      return responseUtils.errorAdmin(res, "Delete User Failed");
+      return responseUtils.errorAdmin(res, error.message);
     }
   },
   updateUser: async (req, res) => {
@@ -42,6 +50,15 @@ module.exports = {
       return responseUtils.ok(res, { user: newUser });
     } catch (error) {
       return responseUtils.errorAdmin(res, error.message);
+    }
+  },
+  searchUser: async (req, res) => {
+    try {
+      const { value } = req.query;
+      const result = await userService.searchUser(value);
+      return responseUtils.ok(res, { user: result });
+    } catch (error) {
+      return responseUtils.notFound(res);
     }
   },
 };

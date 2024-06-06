@@ -30,12 +30,31 @@ module.exports = {
     }
   },
   deleteCategory: async (req, res) => {
+    // try {
+    //   const id = req.params;
+    //   await categoryService.deleteCategory(id);
+    //   return responseUntils.ok(res, { Delete: "successfull" });
+    // } catch (error) {
+    //   return responseUntils.errorAdmin(res, "Delete Category Failed");
+    // }
     try {
-      const id = req.params;
-      await categoryService.deleteCategory(id);
-      return responseUntils.ok(res, { Delete: "successfull" });
+      const { id } = req.params;
+      const idsArray = id.split(",");
+      await categoryService.deleteCategory(idsArray);
+      return responseUntils.ok(res, {
+        message: "Categories deleted successfully",
+      });
     } catch (error) {
-      return responseUntils.errorAdmin(res, "Delete Category Failed");
+      return responseUntils.errorAdmin(res, error.message);
+    }
+  },
+  searchCategory: async (req, res) => {
+    try {
+      const { namecategory } = req.query;
+      const result = await categoryService.searchCategory(namecategory);
+      return responseUntils.ok(res, { category: result });
+    } catch (error) {
+      return responseUntils.notFound(res);
     }
   },
 };

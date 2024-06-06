@@ -42,15 +42,12 @@ router.group("/users", admin, (router) => {
     validate([userValidation.create]),
     userController.createUser
   );
+  router.get("/search", userController.searchUser);
   router.get("/", userController.index);
 });
 
 router.group("/categories", admin, (router) => {
-  router.delete(
-    "/delete/:id",
-    validate([categoryValidation.delete]),
-    categoryController.deleteCategory
-  );
+  router.delete("/delete/:id", categoryController.deleteCategory);
   router.put(
     "/update/:id",
     validate([categoryValidation.update]),
@@ -61,15 +58,12 @@ router.group("/categories", admin, (router) => {
     validate([categoryValidation.create]),
     categoryController.createCategory
   );
+  router.get("/search", categoryController.searchCategory);
   router.get("/", categoryController.index);
 });
 
 router.group("/languages", admin, (router) => {
-  router.delete(
-    "/delete/:id",
-    validate([languageValidation.delete]),
-    languageController.deleteLanguage
-  );
+  router.delete("/delete/:id", languageController.deleteLanguage);
   router.put(
     "/update/:id",
     validate([languageValidation.update]),
@@ -80,6 +74,7 @@ router.group("/languages", admin, (router) => {
     validate([languageValidation.create]),
     languageController.createLanguage
   );
+  router.get("/search", languageController.searchLanguage);
   router.get("/", languageController.index);
 });
 

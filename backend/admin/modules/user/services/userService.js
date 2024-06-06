@@ -1,5 +1,5 @@
 const db = require("models/index");
-const { updateUser } = require("../controllers/userController");
+const { Op, Sequelize } = require("sequelize");
 
 module.exports = {
   // todo: selet * from users
@@ -16,14 +16,20 @@ module.exports = {
     else throw new Error("Can't create user");
   },
   // todo: delete from users where id = userId
-  deleteUser: async (userId) => {
-    if (!userId) throw new Error("ID is require");
-    const user = await db.User.destroy({
-      where: userId,
-    });
+  deleteUser: async (ids) => {
+    // if (!userId) throw new Error("ID is require");
+    // const user = await db.User.destroy({
+    //   where: userId,
+    // });
 
-    if (user) return user;
-    else throw new Error("Can't Delete User");
+    // if (user) return user;
+    // else throw new Error("Can't Delete User");
+    if (!Array.isArray(ids) || ids.length === 0)
+      throw new Error("Array of user IDs is required");
+    const users = await db.User.findAll({ where: { id: ids } });
+    if (users.length === 0) throw new Error("No Users found");
+    await db.User.destroy({ where: { id: ids } });
+    return { message: "Users deleted successfully" };
   },
   updateUser: async (userId, user) => {
     if (!userId) throw new Error("ID is require");
@@ -34,5 +40,23 @@ module.exports = {
     });
     if (result) return result;
     else throw new Error("Can't update user");
+  },
+  searchUser: async (value) => {
+    if (!value) throw new Error("Error");
+    const valueLowCase = value.toLowerCase();
+    const users = await db.User.findAll({
+      where: {
+        [Op.or]: [
+          Sequelize.where(Sequelize.fn("lower", Sequelize.col("username")), {
+            [Op.like]: `%${valueLowCase}%`,
+          }),
+          Sequelize.where(Sequelize.fn("lower", Sequelize.col("email")), {
+            [Op.like]: `%${valueLowCase}%`,
+          }),
+        ],
+      },
+    });
+    if (!users || users.length === 0) throw new Error("Users not found");
+    return users;
   },
 };

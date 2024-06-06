@@ -30,12 +30,32 @@ module.exports = {
     }
   },
   deleteLanguage: async (req, res) => {
+    // try {
+    //   const id = req.params;
+    //   const result = await languageService.deleteLanguage(id);
+    //   return responseUntils.ok(res, { Delete: "Successful" });
+    // } catch (error) {
+    //   return responseUntils.errorAdmin(res, "Delete Failed");
+    // }
     try {
-      const id = req.params;
-      const result = await languageService.deleteLanguage(id);
-      return responseUntils.ok(res, { Delete: "Successful" });
+      const { id } = req.params;
+      const idsArray = id.split(",");
+      await languageService.deleteLanguage(idsArray);
+      return responseUntils.ok(res, {
+        message: "Languages deleted successfully",
+      });
     } catch (error) {
-      return responseUntils.errorAdmin(res, "Delete Failed");
+      return responseUntils.errorAdmin(res, error.message);
+    }
+  },
+  searchLanguage: async (req, res) => {
+    try {
+      const { language } = req.query;
+      const result = await languageService.searchLanguage(language);
+      // console.log(result);
+      return responseUntils.ok(res, { languages: result });
+    } catch (error) {
+      return responseUntils.notFound(res);
     }
   },
 };
