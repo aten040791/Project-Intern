@@ -15,24 +15,17 @@ const postService = {
   },
 
   search: async (keyword) => {
-    if (!keyword) throw new Error("Keyword is required");
-    const lowerKeyword = keyword.toLowerCase();
-    console.log(`Searching for keyword: ${lowerKeyword}`);
+    if(keyword.length < 3) throw new Error("Enter at least three keyword characters");
     const posts = await db.Post.findAll({
-      where: {
-        [Op.or]: [
-          Sequelize.where(Sequelize.fn("lower", Sequelize.col("title")), {
-            [Op.like]: `%${lowerKeyword}%`,
-          }),
-          Sequelize.where(Sequelize.fn("lower", Sequelize.col("body")), {
-            [Op.like]: `%${lowerKeyword}%`,
-          }),
-        ],
-      },
+        where: {
+            [Op.or]: [
+                Sequelize.literal(`MATCH(title, body) AGAINST('${keyword}' IN NATURAL LANGUAGE MODE)`)
+            ],
+        },
     });
     if (!posts || posts.length === 0) throw new Error("Post not found");
     return posts;
-  },
+},
 
   category: async (id) => {
     if (!id) throw new Error("Category ID is required");
