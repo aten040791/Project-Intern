@@ -233,7 +233,7 @@ h6,
 
 p {
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 abbr[title] {
@@ -6735,6 +6735,12 @@ fieldset:disabled .btn {
 }
 
 .text-truncate {
+  line-height: 1.6rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 3.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */

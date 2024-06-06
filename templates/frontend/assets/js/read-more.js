@@ -1,11 +1,8 @@
-$(document).ready(function () {
-    $(".read-more-btn").click(function (e) {
-        e.preventDefault();
-        $(this).prev(".card-text").find(".more-content").toggle();
-        if ($(this).text() === "Read More") {
-            $(this).text("Read Less");
-        } else {
-            $(this).text("Read More");
-        }
+$(document).ready(function(){
+    $('.read-more-btn').click(function(event){
+      event.preventDefault();
+      var cardText = $(this).siblings('.card-text');
+      cardText.toggleClass('read-more');
+      $(this).text(cardText.hasClass('read-more') ? 'Read Less' : 'Read More');
     });
-});
+  });
