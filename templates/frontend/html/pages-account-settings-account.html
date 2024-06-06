@@ -78,48 +78,18 @@
 
                 <!-- Post -->
                 <li class="menu-item">
-                    <a href="post.html" class="menu-link">
+                    <a href="index.html" class="menu-link">
                         <i class='menu-icon bx bx-book-content'></i>
                         <div data-i18n="Basic">Post</div>
                     </a>
                 </li>
 
                 <!-- Pages -->
-                <li class="menu-item active open">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Account Settings">Account Settings</div>
+                <li class="menu-item active">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <i class='menu-icon tf-icons bx bx-user'></i>
+                        <div data-i18n="Account">Account</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item active">
-                            <a href="pages-account-settings-account.html" class="menu-link">
-                                <div data-i18n="Account">Account</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                        <div data-i18n="Authentications">Authentications</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                                <div data-i18n="Basic">Login</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                                <div data-i18n="Basic">Register</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                                <div data-i18n="Basic">Forgot Password</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
         </aside>
@@ -173,7 +143,7 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="pages-account-settings-account.html">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
                                     </a>
@@ -257,42 +227,9 @@
                                                         autofocus/>
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="lastName" class="form-label">Last Name</label>
-                                                <input class="form-control" type="text" name="lastName" id="lastName"
-                                                       value="Doe"/>
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" name="password" id="password"
-                                                       value="***********"/>
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="email" class="form-label">E-mail</label>
-                                                <input
-                                                        class="form-control"
-                                                        type="text"
-                                                        id="email"
-                                                        name="email"
-                                                        value=""
-                                                        placeholder="lee@gmail.com"/>
-                                            </div>
-
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label" for="phoneNumber">Phone Number</label>
-                                                <div class="input-group input-group-merge">
-                                                    <span class="input-group-text">Vi (+84)</span>
-                                                    <input
-                                                            type="text"
-                                                            id="phoneNumber"
-                                                            name="phoneNumber"
-                                                            class="form-control"
-                                                            placeholder="912345678"/>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label for="address" class="form-label">Address</label>
-                                                <input type="text" class="form-control" id="address" name="address"
-                                                       placeholder="Address"/>
+                                                <label for="birthday" class="form-label">Birthday</label>
+                                                <input class="form-control" type="text" name="birthday" id="birthday"
+                                                       value="18-04-2001"/>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label class="form-label" for="country">Country</label>
@@ -325,14 +262,32 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="language" class="form-label">Language</label>
-                                                <select id="language" class="select2 form-select">
-                                                    <option value="">Select Language</option>
-                                                    <option value="en">English</option>
-                                                    <option value="fr">French</option>
-                                                    <option value="de">German</option>
-                                                    <option value="pt">Portuguese</option>
-                                                </select>
+                                                <label for="email" class="form-label">E-mail</label>
+                                                <input
+                                                        class="form-control"
+                                                        type="text"
+                                                        id="email"
+                                                        name="email"
+                                                        value=""
+                                                        placeholder="lee@gmail.com"/>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="phoneNumber">Phone Number</label>
+                                                <div class="input-group input-group-merge">
+                                                    <span class="input-group-text">Vi (+84)</span>
+                                                    <input
+                                                            type="text"
+                                                            id="phoneNumber"
+                                                            name="phoneNumber"
+                                                            class="form-control"
+                                                            placeholder="912345678"/>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="address" class="form-label">Address</label>
+                                                <input type="text" class="form-control" id="address" name="address"
+                                                       placeholder="Address"/>
                                             </div>
                                         </div>
                                         <div class="mt-2">

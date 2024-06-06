@@ -25,7 +25,7 @@ const postService = {
     });
     if (!posts || posts.length === 0) throw new Error("Post not found");
     return posts;
-},
+  },
 
   category: async (id) => {
     if (!id) throw new Error("Category ID is required");
