@@ -26,15 +26,31 @@ module.exports = {
       throw new Error("Can't update this category");
     }
   },
-  deleteCategory: async (id) => {
-    if (!id) throw new Error("ID is required");
-    const category = await db.Category.destroy({
-      where: id,
+  deleteCategory: async (ids) => {
+    // if (!id) throw new Error("ID is required");
+    // const category = await db.Category.destroy({
+    //   where: id,
+    // });
+    // if (category) {
+    //   return category;
+    // } else {
+    //   throw new Error("Can't delete this category");
+    // }
+    if (!Array.isArray(ids) || ids.length === 0)
+      throw new Error("Array of category IDs is required");
+    const categories = await db.Category.findAll({ where: { id: ids } });
+    if (categories.length === 0) throw new Error("No Categories found");
+    await db.Category.destroy({ where: { id: ids } });
+    return { message: "Categories deleted successfully" };
+  },
+  searchCategory: async (value) => {
+    if (!value) throw new Error("Error");
+    const valueLowCase = value.toLowerCase();
+    const categories = await db.Category.findAll({
+      where: { name: valueLowCase },
     });
-    if (category) {
-      return category;
-    } else {
-      throw new Error("Can't delete this category");
-    }
+    if (!categories || categories.length === 0)
+      throw new Error("Categories not found");
+    return categories;
   },
 };
