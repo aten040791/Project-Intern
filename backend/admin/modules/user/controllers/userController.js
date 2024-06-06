@@ -5,9 +5,18 @@ const { hash } = require("kernels/hash/index");
 module.exports = {
   // todo: get all user
   index: async (req, res) => {
+    // try {
+    //   const result = await userService.list();
+    //   return responseUtils.ok(res, { users: result });
+    // } catch (error) {
+    //   return responseUtils.notFound(res);
+    // }
     try {
       const result = await userService.list();
-      return responseUtils.ok(res, { users: result });
+      res.render("index", {
+        result,
+        layout: "admin/views/layouts/front-page",
+      });
     } catch (error) {
       return responseUtils.notFound(res);
     }
