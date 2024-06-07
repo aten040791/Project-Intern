@@ -20,20 +20,20 @@ const router = express.Router({ mergeParams: true });
 
 router.group('/post', (router) => {
   router.use(authenticateToken);
-  router.get('/search', postController.search),
+  router.get('/search', validate([postValidation.search]), postController.search),
   router.get('/', validate([postValidation.index]), postController.index),
   router.get('/:id', validate([postValidation.getById]), postController.getById),
-  router.get('/category/:id', postController.getCategory),
+  router.get('/category/:id', validate([postValidation.getCategory]), postController.getCategory),
   router.post('/create', validate([postValidation.create]), postController.create),
   router.put('/update/:id', validate([postValidation.update]), postController.update),
-  router.delete('/delete/:ids', validate([postValidation.delete]), postController.delete),
-  router.patch('/update-multiple', postController.updateMultiple)
+  router.delete('/delete', validate([postValidation.delete]), postController.delete),
+  router.patch('/update-multiple', validate([postValidation.updateMultiple]), postController.updateMultiple)
 })
 
 router.group('/auth',(router) => {
-  router.post('/sign-in', authController.signIn),
-  router.post('/sign-up', authController.signUp),
-  router.put('/reset-password', authController.resPass)
+  router.post('/sign-in',validate([authValidation.signIn]), authController.signIn),
+  router.post('/sign-up',validate([authValidation.signUp]), authController.signUp),
+  router.put('/reset-password',validate([authValidation.resPass]), authController.resPass)
   // router.post('/recover-password', authController.recPass),
 })
 
