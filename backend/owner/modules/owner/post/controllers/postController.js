@@ -1,5 +1,6 @@
 const postService = require("modules/owner/post/services/postService");
 const responseUtils = require("utils/responseUtils");
+const slugify = require("utils/slugify");
 
 const postController = {
   //Get post list
@@ -39,6 +40,7 @@ const postController = {
   //Create new post
   create: async (req, res) => {
     const post = req.body;
+    post.slug = slugify(post.title);
     const newPost = await postService.create(post);
     return responseUtils.ok(res, newPost);
   },

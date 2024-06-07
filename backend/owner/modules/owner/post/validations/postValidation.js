@@ -6,6 +6,10 @@ const postValidation = {
     //other rules goes here
   ],
 
+  search: [
+    //
+  ],
+
   getById: [new ParamWithLocale("id").notEmpty().exist(db.Post, "id")],
 
   getCategory: [
