@@ -11,10 +11,7 @@ const categoryValidation = {
     //other rules goes here
     new QueryWithLocale("keysearch").notEmpty(),
   ],
-  create: [
-    new BodyWithLocale("name").notEmpty().isString(),
-    new BodyWithLocale("slug").notEmpty().isString(),
-  ],
+  create: [new BodyWithLocale("name").notEmpty().isString()],
   delete: [new BodyWithLocale("id").notEmpty().exist(db.Category, "id")],
   update: [
     new ParamWithLocale("id").exist(db.Category, "id"),
