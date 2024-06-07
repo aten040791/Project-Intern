@@ -51,7 +51,6 @@ const postController = {
   //Update post
   update: async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     const updatedPostData = req.body;
     const updatedPost = await postService.update(id, updatedPostData);
     return responseUtils.ok(res, updatedPost);
