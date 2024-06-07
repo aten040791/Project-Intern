@@ -1,60 +1,42 @@
 const responseUntils = require("utils/responseUtils");
 const categoryService = require("modules/category/services/categoryService");
+const siteController = require("modules/site/controllers/siteController");
+const { getApiName } = require("utils/apiUtils");
 
 module.exports = {
   index: async (req, res) => {
-    try {
-      const categories = await categoryService.list();
-      return responseUntils.ok(res, { categories: categories });
-    } catch (error) {
-      return responseUntils.errorAdmin(res, error.message);
-    }
+    const categories = await categoryService.list();
+    return responseUntils.ok(res, { categories: categories });
   },
   createCategory: async (req, res) => {
-    try {
-      const category = req.body;
-      const result = await categoryService.createCategory(category);
-      return responseUntils.ok(res, { category: result });
-    } catch (error) {
-      return responseUntils.errorAdmin(res, error.message);
-    }
+    const category = req.body;
+    const result = await categoryService.createCategory(category);
+    return responseUntils.ok(res, { category: result });
   },
   updateCategory: async (req, res) => {
-    try {
-      const id = req.params;
-      const category = req.body;
-      const result = await categoryService.updateCategory(id, category);
-      return responseUntils.ok(res, { category: result });
-    } catch (error) {
-      return responseUntils.errorAdmin(res, error.message);
-    }
+    const id = req.params;
+    const category = req.body;
+    const result = await categoryService.updateCategory(id, category);
+    return responseUntils.ok(res, { category: result });
   },
   deleteCategory: async (req, res) => {
-    // try {
-    //   const id = req.params;
-    //   await categoryService.deleteCategory(id);
-    //   return responseUntils.ok(res, { Delete: "successfull" });
-    // } catch (error) {
-    //   return responseUntils.errorAdmin(res, "Delete Category Failed");
-    // }
-    try {
-      const { id } = req.params;
-      const idsArray = id.split(",");
-      await categoryService.deleteCategory(idsArray);
-      return responseUntils.ok(res, {
-        message: "Categories deleted successfully",
-      });
-    } catch (error) {
-      return responseUntils.errorAdmin(res, error.message);
-    }
+    const { id } = req.body;
+    const idsArray = id.split(",");
+    await categoryService.deleteCategory(idsArray);
+    return responseUntils.ok(res, {
+      message: "Categories deleted successfully",
+    });
   },
   searchCategory: async (req, res) => {
     try {
-      const { namecategory } = req.query;
-      const result = await categoryService.searchCategory(namecategory);
-      return responseUntils.ok(res, { category: result });
+      const { keysearch } = req.query;
+      // const result = await categoryService.searchCategory(keysearch);
+      // return responseUntils.ok(res, { category: result });
+      const apiName = getApiName(req.originalUrl);
+      const result = await siteController.search(apiName, keysearch);
+      return responseUntils.ok(res, { categories: result });
     } catch (error) {
-      return responseUntils.notFound(res);
+      return responseUntils.errorAdmin(res, error.message);
     }
   },
 };
