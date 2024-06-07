@@ -28,6 +28,7 @@ const input = document.querySelector("#edit-dialog #edit");
 // user
 const inputUserName = document.querySelector("#edit-dialog input#username");
 const inputEmail = document.querySelector("#edit-dialog input#email");
+const inputPhone = document.querySelector("#edit-dialog input#phone");
 const inputRole = document.querySelector("#edit-dialog select");
 const inputPassword = document.querySelector("#edit-dialog input#password");
 const inputRePassword = document.querySelector("#edit-dialog input#RePassword");
@@ -182,7 +183,8 @@ if (inputUserName != null && table !== null) {
         // inputPassword.value = category.children[3].textContent;
         // inputRePassword.value = category.children[3].textContent;
         inputEmail.value = category.children[3].textContent;
-        inputRole.value = category.children[4].textContent;
+        inputPhone.value = category.children[4].textContent;
+        inputRole.value = category.children[5].textContent;
       } else {
         dialogEdit.style.display = "none";
         content.style.opacity = "1";
