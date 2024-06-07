@@ -2,6 +2,7 @@ const responseUntils = require("utils/responseUtils");
 const categoryService = require("modules/category/services/categoryService");
 const siteController = require("modules/site/controllers/siteController");
 const { getApiName } = require("utils/apiUtils");
+const slugify = require("slugify");
 
 module.exports = {
   index: async (req, res) => {
@@ -10,6 +11,10 @@ module.exports = {
   },
   createCategory: async (req, res) => {
     const category = req.body;
+    category.slug = slugify(category.name, {
+      lower: true, // convert to lower case
+      strict: true, // remove special characters
+    });
     const result = await categoryService.createCategory(category);
     return responseUntils.ok(res, { category: result });
   },
