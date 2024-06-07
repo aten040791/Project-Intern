@@ -13,25 +13,15 @@ const authController = {
   },
 
   signUp: async (req, res) => {
-    try {
-      const { username, email, birthday, password, confirmPassword, address, role_id } = req.body;
-      const newUser = await authService.createUser(username, email, birthday, password, confirmPassword, address, role_id);
-      return responseUtils.ok(res, newUser);
-    } catch (error) {
-      return responseUtils.userError(res, error.message);
-    }
+    const newUser = await authService.createUser(req.body);
+    return responseUtils.ok(res, newUser);
   },
 
   resPass: async (req, res) => {
-    try {
-      const { email, password, confirmPassword } = req.body;
-      const data = await authService.resetPassword(email, password, confirmPassword);
-      return responseUtils.ok(res, data);
-    } catch (error) {
-      return responseUtils.userError(res, error.message);
-    }
+    const { email, password } = req.body;
+    const data = await authService.resetPassword(email, password);
+    return responseUtils.ok(res, data);
   },
-
 };
 
 module.exports = authController;

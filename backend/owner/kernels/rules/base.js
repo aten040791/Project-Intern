@@ -62,6 +62,11 @@ class WithLocale
         return this;
     }
 
+    isArray() {
+        this.withLocale = this.withLocale.isArray().withMessage(stringUtils.capitalize(this.field)+" must be array").bail()
+        return this;
+    }
+
     isNumberic() {
         this.withLocale = this.withLocale.isNumeric().withMessage(stringUtils.capitalize(this.field)+" must be number").bail()
         return this;
@@ -74,6 +79,22 @@ class WithLocale
 
     get() {
         return this.withLocale
+    }
+
+    exist (sequelizeModel, field) {
+        this.withLocale = this.withLocale.custom(async (value) => {
+            const recordExist = await sequelizeModel.findOne({
+                where: {
+                    [field]:value
+                }
+            })
+
+            if (!recordExist) {
+                throw new Error(stringUtils.capitalize(this.field) + " does not exist")
+            }
+        }).bail();
+
+        return this;
     }
 
 }
