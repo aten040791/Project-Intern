@@ -8,9 +8,10 @@ module.exports = {
       [
         {
           username: "hoang",
-          email: "aaa@gmail.com",
+          email: "bbb@gmail.com",
+          phone: "0365203656",
           birthday: "2003-03-11",
-          password: "12345",
+          password: "hoang12345",
           address: "thanh hoa",
           role_id: 1,
           status: "active",

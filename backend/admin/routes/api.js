@@ -36,18 +36,35 @@ router.group("/auth", (router) => {
 });
 
 router.group("/users", admin, (router) => {
-  router.delete("/delete/:id", userController.deleteUser);
+  router.delete(
+    "/delete",
+    validate([userValidation.delete]),
+    userController.deleteUser
+  );
+  router.put(
+    "/update/:id",
+    validate([userValidation.update]),
+    userController.updateUser
+  );
   router.post(
     "/create",
     validate([userValidation.create]),
     userController.createUser
   );
-  router.get("/search", userController.searchUser);
+  router.get(
+    "/search",
+    validate([userValidation.index]),
+    userController.searchUser
+  );
   router.get("/", userController.index);
 });
 
 router.group("/categories", admin, (router) => {
-  router.delete("/delete/:id", categoryController.deleteCategory);
+  router.delete(
+    "/delete",
+    validate([categoryValidation.delete]),
+    categoryController.deleteCategory
+  );
   router.put(
     "/update/:id",
     validate([categoryValidation.update]),
@@ -58,12 +75,20 @@ router.group("/categories", admin, (router) => {
     validate([categoryValidation.create]),
     categoryController.createCategory
   );
-  router.get("/search", categoryController.searchCategory);
+  router.get(
+    "/search",
+    validate([categoryValidation.index]),
+    categoryController.searchCategory
+  );
   router.get("/", categoryController.index);
 });
 
 router.group("/languages", admin, (router) => {
-  router.delete("/delete/:id", languageController.deleteLanguage);
+  router.delete(
+    "/delete",
+    validate([languageValidation.delete]),
+    languageController.deleteLanguage
+  );
   router.put(
     "/update/:id",
     validate([languageValidation.update]),
@@ -74,7 +99,11 @@ router.group("/languages", admin, (router) => {
     validate([languageValidation.create]),
     languageController.createLanguage
   );
-  router.get("/search", languageController.searchLanguage);
+  router.get(
+    "/search",
+    validate([languageValidation.index]),
+    languageController.searchLanguage
+  );
   router.get("/", languageController.index);
 });
 
