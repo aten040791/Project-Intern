@@ -34,7 +34,7 @@ const postService = {
     return category;
   },
 
-  create: async (post) => {
+    create: async (post) => {
     const newPost = await db.Post.create(post);
     return newPost;
   },
