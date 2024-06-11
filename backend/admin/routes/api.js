@@ -26,8 +26,8 @@ const { auth, admin, user } = require("middlewares/authVerify");
 // })
 
 router.group("/auth", (router) => {
-  router.post("/sign-up", authController.register);
-  router.get(
+  // router.post("/sign-up", authController.register);
+  router.post(
     "/sign-in",
     validate([authValidation.index]),
     authController.login
