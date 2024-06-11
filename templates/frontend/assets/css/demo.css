@@ -439,3 +439,18 @@ body {
   max-height: none;
   line-height: 1.6rem;
 }
+
+.card-text-right{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: max-height 0.5s ease;
+  line-height: 1.6rem;
+}
+
+.text-muted{
+  float: right;
+  margin-top: 30px;
+  margin-bottom: -10px;
+}
