@@ -1,13 +1,17 @@
 const { LocalStorage } = require("node-localstorage");
 
 module.exports = {
-  setItem: (token) => {
+  setItem: (name, token) => {
     const localStorage = new LocalStorage("./scratch");
-    localStorage.setItem("token", token);
+    localStorage.setItem(`${name}`, token);
   },
   getItem: () => {
     const localStorage = new LocalStorage("./scratch");
     const token = localStorage.getItem("token");
     return token;
+  },
+  removeItem: (name) => {
+    const localStorage = new LocalStorage("./scratch");
+    localStorage.removeItem(`${name}`);
   },
 };

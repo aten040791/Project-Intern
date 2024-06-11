@@ -1,4 +1,7 @@
 const db = require("models/index");
+const { hash, compare } = require("kernels/hash/index");
+const { sign, signRefreshToken } = require("utils/jwtUtils");
+const { setItem, getItem, removeToken } = require("helpers/localStorage");
 
 module.exports = {
   getUser: async (user) => {
@@ -11,13 +14,6 @@ module.exports = {
       throw new Error("Email is not exists");
     }
   },
-  getRole: async (user) => {
-    const newuser = await db.User.findOne({ where: { email: user.email } });
-    const roleId = newuser.dataValues.role_id;
-    const role = await db.Role.findOne({ where: { id: roleId } });
-    const roleName = role.dataValues.name;
-    return roleName;
-  },
   createUser: async (user) => {
     const checkUser = await db.User.findOne({
       where: { email: user.email },
@@ -28,5 +24,32 @@ module.exports = {
     } else {
       throw new Error("Email existed");
     }
+  },
+  login: async (email, password) => {
+    const user = await db.User.findOne({ where: { email } });
+    const isPasswordValid = await compare(password, user.password);
+    if (!isPasswordValid) throw new Error("Invalid password");
+    const role = await db.Role.findOne({ where: { id: user.role_id } });
+    const access_token = sign(user.id, role.name);
+    const refresh_token = signRefreshToken(user.id, role);
+    setItem("accessToken", access_token);
+    setItem("refreshToken", refresh_token);
+    setItem("userID", user.id);
+    return {
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role_id: role.name,
+        created_at: user.createdAt,
+        updated_at: user.updatedAt,
+      },
+      access_token: access_token,
+      refresh_token: refresh_token,
+    };
+  },
+  logout: async (refreshToken) => {
+    // remove in localstorage
+    removeItem("refreshToken");
   },
 };
