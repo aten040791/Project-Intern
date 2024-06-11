@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
+const { sign, signRefreshToken } = require("utils/jwtUtils");
 const bcrypt = require("bcrypt");
 const db = require("models/index");
-
-const secretKey = process.env.JWT_SECRET_KEY;
 
 const authService = {
   login: async (email, password) => {
@@ -10,7 +9,8 @@ const authService = {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) throw new Error("Invalid password");
     const role = await db.Role.findOne({ where: { id: user.role_id } });
-    const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: "1y" });
+    const access_token = sign(user.id, role.name);
+    const refresh_token = signRefreshToken(user.id, role);
     return {
       user: {
         id: user.id,
@@ -20,12 +20,12 @@ const authService = {
         created_at: user.createdAt,
         updated_at: user.updatedAt,
       },
-      access_token: token,
+      access_token: access_token,
+      refresh_token: refresh_token,
     };
   },
 
   createUser: async (body) => {
-    console.log(body.email);
     const hashedPassword = await bcrypt.hash(body.password, 10);
     const newUser = await db.User.create({
       username: body.username,
