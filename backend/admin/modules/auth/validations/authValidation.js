@@ -10,18 +10,15 @@ const options = {
 };
 
 const sampleValidation = {
-  index: [
-    // new QueryWithLocale("email").isEmail().notEmpty(),
-    // new QueryWithLocale("password").isString().notEmpty().isLength(options),
-  ],
+  index: [],
   create: [
-    new BodyWithLocale("username").notEmpty(),
-    new BodyWithLocale("email").isEmail().notEmpty(),
-    new BodyWithLocale("password").notEmpty().isLength(options),
-    new BodyWithLocale("role_id").isNumberic().notEmpty(),
-    new BodyWithLocale("status").isString().notEmpty(),
+    // new BodyWithLocale("username").notEmpty(),
+    // new BodyWithLocale("email").notEmpty().isEmail(),
+    // new BodyWithLocale("password").notEmpty().isLength(options),
+    // new BodyWithLocale("role_id").isNumberic().notEmpty(),
+    // new BodyWithLocale("status").isString().notEmpty(),
   ],
-  delete: [new ParamWithLocale("id").notEmpty()],
+  delete: [],
 };
 
 module.exports = sampleValidation;

@@ -3,6 +3,7 @@ const {
   ParamWithLocale,
   QueryWithLocale,
 } = require("kernels/rules");
+
 const db = require("models/index");
 
 const languageValidation = {
@@ -12,7 +13,10 @@ const languageValidation = {
     //other rules goes here
   ],
   create: [
-    new BodyWithLocale("name").notEmpty().isString(),
+    new BodyWithLocale("name")
+      .notEmpty()
+      .isString()
+      .unique(db.Language, "name"),
     new BodyWithLocale("locale").isString().notEmpty(),
     new BodyWithLocale("flag").isString(),
   ],

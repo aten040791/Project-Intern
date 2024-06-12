@@ -130,7 +130,7 @@ class WithLocale {
 
         if (!recordExist) {
           throw new Error(
-            stringUtils.capitalize(this.field) + " must be unique"
+            stringUtils.capitalize(this.field) + " doesn't exist"
           );
         }
       })
