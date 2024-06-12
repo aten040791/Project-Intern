@@ -11,6 +11,7 @@ module.exports = {
   },
   createCategory: async (req, res) => {
     const category = req.body;
+    // creating slug
     category.slug = slugify(category.name, {
       lower: true, // convert to lower case
       strict: true, // remove special characters

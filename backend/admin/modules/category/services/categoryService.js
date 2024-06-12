@@ -7,15 +7,8 @@ module.exports = {
     return categories;
   },
   createCategory: async (ctg) => {
-    if (!ctg) {
-      throw new Error("Category is required");
-    }
     const category = await db.Category.create(ctg);
-    if (category) {
-      return category;
-    } else {
-      throw new Error("Can't create this category");
-    }
+    return category;
   },
   updateCategory: async (id, ctg) => {
     const category = await db.Category.update(ctg, { where: id });

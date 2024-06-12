@@ -12,14 +12,14 @@ module.exports = {
     }
   },
   // verifi token done
-  getUser: async (req, res, next) => {
-    const user = req.user;
-    if (user) {
-      return responseUtils.ok(res, { data: user });
-    } else {
-      return responseUtils.notFound(res);
-    }
-  },
+  // getUser: async (req, res, next) => {
+  //   const user = req.user;
+  //   if (user) {
+  //     return responseUtils.ok(res, { data: user });
+  //   } else {
+  //     return responseUtils.notFound(res);
+  //   }
+  // },
   // register
   // ! wrong
   // register: async (req, res) => {

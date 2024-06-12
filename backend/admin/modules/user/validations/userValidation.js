@@ -3,6 +3,7 @@ const {
   ParamWithLocale,
   QueryWithLocale,
 } = require("kernels/rules");
+
 const db = require("models/index");
 
 const options = {
@@ -14,7 +15,11 @@ const optionsKeySearch = {
   min: 3,
 };
 
-const sampleValidation = {
+const optionsPhone = {
+  min: 9,
+};
+
+const userValidation = {
   index: [
     // new BodyWithLocale("title").notEmpty(),
     //other rules goes here
@@ -22,23 +27,30 @@ const sampleValidation = {
     // new ParamWithLocale("keysearch").isLength(optionsKeySearch),
   ],
   create: [
-    new BodyWithLocale("username").notEmpty().isString(),
-    new BodyWithLocale("email").isEmail().notEmpty().isString(),
-    new BodyWithLocale("phone").isString(),
-    new BodyWithLocale("password").isLength(options).notEmpty().isString(),
-    new BodyWithLocale("role_id").isNumberic().notEmpty(),
+    new BodyWithLocale("username")
+      .notEmpty()
+      .isString()
+      .unique(db.User, "username"),
+    new BodyWithLocale("email")
+      .isEmail()
+      .notEmpty()
+      .isString()
+      .unique(db.User, "email"),
+    new BodyWithLocale("phone").isString().isLength(optionsPhone),
+    new BodyWithLocale("password").notEmpty().isString().isLength(options),
+    new BodyWithLocale("role_id").notEmpty().isNumberic(),
     new BodyWithLocale("status").isString(),
   ],
   delete: [new BodyWithLocale("ids").notEmpty()],
   update: [
-    new ParamWithLocale("id").notEmpty(),
+    new ParamWithLocale("id").notEmpty().exist(db.User, "id"),
     new BodyWithLocale("username").notEmpty().isString(),
-    new BodyWithLocale("email").isEmail().notEmpty().isString(),
-    new BodyWithLocale("phone").isString(),
-    new BodyWithLocale("password").isLength(options).notEmpty().isString(),
-    new BodyWithLocale("role_id").isNumberic().notEmpty(),
+    new BodyWithLocale("email").notEmpty().isString().isEmail(),
+    new BodyWithLocale("phone").isString().isLength(optionsPhone),
+    new BodyWithLocale("password").notEmpty().isLength(options).isString(),
+    new BodyWithLocale("role_id").notEmpty().isNumberic(),
     new BodyWithLocale("status").isString(),
   ],
 };
 
-module.exports = sampleValidation;
+module.exports = userValidation;

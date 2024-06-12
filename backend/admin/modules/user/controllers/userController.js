@@ -7,12 +7,8 @@ const siteController = require("modules/site/controllers/siteController");
 module.exports = {
   // todo: get all user
   index: async (req, res) => {
-    try {
-      const result = await userService.list();
-      return responseUtils.ok(res, { users: result });
-    } catch (error) {
-      return responseUtils.notFound(res);
-    }
+    const result = await userService.list();
+    return responseUtils.ok(res, { users: result });
     // try {
     //   const result = await userService.list();
     //   res.render("index", {
@@ -50,15 +46,15 @@ module.exports = {
     const user = req.body;
     const hashPW = await hash(user.password, 10);
     user.password = hashPW;
-    const newUser = await userService.updateUser(userId, user);
-    return responseUtils.ok(res, { user: newUser });
+    await userService.updateUser(userId, user);
+    return responseUtils.ok(res, { user: "Update successfull" });
   },
   searchUser: async (req, res) => {
     try {
       const { keysearch } = req.query;
       // const result = await userService.searchUser(keysearch);
       // return responseUtils.ok(res, { user: result });
-      const apiName = getApiName(req.originalUrl);
+      const apiName = getApiName(req.originalUrl); // req.originalUrl = user or languages or categories
       const result = await siteController.search(apiName, keysearch);
       return responseUtils.ok(res, { users: result });
     } catch (error) {
