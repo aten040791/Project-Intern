@@ -1,1 +1,158 @@
-<p>home works!</p>
+<div class="content-wrapper">
+    <div>
+        <div class="header-container"
+            style="display: flex; align-items: center; justify-content: space-between; margin: 10px 0px 30px 0px;">
+            <div class="title flex direction-col">
+                <h2 class="my-0">POST LIST</h2>
+            </div>
+            <div>
+                <a routerLink="/create-post" class="">
+                    <button class="btn btn-secondary add-item btn-primary">
+                        <span><fa-icon [icon]="faPlusSquare"></fa-icon><span class="d-none d-sm-inline-block">Create new</span></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="page-list bg-white">
+            <div class="card">
+                <div class="card-datatable table-responsive">
+                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap5">
+                        <div class="row" style="margin: 15px 0px 15px 0px;">
+                            <div id="DataTables_Table_1_filter" class="dataTables_filter">
+                                <div class="row">
+                                    <div class="col-md-4 px-0">
+                                        <div class="search-input ps-re">
+                                            <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08" href="#">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </a>
+                                            <input class="form-control ms-2" type="text" value="" placeholder="Search ..." />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 offset-md-4" style="text-align: right;">
+                                        <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span><fa-icon [icon]="faSliders"></fa-icon><span>Action</span></span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end m-0">
+                                            <a href="javascript:;" class="dropdown-item" id="update-language">
+                                                <span class="ms-1">Update language</span>
+                                            </a>
+                                            <a href="javascript:;" class="dropdown-item" id="update-category">
+                                                <span class="ms-1">Update category</span>
+                                            </a>
+                                            <a href="javascript:;" class="dropdown-item" id="update-status">
+                                                <span class="ms-1">Update status</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a href="javascript:;" class="dropdown-item text-danger delete-record align-items-center fs-15"
+                                                id="delete-record" (click)="deletePost(1)">
+                                                <span class="ms-1">Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="dt-fixedheader table border-top dataTable dtr-column" id="DataTables_Table_1"
+                            aria-describedby="DataTables_Table_1_info">
+                            <!-- Header của bảng -->
+                            <thead>
+                                <tr>
+                                    <th class="control sorting_disabled dtr-hidden" style="width: 0px; display: none;"
+                                        aria-label="">
+                                    </th>
+                                    <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
+                                        style="width: 18px;" data-col="1" aria-label="">
+                                        <input type="checkbox" class="form-check-input" id="select-all">
+                                    </th>
+                                    <th class="sorting" style="width: 250px;">Title</th>
+                                    <th class="sorting" style="width: 450px;">Content</th>
+                                    <th class="sorting">Date</th>
+                                    <th class="sorting">Category</th>
+                                    <th class="sorting">Locale</th>
+                                    <th class="sorting">Status</th>
+                                    <th class="sorting"
+                                        style="width: 120px; text-align-last: center;">Actions</th>
+                                </tr>
+                            </thead>
+                            <!-- Dữ liệu của bảng -->
+                            <tbody>
+                                <tr class="odd" *ngFor="let post of posts">
+                                    <td class="dt-checkboxes-cell"><input type="checkbox"
+                                            class="dt-checkboxes form-check-input"></td>
+                                    <td>
+                                        <div class="d-flex justify-content-start align-items-center">
+                                            <div class="d-flex flex-column"><span
+                                                    class="emp_name text-truncate">{{ post.title }}</span></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="card-text">
+                                            {{ post.content }}
+                                        </p>
+                                        <a href="#" class="read-more-btn">Read More ...</a>
+                                    </td>
+                                    <td>{{ post.date }}</td>
+                                    <td>{{ post.category }}</td>
+                                    <td>{{ post.language }}</td>
+                                    <td><span [ngClass]="{'badge bg-label-danger': post.status === 'Hidden', 'badge bg-label-success': post.status === 'Professional'}">{{ post.status }}</span></td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <fa-icon [icon]="faGear"></fa-icon>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end m-0">
+                                                <a routerLink="/update-post" class="dropdown-item">
+                                                    <fa-icon [icon]="faEdit"></fa-icon>
+                                                    <span class="ms-1">Update</span></a>
+                                                <a routerLink="/detail-post" class="dropdown-item">
+                                                    <fa-icon [icon]="faEye"></fa-icon>
+                                                    <span class="ms-1">Details</span></a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="javascript:;" (click)="deletePost(1)"
+                                                    class="dropdown-item text-danger delete-record align-items-center fs-15"
+                                                    data-id="#">
+                                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                                    <span class="ms-1">Delete</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!-- Footer của bảng -->
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <!-- Phân trang -->
+                        <div class="row" style="margin-top: 40px;">
+                            <div class="col-sm-6 d-flex" style="padding-left: 30px;">
+                                <div class="col-md-2 text-center me-3">
+                                    <div class="dataTables_length" id="DataTables_Table_0_length">
+                                        <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                            class="form-select">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <nav aria-label="Page navigation example" style="float: right;">
+                                    <ul class="pagination">
+                                        <!-- Pagination code goes here -->
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -5,11 +5,7 @@
   "projects": {
     "owner": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -24,15 +20,20 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css",
+              "src/assets/vendor/css/core.css",
+              "src/assets/vendor/css/theme-default.css",
+              "src/assets/css/demo.css",
+              "src/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css",
+              "src/assets/vendor/css/userStyle.css"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {
@@ -87,13 +88,12 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -102,6 +102,6 @@
     }
   },
   "cli": {
-    "analytics": "d1a523b7-53e7-4d67-9bb6-f6d3acd47217"
+    "analytics": "4877f01a-616d-4428-976d-fe714ab62782"
   }
 }
