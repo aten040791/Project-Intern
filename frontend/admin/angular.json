@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/admin",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -32,12 +32,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": [
+              "src/assets/js/checkboxall.js",
+              "src/assets/js/pagination.js",
+              "src/assets/vendor/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -56,9 +55,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -67,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "admin:build:production"
+              "browserTarget": "admin:build:production"
             },
             "development": {
-              "buildTarget": "admin:build:development"
+              "browserTarget": "admin:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "admin:build"
+            "browserTarget": "admin:build"
           }
         },
         "test": {
@@ -97,10 +99,17 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/checkboxall.js",
+              "src/assets/js/pagination.js",
+              "src/assets/vendor/js/main.js"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "2dbe7ec6-ed80-4fa7-b36f-0dbfddce946f"
   }
 }
