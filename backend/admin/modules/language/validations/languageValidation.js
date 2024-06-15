@@ -9,7 +9,7 @@ const db = require("models/index");
 const languageValidation = {
   index: [
     // new BodyWithLocale("title").notEmpty(),
-    new QueryWithLocale("keysearch").notEmpty(),
+    new QueryWithLocale("search").notEmpty(),
     //other rules goes here
   ],
   create: [

@@ -1,5 +1,6 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   // todo: selet * from users
@@ -10,24 +11,21 @@ module.exports = {
   },
   // todo: insert into user values(...)
   createUser: async (user) => {
+    const hashPW = await bcrypt.hash(user.password, 10);
+    user.password = hashPW;
     const users = await db.User.create(user);
     return users;
   },
   // todo: delete from users where id = userId
   deleteUser: async (ids) => {
-    // if (!userId) throw new Error("ID is require");
-    // const user = await db.User.destroy({
-    //   where: userId,
-    // });
-
-    // if (user) return user;
-    // else throw new Error("Can't Delete User");
     const users = await db.User.findAll({ where: { id: ids } });
     if (users.length === 0) throw new Error("No Users found");
     await db.User.destroy({ where: { id: ids } });
     return { message: "Users deleted successfully" };
   },
   updateUser: async (userId, user) => {
+    const hashPW = await bcrypt.hash(user.password, 10);
+    user.password = hashPW;
     const result = await db.User.update(user, {
       where: userId,
     });
@@ -40,7 +38,7 @@ module.exports = {
   //     where: {
   //       [Op.or]: [
   //         Sequelize.literal(
-  //           `MATCH(username, email) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
+  //           `MATCH(username, email, phone) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
   //         ),
   //       ],
   //     },

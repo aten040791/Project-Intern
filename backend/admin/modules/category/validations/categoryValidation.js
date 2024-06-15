@@ -9,7 +9,7 @@ const categoryValidation = {
   index: [
     // new BodyWithLocale("title").notEmpty(),
     //other rules goes here
-    new QueryWithLocale("keysearch").notEmpty(),
+    new QueryWithLocale("search").notEmpty(),
   ],
   create: [
     new BodyWithLocale("name")

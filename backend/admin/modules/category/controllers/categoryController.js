@@ -35,11 +35,11 @@ module.exports = {
   },
   searchCategory: async (req, res) => {
     try {
-      const { keysearch } = req.query;
-      // const result = await categoryService.searchCategory(keysearch);
+      const { search } = req.query;
+      // const result = await categoryService.searchCategory(search);
       // return responseUntils.ok(res, { category: result });
       const apiName = getApiName(req.originalUrl);
-      const result = await siteController.search(apiName, keysearch);
+      const result = await siteController.search(apiName, search);
       return responseUntils.ok(res, { categories: result });
     } catch (error) {
       return responseUntils.errorAdmin(res, error.message);
