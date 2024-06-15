@@ -23,7 +23,7 @@ const userValidation = {
   index: [
     // new BodyWithLocale("title").notEmpty(),
     //other rules goes here
-    new QueryWithLocale("keysearch").notEmpty(),
+    new QueryWithLocale("search").notEmpty(),
     // new ParamWithLocale("keysearch").isLength(optionsKeySearch),
   ],
   create: [

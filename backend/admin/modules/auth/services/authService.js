@@ -1,7 +1,7 @@
 const db = require("models/index");
-const { hash, compare } = require("kernels/hash/index");
 const { sign, signRefreshToken } = require("utils/jwtUtils");
 const { setItem, getItem, removeToken } = require("helpers/localStorage");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   // getUser: async (user) => {
@@ -14,20 +14,9 @@ module.exports = {
   //     throw new Error("Email is not exists");
   //   }
   // },
-  // createUser: async (user) => {
-  //   const checkUser = await db.User.findOne({
-  //     where: { email: user.email },
-  //   });
-  //   if (!checkUser) {
-  //     const newUser = await db.User.create(user);
-  //     return newUser;
-  //   } else {
-  //     throw new Error("Email existed");
-  //   }
-  // },
   login: async (email, password) => {
     const user = await db.User.findOne({ where: { email } });
-    const isPasswordValid = await compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) throw new Error("Invalid password");
     const role = await db.Role.findOne({ where: { id: user.role_id } });
     const access_token = sign(user.id, role.name);

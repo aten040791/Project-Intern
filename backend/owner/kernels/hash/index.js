@@ -1,8 +1,5 @@
 const hash = {
-    make: () => {
+  make: () => {},
+};
 
-    }
-}
-
-
-module.exports = hash
+module.exports = hash;

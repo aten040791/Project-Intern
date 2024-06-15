@@ -11,34 +11,6 @@ module.exports = {
       return responseUtils.errorAdmin(res, error.message);
     }
   },
-  // verifi token done
-  // getUser: async (req, res, next) => {
-  //   const user = req.user;
-  //   if (user) {
-  //     return responseUtils.ok(res, { data: user });
-  //   } else {
-  //     return responseUtils.notFound(res);
-  //   }
-  // },
-  // register
-  // ! wrong
-  // register: async (req, res) => {
-  //   try {
-  //     const user = req.body;
-  //     const newUser = await authService.createUser(user);
-  //     return responseUtils.ok(res, { user: newUser });
-  //   } catch (error) {
-  //     return responseUtils.invalidated(res, "Error Sign Up");
-  //   }
-  // },
-  // newAccessToken: async (req, res) => {
-  //   try {
-  //     const { refresh_token } = req.body;
-  //     const result = await authService.newAccessToken(refresh_token);
-  //   } catch (error) {
-  //     return responseUtils.errorAdmin(res, error.message);
-  //   }
-  // },
   logout: async (req, res) => {
     try {
       const { refreshToken } = req.body;

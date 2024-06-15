@@ -29,10 +29,10 @@ module.exports = {
   },
   searchLanguage: async (req, res) => {
     try {
-      const { keysearch } = req.query;
+      const { search } = req.query;
       // const result = await languageService.searchLanguage(keysearch);
       const apiName = getApiName(req.originalUrl);
-      const result = await siteController.search(apiName, keysearch);
+      const result = await siteController.search(apiName, search);
       return responseUntils.ok(res, { languages: result });
     } catch (error) {
       return responseUntils.errorAdmin(res, error.message);
