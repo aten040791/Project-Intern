@@ -1,20 +1,18 @@
-import { Component, AfterViewInit } from '@angular/core';
-
-declare function clickCheckedAll(): void;
-declare function initPagination(): void;
+import { Component } from '@angular/core';
+import { SelectAllService } from 'src/app/features/select-all/services/select-all.service';
 
 @Component({
   selector: 'app-language-page',
   templateUrl: './language-page.component.html',
   styleUrls: ['./language-page.component.scss']
 })
-export class LanguagePageComponent implements AfterViewInit {
+export class LanguagePageComponent {
 
-  constructor() { }
+  constructor(private selectAllService: SelectAllService) { }
 
-  ngAfterViewInit(): void {
-    clickCheckedAll(); 
-    initPagination();
+  // from SelectAllService
+  handleCheckBox(event: any): void {
+    this.selectAllService.selectAll(event)
   }
   
 }

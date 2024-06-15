@@ -19,7 +19,7 @@ import { LanguagePageComponent } from './pages/language-page/language-page.compo
     NavComponent,
     SideBarComponent,
     CategoryPageComponent,
-    LanguagePageComponent
+    LanguagePageComponent,
   ],
   imports: [
     BrowserModule,

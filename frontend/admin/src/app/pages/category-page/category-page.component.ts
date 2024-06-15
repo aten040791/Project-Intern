@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
-declare function clickCheckedAll(): void;
-declare function initPagination(): void;
+import { SelectAllService } from 'src/app/features/select-all/services/select-all.service';
 
 @Component({
   selector: 'app-category-page',
@@ -10,11 +8,11 @@ declare function initPagination(): void;
 })
 export class CategoryPageComponent {
 
-  constructor() { }
+  constructor(private selectAllService: SelectAllService) { }
 
-  ngAfterViewInit(): void {
-    clickCheckedAll(); 
-    initPagination();
+  // from SelectAllService
+  handleCheckBox(event: any): void {
+    this.selectAllService.selectAll(event)
   }
   
 }
