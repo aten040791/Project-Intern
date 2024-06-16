@@ -324,6 +324,7 @@ body {
   display: none;
   max-height: 200px;
   overflow-y: auto;
+  text-align: left; 
 }
 
 .select-items div {

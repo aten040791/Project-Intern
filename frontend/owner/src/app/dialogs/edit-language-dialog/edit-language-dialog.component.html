@@ -1,0 +1,48 @@
+<div class="modal" id="edit-language-dialog">
+    <div class="modal-dialog dialog-fixed bd-1-main br-8 bg-white fade">
+      <div class="modal-content">
+        <div class="modal-header flex justify-sb">
+          <div class="dialog-title">
+            <h3 class="fs-18 text-title fw-600 mb-0">Update Language</h3>
+          </div>
+          <div class="dialog-btn">
+            <a class="text-close text-decoration-none cursor" (click)="closeModal()">
+              <div class="icon fs-20"><i class="fa-solid fa-xmark"></i></div>
+            </a>
+          </div>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="mb-3">
+                  <div>
+                    <div class="custom-select" id="language-select">
+                      <div class="select-selected">-- Choose language --</div>
+                      <div class="select-items">
+                        <div data-value="vn"><img src="https://tienichhay.net/uploads/flags/flat/24x24/vn.png"> Viet Nam</div>
+                        <div data-value="gb"><img src="https://tienichhay.net/uploads/flags/flat/24x24/gb.png"> English</div>
+                        <div data-value="cn"><img src="https://tienichhay.net/uploads/flags/flat/24x24/cn.png"> China</div>
+                        <div data-value="kr"><img src="https://tienichhay.net/uploads/flags/flat/24x24/kr.png"> Korea</div>
+                      </div>
+                    </div>
+                    <select class="form-select" id="language" required style="display:none;">
+                      <option value="" selected disabled>--Choose language--</option>
+                      <option value="vn">Viet Nam</option>
+                      <option value="bg">English</option>
+                      <option value="cn">China</option>
+                      <option value="kr">Korea</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="float: right;">
+              <button type="submit" class="btn_ok btn btn-primary data-submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

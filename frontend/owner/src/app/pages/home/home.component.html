@@ -29,25 +29,23 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 offset-md-4" style="text-align: right;">
-                                        <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!checkboxChecked">
                                             <span><fa-icon [icon]="faSliders"></fa-icon><span>Action</span></span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end m-0">
-                                            <a href="javascript:;" class="dropdown-item" id="update-language">
-                                                <span class="ms-1">Update language</span>
+                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-language-dialog')">
+                                              <span class="ms-1">Update language</span>
                                             </a>
-                                            <a href="javascript:;" class="dropdown-item" id="update-category">
-                                                <span class="ms-1">Update category</span>
+                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-status-dialog')">
+                                              <span class="ms-1">Update status</span>
                                             </a>
-                                            <a href="javascript:;" class="dropdown-item" id="update-status">
-                                                <span class="ms-1">Update status</span>
+                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-category-dialog')">
+                                              <span class="ms-1">Update category</span>
                                             </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="javascript:;" class="dropdown-item text-danger delete-record align-items-center fs-15"
-                                                id="delete-record" (click)="deletePost(1)">
-                                                <span class="ms-1">Delete</span>
-                                            </a>
-                                        </div>
+                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('delete-mutilpal-dialog')">
+                                                <span class="ms-1">Delete post</span>
+                                              </a>
+                                          </div>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +53,6 @@
 
                         <table class="dt-fixedheader table border-top dataTable dtr-column" id="DataTables_Table_1"
                             aria-describedby="DataTables_Table_1_info">
-                            <!-- Header của bảng -->
                             <thead>
                                 <tr>
                                     <th class="control sorting_disabled dtr-hidden" style="width: 0px; display: none;"
@@ -63,7 +60,7 @@
                                     </th>
                                     <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
                                         style="width: 18px;" data-col="1" aria-label="">
-                                        <input type="checkbox" class="form-check-input" id="select-all">
+                                        <input type="checkbox" class="form-check-input" id="select-all" [(ngModel)]="selectAll" (change)="checkAll($event)">
                                     </th>
                                     <th class="sorting" style="width: 250px;">Title</th>
                                     <th class="sorting" style="width: 450px;">Content</th>
@@ -75,15 +72,14 @@
                                         style="width: 120px; text-align-last: center;">Actions</th>
                                 </tr>
                             </thead>
-                            <!-- Dữ liệu của bảng -->
                             <tbody>
-                                <tr class="odd" *ngFor="let post of posts">
-                                    <td class="dt-checkboxes-cell"><input type="checkbox"
-                                            class="dt-checkboxes form-check-input"></td>
+                                <tr class="odd" *ngFor="let post of posts | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                                    <td class="dt-checkboxes-cell">
+                                        <input type="checkbox" class="dt-checkboxes form-check-input" [(ngModel)]="post.selected" (change)="updateSelectAllState()">
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-start align-items-center">
-                                            <div class="d-flex flex-column"><span
-                                                    class="emp_name text-truncate">{{ post.title }}</span></div>
+                                            <div class="d-flex flex-column"><span class="emp_name text-truncate">{{ post.title }}</span></div>
                                         </div>
                                     </td>
                                     <td>
@@ -110,7 +106,7 @@
                                                     <fa-icon [icon]="faEye"></fa-icon>
                                                     <span class="ms-1">Details</span></a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="javascript:;" (click)="deletePost(1)"
+                                                <a href="javascript:;" (click)="deletePost(posts.indexOf(post))"
                                                     class="dropdown-item text-danger delete-record align-items-center fs-15"
                                                     data-id="#">
                                                     <fa-icon [icon]="faTrash"></fa-icon>
@@ -121,38 +117,31 @@
                                     </td>
                                 </tr>
                             </tbody>
-                            <!-- Footer của bảng -->
                             <tfoot>
                             </tfoot>
                         </table>
-                        <!-- Phân trang -->
-                        <div class="row" style="margin-top: 40px;">
-                            <div class="col-sm-6 d-flex" style="padding-left: 30px;">
+                        <div class="row" style="margin: 15px 0px 15px 0px;">
+                            <div class="col-md-6" style="text-align: right;">
                                 <div class="col-md-2 text-center me-3">
-                                    <div class="dataTables_length" id="DataTables_Table_0_length">
-                                        <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                            class="form-select">
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                    </div>
+                                    <!-- Items per page selector -->
+                                    <select id="itemsPerPageSelect" class="form-select" [(ngModel)]="itemsPerPage"
+                                        (change)="onItemsPerPageChange($event)">
+                                        <option *ngFor="let option of availableItemsPerPage" [value]="option">{{ option }}</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <nav aria-label="Page navigation example" style="float: right;">
-                                    <ul class="pagination">
-                                        <!-- Pagination code goes here -->
-                                    </ul>
-                                </nav>
+                            <div class="col-md-6" style="text-align: right;">
+                                <!-- Pagination -->
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
+<app-edit-language-dialog></app-edit-language-dialog>
+<app-edit-status-dialog></app-edit-status-dialog>
+<app-edit-category-dialog></app-edit-category-dialog>
+<app-delete-mutipal-post></app-delete-mutipal-post>
