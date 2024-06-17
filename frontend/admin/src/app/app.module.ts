@@ -10,6 +10,10 @@ import { SideBarComponent } from './layouts/side-bar/side-bar.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguagePageComponent } from './pages/language-page/language-page.component';
+import { AddUserComponent } from './features/add/add-user/components/add-user/add-user.component';
+import { AddCategoryComponent } from './features/add/add-category/components/add-category/add-category.component';
+import { AddLanguageComponent } from './features/add/add-language/components/add-language/add-language.component';
+import { DeleteComponent } from './features/delete/delete/components/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,9 @@ import { LanguagePageComponent } from './pages/language-page/language-page.compo
     SideBarComponent,
     CategoryPageComponent,
     LanguagePageComponent,
+    AddUserComponent, 
+    AddCategoryComponent, 
+    AddLanguageComponent, DeleteComponent
   ],
   imports: [
     BrowserModule,

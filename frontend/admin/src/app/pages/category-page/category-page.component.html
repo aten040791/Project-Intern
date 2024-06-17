@@ -16,6 +16,7 @@
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasAddUser"
+              (click)="toggleDelete()"
             >
               <span
                 ><i class="fa-regular fa-trash-can"></i
@@ -31,6 +32,7 @@
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasAddUser"
+              (click)="toggleShow()"
             >
               <span
                 ><i class="bx bx-plus me-0 me-sm-1"></i
@@ -253,3 +255,6 @@
 
   <div class="content-backdrop fade"></div>
 </div>
+
+<app-add-category [isShow]="isShow" (close)="toggleShow()"></app-add-category>
+<app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>

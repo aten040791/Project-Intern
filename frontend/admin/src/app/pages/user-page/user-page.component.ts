@@ -9,9 +9,21 @@ import { SelectAllService } from 'src/app/features/select-all/services/select-al
 export class UserPageComponent {
   constructor(private selectAllService: SelectAllService) {}
 
+  isShow:boolean = false;
+  isDelete: boolean = false;
+
   // from SelectAllService
   handleCheckBox(event: any): void {
     this.selectAllService.selectAll(event)
+  }
+
+  // Add new user
+  toggleShow(): void {
+    this.isShow = !this.isShow
+  }
+
+  toggleDelete(): void {
+    this.isDelete = !this.isDelete
   }
 
 }

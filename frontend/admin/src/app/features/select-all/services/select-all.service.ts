@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SelectAllService {
+  
   selectAll(event: any): void {
     const checked = event.target.checked
 

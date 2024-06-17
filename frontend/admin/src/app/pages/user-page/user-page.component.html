@@ -15,6 +15,7 @@
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasAddUser"
+            (click)="toggleDelete()"
           >
             <span
               ><i class="fa-regular fa-trash-can"></i
@@ -30,11 +31,12 @@
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasAddUser"
+            (click)="toggleShow()"
           >
-            <span
-              ><i class="bx bx-plus me-0 me-sm-1"></i
-              ><span class="d-none d-sm-inline-block">Add New User</span></span
-            >
+            <span>
+              <i class="bx bx-plus me-0 me-sm-1"></i>
+              <span class="d-none d-sm-inline-block">Add New User</span>
+            </span>
           </button>
         </div>
         <div class="card-header border-bottom">
@@ -803,3 +805,7 @@
     </div>
   </div>
 </div>
+
+<!-- add user -->
+<app-add-user [isShow]="isShow" (close)="toggleShow()"></app-add-user>
+<app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>

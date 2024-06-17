@@ -10,9 +10,20 @@ export class CategoryPageComponent {
 
   constructor(private selectAllService: SelectAllService) { }
 
+  isShow:boolean = false;
+  isDelete:boolean = false;
+
   // from SelectAllService
   handleCheckBox(event: any): void {
     this.selectAllService.selectAll(event)
   }
+
+  toggleShow(): void {
+    this.isShow = !this.isShow
+  }
   
+  toggleDelete(): void {
+    this.isDelete = !this.isDelete
+  }
+
 }
