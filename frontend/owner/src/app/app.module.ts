@@ -4,6 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +44,7 @@ import { DeleteMutipalPostComponent } from './dialogs/delete-mutipal-post/delete
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
 
   ],
   providers: [],

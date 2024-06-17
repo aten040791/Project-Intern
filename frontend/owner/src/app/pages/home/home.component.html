@@ -83,10 +83,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="card-text">
-                                            {{ post.content }}
+                                        <p class="card-text" [class.read-more]="isReadMore[post.id]">
+                                          {{ post.content }}
                                         </p>
-                                        <a href="#" class="read-more-btn">Read More ...</a>
+                                        <a href="#" (click)="toggleReadMore($event, post.id)" class="read-more-btn">
+                                          {{ isReadMore[post.id] ? 'Read Less' : 'Read More' }}
+                                        </a>
                                     </td>
                                     <td>{{ post.date }}</td>
                                     <td>{{ post.category }}</td>
