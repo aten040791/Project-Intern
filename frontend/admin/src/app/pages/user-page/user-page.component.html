@@ -61,8 +61,9 @@
                   name="DataTables_Table_0_length"
                   aria-controls="DataTables_Table_0"
                   class="form-select"
+                  (change)="handleItemsPerPage($event)"
                 >
-                  <option value="10">10</option>
+                  <option value="10" selected>10</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
                   <option value="100">100</option>
@@ -102,20 +103,35 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr class="odd">
+              <tr
+                *ngFor="
+                  let paginatedItem of paginatedItems;
+                  let even = even;
+                  let odd = odd
+                "
+                [ngClass]="{ odd: odd, even: even }"
+              >
                 <td class="dt-checkboxes-cell">
                   <input
                     type="checkbox"
                     class="dt-checkboxes form-check-input"
                   />
                 </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
+                <td>{{ paginatedItem.id }}</td>
+                <td>{{ paginatedItem.username }}</td>
+                <td>{{ paginatedItem.email }}</td>
+                <td>{{ paginatedItem.phone }}</td>
+                <td>{{ paginatedItem.role }}</td>
                 <td>
-                  <span class="badge bg-label-success me-1">Active</span>
+                  <span
+                    class="badge me-1"
+                    [ngClass]="{
+                      'bg-label-success': paginatedItem.status === 'active',
+                      'bg-label-secondary': paginatedItem.status === 'inactive'
+                    }"
+                  >
+                    {{ paginatedItem.status }}
+                  </span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -129,7 +145,11 @@
                       ></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
+                      <a
+                        routerLink="/users/view-detail/{{ paginatedItem.id }}"
+                        class="dropdown-item"
+                        (click)="initItem(paginatedItem)"
+                      >
                         <i class="fa-regular fa-eye"></i>
                         <span class="ms-1">Details</span>
                       </a>
@@ -137,6 +157,7 @@
                       <a
                         href="javascript:;"
                         class="dropdown-item text-primary delete-record align-items-center fs-15"
+                        (click)="toggleEdit(); initItem(paginatedItem)"
                       >
                         <i class="fa-regular fa-pen-to-square"></i>
                         <span class="ms-1">Edit</span>
@@ -145,568 +166,7 @@
                       <a
                         href="javascript:;"
                         class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="even">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="odd">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="even">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="odd">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="even">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="odd">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="even">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="odd">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="even">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-              <tr class="odd">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                        <span class="ms-1">Delete</span>
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="even">
-                <td class="dt-checkboxes-cell">
-                  <input
-                    type="checkbox"
-                    class="dt-checkboxes form-check-input"
-                  />
-                </td>
-                <td>#1</td>
-                <td>hoang</td>
-                <td>hadinhhoang041104@gmail.com</td>
-                <td>0365203656</td>
-                <td>admin</td>
-                <td>
-                  <span class="badge bg-label-success me-1">Active</span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <button
-                      class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i
-                        class="bx bx-dots-vertical-rounded menu-icon tf-icons"
-                      ></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end m-0" style="">
-                      <a href="ViewDetailUser.html" class="dropdown-item">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="ms-1">Details</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-primary delete-record align-items-center fs-15"
-                      >
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <span class="ms-1">Edit</span>
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a
-                        href="javascript:;"
-                        class="dropdown-item text-danger delete-record align-items-center fs-15"
+                        (click)="toggleDelete()"
                       >
                         <i class="fa-regular fa-trash-can"></i>
                         <span class="ms-1">Delete</span>
@@ -718,89 +178,11 @@
             </tbody>
           </table>
         </div>
-        <div class="row mx-2">
-          <div class="col-sm-12 col-md-6">
-            <div
-              class="dataTables_info"
-              id="DataTables_Table_0_info"
-              role="status"
-              aria-live="polite"
-            >
-              1 - 8 of 8 items
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-6">
-            <div
-              class="dataTables_paginate paging_simple_numbers"
-              id="DataTables_Table_0_paginate"
-            >
-              <ul class="pagination align-items-center justify-content-end">
-                <li
-                  class="paginate_button page-item previous disabled"
-                  id="DataTables_Table_0_previous"
-                >
-                  <a
-                    aria-controls="DataTables_Table_0"
-                    aria-disabled="true"
-                    role="link"
-                    data-dt-idx="previous"
-                    tabindex="-1"
-                    class="page-link"
-                    >Previous</a
-                  >
-                </li>
-                <li class="paginate_button page-item active">
-                  <a
-                    href="#"
-                    aria-controls="DataTables_Table_0"
-                    role="link"
-                    aria-current="page"
-                    data-dt-idx="0"
-                    tabindex="0"
-                    class="page-link"
-                    >1</a
-                  >
-                </li>
-                <li class="paginate_button page-item">
-                  <a
-                    href="#"
-                    aria-controls="DataTables_Table_0"
-                    role="link"
-                    data-dt-idx="1"
-                    tabindex="0"
-                    class="page-link"
-                    >2</a
-                  >
-                </li>
-                <li class="paginate_button page-item">
-                  <a
-                    href="#"
-                    aria-controls="DataTables_Table_0"
-                    role="link"
-                    data-dt-idx="2"
-                    tabindex="0"
-                    class="page-link"
-                    >3</a
-                  >
-                </li>
-                <li
-                  class="paginate_button page-item next"
-                  id="DataTables_Table_0_next"
-                >
-                  <a
-                    href="#"
-                    aria-controls="DataTables_Table_0"
-                    role="link"
-                    data-dt-idx="next"
-                    tabindex="0"
-                    class="page-link"
-                    >Next</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <app-pagination
+          [items]="items"
+          [itemsPerPage]="itemsPerPage"
+          (paginatedItems)="handlePaginatedItems($event)"
+        ></app-pagination>
       </div>
     </div>
   </div>
@@ -809,3 +191,4 @@
 <!-- add user -->
 <app-add-user [isShow]="isShow" (close)="toggleShow()"></app-add-user>
 <app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>
+<app-edit-user [isShowEdit]="isShowEdit" (close)="toggleEdit()"></app-edit-user>

@@ -70,6 +70,7 @@
                     name="DataTables_Table_0_length"
                     aria-controls="DataTables_Table_0"
                     class="form-select"
+                    (change)="handleItemsPerPage($event)"
                   >
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -110,22 +111,28 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                <tr class="odd" data-index="1">
+                <tr
+                  [ngClass]="{ odd: odd, even: even }"
+                  *ngFor="
+                    let paginatedItem of paginatedItems;
+                    let even = even;
+                    let odd = odd
+                  "
+                >
                   <td class="dt-checkboxes-cell">
                     <input
                       type="checkbox"
                       class="dt-checkboxes form-check-input"
                     />
                   </td>
-                  <td>#1</td>
-                  <td>Viet Nam</td>
-                  <td>vi</td>
+                  <td>{{ paginatedItem.id }}</td>
+                  <td>{{ paginatedItem.name }}</td>
+                  <td>{{ paginatedItem.locale }}</td>
                   <td>
                     <div class="avatar-wrapper">
                       <div class="flag">
                         <img
-                          class=""
-                          src="../assets/img/avatars/vn_flag.png"
+                          [src]="paginatedItem.flag"
                           alt=""
                           width="32"
                           height="20"
@@ -134,137 +141,30 @@
                     </div>
                   </td>
                   <td>
-                    <span class="badge bg-label-success me-1">active</span>
+                    <span
+                      class="badge me-1"
+                      [ngClass]="{
+                      'bg-label-success': paginatedItem.status === 'active',
+                      'bg-label-secondary': paginatedItem.status === 'inactive',
+                    }"
+                      >{{ paginatedItem.status }}</span
+                    >
                   </td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <a href="javascript:;" class="mr-8 text-primary cursor">
+                      <a
+                        class="mr-8 text-primary cursor"
+                        (click)="toggleEdit()"
+                      >
                         <div class="icon fs-14">
                           <i class="bx bx-edit menu-icon tf-icons"></i>
                         </div>
                       </a>
-                      <a href="javascript:;" class="mr-8 text-danger cursor">
-                        <div class="icon fs-14">
-                          <i class="menu-icon tf-icons bx bx-trash"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="even" data-index="2">
-                  <td class="dt-checkboxes-cell">
-                    <input
-                      type="checkbox"
-                      class="dt-checkboxes form-check-input"
-                    />
-                  </td>
-                  <td>#2</td>
-                  <td>English</td>
-                  <td>en</td>
-                  <td>
-                    <div class="avatar-wrapper">
-                      <div class="flag">
-                        <img
-                          src="../assets/img/avatars/en_flag.jpg"
-                          alt=""
-                          width="32"
-                          height="20"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="badge bg-label-secondary me-1">inactive</span>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <a href="javascript:;" class="mr-8 text-primary cursor">
-                        <div class="icon fs-14">
-                          <i class="bx bx-edit menu-icon tf-icons"></i>
-                        </div>
-                      </a>
-                      <a href="javascript:;" class="mr-8 text-danger cursor">
-                        <div class="icon fs-14">
-                          <i class="menu-icon tf-icons bx bx-trash"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="odd" data-index="3">
-                  <td class="dt-checkboxes-cell">
-                    <input
-                      type="checkbox"
-                      class="dt-checkboxes form-check-input"
-                    />
-                  </td>
-                  <td>#1</td>
-                  <td>Viet Nam</td>
-                  <td>vi</td>
-                  <td>
-                    <div class="avatar-wrapper">
-                      <div class="flag">
-                        <img
-                          class=""
-                          src="../assets/img/avatars/vn_flag.png"
-                          alt=""
-                          width="32"
-                          height="20"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="badge bg-label-secondary me-1">inactive</span>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <a href="javascript:;" class="mr-8 text-primary cursor">
-                        <div class="icon fs-14">
-                          <i class="bx bx-edit menu-icon tf-icons"></i>
-                        </div>
-                      </a>
-                      <a href="javascript:;" class="mr-8 text-danger cursor">
-                        <div class="icon fs-14">
-                          <i class="menu-icon tf-icons bx bx-trash"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="even" data-index="4">
-                  <td class="dt-checkboxes-cell">
-                    <input
-                      type="checkbox"
-                      class="dt-checkboxes form-check-input"
-                    />
-                  </td>
-                  <td>#2</td>
-                  <td>English</td>
-                  <td>en</td>
-                  <td>
-                    <div class="avatar-wrapper">
-                      <div class="flag">
-                        <img
-                          src="../assets/img/avatars/en_flag.jpg"
-                          alt=""
-                          width="32"
-                          height="20"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <span class="badge bg-label-secondary me-1">inactive</span>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <a href="javascript:;" class="mr-8 text-primary cursor">
-                        <div class="icon fs-14">
-                          <i class="bx bx-edit menu-icon tf-icons"></i>
-                        </div>
-                      </a>
-                      <a href="javascript:;" class="mr-8 text-danger cursor">
+                      <a
+                        href="javascript:;"
+                        class="mr-8 text-danger cursor"
+                        (click)="toggleDelete()"
+                      >
                         <div class="icon fs-14">
                           <i class="menu-icon tf-icons bx bx-trash"></i>
                         </div>
@@ -275,28 +175,11 @@
               </tbody>
             </table>
           </div>
-          <div class="row mx-2">
-            <div class="col-sm-12 col-md-6">
-              <div
-                class="dataTables_info"
-                id="DataTables_Table_0_info"
-                role="status"
-                aria-live="polite"
-              >
-                1 - 8 of 8 items
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-              <div
-                class="dataTables_paginate paging_simple_numbers"
-                id="DataTables_Table_0_paginate"
-              >
-                <ul
-                  class="pagination align-items-center justify-content-end"
-                ></ul>
-              </div>
-            </div>
-          </div>
+          <app-pagination
+            [items]="items"
+            [itemsPerPage]="itemsPerPage"
+            (paginatedItems)="handlePaginatedItems($event)"
+          ></app-pagination>
         </div>
       </div>
     </div>
@@ -308,3 +191,7 @@
 <!-- Content wrapper -->
 <app-add-language [isShow]="isShow" (close)="toggleShow()"></app-add-language>
 <app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>
+<app-edit-language
+  [isShowEdit]="isShowEdit"
+  (close)="toggleEdit()"
+></app-edit-language>

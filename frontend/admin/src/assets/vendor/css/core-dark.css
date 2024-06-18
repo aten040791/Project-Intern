@@ -5300,7 +5300,7 @@ textarea.form-control-lg {
 }
 
 .modal.show .modal-dialog {
-    transform: translateY(0) scale(1)
+    /* transform: translateY(0) scale(1) */
 }
 
 .modal.modal-static .modal-dialog {
