@@ -10762,7 +10762,7 @@ button.list-group-item-gray.active {
 
 .flex-grow-1 {
   flex-grow: 1 !important;
-  margin-left: 0px;
+  margin-left: 10px;
 }
 
 .flex-shrink-0 {

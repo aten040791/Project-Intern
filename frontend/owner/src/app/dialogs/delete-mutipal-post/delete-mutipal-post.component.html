@@ -1,0 +1,14 @@
+<div class="modal" id="delete-mutipal-post" style="display: none">
+    <div class="modal-content">
+        <div>
+            <b style="float: left;">Xác nhận xóa</b>
+        </div>
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <p style="text-align: left;">Bạn có chắc chắn muốn xóa không?</p>
+            <div class="button-container">
+                <button class="btn_cancel modal-button cancel-button" (click)="closeModal()">Hủy</button>
+                <button class="btn_ok modal-button confirm-button" [disabled]="postForm.invalid">Đồng ý</button>
+            </div>
+        </form>
+    </div>
+</div>
