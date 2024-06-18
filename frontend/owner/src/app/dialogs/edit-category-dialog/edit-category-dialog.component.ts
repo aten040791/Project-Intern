@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-category-dialog',
@@ -20,7 +19,7 @@ export class EditCategoryDialogComponent {
     { value: 'sport', name: 'Sport' },
   ]
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder) {
     this.createForm();
   }
 

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-delete-mutipal-post',
@@ -7,7 +8,23 @@ import { Component, Input } from '@angular/core';
 })
 export class DeleteMutipalPostComponent {
   @Input() selectedPostIds: number[] = [];
-  constructor() {}
+  postForm: FormGroup;
+  
+  constructor(private fb: FormBuilder) {
+    this.createForm();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedPostIds'] && changes['selectedPostIds'].currentValue) {
+      this.postForm.controls['Ids'].setValue(this.selectedPostIds);
+    }
+  };
+
+  createForm() {
+    this.postForm = this.fb.group({
+      Ids: [this.selectedPostIds],
+    });
+  }
 
   closeModal() {
     const modal = document.getElementById('edit-category-dialog');
@@ -17,7 +34,14 @@ export class DeleteMutipalPostComponent {
   }
 
   onSubmit() {
-    // Handle form submission
+    if (this.postForm.valid) {
+      const formData = {
+        ...this.postForm.value,
+      };
+      console.log(formData);
+    } else {
+      console.log('Form is invalid');
+    }
     this.closeModal();
   }
 }

@@ -314,7 +314,7 @@ export class HomeComponent implements OnInit, DoCheck {
   showModal(modalId: string, ids: number[]) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      console.log('IDs:', ids);
+      console.log('modal:', modal);
       modal.style.display = 'block';
     }
   }
