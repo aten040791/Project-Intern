@@ -33,9 +33,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/js/checkboxall.js",
-              "src/assets/js/pagination.js",
-              "src/assets/vendor/js/main.js"
             ]
           },
           "configurations": {
@@ -100,9 +97,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/js/checkboxall.js",
-              "src/assets/js/pagination.js",
-              "src/assets/vendor/js/main.js"
             ]
           }
         }

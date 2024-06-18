@@ -16,6 +16,7 @@
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasAddUser"
+              (click)="toggleDelete()"
             >
               <span
                 ><i class="fa-regular fa-trash-can"></i
@@ -31,6 +32,7 @@
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasAddUser"
+              (click)="toggleShow()"
             >
               <span
                 ><i class="bx bx-plus me-0 me-sm-1"></i
@@ -65,6 +67,7 @@
                     name="DataTables_Table_0_length"
                     aria-controls="DataTables_Table_0"
                     class="form-select"
+                    (change)="handleItemsPerPage($event)"
                   >
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -104,55 +107,49 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                <tr class="odd" data-index="1">
+                <tr
+                  [ngClass]="{ odd: odd, even: even }"
+                  *ngFor="
+                    let paginatedItem of paginatedItems;
+                    let even = even;
+                    let odd = odd
+                  "
+                >
                   <td class="dt-checkboxes-cell">
                     <input
                       type="checkbox"
                       class="dt-checkboxes form-check-input"
                     />
                   </td>
-                  <td>#1</td>
-                  <td>Phone</td>
-                  <td>21 May, 2024</td>
+                  <td>{{ paginatedItem.id }}</td>
+                  <td>{{ paginatedItem.name }}</td>
+                  <td>{{ paginatedItem.time }}</td>
                   <td>
-                    <span class="badge bg-label-success me-1">Active</span>
+                    <span
+                      class="badge me-1"
+                      [ngClass]="{
+                        'bg-label-success': paginatedItem.status === 'active',
+                        'bg-label-secondary':
+                          paginatedItem.status === 'inactive'
+                      }"
+                      >{{ paginatedItem.status }}</span
+                    >
                   </td>
                   <td>
                     <div class="d-flex align-items-center">
-                      <a href="javascript:;" class="mr-8 text-primary cursor">
+                      <a
+                        class="mr-8 text-primary cursor"
+                        (click)="toggleEdit()"
+                      >
                         <div class="icon fs-14">
                           <i class="bx bx-edit menu-icon tf-icons"></i>
                         </div>
                       </a>
-                      <a href="javascript:;" class="mr-8 text-danger cursor">
-                        <div class="icon fs-14">
-                          <i class="menu-icon tf-icons bx bx-trash"></i>
-                        </div>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="even" data-index="2">
-                  <td class="dt-checkboxes-cell">
-                    <input
-                      type="checkbox"
-                      class="dt-checkboxes form-check-input"
-                    />
-                  </td>
-                  <td>#2</td>
-                  <td>Phone</td>
-                  <td>21 May, 2024</td>
-                  <td>
-                    <span class="badge bg-label-success me-1">Active</span>
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <a href="javascript:;" class="mr-8 text-primary cursor">
-                        <div class="icon fs-14">
-                          <i class="bx bx-edit menu-icon tf-icons"></i>
-                        </div>
-                      </a>
-                      <a href="javascript:;" class="mr-8 text-danger cursor">
+                      <a
+                        href="javascript:;"
+                        class="mr-8 text-danger cursor"
+                        (click)="toggleDelete()"
+                      >
                         <div class="icon fs-14">
                           <i class="menu-icon tf-icons bx bx-trash"></i>
                         </div>
@@ -163,89 +160,11 @@
               </tbody>
             </table>
           </div>
-          <div class="row mx-2">
-            <div class="col-sm-12 col-md-6">
-              <div
-                class="dataTables_info"
-                id="DataTables_Table_0_info"
-                role="status"
-                aria-live="polite"
-              >
-                1 - 8 of 8 items
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-              <div
-                class="dataTables_paginate paging_simple_numbers"
-                id="DataTables_Table_0_paginate"
-              >
-                <ul class="pagination align-items-center justify-content-end">
-                  <li
-                    class="paginate_button page-item previous disabled"
-                    id="DataTables_Table_0_previous"
-                  >
-                    <a
-                      aria-controls="DataTables_Table_0"
-                      aria-disabled="true"
-                      role="link"
-                      data-dt-idx="previous"
-                      tabindex="-1"
-                      class="page-link"
-                      >Previous</a
-                    >
-                  </li>
-                  <li class="paginate_button page-item active">
-                    <a
-                      href="#"
-                      aria-controls="DataTables_Table_0"
-                      role="link"
-                      aria-current="page"
-                      data-dt-idx="0"
-                      tabindex="0"
-                      class="page-link"
-                      >1</a
-                    >
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a
-                      href="#"
-                      aria-controls="DataTables_Table_0"
-                      role="link"
-                      data-dt-idx="1"
-                      tabindex="0"
-                      class="page-link"
-                      >2</a
-                    >
-                  </li>
-                  <li class="paginate_button page-item">
-                    <a
-                      href="#"
-                      aria-controls="DataTables_Table_0"
-                      role="link"
-                      data-dt-idx="2"
-                      tabindex="0"
-                      class="page-link"
-                      >3</a
-                    >
-                  </li>
-                  <li
-                    class="paginate_button page-item next"
-                    id="DataTables_Table_0_next"
-                  >
-                    <a
-                      href="#"
-                      aria-controls="DataTables_Table_0"
-                      role="link"
-                      data-dt-idx="next"
-                      tabindex="0"
-                      class="page-link"
-                      >Next</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <app-pagination
+            [items]="items"
+            [itemsPerPage]="itemsPerPage"
+            (paginatedItems)="handlePaginatedItems($event)"
+          ></app-pagination>
         </div>
       </div>
     </div>
@@ -253,3 +172,10 @@
 
   <div class="content-backdrop fade"></div>
 </div>
+
+<app-add-category [isShow]="isShow" (close)="toggleShow()"></app-add-category>
+<app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>
+<app-edit-category
+  [isShowEdit]="isShowEdit"
+  (close)="toggleEdit()"
+></app-edit-category>
