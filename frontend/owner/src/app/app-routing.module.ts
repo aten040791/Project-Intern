@@ -9,9 +9,9 @@ import { DetailPostComponent } from './pages/detail-post/detail-post.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'account-page', component: AccountPageComponent },
-  { path: 'update-post', component: UpdatePostComponent },
+  { path: 'update-post/:id', component: UpdatePostComponent },
   { path: 'create-post', component: CreatePostComponent },
-  { path: 'detail-post', component: DetailPostComponent },
+  { path: 'detail-post/:id', component: DetailPostComponent },
 ];
 
 @NgModule({

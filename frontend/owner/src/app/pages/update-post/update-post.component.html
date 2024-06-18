@@ -29,16 +29,19 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="category" class="form-label">Category</label>
-                    <select class="form-select" id="category" formControlName="category" required>
-                      <option selected disabled>-- Choose category --</option>
-                      <option value="1">Blog</option>
-                      <option value="2">Newspaper</option>
+                    <select class="form-select" id="category" formControlName="category" (click)="toggleItems()" required>
+                      <option value="" selected disabled>{{ selectedCategoryText }}</option>
+                      <option *ngFor="let category of categories" [value]="category.value">
+                        {{ category.name }}
+                      </option>
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="file">File</label>
                     <input type="file" class="form-control" (change)="onFileChange($event)">
-                    <div class="preview"></div>
+                    <div class="preview">
+                      <img *ngIf="previewUrl" [src]="previewUrl" alt="File Preview" class="img-thumbnail mt-2">
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="language" class="form-label">Language</label>
@@ -47,7 +50,7 @@
                         <div class="select-selected" (click)="toggleItems()">
                           {{ selectedLanguageText }}
                         </div>
-                        <div class="select-items" [ngStyle]="{ display: showItems ? 'block' : 'none' }">
+                        <div class="select-items" [ngStyle]="{ display: showLanguageItems ? 'block' : 'none' }">
                           <div *ngFor="let language of languages" (click)="selectLanguage(language)">
                             <img [src]="language.img" alt="{{ language.name }}"> {{ language.name }}
                           </div>

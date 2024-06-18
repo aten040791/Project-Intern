@@ -464,3 +464,11 @@ fa-icon{
   font-size: 1.05rem;
   vertical-align: middle;
 }
+
+.img-thumbnail {
+  max-width: 150px;
+  margin: 0 1em 1em 0;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}

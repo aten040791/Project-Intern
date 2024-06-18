@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, DoCheck, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, faSliders, faGear, faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,6 +8,7 @@ import { faPlusSquare, faSliders, faGear, faEdit, faEye, faTrash } from '@fortaw
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, DoCheck {
+  // @ViewChild('modalContainer', { read: ViewContainerRef }) modalContainer: ViewContainerRef;
 
   // Select All checkbox
   selectAll: boolean = false;
@@ -17,6 +18,8 @@ export class HomeComponent implements OnInit, DoCheck {
 
   //Read more
   isReadMore: { [key: string]: boolean } = {};
+
+  selectedIds: number[] = [];
 
   p: number = 1;
   itemsPerPage: number = 10;
@@ -280,14 +283,15 @@ export class HomeComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    // Initialize the selected state for each post
     this.posts = this.posts.map((post) => ({ ...post, selected: false }));
-
   }
 
   ngDoCheck(): void {
-    // Check Action button
-    this.checkboxChecked = this.posts.some(post => post.selected === true);
+    // console.log(this.posts.filter(post => post.selected).map(post => post.id));
+  }
+
+  isAnyPostSelected(): boolean {
+    return this.posts.some(post => post.selected === true);
   }
 
   toggleReadMore(event: Event, postId: string) {
@@ -307,13 +311,19 @@ export class HomeComponent implements OnInit, DoCheck {
     this.selectAll = this.posts.every((post) => post.selected);
   }
 
-  showModal(modalId: string) {
+  showModal(modalId: string, ids: number[]) {
     const modal = document.getElementById(modalId);
     if (modal) {
+      console.log('IDs:', ids);
       modal.style.display = 'block';
     }
   }
-
+  
+  getSelectedPostIds(): number[] {
+    this.selectedIds = this.posts.filter(post => post.selected).map(post => post.id);
+    return this.selectedIds;
+  }
+  
   onItemsPerPageChange(event: any) {
     this.itemsPerPage = event.target.value;
     this.p = 1;

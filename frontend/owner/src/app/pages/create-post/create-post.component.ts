@@ -8,9 +8,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreatePostComponent implements OnInit, OnDestroy, DoCheck {
   postForm: FormGroup;
-  showItems = false;
+  showCategoryItems = false;
+  showLanguageItems = false;
   selectedLanguageText = '-- Choose language --';
   selectedLanguageValue = '';
+  selectedCategoryText = '-- Choose category --';
+  imageURL: string;
+  previewUrl: string | ArrayBuffer | null = null;
+
+  categories = [
+    { value: 'blog', name: 'Blog' },
+    { value: 'newspaper', name: 'Newspaper' },
+    { value: 'travel', name: 'Travel' },
+    { value: 'sport', name: 'Sport' },
+  ]
 
   languages = [
     { value: 'vn', name: 'Viet Nam', img: 'https://tienichhay.net/uploads/flags/flat/24x24/vn.png' },
@@ -37,22 +48,29 @@ export class CreatePostComponent implements OnInit, OnDestroy, DoCheck {
   ngDoCheck(): void {}
 
   toggleItems() {
-    this.showItems = !this.showItems;
+    this.showCategoryItems = !this.showCategoryItems;
+    this.showLanguageItems = !this.showLanguageItems;
   }
 
   selectLanguage(language: any) {
     this.selectedLanguageText = language.name;
     this.selectedLanguageValue = language.value;
-    this.showItems = false;
+    this.showLanguageItems = false;
 
     // Update the form control value
     this.postForm.controls['language'].setValue(this.selectedLanguageValue);
   }
 
   onClickOutside(event: MouseEvent) {
-    const customSelect = document.getElementById('language-select');
-    if (customSelect && !customSelect.contains(event.target as Node)) {
-      this.showItems = false;
+    const customSelectCategory = document.getElementById('category');
+    const customSelectLanguage = document.getElementById('language-select');
+  
+    if (customSelectCategory && !customSelectCategory.contains(event.target as Node)) {
+      this.showCategoryItems = false;
+    }
+  
+    if (customSelectLanguage && !customSelectLanguage.contains(event.target as Node)) {
+      this.showLanguageItems = false;
     }
   }
 
@@ -62,7 +80,16 @@ export class CreatePostComponent implements OnInit, OnDestroy, DoCheck {
       this.postForm.patchValue({
         file: file
       });
+      this.previewFile(file);
     }
+  }
+
+  previewFile(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.previewUrl = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   onSubmit(): void {

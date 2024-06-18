@@ -29,21 +29,21 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 offset-md-4" style="text-align: right;">
-                                        <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!checkboxChecked">
+                                        <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isAnyPostSelected()">
                                             <span><fa-icon [icon]="faSliders"></fa-icon><span>Action</span></span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end m-0">
-                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-language-dialog')">
-                                              <span class="ms-1">Update language</span>
-                                            </a>
-                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-status-dialog')">
-                                              <span class="ms-1">Update status</span>
-                                            </a>
-                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-category-dialog')">
-                                              <span class="ms-1">Update category</span>
-                                            </a>
-                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('delete-mutilpal-dialog')">
-                                                <span class="ms-1">Delete post</span>
+                                            <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-language-dialog', getSelectedPostIds())">
+                                                <span class="ms-1">Update Language</span>
+                                              </a>
+                                              <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-status-dialog', getSelectedPostIds())">
+                                                <span class="ms-1">Update Status</span>
+                                              </a>
+                                              <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-category-dialog', getSelectedPostIds())">
+                                                <span class="ms-1">Update Category</span>
+                                              </a>
+                                              <a href="javascript:;" class="dropdown-item" (click)="showModal('delete-multiple-dialog', getSelectedPostIds())">
+                                                <span class="ms-1">Delete Multiple Posts</span>
                                               </a>
                                           </div>
                                     </div>
@@ -101,10 +101,10 @@
                                                 <fa-icon [icon]="faGear"></fa-icon>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end m-0">
-                                                <a routerLink="/update-post" class="dropdown-item">
+                                                <a routerLink="/update-post/{{post.id}}" class="dropdown-item">
                                                     <fa-icon [icon]="faEdit"></fa-icon>
                                                     <span class="ms-1">Update</span></a>
-                                                <a routerLink="/detail-post" class="dropdown-item">
+                                                <a routerLink="/detail-post/{{post.id}}" class="dropdown-item">
                                                     <fa-icon [icon]="faEye"></fa-icon>
                                                     <span class="ms-1">Details</span></a>
                                                 <div class="dropdown-divider"></div>
@@ -142,8 +142,11 @@
             </div>
         </div>
     </div>
+ <!-- Placeholder for dynamically loading components -->
+ <ng-container #modalContainer></ng-container>
+
+ <app-edit-language-dialog [selectedPostIds]="selectedIds"></app-edit-language-dialog>
+ <app-edit-status-dialog [selectedPostIds]="selectedIds"></app-edit-status-dialog>
+ <app-edit-category-dialog [selectedPostIds]="selectedIds"></app-edit-category-dialog>
+ <app-delete-mutipal-post [selectedPostIds]="selectedIds"></app-delete-mutipal-post>
 </div>
-<app-edit-language-dialog></app-edit-language-dialog>
-<app-edit-status-dialog></app-edit-status-dialog>
-<app-edit-category-dialog></app-edit-category-dialog>
-<app-delete-mutipal-post></app-delete-mutipal-post>

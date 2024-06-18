@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-language-dialog',
   templateUrl: './edit-language-dialog.component.html',
   styleUrls: ['./edit-language-dialog.component.css']
 })
-export class EditLanguageDialogComponent {
-  constructor() {}
-  
+export class EditLanguageDialogComponent implements OnInit, OnChanges {
+  @Input() selectedPostIds: number[] = [];
+  @Output() closeModalDialog = new EventEmitter<boolean>();
+  postForm: FormGroup;
   showItems = false;
   selectedLanguageText = '-- Choose language --';
   selectedLanguageValue = '';
@@ -19,46 +22,69 @@ export class EditLanguageDialogComponent {
     { value: 'kr', name: 'Korea', img: 'https://tienichhay.net/uploads/flags/flat/24x24/kr.png' }
   ];
 
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+    this.createForm();
+  };
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['selectedPostIds'] && changes['selectedPostIds'].currentValue) {
+      this.postForm.controls['Ids'].setValue(this.selectedPostIds);
+    }
+  };
+
+  ngOnInit() {
+    document.addEventListener('click', this.onClickOutside.bind(this));
+  };
+
+  createForm() {
+    this.postForm = this.fb.group({
+      Ids: [this.selectedPostIds],
+      value: ['', Validators.required],
+      type: ['language']
+    });
+  }
+
   toggleItems() {
     this.showItems = !this.showItems;
-  }
+  };
 
   selectLanguage(language: any) {
     this.selectedLanguageText = language.name;
     this.selectedLanguageValue = language.value;
     this.showItems = false;
 
-    // Update the hidden select element
-    const selectElement = document.getElementById('language') as HTMLSelectElement;
-    if (selectElement) {
-      selectElement.value = this.selectedLanguageValue;
-    }
-  }
+    // Update the form control value
+    this.postForm.controls['value'].setValue(this.selectedLanguageValue);
+  };
 
   onClickOutside(event: MouseEvent) {
     const customSelect = document.getElementById('language-select');
     if (customSelect && !customSelect.contains(event.target as Node)) {
       this.showItems = false;
     }
-  }
+  };
+  
 
-  ngOnInit() {
-    document.addEventListener('click', this.onClickOutside.bind(this));
-  }
+  onSubmit() {
+    if (this.postForm.valid) {
+      const formData = {
+        ...this.postForm.value,
+      };
+      console.log(formData);
+    } else {
+      console.log('Form is invalid');
+    }
+    this.closeModal();
+  };
 
   ngOnDestroy() {
     document.removeEventListener('click', this.onClickOutside.bind(this));
-  } 
+  };
 
   closeModal() {
     const modal = document.getElementById('edit-language-dialog');
     if (modal) {
       modal.style.display = 'none';
     }
-  }
-
-  onSubmit() {
-    // Handle form submission
-    this.closeModal();
-  }
+  };
 }

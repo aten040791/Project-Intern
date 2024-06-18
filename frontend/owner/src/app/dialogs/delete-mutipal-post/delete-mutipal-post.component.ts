@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-delete-mutipal-post',
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./delete-mutipal-post.component.css']
 })
 export class DeleteMutipalPostComponent {
+  @Input() selectedPostIds: number[] = [];
   constructor() {}
 
   closeModal() {
