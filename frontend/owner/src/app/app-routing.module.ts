@@ -1,17 +1,24 @@
+// app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AccountPageComponent } from './pages/account-page/account-page.component';
-import { UpdatePostComponent } from './pages/update-post/update-post.component';
-import { CreatePostComponent } from './pages/create-post/create-post.component';
-import { DetailPostComponent } from './pages/detail-post/detail-post.component';
+import { LayoutMainComponent } from './mainComponent/layout-main.component';
+import { LayoutAuthComponent } from './authComponent/layout-auth.component';
+import { HomeComponent } from './mainComponent/pages/home/home.component';
+import { AccountPageComponent } from './mainComponent/pages/account-page/account-page.component';
+import { UpdatePostComponent } from './mainComponent/pages/update-post/update-post.component';
+import { CreatePostComponent } from './mainComponent/pages/create-post/create-post.component';
+import { DetailPostComponent } from './mainComponent/pages/detail-post/detail-post.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'account-page', component: AccountPageComponent },
-  { path: 'update-post/:id', component: UpdatePostComponent },
-  { path: 'create-post', component: CreatePostComponent },
-  { path: 'detail-post/:id', component: DetailPostComponent },
+  {
+    path: '',
+    loadChildren: () => import('./mainComponent/layout-main.module').then(m => m.LayoutMainModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./authComponent/layout-auth.module').then(m => m.LayoutAuthModule)
+  },
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
