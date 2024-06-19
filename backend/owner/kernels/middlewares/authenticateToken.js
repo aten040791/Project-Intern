@@ -1,15 +1,17 @@
-const jwt = require('jsonwebtoken');
-const secretKey = process.env.JWT_SECRET_KEY;
+const jwt = require("configs/jwt");
+const JWT = require("jsonwebtoken");
+const responseUtils = require("utils/responseUtils");
 
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (token == null) return res.status(401).json({ message: 'Token is required' });
-
-  jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Invalid token' });
-
+  if (!req.headers["authorization"]) {
+    return responseUtils.unauthorized(res);
+  }
+  const authTokenHeaders = req.headers["authorization"];
+  const token = authTokenHeaders.split(" ")[1];
+  JWT.verify(token, jwt.secret, (error, user) => {
+    if (error) {
+      return responseUtils.unauthorized(res);
+    }
     req.user = user;
     next();
   });
