@@ -311,10 +311,14 @@ export class HomeComponent implements OnInit, DoCheck {
     this.selectAll = this.posts.every((post) => post.selected);
   }
 
-  showModal(modalId: string, ids: number[]) {
+  showModal(modalId: string, ids?: number[]) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      console.log('modal:', modal);
+      if (!ids) {
+        ids = this.getSelectedPostIds();
+      }
+      console.log('ids:', ids);
+      this.selectedIds = ids;
       modal.style.display = 'block';
     }
   }
