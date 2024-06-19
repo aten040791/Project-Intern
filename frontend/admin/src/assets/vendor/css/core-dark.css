@@ -2144,6 +2144,7 @@ progress {
         overflow-x:auto;
         -webkit-overflow-scrolling: touch
     }
+
 }
 
 @media(max-width: 1399.98px) {
@@ -24089,7 +24090,9 @@ html:not(.layout-footer-fixed) .content-wrapper {
         margin-right: 0 !important;
         margin-left: 0 !important;
         transform: translate3d(-100%, 0, 0);
-        will-change: transform,-webkit-transform
+        will-change: transform,-webkit-transform;
+        /* new */
+        transition: .3s !important
     }
 
     [dir=rtl] .layout-menu {

@@ -1,0 +1,159 @@
+<aside
+  id="layout-menu"
+  class="layout-menu menu-vertical menu bg-menu-theme"
+  data-bg-class="bg-menu-theme"
+  style="
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  "
+>
+  <div class="app-brand demo">
+    <a href="#" class="app-brand-link">
+      <img [src]="logoUrl" alt="" width="170" height="170" />
+    </a>
+    <!-- <a
+      href="javascript:void(0);"
+      class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
+    >
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a> -->
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-1">
+    <!-- Dashboards -->
+    <li
+      class="menu-item"
+      [class.active]="activeItem === 'dashboards'"
+      [class.open]="openItem === 'dashboards'"
+    >
+      <a
+        href="javascript:void(0);"
+        class="menu-link menu-toggle"
+        (click)="setActiveAndOpenItem('dashboards')"
+      >
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Dashboards">Dashboards</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item" [class.active]="activeSubItem === 'analytics'">
+          <a href="#" class="menu-link" (click)="setActiveSub('analytics')">
+            <div data-i18n="Analytics">Analytics</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Apps &amp; Pages</span>
+    </li>
+
+    <!-- Pages -->
+    <!-- user-page -->
+    <li
+      class="menu-item"
+      [class.active]="activeItem === 'users'"
+      [class.open]="openItem === 'users'"
+    >
+      <a
+        href="javascript:void(0);"
+        class="menu-link menu-toggle"
+        (click)="setActiveAndOpenItem('users')"
+      >
+        <i class="menu-icon tf-icons bx bx-user"></i>
+        <div data-i18n="Account Settings">Users</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item" [class.active]="activeSubItem === 'user-list'">
+          <a
+            routerLink="/users"
+            class="menu-link"
+            (click)="setActiveSub('user-list')"
+          >
+            <div data-i18n="Categories">List</div>
+          </a>
+        </li>
+        <!-- <li class="menu-item" [class.active]="activeSubItem === 'user-view'">
+          <a href="#" class="menu-link" (click)="setActiveSub('user-view')">
+            <div data-i18n="Categories">View</div>
+          </a>
+        </li> -->
+      </ul>
+    </li>
+    <!-- category-page -->
+    <li
+      class="menu-item"
+      [class.active]="activeItem === 'categories'"
+      [class.open]="openItem === 'categories'"
+    >
+      <a
+        href="javascript:void(0);"
+        class="menu-link menu-toggle"
+        (click)="setActiveAndOpenItem('categories')"
+      >
+        <i class="menu-icon tf-icons bx bx-category"></i>
+        <div data-i18n="Account Settings">Category</div>
+      </a>
+      <ul class="menu-sub">
+        <li
+          class="menu-item"
+          [class.active]="activeSubItem === 'category-list'"
+        >
+          <a
+            routerLink="/categories"
+            class="menu-link"
+            (click)="setActiveSub('category-list')"
+          >
+            <div data-i18n="Categories">List</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- language-page -->
+    <li
+      class="menu-item"
+      [class.active]="activeItem === 'languages'"
+      [class.open]="openItem === 'languages'"
+    >
+      <a
+        href="javascript:void(0);"
+        class="menu-link menu-toggle"
+        (click)="setActiveAndOpenItem('languages')"
+      >
+        <i class="menu-icon tf-icons bx bx-globe"></i>
+        <div data-i18n="Account Settings">Language</div>
+      </a>
+      <ul class="menu-sub">
+        <li
+          class="menu-item"
+          [class.active]="activeSubItem === 'language-list'"
+        >
+          <a
+            routerLink="/languages"
+            class="menu-link"
+            (click)="setActiveSub('language-list')"
+          >
+            <div data-i18n="Languages">List</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Misc -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Misc</span>
+    </li>
+    <li class="menu-item">
+      <a
+        href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+        target="_blank"
+        class="menu-link"
+      >
+        <i class="menu-icon tf-icons bx bx-support"></i>
+        <div data-i18n="Support">Support</div>
+      </a>
+    </li>
+  </ul>
+</aside>
