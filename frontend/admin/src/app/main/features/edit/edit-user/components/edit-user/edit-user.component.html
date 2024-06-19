@@ -1,0 +1,108 @@
+<div
+  class="modal"
+  id="edit-dialog"
+  [ngStyle]="{ display: isShowEdit ? 'block' : 'none' }"
+>
+  <div class="modal-dialog dialog-fixed bd-1-main br-05rem bg-white fade">
+    <div class="modal-content">
+      <div class="modal-header flex justify-sb">
+        <div class="dialog-title">
+          <h3 class="text-title mb-0">Update User</h3>
+        </div>
+        <div class="dialog-btn">
+          <a
+            class="text-close text-decoration-none cursor"
+            (click)="closeDialog()"
+          >
+            <div class="icon fs-20"><i class="fa-solid fa-xmark"></i></div>
+          </a>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="mb-3">
+                <label class="fw-400" for="">Full name</label>
+                <input
+                  class="p-8-14 w-100 br-05rem form-control"
+                  type="text"
+                  name=""
+                  id=""
+                />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label class="fw-400" for="">Username</label>
+                <input
+                  class="p-8-14 w-100 br-05rem form-control"
+                  type="text"
+                  name="username"
+                  id="username"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label class="fw-400" for="">Phone</label>
+                <input
+                  class="p-8-14 w-100 br-05rem form-control"
+                  type="text"
+                  name=""
+                  id="phone"
+                  value="{{ item.phone }}"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label class="fw-400" for="">Email</label>
+                <input
+                  class="p-8-14 w-100 br-05rem form-control"
+                  type="email"
+                  name="email"
+                  id="email"
+                  value="{{ item.email }}"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="mb-3">
+                <label class="fw-400" for="">Role</label>
+                <div class="select br-05rem">
+                  <select id="UserPlan" class="form-select text-capitalize">
+                    <option value="admin">admin</option>
+                    <option value="owner">owner</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="mb-3">
+                <label class="fw-400" for="">Address</label>
+                <input
+                  class="p-8-14 w-100 br-05rem form-control"
+                  type="text"
+                  name=""
+                  id=""
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            type="reset"
+            class="btn_cancel btn btn-label-secondary bd-1-main me-sm-3 me-1"
+            data-bs-dismiss="offcanvas"
+            (click)="closeDialog()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn_ok btn btn-primary data-submit">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
