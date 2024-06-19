@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,13 +6,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './delete-mutipal-post.component.html',
   styleUrls: ['./delete-mutipal-post.component.css']
 })
-export class DeleteMutipalPostComponent {
+export class DeleteMutipalPostComponent implements OnInit {
   @Input() selectedPostIds: number[] = [];
   postForm: FormGroup;
   
   constructor(private fb: FormBuilder) {
     this.createForm();
   }
+
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedPostIds'] && changes['selectedPostIds'].currentValue) {
@@ -27,7 +29,7 @@ export class DeleteMutipalPostComponent {
   }
 
   closeModal() {
-    const modal = document.getElementById('edit-category-dialog');
+    const modal = document.getElementById('delete-mutipal-post');
     if (modal) {
       modal.style.display = 'none';
     }

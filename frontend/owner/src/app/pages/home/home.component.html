@@ -108,7 +108,7 @@
                                                     <fa-icon [icon]="faEye"></fa-icon>
                                                     <span class="ms-1">Details</span></a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="javascript:;" (click)="deletePost(posts.indexOf(post))"
+                                                <a href="javascript:;" (click)="showModal('delete-mutipal-post', [post.id])"
                                                     class="dropdown-item text-danger delete-record align-items-center fs-15"
                                                     data-id="#">
                                                     <fa-icon [icon]="faTrash"></fa-icon>
