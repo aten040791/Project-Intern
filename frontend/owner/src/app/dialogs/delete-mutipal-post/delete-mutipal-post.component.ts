@@ -18,7 +18,6 @@ export class DeleteMutipalPostComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedPostIds'] && changes['selectedPostIds'].currentValue) {
-      console.log(this.selectedPostIds);
       this.postForm.controls['Ids'].setValue(this.selectedPostIds);
     }
   };

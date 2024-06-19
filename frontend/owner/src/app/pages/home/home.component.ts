@@ -286,9 +286,7 @@ export class HomeComponent implements OnInit, DoCheck {
     this.posts = this.posts.map((post) => ({ ...post, selected: false }));
   }
 
-  ngDoCheck(): void {
-    // console.log(this.posts.filter(post => post.selected).map(post => post.id));
-  }
+  ngDoCheck(): void {}
 
   isAnyPostSelected(): boolean {
     return this.posts.some(post => post.selected === true);
@@ -314,10 +312,7 @@ export class HomeComponent implements OnInit, DoCheck {
   showModal(modalId: string, ids?: number[]) {
     const modal = document.getElementById(modalId);
     if (modal) {
-      if (!ids) {
-        ids = this.getSelectedPostIds();
-      }
-      console.log('ids:', ids);
+      if (!ids) ids = this.getSelectedPostIds();
       this.selectedIds = ids;
       modal.style.display = 'block';
     }
