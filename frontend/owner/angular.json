@@ -30,7 +30,8 @@
               "src/assets/vendor/css/theme-default.css",
               "src/assets/css/demo.css",
               "src/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css",
-              "src/assets/vendor/css/userStyle.css"
+              "src/assets/vendor/css/userStyle.css",
+              "src/assets/vendor/css/pages/page-auth.css"
             ],
             "scripts": [
             ]
