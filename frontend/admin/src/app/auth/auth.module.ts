@@ -18,4 +18,5 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     AuthRoutingModule
   ]
 })
+
 export class AuthModule { }
