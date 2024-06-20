@@ -761,7 +761,7 @@ ul.custom-item_v1 li a:hover:before{color:#73c04a;}
 .tour-evaluation .slider-feedback_v1 ul.list-item-v2>li{margin-bottom:25px;}
 .tour-evaluation .slider-feedback_v1 ul.list-root>li .item{background: #f7f7f7;border: 1px solid #e8e8e8;padding: 3px 10px;display: table;width: 100%;box-shadow: 0 0 10px -6px #000;border-radius: 4px;}
 .tour-evaluation .slider-feedback_v1 ul.list-item-v2>li .item{border-radius: 0;padding: 15px 0;position: relative;}
-.tour-evaluation .slider-feedback_v1 ul.list-item-v2>li .item:before{content:'';position:absolute;top: 100%;left: 38px;width: 22px;height: 23px;background: url(../img/tam-giac-vuong.png)center no-repeat;}
+.tour-evaluation .slider-feedback_v1 ul.list-item-v2>li .item:before{content:'';position:absolute;top: 100%;left: 38px;width: 22px;height: 23px;background: url(../../as/img/tam-giac-vuong.png)center no-repeat;}
 .tour-evaluation .slider-feedback_v1 ul.list-root>li .item .avt{width: 25%;height: auto;padding: 0;display: table-cell;vertical-align: middle;}
 .tour-evaluation .slider-feedback_v1 ul.list-item-v2>li .item .avt{width:20%;}
 .tour-evaluation .slider-feedback_v1 ul.list-root>li .item .avt .voted-star-v1{display: table;margin: 10px auto 0;}
