@@ -59,24 +59,28 @@
             <div class="mb-3 form-password-toggle fv-plugins-icon-container">
               <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Password</label>
-                <a href="#">
+                <a routerLink="/auth/reset">
                   <small>Forgot Password?</small>
                 </a>
               </div>
               <div class="input-group input-group-merge has-validation">
                 <input
-                  type="password"
                   id="password"
                   class="form-control"
                   name="password"
                   placeholder="············"
                   aria-describedby="password"
                   required
+                  [type]="inputType"
                 />
-                <span class="input-group-text cursor-pointer">
-                  <!-- <i class="bx bx-hide"></i> -->
-                  <i class="fa-regular fa-eye-slash d-block"></i>
-                  <i class="fa-regular fa-eye d-none"></i>
+                <span
+                  class="input-group-text cursor-pointer"
+                  (click)="togglePW()"
+                >
+                  <i
+                    class="fa-regular d-block"
+                    [ngClass]="isCheckPW ? 'fa-eye' : 'fa-eye-slash'"
+                  ></i>
                 </span>
               </div>
               <div
@@ -102,34 +106,6 @@
             </div>
             <input type="hidden" />
           </form>
-
-          <p class="text-center">
-            <span>New on our platform?</span>
-            <a href="#">
-              <span>Create an account</span>
-            </a>
-          </p>
-
-          <div class="divider my-4">
-            <div class="divider-text">or</div>
-          </div>
-
-          <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
-              <i class="tf-icons bx bxl-facebook"></i>
-            </a>
-
-            <a
-              href="javascript:;"
-              class="btn btn-icon btn-label-google-plus me-3"
-            >
-              <i class="tf-icons bx bxl-google-plus"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon btn-label-twitter">
-              <i class="tf-icons bx bxl-twitter"></i>
-            </a>
-          </div>
         </div>
       </div>
       <!-- /Register -->
