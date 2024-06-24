@@ -19,8 +19,8 @@ const postValidation = {
   ],
 
   create: [
-    new BodyWithLocale("title").notEmpty(),
-    new BodyWithLocale("body").notEmpty(),
+    // new BodyWithLocale("title").notEmpty(),
+    // new BodyWithLocale("body").notEmpty(),
   ],
   update: [
     new ParamWithLocale("id").notEmpty().exist(db.Post, "id"),
