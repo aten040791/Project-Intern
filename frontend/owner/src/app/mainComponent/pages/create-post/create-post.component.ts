@@ -92,7 +92,7 @@ export class CreatePostComponent implements OnInit {
       reader.readAsDataURL(file);
       this.postForm.get('file')?.setValue(file);
     }
-  }
+  };
 
   onCreate(): void {
     if (this.postForm.valid) {
@@ -102,8 +102,6 @@ export class CreatePostComponent implements OnInit {
       });
       const formDataObject = this.formDataToObject(formData);
       const formDataString = JSON.stringify(formDataObject);
-
-      console.log(formDataString); // Xem định dạng JSON trong console
 
       this.apiService.createPost(formDataString).subscribe({
         next: (response) => {

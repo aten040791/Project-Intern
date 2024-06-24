@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from 'src/app/services/api.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-home',
@@ -48,13 +49,22 @@ export class HomeComponent implements OnInit, DoCheck {
     this.apiService.fetchData().subscribe(
       response => {
         console.log('API Response:', response); // Debug the response structure
+  
         this.responseData = response.data;
-        this.posts = this.responseData.map((post) => ({ ...post, selected: false }));
-
+        this.posts = this.responseData.map((post) => ({
+          ...post,
+          selected: false,
+          formattedDate: format(new Date(post.createdAt), 'PP') // Format the date here
+        }));
+  
         console.log('API post:', this.posts);
         if (Array.isArray(response)) {
           this.responseData = response;
-          this.posts = this.responseData.map((post) => ({ ...post, selected: false }));
+          this.posts = this.responseData.map((post) => ({
+            ...post,
+            selected: false,
+            formattedDate: format(new Date(post.createdAt), 'PP') // Format the date here
+          }));
         } else {
           this.responseData = [];
         }
@@ -63,7 +73,7 @@ export class HomeComponent implements OnInit, DoCheck {
         console.error('Failed to fetch data:', error);
       }
     );
-  }
+  };
 
   viewDetails(postId: number): void {
     this.apiService.getPostDetails(postId).subscribe({
