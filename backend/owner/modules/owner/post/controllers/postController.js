@@ -2,6 +2,8 @@ const postService = require("modules/owner/post/services/postService");
 const responseUtils = require("utils/responseUtils");
 const slugify = require("slugify");
 
+// const upload = multer({ dest: 'uploads/' });
+
 const postController = {
   //Get post list
   index: async (req, res) => {
@@ -46,14 +48,17 @@ const postController = {
   //Create new post
   create: async (req, res) => {
     try {
-      const post = req.body;
-      if (!post.title || typeof post.title !== 'string') {
+      const post = JSON.parse(req.body.formData);
+      if (!post.title ) {
         return responseUtils.notFound(res);
       }
       post.slug = slugify(post.title, {
         lower: true,
         strict: true
       });
+      // if (req.body.formData.file) {
+      //   post.file = req.body.formData.file.path;
+      // }
       const newPost = await postService.create(post);
       return responseUtils.ok(res, newPost);
     } catch (error) {
@@ -85,6 +90,8 @@ const postController = {
     const updatedPosts = await postService.updateMultiple(ids, updatedPostData);
     return responseUtils.ok(res, updatedPosts);
   },
+
+  // create: [upload.single('file'), create],
 };
 
 module.exports = postController;

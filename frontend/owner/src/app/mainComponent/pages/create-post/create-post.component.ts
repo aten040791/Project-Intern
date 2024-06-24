@@ -97,25 +97,15 @@ export class CreatePostComponent implements OnInit {
   onCreate(): void {
     if (this.postForm.valid) {
       const formData = new FormData();
-      formData.append('title', this.postForm.get('title')?.value);
-      formData.append('body', this.postForm.get('body')?.value);
-      formData.append('user_id', this.postForm.get('user_id')?.value);
-      formData.append('status', this.postForm.get('status')?.value);
-      formData.append('category_id', this.postForm.get('category_id')?.value);
-      formData.append('language_id', this.postForm.get('language_id')?.value);
-  
-      if (this.postForm.get('file')?.value) {
-        formData.append('file', this.postForm.get('file')?.value);
-      }
-
-      const formDataString: { [key: string]: any } = {};
-      formData.forEach((value, key) => {
-        formDataString[key] = value;
+      Object.keys(this.postForm.controls).forEach(key => {
+        formData.append(key, this.postForm.get(key)?.value);
       });
+      const formDataObject = this.formDataToObject(formData);
+      const formDataString = JSON.stringify(formDataObject);
 
-      console.log('Form Data:', typeof this.postForm.get('body')?.value);
-  
-      this.apiService.createPost(formData).subscribe({
+      console.log(formDataString); // Xem định dạng JSON trong console
+
+      this.apiService.createPost(formDataString).subscribe({
         next: (response) => {
           console.log('Post created successfully', response);
           this.router.navigate(['/home']);
@@ -126,5 +116,13 @@ export class CreatePostComponent implements OnInit {
         }
       });
     }
+  }
+
+  formDataToObject(formData: FormData): { [key: string]: any } {
+    const object: { [key: string]: any } = {};
+    formData.forEach((value, key) => {
+      object[key] = value;
+    });
+    return object;
   }
 }

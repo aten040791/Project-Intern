@@ -28,12 +28,20 @@ export class ApiService {
   };
 
   getPostDetails(postId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${postId}`); // Adjust the URL to your API endpoint
-  }
+    const accessToken = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+    return this.http.get<any>(`${this.apiUrl}/${postId}`, { headers }); // Adjust the URL to your API endpoint
+  };
 
-  createPost(formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/post/create`, formData);
-  }
+  createPost(formData: string): Observable<any> {
+    const accessToken = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
 
+    return this.http.post<any>(`${this.apiUrl}/post/create`, { formData }, { headers });
+  }
 
 }
