@@ -34,7 +34,7 @@ const authService = {
       password: hashedPassword,
       phone: body.phone,
       address: body.address,
-      role_id: body.role_id,
+      role_id: body.role_id ? body.role_id : 1,
     });
     return newUser;
   },
@@ -46,6 +46,35 @@ const authService = {
     await user.save();
     return { message: "Password reset successfully" };
   },
+
+  // refreshToken: async (refreshToken) => {
+  //   console.log(config.refreshTokenSecret);
+  //   try {
+  //     const decoded = jwt.verify(refreshToken, config.refreshTokenSecret);
+  //     const user = await db.User.findOne({ where: { id: decoded.id } });
+
+  //     const role = await db.Role.findOne({ where: { id: user.role_id } });
+
+  //     const newAccessToken = sign(user.id, role.name);
+  //     const newRefreshToken = signRefreshToken(user.id, role);
+
+  //     return {
+  //       accessToken: newAccessToken,
+  //       refreshToken: newRefreshToken,
+  //       user: {
+  //         id: user.id,
+  //         username: user.username,
+  //         email: user.email,
+  //         role_id: role.name,
+  //         created_at: user.createdAt,
+  //         updated_at: user.updatedAt,
+  //       },
+  //     };
+  //   } catch (err) {
+  //     throw new Error("Invalid refresh token");
+  //   }
+  // },
+
 };
 
 module.exports = authService;

@@ -6,10 +6,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = require("routes/api");
 const { swaggerUIServe,swaggerUISetup } = require("kernels/api-docs");
+const cors = require('cors');
+
 
 const app = express();
 app.disable("x-powered-by");
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/", [], router);
 app.use(express.json());

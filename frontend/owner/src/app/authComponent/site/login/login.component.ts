@@ -1,29 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  postForm: FormGroup;
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
 
-  constructor(private fb: FormBuilder) {
-    this.postForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+  constructor(private authService: AuthService, private router: Router) {}
+
+  login(): void {
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+        alert('Login failed');
+      }
     });
-  }
-  ngOnInit(): void {}
-
-  onSubmit(): void {
-    if (this.postForm.valid) {
-      console.log(this.postForm.value);
-      // Handle form submission logic here
-    } else {
-      console.log('Form is invalid');
-    }
-  }
-
+  };
+  
 }

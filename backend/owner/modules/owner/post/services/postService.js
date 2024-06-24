@@ -12,6 +12,11 @@ const postService = {
     return post;
   },
 
+  getByUid: async (uid) => {
+    const post =  await db.Post.findAll({ where: { user_id: uid } });
+    return post;
+  },
+
   search: async (keyword) => {
     if (keyword.length < 3)
       throw new Error("Enter at least three keyword characters");

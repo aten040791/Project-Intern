@@ -22,6 +22,12 @@ const authController = {
     const data = await authService.resetPassword(email, password);
     return responseUtils.ok(res, data);
   },
+
+  refreshToken: async (req, res) => {
+    const { refreshToken } = req.body;
+    const data = await authService.refreshToken(refreshToken );
+    return responseUtils.ok(res, data);
+  }
 };
 
 module.exports = authController;

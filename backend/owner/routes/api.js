@@ -8,7 +8,8 @@ const postController = require("modules/owner/post/controllers/postController");
 const postValidation = require("modules/owner/post/validations/postValidation");
 const authController = require("modules/owner/auth/controllers/authController");
 const authValidation = require("modules/owner/auth/validations/authValidation");
-const authenticateToken = require("kernels/middlewares/authenticateToken")
+const authenticateToken = require("kernels/middlewares/authenticateToken");
+const siteController = require("modules/owner/site/controllers/siteController");
 const router = express.Router({ mergeParams: true });
 
 // router.group("/posts",middlewares([authenticated, role("owner")]), validate([]),(router) => {
@@ -22,18 +23,24 @@ router.group('/post', (router) => {
   router.use(authenticateToken);
   router.get('/search', validate([postValidation.search]), postController.search),  //API Search
   router.get('/', validate([postValidation.index]), postController.index),     //API get post
+  router.get('/user/:uid', validate([postValidation.getByUid]), postController.getByUid),     //API get post
   router.get('/:id', validate([postValidation.getById]), postController.getById),   //API get detail post
   router.get('/category/:id', validate([postValidation.getCategory]), postController.getCategory),   //API get post by category
   router.post('/create', validate([postValidation.create]), postController.create),    //API create post
   router.put('/update/:id', validate([postValidation.update]), postController.update),    //API update post
   router.delete('/delete', validate([postValidation.delete]), postController.delete),    //API delete post 
   router.patch('/update-multiple', validate([postValidation.updateMultiple]), postController.updateMultiple)    //API update-multiple post
-})
+});
+
+router.get('/category', siteController.getCategory);
+router.get('/language', siteController.getLanguage);
+
 
 router.group('/auth',(router) => {
   router.post('/sign-in',validate([authValidation.signIn]), authController.signIn),   //login
   router.post('/sign-up',validate([authValidation.signUp]), authController.signUp),   //register
   router.put('/reset-password',validate([authValidation.resPass]), authController.resPass)    //reset password
+  // router.put('/refresh-token', authController.refreshToken)    //reset password
   // router.post('/recover-password', authController.recPass),
 })
 

@@ -2,6 +2,8 @@ const postService = require("modules/owner/post/services/postService");
 const responseUtils = require("utils/responseUtils");
 const slugify = require("slugify");
 
+// const upload = multer({ dest: 'uploads/' });
+
 const postController = {
   //Get post list
   index: async (req, res) => {
@@ -26,6 +28,12 @@ const postController = {
     return responseUtils.ok(res, post);
   },
 
+  getByUid: async (req, res) => {
+    const { uid } = req.params;
+    const post = await postService.getByUid(uid);
+    return responseUtils.ok(res, post);
+  },
+
   //Search...
   search: async (req, res) => {
     try {
@@ -39,13 +47,24 @@ const postController = {
 
   //Create new post
   create: async (req, res) => {
-    const post = req.body;
-    post.slug = slugify(post.title, {
-      lower: true,
-      strict: true
-    });
-    const newPost = await postService.create(post);
-    return responseUtils.ok(res, newPost);
+    try {
+      const post = JSON.parse(req.body.formData);
+      if (!post.title ) {
+        return responseUtils.notFound(res);
+      }
+      post.slug = slugify(post.title, {
+        lower: true,
+        strict: true
+      });
+      // if (req.body.formData.file) {
+      //   post.file = req.body.formData.file.path;
+      // }
+      const newPost = await postService.create(post);
+      return responseUtils.ok(res, newPost);
+    } catch (error) {
+      console.error('Failed to create post:', error);
+      return responseUtils.error(res, error);
+    }
   },
 
   //Update post
@@ -71,6 +90,8 @@ const postController = {
     const updatedPosts = await postService.updateMultiple(ids, updatedPostData);
     return responseUtils.ok(res, updatedPosts);
   },
+
+  // create: [upload.single('file'), create],
 };
 
 module.exports = postController;
