@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "date-fns": "^3.6.0",
     "git-branch-is": "^4.0.0",
     "husky": "^9.0.11"
   },

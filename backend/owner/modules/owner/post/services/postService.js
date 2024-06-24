@@ -3,17 +3,33 @@ const { Op, Sequelize } = require("sequelize");
 
 const postService = {
   list: () => {
-    const posts = db.Post.findAll();
+    const posts = db.Post.findAll({
+      include: [
+        { model: db.Category, as: 'category', attributes: ['id', 'name'] },
+        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+      ]
+  });
     return posts;
   },
 
   getById: async (id) => {
-    const post = await db.Post.findByPk(id);
+    const post = await db.Post.findByPk(id, {
+      include: [
+        { model: db.Category, as: 'category', attributes: ['id', 'name'] },
+        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+      ]
+    });
     return post;
   },
 
   getByUid: async (uid) => {
-    const post =  await db.Post.findAll({ where: { user_id: uid } });
+    const post =  await db.Post.findAll({  
+      where: { user_id: uid },
+      include: [
+        { model: db.Category, as: 'category', attributes: ['id', 'name'] },
+        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+      ]
+    });
     return post;
   },
 

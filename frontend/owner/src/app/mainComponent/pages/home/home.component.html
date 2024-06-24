@@ -27,7 +27,7 @@
                         <input class="form-control ms-2" type="text" value="" placeholder="Search ..." />
                       </div>
                     </div>
-                    <div class="col-md-4 offset-md-4" style="text-align: right;">
+                    <div class="col-md-4 offset-md-4" style="text-align: right;padding-right: 5px;">
                       <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isAnyPostSelected()">
                         <span><fa-icon [icon]="faSliders"></fa-icon><span>Action</span></span>
                       </button>
@@ -59,9 +59,9 @@
                     </th>
                     <th class="sorting" style="width: 250px;">Title</th>
                     <th class="sorting" style="width: 450px;">Content</th>
-                    <th class="sorting">Date</th>
-                    <th class="sorting">Category</th>
-                    <th class="sorting">Locale</th>
+                    <th class="sorting" style="width: 200px;">Date</th>
+                    <th class="sorting" style="width: 150px;">Category</th>
+                    <th class="sorting" style="width: 150px;">Locale</th>
                     <th class="sorting">Status</th>
                     <th class="sorting" style="width: 120px; text-align-last: center;">Actions</th>
                   </tr>
@@ -82,11 +82,11 @@
                         {{ isReadMore[post.id] ? 'Read Less' : 'Read More' }}
                       </a>
                     </td>
-                    <td>{{ post.createdAt }}</td>
-                    <td>{{ post.category_id }}</td>
-                    <td>{{ post.language_id }}</td>
+                    <td>{{ post.formattedDate }}</td>
+                    <td>{{ post.category.name }}</td>
+                    <td>{{ post.language.name }}</td>
                     <td>
-                      <span [ngClass]="{'badge bg-label-danger': post.status === 'Hidden', 'badge bg-label-success': post.status === 'Professional'}">{{ post.status }}</span>
+                      <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hiden' }}</span>
                     </td>
                     <td>
                       <div class="d-flex justify-content-center">
@@ -115,7 +115,10 @@
                 <tfoot></tfoot>
               </table>
               <div class="row" style="margin: 15px 0px 15px 0px;">
-                <div class="col-md-6" style="text-align: right;">
+                <div class="col-md-2 ">
+                  <p style="margin-top: 10px; text-align: right;">Rows per page:</p>
+                </div>
+                <div class="col-md-4" style="text-align: right;">
                   <div class="col-md-2 text-center me-3">
                     <!-- Items per page selector -->
                     <select id="itemsPerPageSelect" class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
