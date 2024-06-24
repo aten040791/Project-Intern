@@ -1,108 +1,130 @@
-import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
-export class CreatePostComponent implements OnInit, OnDestroy, DoCheck {
+export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
-  showCategoryItems = false;
+  responseDataCategory: any[] = [];
+  responseDataLanguage: any[] = [];
+  selectedCategoryText = '--Choose category--';
+  selectedLanguageText = '--Choose language--';
   showLanguageItems = false;
-  selectedLanguageText = '-- Choose language --';
-  selectedLanguageValue = '';
-  selectedCategoryText = '-- Choose category --';
-  imageURL: string;
   previewUrl: string | ArrayBuffer | null = null;
 
-  categories = [
-    { value: 'blog', name: 'Blog' },
-    { value: 'newspaper', name: 'Newspaper' },
-    { value: 'travel', name: 'Travel' },
-    { value: 'sport', name: 'Sport' },
-  ]
+  userId = localStorage.getItem('user_id');
 
-  languages = [
-    { value: 'vn', name: 'Viet Nam', img: 'https://tienichhay.net/uploads/flags/flat/24x24/vn.png' },
-    { value: 'gb', name: 'English', img: 'https://tienichhay.net/uploads/flags/flat/24x24/gb.png' },
-    { value: 'cn', name: 'China', img: 'https://tienichhay.net/uploads/flags/flat/24x24/cn.png' },
-    { value: 'kr', name: 'Korea', img: 'https://tienichhay.net/uploads/flags/flat/24x24/kr.png' }
-  ];
-
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router
+  ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
-      content: ['', Validators.required],
-      category: ['', Validators.required],
-      language: ['', Validators.required],
+      body: ['', Validators.required],
+      user_id: [this.userId],
+      status: [false],
       file: [null],
-      status: [false]
+      category_id: ['', Validators.required],
+      language_id: ['', Validators.required],
     });
   }
 
-  ngOnInit() {
-    document.addEventListener('click', this.onClickOutside.bind(this));
+  ngOnInit(): void {
+    this.fetchDataCategory();
+    this.fetchDataLanguage();
   }
 
-  ngDoCheck(): void {}
+  fetchDataCategory(): void {
+    this.apiService.fetchDataCategory().subscribe(
+      response => {
+        console.log('API Response - Categories:', response.data);
+        if (Array.isArray(response.data)) {
+          this.responseDataCategory = response.data;
+        } else {
+          this.responseDataCategory = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch categories:', error);
+      }
+    );
+  }
 
-  toggleItems() {
-    this.showCategoryItems = !this.showCategoryItems;
+  fetchDataLanguage(): void {
+    this.apiService.fetchDataLanguage().subscribe(
+      response => {
+        console.log('API Response - Languages:', response.data);
+        if (Array.isArray(response.data)) {
+          this.responseDataLanguage = response.data;
+        } else {
+          this.responseDataLanguage = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch languages:', error);
+      }
+    );
+  }
+
+  toggleLanguageItems(): void {
     this.showLanguageItems = !this.showLanguageItems;
   }
 
-  selectLanguage(language: any) {
+  selectLanguage(language: any): void {
+    this.postForm.get('language_id')?.setValue(language.id);
     this.selectedLanguageText = language.name;
-    this.selectedLanguageValue = language.value;
     this.showLanguageItems = false;
-
-    // Update the form control value
-    this.postForm.controls['language'].setValue(this.selectedLanguageValue);
-  }
-
-  onClickOutside(event: MouseEvent) {
-    const customSelectCategory = document.getElementById('category');
-    const customSelectLanguage = document.getElementById('language-select');
-  
-    if (customSelectCategory && !customSelectCategory.contains(event.target as Node)) {
-      this.showCategoryItems = false;
-    }
-  
-    if (customSelectLanguage && !customSelectLanguage.contains(event.target as Node)) {
-      this.showLanguageItems = false;
-    }
   }
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.postForm.patchValue({
-        file: file
-      });
-      this.previewFile(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+      this.postForm.get('file')?.setValue(file);
     }
   }
 
-  previewFile(file: File): void {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.previewUrl = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  onSubmit(): void {
+  onCreate(): void {
     if (this.postForm.valid) {
-      console.log(this.postForm.value);
-      // Handle form submission logic here
-    } else {
-      console.log('Form is invalid');
+      const formData = new FormData();
+      formData.append('title', this.postForm.get('title')?.value);
+      formData.append('body', this.postForm.get('body')?.value);
+      formData.append('user_id', this.postForm.get('user_id')?.value);
+      formData.append('status', this.postForm.get('status')?.value);
+      formData.append('category_id', this.postForm.get('category_id')?.value);
+      formData.append('language_id', this.postForm.get('language_id')?.value);
+  
+      if (this.postForm.get('file')?.value) {
+        formData.append('file', this.postForm.get('file')?.value);
+      }
+
+      const formDataString: { [key: string]: any } = {};
+      formData.forEach((value, key) => {
+        formDataString[key] = value;
+      });
+
+      console.log('Form Data:', typeof this.postForm.get('body')?.value);
+  
+      this.apiService.createPost(formData).subscribe({
+        next: (response) => {
+          console.log('Post created successfully', response);
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Failed to create post', error);
+          alert('Failed to create post');
+        }
+      });
     }
-  }
-
-
-  ngOnDestroy() {
-    document.removeEventListener('click', this.onClickOutside.bind(this));
   }
 }

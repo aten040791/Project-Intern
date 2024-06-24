@@ -26,6 +26,12 @@ const postController = {
     return responseUtils.ok(res, post);
   },
 
+  getByUid: async (req, res) => {
+    const { uid } = req.params;
+    const post = await postService.getByUid(uid);
+    return responseUtils.ok(res, post);
+  },
+
   //Search...
   search: async (req, res) => {
     try {
@@ -39,13 +45,21 @@ const postController = {
 
   //Create new post
   create: async (req, res) => {
-    const post = req.body;
-    post.slug = slugify(post.title, {
-      lower: true,
-      strict: true
-    });
-    const newPost = await postService.create(post);
-    return responseUtils.ok(res, newPost);
+    try {
+      const post = req.body;
+      if (!post.title || typeof post.title !== 'string') {
+        return responseUtils.notFound(res);
+      }
+      post.slug = slugify(post.title, {
+        lower: true,
+        strict: true
+      });
+      const newPost = await postService.create(post);
+      return responseUtils.ok(res, newPost);
+    } catch (error) {
+      console.error('Failed to create post:', error);
+      return responseUtils.error(res, error);
+    }
   },
 
   //Update post

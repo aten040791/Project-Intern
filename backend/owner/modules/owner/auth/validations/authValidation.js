@@ -8,10 +8,11 @@ const authValidation = {
   ],
 
   signUp: [
+    new BodyWithLocale("username").notEmpty(),
     new BodyWithLocale("email").notEmpty().isEmail().unique(db.User, "email"),
     new BodyWithLocale("password").isLength({ min: 8 }),
-    new BodyWithLocale("confirmPassword").notEmpty().confirmed("password"),
-    new BodyWithLocale("role_id").notEmpty(),
+    // new BodyWithLocale("confirmPassword").notEmpty().confirmed("password"),
+    // new BodyWithLocale("role_id").notEmpty(),
   ],
 
   resPass: [

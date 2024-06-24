@@ -1,6 +1,9 @@
-import { Component, ComponentFactoryResolver, DoCheck, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
+import { state } from '@angular/animations';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import { Router } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, faSliders, faGear, faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +11,8 @@ import { faPlusSquare, faSliders, faGear, faEdit, faEye, faTrash } from '@fortaw
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, DoCheck {
-  // @ViewChild('modalContainer', { read: ViewContainerRef }) modalContainer: ViewContainerRef;
+  responseData: any[] = [];
+  posts: any[] = [];
 
   // Select All checkbox
   selectAll: boolean = false;
@@ -32,259 +36,46 @@ export class HomeComponent implements OnInit, DoCheck {
   faEye = faEye;
   faTrash = faTrash;
 
-  posts: any[] = [
-    {
-      id: 1,
-      title: '1. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Hidden',
-    },
-    {
-      id: 2,
-      title: '2. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 3,
-      title: '3. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 4,
-      title: '4. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 5,
-      title: '5. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 6,
-      title: '6. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 7,
-      title: '7. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 8,
-      title: '8. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 9,
-      title: '9. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 10,
-      title: '10. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 11,
-      title: '11. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 12,
-      title: '12. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 13,
-      title: '13. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 14,
-      title: '14. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 15,
-      title: '15. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 16,
-      title: '16. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 17,
-      title: '17. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 18,
-      title: '18. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 19,
-      title: '19. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 20,
-      title: '20. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 21,
-      title: '21. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-
-    {
-      id: 22,
-      title: '22. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 23,
-      title: '23. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-    {
-      id: 24,
-      title: '24. Đại tướng Tô Lâm làm Chủ tịch nước',
-      content:
-        'Sáng 22/5, 472/473 đại biểu có mặt thông qua nghị quyết bầu đại tướng Tô Lâm giữ chức Chủ tịch nước nhiệm kỳ 2021-2026. Đúng 9h, tân Chủ tịch nước Tô Lâm bước lên bục thực hiện nghi lễ tuyên thệ...',
-      date: '04/06/2023',
-      category: 'News',
-      language: 'vi-VI',
-      status: 'Professional',
-    },
-
-    // Add more posts as needed
-  ];
-
-  constructor() {
+  constructor(private apiService: ApiService, private router: Router) {
     library.add(faSliders, faPlusSquare, faGear, faEdit, faTrash, faEye);
   }
 
   ngOnInit(): void {
-    this.posts = this.posts.map((post) => ({ ...post, selected: false }));
+    this.fetchData();
   }
+
+  fetchData(): void {
+    this.apiService.fetchData().subscribe(
+      response => {
+        console.log('API Response:', response); // Debug the response structure
+        this.responseData = response.data;
+        this.posts = this.responseData.map((post) => ({ ...post, selected: false }));
+
+        console.log('API post:', this.posts);
+        if (Array.isArray(response)) {
+          this.responseData = response;
+          this.posts = this.responseData.map((post) => ({ ...post, selected: false }));
+        } else {
+          this.responseData = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch data:', error);
+      }
+    );
+  }
+
+  viewDetails(postId: number): void {
+    this.apiService.getPostDetails(postId).subscribe({
+      next: (post) => {
+        this.router.navigate(['/detail-post', postId], { state: { data: post.data } });
+      },
+      error: (error) => {
+        console.error('Failed to fetch post details:', error);
+        alert('Failed to fetch post details');
+      }
+    });
+  };
 
   ngDoCheck(): void {}
 
@@ -317,12 +108,12 @@ export class HomeComponent implements OnInit, DoCheck {
       modal.style.display = 'block';
     }
   }
-  
+
   getSelectedPostIds(): number[] {
     this.selectedIds = this.posts.filter(post => post.selected).map(post => post.id);
     return this.selectedIds;
   }
-  
+
   onItemsPerPageChange(event: any) {
     this.itemsPerPage = event.target.value;
     this.p = 1;
