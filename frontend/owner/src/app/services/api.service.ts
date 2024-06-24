@@ -32,7 +32,7 @@ export class ApiService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${accessToken}`
     });
-    return this.http.get<any>(`${this.apiUrl}/${postId}`, { headers }); // Adjust the URL to your API endpoint
+    return this.http.get<any>(`${this.apiUrl}/post/${postId}`, { headers }); // Adjust the URL to your API endpoint
   };
 
   createPost(formData: string): Observable<any> {
