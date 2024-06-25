@@ -42,6 +42,14 @@ export class ApiService {
     });
 
     return this.http.post<any>(`${this.apiUrl}/post/create`, { formData }, { headers });
-  }
+  };
+
+  updatePost(postId: number, formData: string): Observable<any> {
+    const accessToken = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    });
+    return this.http.put<any>(`${this.apiUrl}/post/update/${postId}`, { formData }, { headers });
+  };
 
 }

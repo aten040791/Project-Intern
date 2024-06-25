@@ -1,138 +1,151 @@
 import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-update-post',
   templateUrl: './update-post.component.html',
   styleUrls: ['./update-post.component.css']
 })
-export class UpdatePostComponent implements OnInit, OnDestroy, DoCheck {
+export class UpdatePostComponent implements OnInit {
   postForm: FormGroup;
-  showCategoryItems = false;
+  responseDataCategory: any[] = [];
+  responseDataLanguage: any[] = [];
+  selectedLanguageText: string;
   showLanguageItems = false;
-  selectedLanguageText = '-- Choose language --';
-  selectedLanguageValue = '';
-  selectedCategoryText = '-- Choose category --';
-  imageURL: string;
   previewUrl: string | ArrayBuffer | null = null;
-  postId: string;
+  post: any;
 
-  categories = [
-    { value: 'blog', name: 'Blog' },
-    { value: 'newspaper', name: 'Newspaper' },
-    { value: 'travel', name: 'Travel' },
-    { value: 'sport', name: 'Sport' },
-  ]
+  userId = localStorage.getItem('user_id');
 
-  languages = [
-    { value: 'vn', name: 'Viet Nam', img: 'https://tienichhay.net/uploads/flags/flat/24x24/vn.png' },
-    { value: 'gb', name: 'English', img: 'https://tienichhay.net/uploads/flags/flat/24x24/gb.png' },
-    { value: 'cn', name: 'China', img: 'https://tienichhay.net/uploads/flags/flat/24x24/cn.png' },
-    { value: 'kr', name: 'Korea', img: 'https://tienichhay.net/uploads/flags/flat/24x24/kr.png' }
-  ];
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
-      content: ['', Validators.required],
-      category: ['', Validators.required],
-      language: ['', Validators.required],
+      body: ['', Validators.required],
+      user_id: [this.userId],
+      status: [false],
       file: [null],
-      status: [false]
+      category_id: ['', Validators.required],
+      language_id: ['', Validators.required],
     });
+
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state) {
+      this.post = navigation.extras.state['post'];
+    }
   }
 
-  ngOnInit() {
-    document.addEventListener('click', this.onClickOutside.bind(this));
-    // Lấy ID từ route
-    this.route.paramMap.subscribe(params => {
-      this.postId = params.get('id')!;
-      if (this.postId) {
-        this.loadPost(this.postId);
+  ngOnInit(): void {
+    const postId = this.route.snapshot.paramMap.get('id');
+
+    if (postId) {
+      this.apiService.getPostDetails(Number(postId)).subscribe((post) => {
+        this.post = post;
+        this.selectedLanguageText = this.post.data.language.name;
+        console.log('object', this.post);
+
+        this.postForm = this.fb.group({
+          title: [this.post.data.title],
+          body: [this.post.data.body],
+          file: [this.post.data.file],
+          status: [this.post.data.status],
+          category_id: [this.post.data.category.id],
+          // language_id: [this.post.data.language.name],
+        });
+
+        this.fetchDataCategory();
+        this.fetchDataLanguage();
+      });
+    }
+  }
+
+  fetchDataCategory(): void {
+    this.apiService.fetchDataCategory().subscribe(
+      response => {
+        console.log('API Response - Categories:', response.data);
+        if (Array.isArray(response.data)) {
+          this.responseDataCategory = response.data;
+        } else {
+          this.responseDataCategory = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch categories:', error);
       }
-    });
+    );
   }
 
-
-  ngDoCheck(): void {}
-
-  toggleItems() {
-        this.showLanguageItems = !this.showLanguageItems;
+  fetchDataLanguage(): void {
+    this.apiService.fetchDataLanguage().subscribe(
+      response => {
+        console.log('API Response - Languages:', response.data);
+        if (Array.isArray(response.data)) {
+          this.responseDataLanguage = response.data;
+        } else {
+          this.responseDataLanguage = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch languages:', error);
+      }
+    );
   }
 
-  selectLanguage(language: any) {
+  toggleLanguageItems(): void {
+    this.showLanguageItems = !this.showLanguageItems;
+  }
+
+  selectLanguage(language: any): void {
+    this.postForm.get('language_id')?.setValue(language.id);
     this.selectedLanguageText = language.name;
-    this.selectedLanguageValue = language.value;
     this.showLanguageItems = false;
-
-    // Update the form control value
-    this.postForm.controls['language'].setValue(this.selectedLanguageValue);
-  }
-
-  onClickOutside(event: MouseEvent) {
-    const customSelectCategory = document.getElementById('category');
-    const customSelectLanguage = document.getElementById('language-select');
-  
-    if (customSelectCategory && !customSelectCategory.contains(event.target as Node)) {
-      this.showCategoryItems = false;
-    }
-  
-    if (customSelectLanguage && !customSelectLanguage.contains(event.target as Node)) {
-      this.showLanguageItems = false;
-    }
   }
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.postForm.patchValue({
-        file: file
-      });
-      this.previewFile(file);
-    }
-  }
-
-  previewFile(file: File): void {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.previewUrl = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  onSubmit(): void {
-    if (this.postForm.valid) {
-      // Thêm ID vào dữ liệu form
-      const formData = {
-        ...this.postForm.value,
-        id: this.postId
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
       };
-      console.log(formData);
-      // Gửi form lên server để cập nhật bài viết
-    } else {
-      console.log('Form is invalid');
+      reader.readAsDataURL(file);
+      this.postForm.get('file')?.setValue(file);
     }
-  }
+  };
 
-  loadPost(postId: string): void {
-    // Giả lập nạp dữ liệu bài viết từ server
-    // Thực tế, bạn sẽ gọi API để lấy dữ liệu bài viết theo ID
-    const post = {
-      title: 'Sample Title',
-      content: 'Sample Content',
-      category: 'blog',
-      language: 'vn',
-      status: true
-    };
-    // Cập nhật form với dữ liệu bài viết
-    this.postForm.patchValue(post);
-    this.selectedCategoryText = this.categories.find(cat => cat.value === post.category)?.name || '-- Choose category --';
-    this.selectedLanguageText = this.languages.find(lang => lang.value === post.language)?.name || '-- Choose language --';
-  }
+  onUpdate(): void {
+    if (this.postForm.valid) {
+      const formData = new FormData();
+      Object.keys(this.postForm.controls).forEach(key => {
+        formData.append(key, this.postForm.get(key)?.value);
+      });
+      const formDataObject = this.formDataToObject(formData);
+      const formDataString = JSON.stringify(formDataObject);
+      const postId = this.route.snapshot.paramMap.get('id');
+      this.apiService.updatePost(Number(postId), formDataString).subscribe({
+        next: (response) => {
+          console.log('Post updated successfully', response);
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Failed to update post', error);
+          alert('Failed to update post');
+        }
+      });
+    }
+  };
 
-
-  ngOnDestroy() {
-    document.removeEventListener('click', this.onClickOutside.bind(this));
-  }
+  formDataToObject(formData: FormData): { [key: string]: any } {
+    const object: { [key: string]: any } = {};
+    formData.forEach((value, key) => {
+      object[key] = value;
+    });
+    return object;
+  };
 }

@@ -153,7 +153,7 @@
 } */
 
 body {
-  background-color: #e6e8ff;
+  background-color: #2199e854;
   font-family: 'Arial', sans-serif;
   /* font-size: 16px; */
   color: #333;
@@ -182,8 +182,8 @@ body {
 }
 
 .btn-primary {
-  background-color: #696cff;
-  border-color: #696cff;
+  background-color: #2199e8;
+  border-color: #2199e8;
   border-radius: 4px;
 }
 
@@ -382,7 +382,7 @@ body {
 }
 
 .confirm-button {
-  background-color: #666fff;
+  background-color: #2199e8;
   color: white;
 }
 

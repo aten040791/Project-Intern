@@ -94,7 +94,7 @@
                           <fa-icon [icon]="faEllipsisV"></fa-icon>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end m-0">
-                          <a routerLink="/update-post/{{post.id}}" class="dropdown-item">
+                          <a (click)="getDetails(post.id)" class="dropdown-item">
                             <fa-icon [icon]="faEdit"></fa-icon>
                             <span class="ms-1">Update</span>
                           </a>
@@ -115,18 +115,13 @@
                 <tfoot></tfoot>
               </table>
               <div class="row" style="margin: 15px 0px 15px 0px;">
-                <div class="col-md-2 ">
-                  <p style="margin-top: 10px; text-align: right;">Rows per page:</p>
+                <div class="col-md-2" style="display: inline-flex;">
+                  <p style="margin-top: 15px; text-align: right;">Rows per page:</p>
+                  <select id="itemsPerPageSelect" style="padding-left: 10px;border: 0px;width: 60px;" class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
+                    <option *ngFor="let option of availableItemsPerPage" [value]="option">{{ option }}</option>
+                  </select>
                 </div>
-                <div class="col-md-4" style="text-align: right;">
-                  <div class="col-md-2 text-center me-3">
-                    <!-- Items per page selector -->
-                    <select id="itemsPerPageSelect" class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
-                      <option *ngFor="let option of availableItemsPerPage" [value]="option">{{ option }}</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-6" style="text-align: right;">
+                <div class="col-md-10" style="padding-top: 10px;text-align: right;">
                   <!-- Pagination -->
                   <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>

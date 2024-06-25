@@ -8,7 +8,7 @@
 [data-bs-theme='light'] {
   --bs-blue: #007bff;
   --bs-indigo: #6610f2;
-  --bs-purple: #696cff;
+  --bs-purple: #2199e8;
   --bs-pink: #e83e8c;
   --bs-red: #ff3e1d;
   --bs-orange: #fd7e14;
@@ -22,7 +22,7 @@
   --bs-gray-dark: rgba(67, 89, 113, 0.8);
   --bs-gray-25: rgba(67, 89, 113, 0.025);
   --bs-gray-50: rgba(67, 89, 113, 0.05);
-  --bs-primary: #696cff;
+  --bs-primary: #2199e8;
   --bs-secondary: #8592a3;
   --bs-success: #71dd37;
   --bs-info: #03c3ec;
@@ -90,10 +90,10 @@
   --bs-tertiary-bg: rgba(67, 89, 113, 0.1);
   --bs-tertiary-bg-rgb: 67, 89, 113;
   --bs-heading-color: #566a7f;
-  --bs-link-color: #696cff;
+  --bs-link-color: #2199e8;
   --bs-link-color-rgb: 105, 108, 255;
   --bs-link-decoration: none;
-  --bs-link-hover-color: #5f61e6;
+  --bs-link-hover-color: #0d93eb;
   --bs-link-hover-color-rgb: 95, 97, 230;
   --bs-code-color: #e83e8c;
   --bs-highlight-color: #697a8d;
@@ -472,6 +472,7 @@ button:not(:disabled),
 
 textarea {
   resize: vertical;
+  height: 220px;
 }
 
 fieldset {
@@ -3136,6 +3137,7 @@ fieldset:disabled .btn {
   background-color: transparent;
   border: 0;
   border-radius: var(--bs-dropdown-item-border-radius, 0);
+  cursor: pointer;
 }
 .dropdown-item:hover,
 .dropdown-item:focus {
@@ -4443,7 +4445,7 @@ fieldset:disabled .btn {
   --bs-progress-border-radius: 10rem;
   --bs-progress-box-shadow: var(--bs-box-shadow-inset);
   --bs-progress-bar-color: #fff;
-  --bs-progress-bar-bg: #696cff;
+  --bs-progress-bar-bg: #2199e8;
   --bs-progress-bar-transition: width 0.6s ease;
   display: flex;
   height: var(--bs-progress-height);
@@ -10399,7 +10401,7 @@ button.list-group-item-gray.active {
 }
 
 .border-primary {
-  border-color: #696cff !important;
+  border-color: #2199e8 !important;
 }
 
 .border-secondary {
@@ -10763,7 +10765,7 @@ button.list-group-item-gray.active {
 
 .flex-grow-1 {
   flex-grow: 1 !important;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 .flex-shrink-0 {
@@ -16463,7 +16465,7 @@ body {
 .container-xl,
 .container-xxl {
   padding-right: 1rem;
-  padding-left: 1rem;
+  /* padding-left: 1rem; */
 }
 @media (min-width: 992px) {
   .container,
@@ -16473,8 +16475,8 @@ body {
   .container-lg,
   .container-xl,
   .container-xxl {
-    /*padding-right: 1.625rem;*/
-    padding-left: 1.625rem;
+    padding-right: 1.625rem;
+    /* padding-left: 1.625rem; */
   }
 }
 
