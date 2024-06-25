@@ -7,7 +7,8 @@ const postService = {
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-      ]
+      ],
+      order: [['createdAt', 'DESC']]
   });
     return posts;
   },
@@ -17,7 +18,8 @@ const postService = {
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-      ]
+      ],
+      order: [['createdAt', 'DESC']]
     });
     return post;
   },
@@ -28,7 +30,8 @@ const postService = {
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-      ]
+      ],
+      order: [['createdAt', 'DESC']]
     });
     return post;
   },

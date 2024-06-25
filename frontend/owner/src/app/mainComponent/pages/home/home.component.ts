@@ -87,6 +87,18 @@ export class HomeComponent implements OnInit, DoCheck {
     });
   };
 
+  getDetails(postId: number): void {
+    this.apiService.getPostDetails(postId).subscribe({
+      next: (post) => {
+        this.router.navigate(['/update-post', postId], { state: { data: post.data } });
+      },
+      error: (error) => {
+        console.error('Failed to fetch post details:', error);
+        alert('Failed to fetch post details');
+      }
+    });
+  };
+
   ngDoCheck(): void {}
 
   isAnyPostSelected(): boolean {

@@ -70,7 +70,7 @@ const postController = {
   //Update post
   update: async (req, res) => {
     const { id } = req.params;
-    const updatedPostData = req.body;
+    const updatedPostData = JSON.parse(req.body.formData);
     const updatedPost = await postService.update(id, updatedPostData);
     return responseUtils.ok(res, updatedPost);
   },
