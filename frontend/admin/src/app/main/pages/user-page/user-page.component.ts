@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UserPageService } from './services/user-page.service';
 import { SelectAllService } from '../../features/select-all/services/select-all.service';
+import { User } from '../../interfaces/user/user';
+import { ApiService } from '../../shared/httpApi/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
@@ -10,114 +13,44 @@ import { SelectAllService } from '../../features/select-all/services/select-all.
 
 export class UserPageComponent implements OnInit, OnChanges {
 
-  constructor(private selectAllService: SelectAllService, private itemDetail: UserPageService, private cdr: ChangeDetectorRef) {}
+  constructor(private selectAllService: SelectAllService, private itemDetail: UserPageService, private api: ApiService, private router: Router) {}
 
   isShow:boolean = false;
   isDelete: boolean = false;
+  isDeleteSuccess: boolean = false;
+  isDeleteFailed: boolean = false;
   isShowEdit: boolean = false;
   itemsPerPage: number = 10;
   paginatedItems: any[] = [];
-
-  items: any[] = [
-    {
-      id: "1",
-      username: "hoang",
-      email: "aaa@gmail.com",
-      phone: "0365203656",
-      role: "admin",
-      status: "active",
-    },
-    {
-      id: "2",
-      username: "hoang",
-      email: "bbb@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "active",
-    },
-    {
-      id: "3",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "4",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "5",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "6",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "7",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "8",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "9",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "10",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-    {
-      id: "11",
-      username: "hoang",
-      email: "ccc@gmail.com",
-      phone: "0365203656",
-      role: "user",
-      status: "inactive",
-    },
-  ]
-
-  // default itemsPerPage = 10
+  item: any = {}
+  items: User[] = []
+  url: string = ""
+  
   ngOnInit(): void {
+    this.loadItems()
     this.updatePaginatedItems();
+    this.url = this.router.url
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['itemsPerPage']) {
       this.updatePaginatedItems();
     }
+  }
+
+  // load data from api
+  loadItems() {
+    this.api.getItems("users").subscribe({
+      next: (data: any) => {
+        // data = Object.values(data)[1]
+        data = data.data
+        this.items = data.users.slice()
+        this.updatePaginatedItems()
+      }, 
+      error: (error) => {
+        console.error('Error fetching items', error);
+      }
+    });
   }
 
   // from SelectAllService
@@ -132,6 +65,15 @@ export class UserPageComponent implements OnInit, OnChanges {
 
   toggleDelete(): void {
     this.isDelete = !this.isDelete
+    console.log(this.isDeleteSuccess)
+  }
+
+  toggleDeleteSuccess(): void {
+    this.isDeleteSuccess = !this.isDeleteSuccess
+  }
+
+  toggleDeleteFailed(): void {
+    this.isDeleteFailed = !this.isDeleteFailed
   }
 
   toggleEdit(): void {
@@ -151,14 +93,13 @@ export class UserPageComponent implements OnInit, OnChanges {
   // view detail
   initItem(item: any): void {
     this.itemDetail.setaItem(item)
+    this.item = this.itemDetail.getaItem()
   }
 
+  // update khi truyển vào bảng
   updatePaginatedItems(): void {
-    // const startIndex = (1 - 1) * this.itemsPerPage;
-    // const startIndex = 0;
-    // const endIndex = startIndex + this.itemsPerPage;
     this.paginatedItems = this.items.slice(0, this.itemsPerPage);
-    // this.cdr.detectChanges(); // Yêu cầu Angular thực hiện kiểm tra lại
+    // console.log(this.paginatedItems)
   }
 
 }

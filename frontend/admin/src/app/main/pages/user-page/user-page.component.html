@@ -121,7 +121,7 @@
                 <td>{{ paginatedItem.username }}</td>
                 <td>{{ paginatedItem.email }}</td>
                 <td>{{ paginatedItem.phone }}</td>
-                <td>{{ paginatedItem.role }}</td>
+                <td>{{ paginatedItem.role.name }}</td>
                 <td>
                   <span
                     class="badge me-1"
@@ -166,7 +166,7 @@
                       <a
                         href="javascript:;"
                         class="dropdown-item text-danger delete-record align-items-center fs-15"
-                        (click)="toggleDelete()"
+                        (click)="toggleDelete(); initItem(paginatedItem)"
                       >
                         <i class="fa-regular fa-trash-can"></i>
                         <span class="ms-1">Delete</span>
@@ -186,9 +186,29 @@
       </div>
     </div>
   </div>
+  <app-add-user [isShow]="isShow" (close)="toggleShow()"></app-add-user>
+  <app-edit-user
+    [isShowEdit]="isShowEdit"
+    (close)="toggleEdit()"
+    [item]="item"
+  ></app-edit-user>
 </div>
 
-<!-- add user -->
-<app-add-user [isShow]="isShow" (close)="toggleShow()"></app-add-user>
-<app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>
-<app-edit-user [isShowEdit]="isShowEdit" (close)="toggleEdit()"></app-edit-user>
+<!-- delete -->
+<app-delete
+  [isDelete]="isDelete"
+  (close)="toggleDelete()"
+  (close)="toggleDeleteFailed()"
+  (closeSuccess)="toggleDeleteSuccess()"
+></app-delete>
+
+<app-delete-failed
+  [isDeleteFailed]="isDeleteFailed"
+  (close)="toggleDeleteFailed()"
+></app-delete-failed>
+
+<app-delete-success
+  [isDeleteSuccess]="isDeleteSuccess"
+  (close)="toggleDeleteSuccess()"
+  [item]="item"
+></app-delete-success>

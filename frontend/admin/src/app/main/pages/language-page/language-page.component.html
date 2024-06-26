@@ -106,7 +106,7 @@
                   <th>Language</th>
                   <th>Locale</th>
                   <th>flag</th>
-                  <th>Status</th>
+                  <!-- <th>Status</th> -->
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -140,7 +140,7 @@
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <!-- <td>
                     <span
                       class="badge me-1"
                       [ngClass]="{
@@ -149,12 +149,12 @@
                     }"
                       >{{ paginatedItem.status }}</span
                     >
-                  </td>
+                  </td> -->
                   <td>
                     <div class="d-flex align-items-center">
                       <a
                         class="mr-8 text-primary cursor"
-                        (click)="toggleEdit()"
+                        (click)="toggleEdit(); initLanguage(paginatedItem)"
                       >
                         <div class="icon fs-14">
                           <i class="bx bx-edit menu-icon tf-icons"></i>
@@ -163,7 +163,7 @@
                       <a
                         href="javascript:;"
                         class="mr-8 text-danger cursor"
-                        (click)="toggleDelete()"
+                        (click)="toggleDelete(); initLanguage(paginatedItem)"
                       >
                         <div class="icon fs-14">
                           <i class="menu-icon tf-icons bx bx-trash"></i>
@@ -190,8 +190,28 @@
 </div>
 <!-- Content wrapper -->
 <app-add-language [isShow]="isShow" (close)="toggleShow()"></app-add-language>
-<app-delete [isDelete]="isDelete" (close)="toggleDelete()"></app-delete>
+
 <app-edit-language
   [isShowEdit]="isShowEdit"
   (close)="toggleEdit()"
+  [item]="item"
 ></app-edit-language>
+
+<!-- delete -->
+<app-delete
+  [isDelete]="isDelete"
+  (close)="toggleDelete()"
+  (close)="toggleDeleteFailed()"
+  (closeSuccess)="toggleDeleteSuccess()"
+></app-delete>
+
+<app-delete-failed
+  [isDeleteFailed]="isDeleteFailed"
+  (close)="toggleDeleteFailed()"
+></app-delete-failed>
+
+<app-delete-success
+  [isDeleteSuccess]="isDeleteSuccess"
+  (close)="toggleDeleteSuccess()"
+  [item]="item"
+></app-delete-success>

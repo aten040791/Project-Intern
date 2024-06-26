@@ -20,11 +20,12 @@
           <p class="mb-4 text-center">Login to access your admin account</p>
 
           <form
+            #formLogin="ngForm"
             id="formAuthentication"
             class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework"
-            action="user.html"
-            method="GET"
+            method="POST"
             novalidate="novalidate"
+            (ngSubmit)="onSubmit(formLogin.value)"
           >
             <div class="mb-3 fv-plugins-icon-container">
               <label for="email" class="form-label">Email or Username</label>
@@ -36,6 +37,7 @@
                 placeholder="Enter your email or username"
                 autofocus=""
                 required
+                ngModel
               />
               <div
                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
@@ -72,6 +74,7 @@
                   aria-describedby="password"
                   required
                   [type]="inputType"
+                  ngModel
                 />
                 <span
                   class="input-group-text cursor-pointer"

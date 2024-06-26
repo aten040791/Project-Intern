@@ -1,5 +1,9 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SelectAllService } from '../../features/select-all/services/select-all.service';
+import { language } from '../../interfaces/language/language';
+import { ApiService } from '../../shared/httpApi/api.service';
+import { LanguagePageService } from './services/language-page.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-language-page',
@@ -8,48 +12,41 @@ import { SelectAllService } from '../../features/select-all/services/select-all.
 })
 export class LanguagePageComponent implements OnInit, OnChanges {
 
-  constructor(private selectAllService: SelectAllService) {}
-
+  constructor(private selectAllService: SelectAllService, private http: ApiService, private languageService: LanguagePageService, private router: Router) {}
 
   isShow:boolean = false;
   isDelete: boolean = false;
+  isDeleteFailed: boolean = false;
+  isDeleteSuccess: boolean = false;
   isShowEdit: boolean = false;
   itemsPerPage: number = 10;
   paginatedItems: any[] = [];
-  items: any = [
-    {id: "#1", name: "Việt Nam", locale: "vi", flag: "../assets/img/avatars/vn_flag.png", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#3", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#4", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#5", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#6", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#2", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "inactive"},
-    {id: "#16", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#17", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#18", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#19", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#20", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#21", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-    {id: "#22", name: "English", locale: "en", flag: "../assets/img/avatars/en_flag.jpg", status: "active"},
-  ]
-
-   // default itemsPerPage = 10
+  item: any = {}
+  items: language[] = []
+  url: string = ""
+  
    ngOnInit(): void {
+    this.loadItems()
     this.updatePaginatedItems();
+    this.url = this.router.url
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['itemsPerPage']) {
       this.updatePaginatedItems();
     }
+  }
+
+  loadItems() {
+    this.http.getItems("languages").subscribe({
+      next: (data: any) => {
+        this.items = data.data.languages.slice()
+        this.updatePaginatedItems()
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   }
   
   // from SelectAllService
@@ -71,6 +68,14 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   toggleDelete(): void {
     this.isDelete = !this.isDelete
   }
+  
+  toggleDeleteSuccess(): void {
+    this.isDeleteSuccess = !this.isDeleteSuccess
+  }
+
+  toggleDeleteFailed(): void {
+    this.isDeleteFailed = !this.isDeleteFailed
+  }
 
   toggleEdit(): void {
     this.isShowEdit = !this.isShowEdit
@@ -81,11 +86,14 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   }
   
   updatePaginatedItems(): void {
-    // const startIndex = (1 - 1) * this.itemsPerPage;
-    // const startIndex = 0;
-    // const endIndex = startIndex + this.itemsPerPage;
     this.paginatedItems = this.items.slice(0, this.itemsPerPage);
-    // this.cdr.detectChanges(); // Yêu cầu Angular thực hiện kiểm tra lại
+  }
+
+  // init language
+  initLanguage(item: any): void {
+    this.languageService.setItem(item)
+    this.item = this.languageService.getItem()
+    console.log(this.item)
   }
 
 }

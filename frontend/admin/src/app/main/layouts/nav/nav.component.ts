@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent {
+
   toggleIcon() {
     const htmlElement = document.documentElement; // Truy cập phần tử <html>
     if (htmlElement.classList.contains('layout-menu-fixed')) {
@@ -14,4 +15,5 @@ export class NavComponent {
       htmlElement.classList.remove('layout-menu-expanded');
     }
   }
+  
 }
