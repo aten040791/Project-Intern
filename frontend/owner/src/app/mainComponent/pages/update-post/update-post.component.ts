@@ -29,7 +29,7 @@ export class UpdatePostComponent implements OnInit {
       title: ['', Validators.required],
       body: ['', Validators.required],
       user_id: [this.userId],
-      status: [false],
+      status: [''],
       file: [null],
       category_id: ['', Validators.required],
       language_id: ['', Validators.required],
@@ -48,15 +48,13 @@ export class UpdatePostComponent implements OnInit {
       this.apiService.getPostDetails(Number(postId)).subscribe((post) => {
         this.post = post;
         this.selectedLanguageText = this.post.data.language.name;
-        console.log('object', this.post);
 
         this.postForm = this.fb.group({
           title: [this.post.data.title],
           body: [this.post.data.body],
           file: [this.post.data.file],
-          status: [this.post.data.status],
+          status: [this.post.data.status === 'true'],
           category_id: [this.post.data.category.id],
-          // language_id: [this.post.data.language.name],
         });
 
         this.fetchDataCategory();
