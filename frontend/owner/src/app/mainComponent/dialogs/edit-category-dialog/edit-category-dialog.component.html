@@ -19,7 +19,7 @@
                                 <label for="value" class="form-label"></label>
                                 <select class="form-select" id="value" formControlName="value" (click)="toggleItems()" required>
                                     <option value="" selected disabled>{{ selectedCategoryText }}</option>
-                                    <option *ngFor="let category of categories" [value]="category.value">
+                                    <option *ngFor="let category of responseDataCategory" [value]="category.id">
                                       {{ category.name }}
                                     </option>
                                   </select>
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div style="float: right;">
-                        <button type="submit" class="btn_ok btn btn-primary data-submit" [disabled]="postForm.invalid">Submit</button>
+                        <button type="submit" class="btn_ok btn btn-primary data-submit" [disabled]="postForm.invalid"><fa-icon [icon]="faFloppyDisk"></fa-icon>Save</button>
                     </div>
                 </form>
             </div>

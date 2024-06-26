@@ -1,11 +1,14 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-edit-status-dialog',
   templateUrl: './edit-status-dialog.component.html',
-  styleUrls: ['./edit-status-dialog.component.css']
+  styleUrls: ['./edit-status-dialog.component.css'],
 })
 export class EditStatusDialogComponent {
   @Input() selectedPostIds: number[] = [];
@@ -13,13 +16,18 @@ export class EditStatusDialogComponent {
   showItems = false;
   selectedStatusText = '-- Choose status --';
 
-  statuses = [
-    { value: 'active', name: 'Active' },
-    { value: 'inactive', name: 'Inactive' },
-    { value: 'pending', name: 'Pending' },
-  ]
+  faFloppyDisk = faFloppyDisk;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  statuses = [
+    { value: 'false', name: 'Hidden' },
+    { value: 'true', name: 'Display' },
+  ];
+
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router ) {
+    library.add(faFloppyDisk);
     this.createForm();
   }
 
@@ -27,21 +35,21 @@ export class EditStatusDialogComponent {
     if (changes['selectedPostIds'] && changes['selectedPostIds'].currentValue) {
       this.postForm.controls['Ids'].setValue(this.selectedPostIds);
     }
-  };
+  }
 
-  ngOnInit() {};
+  ngOnInit() {}
 
   createForm() {
     this.postForm = this.fb.group({
       Ids: [this.selectedPostIds],
       value: ['', Validators.required],
-      type: ['status']
+      type: ['status'],
     });
   }
 
   toggleItems() {
     this.showItems = !this.showItems;
-  };
+  }
 
   closeModal() {
     const modal = document.getElementById('edit-status-dialog');
@@ -55,10 +63,18 @@ export class EditStatusDialogComponent {
       const formData = {
         ...this.postForm.value,
       };
-      console.log(formData);
-    } else {
-      console.log('Form is invalid');
+      this.apiService.updateStatus(formData).subscribe({
+        next: (response) => {
+          console.log('Post update status successfully', response);
+          window.location.reload();
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Failed to update status post', error);
+          alert('Failed to update status post');
+        },
+      });
+      this.closeModal();
     }
-    this.closeModal();
   }
 }

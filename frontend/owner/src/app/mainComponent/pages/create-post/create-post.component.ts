@@ -29,7 +29,7 @@ export class CreatePostComponent implements OnInit {
       body: ['', Validators.required],
       user_id: [this.userId],
       status: [false],
-      file: [null],
+      file: [''],
       category_id: ['', Validators.required],
       language_id: ['', Validators.required],
     });

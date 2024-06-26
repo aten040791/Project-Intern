@@ -1,6 +1,6 @@
 <div class="content-wrapper">
     <div>
-      <div class="header-container" style="display: flex; align-items: center; justify-content: space-between; margin: 10px 0px 30px 0px;">
+      <div class="header-container" style="display: flex; align-items: center; justify-content: space-between; margin: 0px 0px 20px 0px;">
         <div class="title flex direction-col">
           <h2 class="my-0">POST LIST</h2>
         </div>
@@ -33,16 +33,16 @@
                       </button>
                       <div class="dropdown-menu dropdown-menu-end m-0">
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-language-dialog', getSelectedPostIds())">
-                          <span class="ms-1">Update Language</span>
+                          <span class="ms-1"><fa-icon [icon]="faLanguage"></fa-icon><span>Update Language</span></span>
                         </a>
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-status-dialog', getSelectedPostIds())">
-                          <span class="ms-1">Update Status</span>
+                          <span class="ms-1"><fa-icon [icon]="faToggleOn"></fa-icon><span>Update Status</span></span>
                         </a>
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-category-dialog', getSelectedPostIds())">
-                          <span class="ms-1">Update Category</span>
+                          <span class="ms-1"><fa-icon [icon]="faBook"></fa-icon><span>Update Category</span></span>
                         </a>
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('delete-mutipal-post', getSelectedPostIds())">
-                          <span class="ms-1">Delete Multiple Posts</span>
+                          <span class="ms-1"><fa-icon [icon]="faTrash"></fa-icon><span>Delete Multiple Posts</span></span>
                         </a>
                       </div>
                     </div>
@@ -86,7 +86,7 @@
                     <td>{{ post.category.name }}</td>
                     <td>{{ post.language.name }}</td>
                     <td>
-                      <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hiden' }}</span>
+                      <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hidden' }}</span>
                     </td>
                     <td>
                       <div class="d-flex justify-content-center">
