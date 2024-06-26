@@ -11,6 +11,7 @@ export class UserPageService {
 
   setaItem(item: string): any {
     this.item = item
+    this.item.nameApi = "users"
   }
 
   getaItem(): void {

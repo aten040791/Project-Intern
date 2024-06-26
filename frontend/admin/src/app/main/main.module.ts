@@ -20,6 +20,8 @@ import { EditCategoryComponent } from './features/edit/edit-category/components/
 import { EditLanguageComponent } from './features/edit/edit-language/components/edit-language/edit-language.component';
 import { ViewDetailComponent } from './pages/view-detail/components/view-detail/view-detail.component';
 import { MyProfilePageComponent } from './pages/my-profile-page/components/my-profile-page/my-profile-page.component';
+import { DeleteSuccessComponent } from './features/delete/delete-success/components/delete-success/delete-success.component';
+import { DeleteFailedComponent } from './features/delete/delete-failed/delete-failed.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { MyProfilePageComponent } from './pages/my-profile-page/components/my-pr
     EditCategoryComponent, 
     EditLanguageComponent, 
     ViewDetailComponent, 
-    MyProfilePageComponent,  
+    MyProfilePageComponent, DeleteSuccessComponent, DeleteFailedComponent,  
   ],
   imports: [
     MainRoutingModule,

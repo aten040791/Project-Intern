@@ -5301,7 +5301,7 @@ textarea.form-control-lg {
 }
 
 .modal.show .modal-dialog {
-    /* transform: translateY(0) scale(1) */
+    transform: translateY(0) scale(1)
 }
 
 .modal.modal-static .modal-dialog {
@@ -11117,7 +11117,12 @@ html:not([dir=rtl]) .modal-dialog-scrollable .btn-close:hover,html:not([dir=rtl]
 }
 
 .dark-style .modal .btn-close {
-    background-color: #2b2c40
+    background-color: #2b2c40 
+}
+
+/* bonus */
+.btn-close {
+    background-color: #2b2c40 !important
 }
 
 [dir=rtl] .modal,[dir=rtl] .modal-backdrop {
