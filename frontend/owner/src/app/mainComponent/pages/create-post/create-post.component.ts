@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-create-post',
@@ -9,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
+  public Editor = ClassicEditor;
   postForm: FormGroup;
   responseDataCategory: any[] = [];
   responseDataLanguage: any[] = [];
@@ -22,7 +24,7 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -33,12 +35,19 @@ export class CreatePostComponent implements OnInit {
       category_id: ['', Validators.required],
       language_id: ['', Validators.required],
     });
-  }
+  };
+
+  // Handle data output ckeditor
+  stripPTags(data: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = data;
+    return tempDiv.textContent || tempDiv.innerText || '';
+  };
 
   ngOnInit(): void {
     this.fetchDataCategory();
     this.fetchDataLanguage();
-  }
+  };
 
   fetchDataCategory(): void {
     this.apiService.fetchDataCategory().subscribe(
@@ -54,7 +63,7 @@ export class CreatePostComponent implements OnInit {
         console.error('Failed to fetch categories:', error);
       }
     );
-  }
+  };
 
   fetchDataLanguage(): void {
     this.apiService.fetchDataLanguage().subscribe(
@@ -70,17 +79,17 @@ export class CreatePostComponent implements OnInit {
         console.error('Failed to fetch languages:', error);
       }
     );
-  }
+  };
 
   toggleLanguageItems(): void {
     this.showLanguageItems = !this.showLanguageItems;
-  }
+  };
 
   selectLanguage(language: any): void {
     this.postForm.get('language_id')?.setValue(language.id);
     this.selectedLanguageText = language.name;
     this.showLanguageItems = false;
-  }
+  };
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
@@ -98,7 +107,9 @@ export class CreatePostComponent implements OnInit {
     if (this.postForm.valid) {
       const formData = new FormData();
       Object.keys(this.postForm.controls).forEach(key => {
-        formData.append(key, this.postForm.get(key)?.value);
+        let value = this.postForm.get(key)?.value;
+        if (key === 'body') value = this.stripPTags(value);
+        formData.append(key, value);
       });
       const formDataObject = this.formDataToObject(formData);
       const formDataString = JSON.stringify(formDataObject);
@@ -114,7 +125,7 @@ export class CreatePostComponent implements OnInit {
         }
       });
     }
-  }
+  };
 
   formDataToObject(formData: FormData): { [key: string]: any } {
     const object: { [key: string]: any } = {};
@@ -122,5 +133,5 @@ export class CreatePostComponent implements OnInit {
       object[key] = value;
     });
     return object;
-  }
+  };
 }

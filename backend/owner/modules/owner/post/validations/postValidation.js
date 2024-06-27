@@ -30,12 +30,14 @@ const postValidation = {
     // new BodyWithLocale("category_id").notEmpty().exist(db.Category, "id"),
     // new BodyWithLocale("language_id").notEmpty().exist(db.Language, "id"),
   ],
-  delete: [new BodyWithLocale("ids").isArray().exist(db.Post, "id")],
+  delete: [
+    // new BodyWithLocale("ids").isArray().exist(db.Post, "id")
+  ],
 
   updateMultiple: [
-    new BodyWithLocale("ids").isArray().exist(db.Post, "id"),
-    new BodyWithLocale("value").notEmpty(),
-    new BodyWithLocale("type").notEmpty(),
+    // new BodyWithLocale("ids").isArray().exist(db.Post, "id"),
+    // new BodyWithLocale("value").notEmpty(),
+    // new BodyWithLocale("type").notEmpty(),
   ],
 };
 

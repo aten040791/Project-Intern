@@ -66,8 +66,8 @@ export class EditStatusDialogComponent {
       this.apiService.updateStatus(formData).subscribe({
         next: (response) => {
           console.log('Post update status successfully', response);
-          window.location.reload();
           this.router.navigate(['/home']);
+          window.location.reload();
         },
         error: (error) => {
           console.error('Failed to update status post', error);

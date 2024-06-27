@@ -80,8 +80,8 @@ export class EditCategoryDialogComponent {
       this.apiService.updateCategory(formData).subscribe({
         next: (response) => {
           console.log('Post update category successfully', response);
-          window.location.reload();
           this.router.navigate(['/home']);
+          window.location.reload();
         },
         error: (error) => {
           console.error('Failed to update category post', error);

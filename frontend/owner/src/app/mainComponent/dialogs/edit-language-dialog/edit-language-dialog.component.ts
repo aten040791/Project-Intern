@@ -93,8 +93,8 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
       this.apiService.updateLanguage(formData).subscribe({
         next: (response) => {
           console.log('Post update language successfully', response);
-          window.location.reload();
           this.router.navigate(['/home']);
+          window.location.reload();
         },
         error: (error) => {
           console.error('Failed to update language post', error);

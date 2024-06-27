@@ -18,6 +18,7 @@ import { EditStatusDialogComponent } from './dialogs/edit-status-dialog/edit-sta
 import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit-category-dialog.component';
 import { DeleteMutipalPostComponent } from './dialogs/delete-mutipal-post/delete-mutipal-post.component';
 import { CommonModule } from '@angular/common';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     NgxPaginationModule,
     ReactiveFormsModule,
+    CKEditorModule,
   ]
 })
 export class LayoutMainModule {}

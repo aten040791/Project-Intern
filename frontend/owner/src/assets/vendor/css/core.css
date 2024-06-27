@@ -171,7 +171,7 @@ h2,
 h1,
 .h1 {
   margin-top: 0;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   font-weight: 500;
   line-height: 1.1;
   color: var(--bs-heading-color);
@@ -472,7 +472,6 @@ button:not(:disabled),
 
 textarea {
   resize: vertical;
-  height: 220px;
 }
 
 fieldset {
@@ -7072,7 +7071,7 @@ a.invert-bg-dark:focus {
 }
 
 .container-p-y:not([class^='pt-']):not([class*=' pt-']) {
-  padding-top: 1.625rem !important;
+  /* padding-top: 1.625rem !important; */
 }
 .container-p-y:not([class^='pb-']):not([class*=' pb-']) {
   padding-bottom: 1.625rem !important;
