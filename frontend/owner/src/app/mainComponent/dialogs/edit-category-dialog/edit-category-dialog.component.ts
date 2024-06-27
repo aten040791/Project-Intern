@@ -1,25 +1,29 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-edit-category-dialog',
   templateUrl: './edit-category-dialog.component.html',
-  styleUrls: ['./edit-category-dialog.component.css']
+  styleUrls: ['./edit-category-dialog.component.css'],
 })
 export class EditCategoryDialogComponent {
   @Input() selectedPostIds: number[] = [];
   postForm: FormGroup;
+  responseDataCategory: any[] = [];
   showItems = false;
   selectedCategoryText = '-- Choose category --';
-  
-  categories = [
-    { value: 'blog', name: 'Blog' },
-    { value: 'newspaper', name: 'Newspaper' },
-    { value: 'travel', name: 'Travel' },
-    { value: 'sport', name: 'Sport' },
-  ]
 
-  constructor(private fb: FormBuilder) {
+  faFloppyDisk = faFloppyDisk;
+
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router) {
+    library.add(faFloppyDisk);
     this.createForm();
   }
 
@@ -29,19 +33,37 @@ export class EditCategoryDialogComponent {
     }
   };
 
-  ngOnInit() {};
+  ngOnInit(): void {
+    this.fetchDataCategory();
+  }
+
+  fetchDataCategory(): void {
+    this.apiService.fetchDataCategory().subscribe(
+      response => {
+        console.log('API Response - Categories:', response.data);
+        if (Array.isArray(response.data)) {
+          this.responseDataCategory = response.data;
+        } else {
+          this.responseDataCategory = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch categories:', error);
+      }
+    );
+  }
 
   createForm() {
     this.postForm = this.fb.group({
       Ids: [this.selectedPostIds],
       value: ['', Validators.required],
-      type: ['category']
+      type: ['category_id'],
     });
   }
 
   toggleItems() {
     this.showItems = !this.showItems;
-  };
+  }
 
   closeModal() {
     const modal = document.getElementById('edit-category-dialog');
@@ -55,10 +77,18 @@ export class EditCategoryDialogComponent {
       const formData = {
         ...this.postForm.value,
       };
-      console.log(formData);
-    } else {
-      console.log('Form is invalid');
+      this.apiService.updateCategory(formData).subscribe({
+        next: (response) => {
+          console.log('Post update category successfully', response);
+          this.router.navigate(['/home']);
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Failed to update category post', error);
+          alert('Failed to update category post');
+        },
+      });
+      this.closeModal();
     }
-    this.closeModal();
   }
 }

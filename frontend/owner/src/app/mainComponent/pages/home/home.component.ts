@@ -2,7 +2,7 @@ import { state } from '@angular/animations';
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash, faLanguage, faBook, faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
 
@@ -36,9 +36,12 @@ export class HomeComponent implements OnInit, DoCheck {
   faEdit = faEdit;
   faEye = faEye;
   faTrash = faTrash;
+  faLanguage = faLanguage;
+  faBook = faBook;
+  faToggleOn = faToggleOn;
 
   constructor(private apiService: ApiService, private router: Router) {
-    library.add(faSliders, faPlusSquare, faEllipsisV, faEdit, faTrash, faEye);
+    library.add(faSliders, faPlusSquare, faEllipsisV, faEdit, faTrash, faEye, faLanguage, faBook, faToggleOn);
   }
 
   ngOnInit(): void {

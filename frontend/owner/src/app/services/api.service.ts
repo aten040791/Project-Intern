@@ -10,12 +10,16 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  fetchData(): Observable<any> {
+  private getHeaders(): HttpHeaders {
     const accessToken = localStorage.getItem('access_token');
-    const userId = localStorage.getItem('user_id');
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       'Authorization': `Bearer ${accessToken}`
     });
+  };
+
+  fetchData(): Observable<any> {
+    const userId = localStorage.getItem('user_id');
+    const headers = this.getHeaders();
     return this.http.get<any>(`${this.apiUrl}/post/user/${userId}`, { headers });
   };
 
@@ -28,28 +32,39 @@ export class ApiService {
   };
 
   getPostDetails(postId: number): Observable<any> {
-    const accessToken = localStorage.getItem('access_token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-    return this.http.get<any>(`${this.apiUrl}/post/${postId}`, { headers }); // Adjust the URL to your API endpoint
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/post/${postId}`, { headers });
   };
 
-  createPost(formData: string): Observable<any> {
-    const accessToken = localStorage.getItem('access_token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
-
+  createPost(formData: string): Observable<any> { // Changed type to any
+    console.log(formData);
+    const headers = this.getHeaders();
     return this.http.post<any>(`${this.apiUrl}/post/create`, { formData }, { headers });
   };
 
-  updatePost(postId: number, formData: string): Observable<any> {
-    const accessToken = localStorage.getItem('access_token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    });
+  updatePost(postId: number, formData: string): Observable<any> { // Changed type to any
+    const headers = this.getHeaders();
     return this.http.put<any>(`${this.apiUrl}/post/update/${postId}`, { formData }, { headers });
   };
 
+  deletePost(formData: number[]): Observable<any> {
+    const headers = this.getHeaders();
+    const options = {
+      headers: headers,
+      body: { formData }
+    };
+    return this.http.delete<any>(`${this.apiUrl}/post/delete`, options);
+  };
+
+  updateCategory(formData: number[]): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/post/update-multiple`, { formData });
+  };
+
+  updateLanguage(formData: number[]): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/post/update-multiple`, { formData });
+  };
+
+  updateStatus(formData: number[]): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/post/update-multiple`, { formData });
+  };
 }

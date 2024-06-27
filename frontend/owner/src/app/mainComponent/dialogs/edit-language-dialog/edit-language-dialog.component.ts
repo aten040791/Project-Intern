@@ -1,6 +1,9 @@
 import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-edit-language-dialog',
@@ -11,18 +14,18 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
   @Input() selectedPostIds: number[] = [];
   @Output() closeModalDialog = new EventEmitter<boolean>();
   postForm: FormGroup;
+  responseDataLanguage: any[] = [];
   showItems = false;
   selectedLanguageText = '-- Choose language --';
   selectedLanguageValue = '';
 
-  languages = [
-    { value: 'vn', name: 'Viet Nam', img: 'https://tienichhay.net/uploads/flags/flat/24x24/vn.png' },
-    { value: 'gb', name: 'English', img: 'https://tienichhay.net/uploads/flags/flat/24x24/gb.png' },
-    { value: 'cn', name: 'China', img: 'https://tienichhay.net/uploads/flags/flat/24x24/cn.png' },
-    { value: 'kr', name: 'Korea', img: 'https://tienichhay.net/uploads/flags/flat/24x24/kr.png' }
-  ];
+  faFloppyDisk = faFloppyDisk;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router) {
+    library.add(faFloppyDisk);
     this.createForm();
   };
 
@@ -34,13 +37,30 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     document.addEventListener('click', this.onClickOutside.bind(this));
+    this.fetchDataLanguage();
+  };
+
+  fetchDataLanguage(): void {
+    this.apiService.fetchDataLanguage().subscribe(
+      response => {
+        console.log('API Response - Languages:', response.data);
+        if (Array.isArray(response.data)) {
+          this.responseDataLanguage = response.data;
+        } else {
+          this.responseDataLanguage = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch languages:', error);
+      }
+    );
   };
 
   createForm() {
     this.postForm = this.fb.group({
       Ids: [this.selectedPostIds],
       value: ['', Validators.required],
-      type: ['language']
+      type: ['language_id']
     });
   }
 
@@ -50,7 +70,7 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
 
   selectLanguage(language: any) {
     this.selectedLanguageText = language.name;
-    this.selectedLanguageValue = language.value;
+    this.selectedLanguageValue = language.id;
     this.showItems = false;
 
     // Update the form control value
@@ -70,12 +90,20 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
       const formData = {
         ...this.postForm.value,
       };
-      console.log(formData);
-    } else {
-      console.log('Form is invalid');
+      this.apiService.updateLanguage(formData).subscribe({
+        next: (response) => {
+          console.log('Post update language successfully', response);
+          this.router.navigate(['/home']);
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Failed to update language post', error);
+          alert('Failed to update language post');
+        },
+      });
+      this.closeModal();
     }
-    this.closeModal();
-  };
+  }
 
   ngOnDestroy() {
     document.removeEventListener('click', this.onClickOutside.bind(this));

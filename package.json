@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@ckeditor/ckeditor5-angular": "^8.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^42.0.0",
     "date-fns": "^3.6.0",
     "git-branch-is": "^4.0.0",
     "husky": "^9.0.11"

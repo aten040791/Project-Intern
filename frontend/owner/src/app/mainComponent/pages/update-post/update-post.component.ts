@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./update-post.component.css']
 })
 export class UpdatePostComponent implements OnInit {
+  public Editor = ClassicEditor;
   postForm: FormGroup;
   responseDataCategory: any[] = [];
   responseDataLanguage: any[] = [];
@@ -39,7 +41,14 @@ export class UpdatePostComponent implements OnInit {
     if (navigation?.extras?.state) {
       this.post = navigation.extras.state['post'];
     }
-  }
+  };
+
+  // Handle data output ckeditor
+  stripPTags(data: string): string {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = data;
+    return tempDiv.textContent || tempDiv.innerText || '';
+  };
 
   ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('id');
@@ -121,7 +130,9 @@ export class UpdatePostComponent implements OnInit {
     if (this.postForm.valid) {
       const formData = new FormData();
       Object.keys(this.postForm.controls).forEach(key => {
-        formData.append(key, this.postForm.get(key)?.value);
+        let value = this.postForm.get(key)?.value;
+        if (key === 'body') value = this.stripPTags(value);
+        formData.append(key, value);
       });
       const formDataObject = this.formDataToObject(formData);
       const formDataString = JSON.stringify(formDataObject);

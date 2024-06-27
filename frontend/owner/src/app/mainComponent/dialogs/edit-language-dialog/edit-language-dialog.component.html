@@ -23,14 +23,14 @@
                       {{ selectedLanguageText }}
                     </div>
                     <div class="select-items" [ngStyle]="{ display: showItems ? 'block' : 'none' }">
-                      <div *ngFor="let language of languages" (click)="selectLanguage(language)">
+                      <div *ngFor="let language of responseDataLanguage" (click)="selectLanguage(language)">
                         <img [src]="language.img" alt="{{ language.name }}"> {{ language.name }}
                       </div>
                     </div>
                   </div>
                   <select class="form-select" id="value" formControlName="value" required style="display:none;">
                     <option value="" selected disabled>--Choose language--</option>
-                    <option *ngFor="let language of languages" [value]="language.value">
+                    <option *ngFor="let language of responseDataLanguage" [value]="language.id">
                       {{ language.name }}
                     </option>
                   </select>
@@ -39,7 +39,7 @@
             </div>
           </div>
           <div style="float: right;">
-            <button type="submit" class="btn_ok btn btn-primary data-submit" [disabled]="postForm.invalid">Submit</button>
+            <button type="submit" class="btn_ok btn btn-primary data-submit" [disabled]="postForm.invalid"><fa-icon [icon]="faFloppyDisk"></fa-icon>Save</button>
           </div>
         </form>
       </div>

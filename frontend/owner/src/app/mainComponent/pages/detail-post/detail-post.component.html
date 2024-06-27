@@ -17,59 +17,15 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="list-group">
-                                    <article class="blog-post mb-4 p-4 bg-light rounded shadow">
-                                       <a href="detail.html"><b>Quốc hội sẽ phê chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a>
-                                            <div class="card-text-right">
-                                                <p>
-                                                    Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê
-                                                    chuẩn đề nghị của Thủ tướng về việc miễn
-                                                    nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm
-                                                </p>
-                                            </div>
-                                            <a href="detail.html" class="">Read more…</a>
-                                            <p class="date text-muted">May 21, 2024</p>
-    
-                                    </article>
-                                    <article class="blog-post mb-4 p-4 bg-light rounded shadow">
-                                        <a href="detail.html"><b>Quốc hội sẽ phê chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a>
-                                             <div class="card-text-right">
-                                                 <p>
-                                                     Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê
-                                                     chuẩn đề nghị của Thủ tướng về việc miễn
-                                                     nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm
-                                                 </p>
-                                             </div>
-                                             <a href="detail.html" class="">Read more…</a>
-                                             <p class="date text-muted">May 21, 2024</p>
-     
-                                     </article>
-                                     <article class="blog-post mb-4 p-4 bg-light rounded shadow">
-                                        <a href="detail.html"><b>Quốc hội sẽ phê chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a>
-                                             <div class="card-text-right">
-                                                 <p>
-                                                     Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê
-                                                     chuẩn đề nghị của Thủ tướng về việc miễn
-                                                     nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm
-                                                 </p>
-                                             </div>
-                                             <a href="detail.html" class="">Read more…</a>
-                                             <p class="date text-muted">May 21, 2024</p>
-     
-                                     </article>
-                                     <article class="blog-post mb-4 p-4 bg-light rounded shadow">
-                                        <a href="detail.html"><b>Quốc hội sẽ phê chuẩn miễn nhiệm chức Bộ trưởng Công an với đại tướng Tô Lâm</b></a>
-                                             <div class="card-text-right">
-                                                 <p>
-                                                     Ủy ban Thường vụ Quốc hội đề nghị Quốc hội cho phép bổ sung nội dung phê
-                                                     chuẩn đề nghị của Thủ tướng về việc miễn
-                                                     nhiệm chức vụ Bộ trưởng Công an với đại tướng Tô Lâm
-                                                 </p>
-                                             </div>
-                                             <a href="detail.html" class="">Read more…</a>
-                                             <p class="date text-muted">May 21, 2024</p>
-     
-                                     </article>
+                                  <article class="blog-post mb-4 p-4 bg-light rounded shadow" *ngFor="let post of posts">
+                                    <a (click)="viewDetails(post.id)" style="cursor: pointer;"><b>{{ post.title }}</b></a>
+                                    <div class="card-text-right">
+                                      <p>{{ post.body }}</p>
+                                    </div>
+                                    <a (click)="viewDetails(post.id)" style="color: #2199e8; cursor: pointer;">Read more…</a>
+                                    <p class="date text-muted">{{ post.formattedDate }}</p>
+                                  </article>
                                 </div>
-                            </div>
+                              </div>
                         </div>
                     </div>

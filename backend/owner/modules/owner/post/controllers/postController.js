@@ -2,8 +2,6 @@ const postService = require("modules/owner/post/services/postService");
 const responseUtils = require("utils/responseUtils");
 const slugify = require("slugify");
 
-// const upload = multer({ dest: 'uploads/' });
-
 const postController = {
   //Get post list
   index: async (req, res) => {
@@ -56,9 +54,6 @@ const postController = {
         lower: true,
         strict: true
       });
-      // if (req.body.formData.file) {
-      //   post.file = req.body.formData.file.path;
-      // }
       const newPost = await postService.create(post);
       return responseUtils.ok(res, newPost);
     } catch (error) {
@@ -77,21 +72,21 @@ const postController = {
 
   //Delete post
   delete: async (req, res) => {
-    await postService.delete(req.body);
+    const idsPost = req.body.formData.Ids;
+    await postService.delete(idsPost);
     return responseUtils.ok(res, { message: "Posts deleted successfully" });
   },
 
   updateMultiple: async (req, res) => {
-    const { ids, value, type } = req.body;
+    const { Ids, value, type } = req.body.formData;
     const updatedPostData = {
       value: value,
       type: type,
     };
-    const updatedPosts = await postService.updateMultiple(ids, updatedPostData);
+    const updatedPosts = await postService.updateMultiple(Ids, updatedPostData);
     return responseUtils.ok(res, updatedPosts);
   },
 
-  // create: [upload.single('file'), create],
 };
 
 module.exports = postController;

@@ -69,14 +69,13 @@ const postService = {
     return post;
   },
 
-  delete: async (req) => {
-    const posts = await db.Post.findAll({ where: { id: req.ids } });
-    await db.Post.destroy({ where: { id: req.ids } });
+  delete: async (idsPost) => {
+    await db.Post.destroy({ where: { id: idsPost } });
     return { message: "Posts deleted successfully" };
   },
 
-  updateMultiple: async (ids, updatedPostData) => {
-    const posts = await db.Post.findAll({ where: { id: ids } });
+  updateMultiple: async (Ids, updatedPostData) => {
+    const posts = await db.Post.findAll({ where: { id: Ids } });
     const updatedPosts = [];
     for (let i = 0; i < posts.length; i++) {
       const post = posts[i];
