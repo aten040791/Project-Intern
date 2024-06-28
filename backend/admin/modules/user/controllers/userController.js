@@ -1,23 +1,14 @@
 const responseUtils = require("utils/responseUtils");
 const { getApiName } = require("utils/apiUtils");
 const userService = require("modules/user/services/userService");
-const { hash } = require("kernels/hash/index");
 const siteController = require("modules/site/controllers/siteController");
 
 module.exports = {
   // todo: get all user
   index: async (req, res) => {
-    const result = await userService.list();
+    const { page, limit } = req.query;
+    const result = await userService.list(page, limit);
     return responseUtils.ok(res, { users: result });
-    // try {
-    //   const result = await userService.list();
-    //   res.render("index", {
-    //     result,
-    //     layout: "admin/views/layouts/front-page",
-    //   });
-    // } catch (error) {
-    //   return responseUtils.notFound(res);
-    // }
   },
   // todo: create a user
   createUser: async (req, res) => {
@@ -28,16 +19,16 @@ module.exports = {
   // todo: delete a user
   deleteUser: async (req, res) => {
     // try {
-    //   const userId = req.params;
-    //   const userDeleted = await userService.deleteUser(userId);
-    //   return responseUtils.ok(res, { Delete: "Successfull" });
+    const { ids } = req.body;
+    await userService.deleteUser(ids);
+    return responseUtils.ok(res, { Delete: "Successfull" });
     // } catch (error) {
     //   return responseUtils.errorAdmin(res, "Delete User Failed");
     // }
-    const { ids } = req.body;
-    const idsArray = ids.split(",");
-    await userService.deleteUser(idsArray);
-    return responseUtils.ok(res, { message: "Users deleted successfully" });
+    // const { ids } = req.body;
+    // const idsArray = ids.split(",");
+    // await userService.deleteUser(idsArray);
+    // return responseUtils.ok(res, { message: "Users deleted successfully" });
   },
   updateUser: async (req, res) => {
     const userId = req.params;

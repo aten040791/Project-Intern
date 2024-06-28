@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -63,12 +63,19 @@ export class ApiService {
   }
 
 // get all items
-  getItems(nameApi: string): Observable<any> {
+  getItems(nameApi: string, page: number, limit: number): Observable<any> {
     const accessToken = localStorage.getItem("access_token")
+
+    const query = new HttpParams()
+    .set("page", page)
+    .set("limit", limit)
+
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${accessToken}`
     })
-    return this.http.get<any>(`${this.apiUrl}/${nameApi}`, {headers})
+
+    return this.http.get<any>(`${this.apiUrl}/${nameApi}`, {params: query, headers: headers})
   }
 
   // create a item

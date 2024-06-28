@@ -19,14 +19,12 @@
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasAddUser"
-              (click)="toggleDelete()"
+              (click)="toggleDelete(); onClickDeleteAll()"
             >
-              <span
-                ><i class="fa-regular fa-trash-can"></i
-                ><span class="d-none d-sm-inline-block ms-2"
-                  >Delete All</span
-                ></span
-              >
+              <span>
+                <i class="fa-regular fa-trash-can"></i>
+                <span class="d-none d-sm-inline-block ms-2">Delete All</span>
+              </span>
             </button>
             <button
               class="btn btn-secondary add-item btn-primary"
@@ -99,7 +97,7 @@
                       id="select-all"
                       type="checkbox"
                       class="form-check-input"
-                      (change)="handleCheckBox($event)"
+                      (change)="handleCheckBoxAll($event)"
                     />
                   </th>
                   <th>id</th>
@@ -113,30 +111,22 @@
               <tbody class="table-border-bottom-0">
                 <tr
                   [ngClass]="{ odd: odd, even: even }"
-                  *ngFor="
-                    let paginatedItem of paginatedItems;
-                    let even = even;
-                    let odd = odd
-                  "
+                  *ngFor="let item of items; let even = even; let odd = odd"
                 >
                   <td class="dt-checkboxes-cell">
                     <input
                       type="checkbox"
                       class="dt-checkboxes form-check-input"
+                      (change)="handleCheckBox($event, item)"
                     />
                   </td>
-                  <td>{{ paginatedItem.id }}</td>
-                  <td>{{ paginatedItem.name }}</td>
-                  <td>{{ paginatedItem.locale }}</td>
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.locale }}</td>
                   <td>
                     <div class="avatar-wrapper">
                       <div class="flag">
-                        <img
-                          [src]="paginatedItem.flag"
-                          alt=""
-                          width="32"
-                          height="20"
-                        />
+                        <img [src]="item.flag" alt="" width="32" height="20" />
                       </div>
                     </div>
                   </td>
@@ -144,17 +134,17 @@
                     <span
                       class="badge me-1"
                       [ngClass]="{
-                      'bg-label-success': paginatedItem.status === 'active',
-                      'bg-label-secondary': paginatedItem.status === 'inactive',
+                      'bg-label-success': item.status === 'active',
+                      'bg-label-secondary': item.status === 'inactive',
                     }"
-                      >{{ paginatedItem.status }}</span
+                      >{{ item.status }}</span
                     >
                   </td> -->
                   <td>
                     <div class="d-flex align-items-center">
                       <a
                         class="mr-8 text-primary cursor"
-                        (click)="toggleEdit(); initLanguage(paginatedItem)"
+                        (click)="toggleEdit(); initLanguage(item)"
                       >
                         <div class="icon fs-14">
                           <i class="bx bx-edit menu-icon tf-icons"></i>
@@ -163,7 +153,7 @@
                       <a
                         href="javascript:;"
                         class="mr-8 text-danger cursor"
-                        (click)="toggleDelete(); initLanguage(paginatedItem)"
+                        (click)="toggleDelete(); onClickDelete(item)"
                       >
                         <div class="icon fs-14">
                           <i class="menu-icon tf-icons bx bx-trash"></i>
@@ -175,11 +165,7 @@
               </tbody>
             </table>
           </div>
-          <app-pagination
-            [items]="items"
-            [itemsPerPage]="itemsPerPage"
-            (paginatedItems)="handlePaginatedItems($event)"
-          ></app-pagination>
+          <app-pagination [items]="items"></app-pagination>
         </div>
       </div>
     </div>
@@ -214,4 +200,7 @@
   [isDeleteSuccess]="isDeleteSuccess"
   (close)="toggleDeleteSuccess()"
   [item]="item"
+  [checkBoxs]="checkBoxs"
+  [idDelete]="idDelete"
+  [url]="url"
 ></app-delete-success>

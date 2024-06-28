@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-page.component.scss']
 })
 
-export class UserPageComponent implements OnInit, OnChanges {
+export class UserPageComponent implements OnInit {
 
   constructor(private selectAllService: SelectAllService, private itemDetail: UserPageService, private api: ApiService, private router: Router) {}
 
@@ -20,32 +20,33 @@ export class UserPageComponent implements OnInit, OnChanges {
   isDeleteSuccess: boolean = false;
   isDeleteFailed: boolean = false;
   isShowEdit: boolean = false;
-  itemsPerPage: number = 10;
-  paginatedItems: any[] = [];
+
+  // pagination
+  currentPage: number = 1;
+  limit: number = 10;
+  pages: number = 0;
+
   item: any = {}
   items: User[] = []
   url: string = ""
+
+  // handle deleting
+  checkBoxs = new Set<number>();
+  checkBoxsTmp = new Set<number>();
+  idDelete = new Set<number>();
   
   ngOnInit(): void {
     this.loadItems()
-    this.updatePaginatedItems();
     this.url = this.router.url
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['itemsPerPage']) {
-      this.updatePaginatedItems();
-    }
-  }
-
-  // load data from api
+  // load data
   loadItems() {
-    this.api.getItems("users").subscribe({
+    this.api.getItems("users", this.currentPage, this.limit).subscribe({
       next: (data: any) => {
-        // data = Object.values(data)[1]
-        data = data.data
-        this.items = data.users.slice()
-        this.updatePaginatedItems()
+        data = data.data.users
+        this.items = data["result"].slice()
+        this.pages = data["pages"]
       }, 
       error: (error) => {
         console.error('Error fetching items', error);
@@ -54,8 +55,22 @@ export class UserPageComponent implements OnInit, OnChanges {
   }
 
   // from SelectAllService
-  handleCheckBox(event: any): void {
+  handleCheckBoxAll(event: any): void {
     this.selectAllService.selectAll(event)
+    // add all items
+    this.items.forEach(item => {
+      // fix
+      this.checkBoxsTmp.add(item.id)
+    })
+  }
+
+  // handle each checkbox
+  handleCheckBox(event: any, item: any): void {
+    if (event.target.checked) {
+      this.checkBoxsTmp.add(item.id)
+    } else {
+      this.checkBoxsTmp.delete(item.id)
+    }
   }
 
   // Add new user
@@ -80,14 +95,11 @@ export class UserPageComponent implements OnInit, OnChanges {
     this.isShowEdit = !this.isShowEdit
   }
 
-  handlePaginatedItems(paginatedItems: any[]) {
-    this.paginatedItems = paginatedItems;
-  }
-
+  // xử lí khi thay đổi select, tức là giới hạn mỗi trang
   handleItemsPerPage(event: Event): void {
     const option = event.target as HTMLSelectElement
-    this.itemsPerPage = parseInt(option.value)
-    this.updatePaginatedItems()
+    this.limit = parseInt(option.value)
+    this.loadItems()
   }
 
   // view detail
@@ -96,10 +108,22 @@ export class UserPageComponent implements OnInit, OnChanges {
     this.item = this.itemDetail.getaItem()
   }
 
-  // update khi truyển vào bảng
-  updatePaginatedItems(): void {
-    this.paginatedItems = this.items.slice(0, this.itemsPerPage);
-    // console.log(this.paginatedItems)
+  onClickDelete(item: any): void {
+    this.idDelete.add(item.id)
+  }
+
+  onClickDeleteAll(): void {
+    this.idDelete = this.checkBoxsTmp
+  }
+
+  // submit search
+  onSubmitSearch(data: any): void {
+    console.log(data)
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadItems();
   }
 
 }

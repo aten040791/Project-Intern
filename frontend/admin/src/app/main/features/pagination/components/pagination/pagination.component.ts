@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { UserPageComponent } from 'src/app/main/pages/user-page/user-page.component';
 
 @Component({
   selector: 'app-pagination',
@@ -7,39 +6,46 @@ import { UserPageComponent } from 'src/app/main/pages/user-page/user-page.compon
   styleUrls: ['./pagination.component.scss']
 })
 
-export class PaginationComponent implements OnInit, OnChanges {
+export class PaginationComponent implements OnInit {
   @Input() items: any[] = [];
-  @Output() paginatedItems = new EventEmitter<any[]>();
-  currentPage: number = 1;
-  // itemsPerPage: number = 10;
-  @Input() itemsPerPage: number = 10
+  @Input() limit: number = 10;
+  @Input() pages: number = 0
+  @Input() currentPage: number = 1
+  @Output() currentPageChange = new EventEmitter<number>()
+  subPages: number[] = []
 
   ngOnInit(): void {
-      this.updatePaginatedItems()
+    this.currentPage = Number(this.currentPage);
+    this.limit = Number(this.limit);
+    // this.getPages()
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['itemsPerPage']) {
-      this.itemsPerPage = changes['itemsPerPage'].currentValue;
-      this.currentPage = 1
-      this.updatePaginatedItems();
+  onPageChange(currentPage: any) {
+    this.currentPageChange.emit(currentPage);
+    this.currentPage = currentPage;
+    // this.getPages()
+  }
+
+  getPages(): void {
+
+    const subPages: number[] = [];
+
+    // pages = 3
+    // currentPage = 3 => start = 2, end = 3
+    // subPages = [2, 3]
+    const start = this.currentPage > 2 ? this.currentPage - 1 : 1;
+    const end = this.currentPage + 1 < this.pages ? this.currentPage + 1 : this.pages;
+
+    for (let i = start; i <= end; i++) {
+      subPages.push(i);
     }
+
+    this.subPages = subPages;
+
   }
 
-  updatePaginatedItems() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    const paginated = this.items.slice(startIndex, endIndex);
-    this.paginatedItems.emit(paginated);
-  }
-
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.updatePaginatedItems();
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.items.length / this.itemsPerPage);
+  checkExitsPage(page: number): boolean {
+    return this.subPages.includes(page)
   }
 
 }

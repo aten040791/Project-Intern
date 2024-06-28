@@ -22,6 +22,7 @@ export class AddLanguageComponent {
     this.http.createItem("languages", formData).subscribe({
       next: (data: any) => {
         // this.closeDialog();
+        console.log(data)
         window.location.reload();
       },
       error: (error: Error) => {

@@ -9,10 +9,14 @@ const { swaggerUIServe, swaggerUISetup } = require("kernels/api-docs");
 const expressLayouts = require("express-ejs-layouts");
 const path = require("path");
 
+const cors = require("cors");
+
 const app = express();
 app.disable("x-powered-by");
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(expressLayouts);
 app.set("layout", "layouts/index");

@@ -27,6 +27,7 @@ export class AddUserComponent {
     this.http.createItem("users", data).subscribe({
       next: (data: any) => {
         console.log(data)
+        window.location.reload()
       },
       error: (error) => {
         console.log(error)
