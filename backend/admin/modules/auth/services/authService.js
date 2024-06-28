@@ -1,6 +1,6 @@
 const db = require("models/index");
 const { sign, signRefreshToken } = require("utils/jwtUtils");
-const { setItem, getItem, removeToken } = require("helpers/localStorage");
+// const { setItem, getItem, removeToken } = require("helpers/localStorage");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -21,9 +21,11 @@ module.exports = {
     const role = await db.Role.findOne({ where: { id: user.role_id } });
     const access_token = sign(user.id, role.name);
     const refresh_token = signRefreshToken(user.id, role.name);
-    setItem("accessToken", access_token);
-    setItem("refreshToken", refresh_token);
-    setItem("userID", user.id);
+
+    // setItem("accessToken", access_token);
+    // setItem("refreshToken", refresh_token);
+    // setItem("userID", user.id);
+
     return {
       user: {
         id: user.id,

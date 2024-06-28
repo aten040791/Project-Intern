@@ -19,11 +19,16 @@ export class CategoryPageComponent implements OnInit, OnChanges {
   isDeleteFailed: boolean = false;
   isDeleteSuccess: boolean = false;
   isShowEdit: boolean = false;
-  itemsPerPage: number = 10;
+
+  page: number = 1;
+  limit: number = 10;
   paginatedItems: any[] = [];
+
   item: any = {};
   items: Category[] = []
   checkBoxs = new Set<number>();
+  checkBoxsTmp = new Set<number>();
+  idDelete = new Set<number>();
   url: string = ""
 
   ngOnInit(): void {
@@ -33,23 +38,23 @@ export class CategoryPageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['itemsPerPage']) {
+    if (changes['limit']) {
       this.updatePaginatedItems();
     }
   }
 
   // load data
   loadItems() {
-    this.http.getItems("categories").subscribe({
-      next: (data: any) => {
-        data = data.data
-        this.items = data.categories.slice()
-        this.updatePaginatedItems()
-      },
-      error: (error) => {
-        console.error('Error fetching items', error);
-      }
-    })
+    // this.http.getItems("categories").subscribe({
+    //   next: (data: any) => {
+    //     data = data.data
+    //     this.items = data.categories.slice()
+    //     this.updatePaginatedItems()
+    //   },
+    //   error: (error) => {
+    //     console.error('Error fetching items', error);
+    //   }
+    // })
   }
   
   // handle all checkbox
@@ -57,16 +62,18 @@ export class CategoryPageComponent implements OnInit, OnChanges {
     this.selectAllService.selectAll(event)
     // add all items
     this.items.forEach(item => {
-      this.checkBoxs.add(item.id)
+      // fix
+      this.checkBoxsTmp.add(item.id)
     })
   }
 
-  // handle checkbox
+  // handle each checkbox
   handleCheckBox(event: any, item: any): void {
     if (event.target.checked) {
-      this.checkBoxs.add(item.id)
+      // fix
+      this.checkBoxsTmp.add(item.id)
     } else {
-      this.checkBoxs.delete(item.id)
+      this.checkBoxsTmp.delete(item.id)
     }
   }
 
@@ -97,12 +104,12 @@ export class CategoryPageComponent implements OnInit, OnChanges {
   
   handleItemsPerPage(event: Event): void {
     const option = event.target as HTMLSelectElement
-    this.itemsPerPage = parseInt(option.value)
+    this.limit = parseInt(option.value)
     this.updatePaginatedItems()
   }
 
   updatePaginatedItems(): void {
-    this.paginatedItems = this.items.slice(0, this.itemsPerPage);
+    this.paginatedItems = this.items.slice(0, this.limit);
   }
 
   // init item
@@ -111,4 +118,13 @@ export class CategoryPageComponent implements OnInit, OnChanges {
     this.item = this.categoryService.getItem()
   }
 
+  // to delete a particularly item
+  onClickDelete(item: any): void {
+    this.idDelete.add(item.id)
+  }
+
+  onClickDeleteAll(): void {
+    this.checkBoxs = this.checkBoxsTmp
+  }
+    
 }

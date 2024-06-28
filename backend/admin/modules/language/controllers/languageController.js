@@ -20,9 +20,9 @@ module.exports = {
     return responseUntils.ok(res, { language: result });
   },
   deleteLanguage: async (req, res) => {
-    const { id } = req.body;
-    const idsArray = id.split(",");
-    await languageService.deleteLanguage(idsArray);
+    const { ids } = req.body;
+    // const idsArray = id.split(",");
+    await languageService.deleteLanguage(ids);
     return responseUntils.ok(res, {
       message: "Languages deleted successfully",
     });

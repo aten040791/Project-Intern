@@ -12,16 +12,18 @@ const categoryValidation = {
     new QueryWithLocale("search").notEmpty(),
   ],
   create: [
-    new BodyWithLocale("name")
-      .notEmpty()
-      .isString()
-      .unique(db.Category, "name"),
+    // new BodyWithLocale("name")
+    //   .notEmpty()
+    //   .isString()
+    //   .unique(db.Category, "name"),
   ],
-  delete: [new BodyWithLocale("id").notEmpty().exist(db.Category, "id")],
+  delete: [
+    // new BodyWithLocale("id").notEmpty().exist(db.Category, "id")
+  ],
   update: [
-    new ParamWithLocale("id").exist(db.Category, "id"),
-    new BodyWithLocale("name").notEmpty().isString(),
-    new BodyWithLocale("slug").notEmpty().isString(),
+    // new ParamWithLocale("id").exist(db.Category, "id"),
+    // new BodyWithLocale("name").notEmpty().isString(),
+    // new BodyWithLocale("slug").notEmpty().isString(),
   ],
 };
 

@@ -16,7 +16,7 @@
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasAddUser"
-              (click)="toggleDelete()"
+              (click)="toggleDelete(); onClickDeleteAll()"
             >
               <span>
                 <i class="fa-regular fa-trash-can"> </i>
@@ -53,7 +53,6 @@
                   <input
                     class="form-control ms-2"
                     type="text"
-                    value=""
                     placeholder="Category"
                     name="namecategory"
                   />
@@ -106,27 +105,23 @@
               <tbody class="table-border-bottom-0">
                 <tr
                   [ngClass]="{ odd: odd, even: even }"
-                  *ngFor="
-                    let paginatedItem of paginatedItems;
-                    let even = even;
-                    let odd = odd
-                  "
+                  *ngFor="let item of items; let even = even; let odd = odd"
                 >
                   <td class="dt-checkboxes-cell">
                     <input
                       type="checkbox"
                       class="dt-checkboxes form-check-input"
-                      (change)="handleCheckBox($event, paginatedItem)"
+                      (change)="handleCheckBox($event, item)"
                     />
                   </td>
-                  <td>{{ paginatedItem.id }}</td>
-                  <td>{{ paginatedItem.name }}</td>
-                  <td>{{ paginatedItem.createdAt }}</td>
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.createdAt }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <a
                         class="mr-8 text-primary cursor"
-                        (click)="toggleEdit(); initCategory(paginatedItem)"
+                        (click)="toggleEdit(); initCategory(item)"
                       >
                         <div class="icon fs-14">
                           <i class="bx bx-edit menu-icon tf-icons"></i>
@@ -135,7 +130,7 @@
                       <a
                         href="javascript:;"
                         class="mr-8 text-danger cursor"
-                        (click)="toggleDelete(); initCategory(paginatedItem)"
+                        (click)="toggleDelete(); onClickDelete(item)"
                       >
                         <div class="icon fs-14">
                           <i class="menu-icon tf-icons bx bx-trash"></i>
@@ -147,11 +142,7 @@
               </tbody>
             </table>
           </div>
-          <app-pagination
-            [items]="items"
-            [itemsPerPage]="itemsPerPage"
-            (paginatedItems)="handlePaginatedItems($event)"
-          ></app-pagination>
+          <app-pagination [items]="items"></app-pagination>
         </div>
       </div>
     </div>
@@ -167,6 +158,7 @@
   (close)="toggleEdit()"
   [item]="item"
 ></app-edit-category>
+
 <!-- delete -->
 <app-delete
   [isDelete]="isDelete"
@@ -185,5 +177,6 @@
   (close)="toggleDeleteSuccess()"
   [item]="item"
   [checkBoxs]="checkBoxs"
+  [idDelete]="idDelete"
   [url]="url"
 ></app-delete-success>

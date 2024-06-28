@@ -14,16 +14,23 @@ export class LanguagePageComponent implements OnInit, OnChanges {
 
   constructor(private selectAllService: SelectAllService, private http: ApiService, private languageService: LanguagePageService, private router: Router) {}
 
+  // check dialog
   isShow:boolean = false;
   isDelete: boolean = false;
   isDeleteFailed: boolean = false;
   isDeleteSuccess: boolean = false;
   isShowEdit: boolean = false;
-  itemsPerPage: number = 10;
+
+  limit: number = 10;
   paginatedItems: any[] = [];
   item: any = {}
   items: language[] = []
   url: string = ""
+
+  // handle delete items
+  checkBoxs = new Set<number>();
+  checkBoxsTmp = new Set<number>();
+  idDelete = new Set<number>();
   
    ngOnInit(): void {
     this.loadItems()
@@ -32,31 +39,45 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['itemsPerPage']) {
+    if (changes['limit']) {
       this.updatePaginatedItems();
     }
   }
 
   loadItems() {
-    this.http.getItems("languages").subscribe({
-      next: (data: any) => {
-        this.items = data.data.languages.slice()
-        this.updatePaginatedItems()
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
+    // this.http.getItems("languages").subscribe({
+    //   next: (data: any) => {
+    //     this.items = data.data.languages.slice()
+    //     this.updatePaginatedItems()
+    //   },
+    //   error: (error) => {
+    //     console.log(error)
+    //   }
+    // })
   }
   
   // from SelectAllService
-  handleCheckBox(event: any): void {
+  handleCheckBoxAll(event: any): void {
     this.selectAllService.selectAll(event)
+    // add all items
+    this.items.forEach(item => {
+      // fix
+      this.checkBoxsTmp.add(item.id)
+    })
+  }
+
+  // handle each checkbox
+  handleCheckBox(event: any, item: any): void {
+    if (event.target.checked) {
+      this.checkBoxsTmp.add(item.id)
+    } else {
+      this.checkBoxsTmp.delete(item.id)
+    }
   }
 
   handleItemsPerPage(event: Event): void {
     const option = event.target as HTMLSelectElement
-    this.itemsPerPage = parseInt(option.value)
+    this.limit = parseInt(option.value)
     this.updatePaginatedItems()
   }
 
@@ -86,14 +107,23 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   }
   
   updatePaginatedItems(): void {
-    this.paginatedItems = this.items.slice(0, this.itemsPerPage);
+    this.paginatedItems = this.items.slice(0, this.limit);
   }
 
   // init language
   initLanguage(item: any): void {
     this.languageService.setItem(item)
     this.item = this.languageService.getItem()
-    console.log(this.item)
+  }
+
+  // handle delete all
+  onClickDeleteAll(): void {
+    this.checkBoxs = this.checkBoxsTmp
+  }
+
+  // to delete a particularly item
+  onClickDelete(item: any): void {
+    this.idDelete.add(item.id)
   }
 
 }

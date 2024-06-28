@@ -51,12 +51,13 @@ router.group("/users", admin, (router) => {
     validate([userValidation.create]),
     userController.createUser
   );
-  router.get(
-    "/search",
-    validate([userValidation.index]),
-    userController.searchUser
-  );
+  // router.get(
+  //   "/search",
+  //   validate([userValidation.index]),
+  //   userController.searchUser
+  // );
   router.get("/", userController.index);
+  // localhost:3000/users/search?search=
 });
 
 router.group("/categories", admin, (router) => {

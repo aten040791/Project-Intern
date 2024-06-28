@@ -20,7 +20,8 @@ export class AddCategoryComponent {
     this.http.createItem('categories', data).subscribe({
       next: (data: any) => { 
         // console.log(data)
-        window.location.reload()
+        // window.location.reload()
+        window.location.href = '/categories'
       },
       error: (err: any) => {
         console.log(err)

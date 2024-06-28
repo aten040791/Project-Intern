@@ -6,8 +6,8 @@
       role="status"
       aria-live="polite"
     >
-      {{ (currentPage - 1) * itemsPerPage + 1 }} -
-      {{ currentPage * itemsPerPage }} of {{ items.length }} items
+      {{ (currentPage - 1) * limit + 1 }} - {{ currentPage * limit }} of
+      {{ items.length }} items
     </div>
   </div>
   <div class="col-sm-12 col-md-6">
@@ -21,28 +21,58 @@
             href="javascript:void(0)"
             class="page-link"
             (click)="currentPage > 1 && onPageChange(currentPage - 1)"
-            >Previous</a
           >
+            Previous
+          </a>
+        </li>
+        <!-- [...] -->
+        <li
+          class="page-item disabled"
+          *ngIf="currentPage > 2"
+          [ngStyle]="{ display: currentPage > 1 ? 'block' : 'none' }"
+        >
+          <a
+            href="javascript:void(0)"
+            class="page-link"
+            (click)="currentPage > 1 && onPageChange(currentPage - 1)"
+          >
+            ...
+          </a>
         </li>
         <li
           class="page-item"
-          *ngFor="let page of [].constructor(totalPages); let i = index"
+          *ngFor="let page of [].constructor(pages); let i = index"
           [class.active]="currentPage === i + 1"
         >
           <a
             href="javascript:void(0)"
             class="page-link"
             (click)="onPageChange(i + 1)"
-            >{{ i + 1 }}</a
           >
+            {{ i + 1 }}
+          </a>
         </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <!-- [...] -->
+        <li
+          class="page-item disabled"
+          [ngStyle]="{ display: currentPage + 2 <= pages ? 'block' : 'none' }"
+        >
           <a
             href="javascript:void(0)"
             class="page-link"
-            (click)="currentPage < totalPages && onPageChange(currentPage + 1)"
-            >Next</a
+            (click)="currentPage > 1 && onPageChange(currentPage - 1)"
           >
+            ...
+          </a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === pages">
+          <a
+            href="javascript:void(0)"
+            class="page-link"
+            (click)="currentPage < pages && onPageChange(currentPage + 1)"
+          >
+            Next
+          </a>
         </li>
       </ul>
     </div>
