@@ -28,16 +28,11 @@ const postController = {
 
   getByUid: async (req, res) => {
     const { uid } = req.params;
-    const post = await postService.getByUid(uid);
-    return responseUtils.ok(res, post);
-  },
-
-  //Search...
-  search: async (req, res) => {
+    const { keyword, page = 1, perPage = 10 } = req.query;
+  
     try {
-      const keyword = req.query.keyword;
-      const post = await postService.search(keyword);
-      return responseUtils.ok(res, post);
+      const posts = await postService.getByUid(uid, keyword, parseInt(page), parseInt(perPage));
+      return responseUtils.ok(res, posts);
     } catch (error) {
       return responseUtils.userError(res, error.message);
     }

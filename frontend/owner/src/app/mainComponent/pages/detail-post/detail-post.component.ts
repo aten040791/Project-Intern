@@ -13,6 +13,9 @@ export class DetailPostComponent implements OnInit{
   posts: any[] = [];
   post: any;
 
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
   constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
@@ -21,43 +24,33 @@ export class DetailPostComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.fetchData();
     if (!this.post) {
       const postId = this.route.snapshot.paramMap.get('id');
       if (postId) {
-        this.apiService.getPostDetails(Number(postId)).subscribe((post) => this.post = post);
+        this.apiService.getPostDetails(Number(postId)).subscribe((post) => {
+          this.post = post.data;
+        });
       }
     }
+    this.fetchData();
   };
 
-  fetchData(): void {
-    this.apiService.fetchData().subscribe(
-      response => {
-        console.log('API Response:', response); // Debug the response structure
-  
-        this.responseData = response.data;
+  fetchData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
+    this.apiService.fetchData(Keyword, page, perPage).subscribe({
+      next: (response) => {
+        console.log('API Response:', response);
+    
+        this.responseData = response.data.posts;
         this.posts = this.responseData.map((post) => ({
           ...post,
           selected: false,
-          formattedDate: format(new Date(post.createdAt), 'PP') // Format the date here
+          formattedDate: format(new Date(post.createdAt), 'PP')
         }));
-  
-        console.log('API post:', this.posts);
-        if (Array.isArray(response)) {
-          this.responseData = response;
-          this.posts = this.responseData.map((post) => ({
-            ...post,
-            selected: false,
-            formattedDate: format(new Date(post.createdAt), 'PP') // Format the date here
-          }));
-        } else {
-          this.responseData = [];
-        }
       },
-      error => {
+      error: (error) => {
         console.error('Failed to fetch data:', error);
       }
-    );
+    });
   };
 
   viewDetails(postId: number): void {

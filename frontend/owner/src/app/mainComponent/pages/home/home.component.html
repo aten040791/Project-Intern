@@ -21,10 +21,10 @@
                   <div class="row">
                     <div class="col-md-4 px-0">
                       <div class="search-input ps-re">
-                        <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08" href="#">
-                          <i class="fa-solid fa-magnifying-glass"></i>
+                        <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08" style="cursor: pointer;">
+                          <i class="fa-solid fa-magnifying-glass" (click)="search(searchTerm)"></i>
                         </a>
-                        <input class="form-control ms-2" type="text" value="" placeholder="Search ..." />
+                        <input class="form-control ms-2" type="text" [(ngModel)]="searchTerm" placeholder="Search ..." (keyup.enter)="search(searchTerm)" />
                       </div>
                     </div>
                     <div class="col-md-4 offset-md-4" style="text-align: right;padding-right: 5px;">
@@ -67,8 +67,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="odd" *ngFor="let post of posts | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
-                    <td class="dt-checkboxes-cell">
+<tr class="odd" *ngFor="let post of posts">                    <td class="dt-checkboxes-cell">
                       <input type="checkbox" class="dt-checkboxes form-check-input" [(ngModel)]="post.selected" (change)="updateSelectAllState()">
                     </td>
                     <td>
@@ -123,7 +122,28 @@
                 </div>
                 <div class="col-md-10" style="padding-top: 10px;text-align: right;">
                   <!-- Pagination -->
-                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  <ul class="pagination align-items-center justify-content-end">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                      <a href="javascript:void(0)" class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
+                        Previous
+                      </a>
+                    </li>
+                    <li class="page-item" *ngIf="currentPage > 2" [ngStyle]="{ display: currentPage > 1 ? 'block' : 'none' }">
+                      <a href="javascript:void(0)" class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
+                        ...
+                      </a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+                      <a href="javascript:void(0)" class="page-link" (click)="onPageChange(i + 1)">
+                        {{ i + 1 }}
+                      </a>
+                    </li>
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                      <a href="javascript:void(0)" class="page-link" (click)="currentPage < totalPages && onPageChange(currentPage + 1)">
+                        Next
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

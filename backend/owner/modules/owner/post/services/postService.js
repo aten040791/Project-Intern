@@ -24,32 +24,38 @@ const postService = {
     return post;
   },
 
-  getByUid: async (uid) => {
-    const post =  await db.Post.findAll({  
-      where: { user_id: uid },
+  getByUid: async (uid, keyword, page, perPage) => {
+    const whereClause = { user_id: uid };
+  
+    if (keyword) {
+      whereClause[Op.or] = [
+        Sequelize.literal(`MATCH(title, body) AGAINST('${keyword}' IN NATURAL LANGUAGE MODE)`)
+      ];
+    }
+  
+    const offset = (page - 1) * perPage;
+    const limitOption = perPage;
+  
+    const { count, rows: posts } = await db.Post.findAndCountAll({
+      where: whereClause,
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
       ],
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
+      offset: offset,
+      limit: limitOption
     });
-    return post;
-  },
-
-  search: async (keyword) => {
-    if (keyword.length < 3)
-      throw new Error("Enter at least three keyword characters");
-    const posts = await db.Post.findAll({
-      where: {
-        [Op.or]: [
-          Sequelize.literal(
-            `MATCH(title, body) AGAINST('${keyword}' IN NATURAL LANGUAGE MODE)`
-          ),
-        ],
-      },
-    });
-    if (!posts || posts.length === 0) throw new Error("Post not found");
-    return posts;
+  
+    const totalPages = Math.ceil(count / perPage);
+  
+    return {
+      posts: posts,
+      limit: limitOption,
+      offset: offset,
+      totalPosts: count,
+      totalPages: totalPages
+    };
   },
 
   category: async (id) => {

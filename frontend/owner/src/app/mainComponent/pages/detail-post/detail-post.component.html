@@ -1,31 +1,30 @@
 <div style="padding: 10px 50px 5px 130px;">
-    <!--                    <h2><b>Articles</b></h2>-->
-    <!--                    <p class="date text-muted">May 21, 2024</p>-->
-                    </div>
-                    <!-- Content wrapper -->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="card mb-4">
-                                    <img src="{{ post.data.file }}"
-                                        class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h4 class="card-title"><b>{{ post.data.title }}</b></h4>
-                                        <p class="read-more">{{ post.data.body }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="list-group">
-                                  <article class="blog-post mb-4 p-4 bg-light rounded shadow" *ngFor="let post of posts">
-                                    <a (click)="viewDetails(post.id)" style="cursor: pointer;"><b>{{ post.title }}</b></a>
-                                    <div class="card-text-right">
-                                      <p>{{ post.body }}</p>
-                                    </div>
-                                    <a (click)="viewDetails(post.id)" style="color: #2199e8; cursor: pointer;">Read more…</a>
-                                    <p class="date text-muted">{{ post.formattedDate }}</p>
-                                  </article>
-                                </div>
+  <!--                    <h2><b>Articles</b></h2>-->
+  <!--                    <p class="date text-muted">May 21, 2024</p>-->
+                  </div>
+                  <!-- Content wrapper -->
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-md-8">
+                            <div class="card mb-4">
+                              <img [src]="post?.file" class="card-img-top" alt="...">
+                              <div class="card-body">
+                                <h4 class="card-title"><b>{{ post?.title }}</b></h4>
+                                <p class="">{{ post?.body }}</p>
                               </div>
-                        </div>
-                    </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="list-group">
+                                <article class="blog-post mb-4 p-4 bg-light rounded shadow" *ngFor="let post of posts">
+                                  <a (click)="viewDetails(post.id)" style="cursor: pointer;"><b>{{ post.title }}</b></a>
+                                  <div class="card-text-right">
+                                    <p>{{ post.body }}</p>
+                                  </div>
+                                  <a (click)="viewDetails(post.id)" style="color: #2199e8; cursor: pointer;">Read more…</a>
+                                  <p class="date text-muted">{{ post.formattedDate }}</p>
+                                </article>
+                              </div>
+                            </div>
+                      </div>
+                  </div>

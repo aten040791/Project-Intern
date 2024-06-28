@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,10 +17,16 @@ export class ApiService {
     });
   };
 
-  fetchData(): Observable<any> {
+  fetchData(Keyword: string, page: number = 1, perPage: number = 10): Observable<any> {
     const userId = localStorage.getItem('user_id');
     const headers = this.getHeaders();
-    return this.http.get<any>(`${this.apiUrl}/post/user/${userId}`, { headers });
+    const keyword = Keyword ? Keyword : '';
+    let params = new HttpParams()
+      .set('keyword', keyword)
+      .set('page', page.toString())
+      .set('perPage', perPage.toString());
+  
+    return this.http.get<any>(`${this.apiUrl}/post/user/${userId}`, { headers, params });
   };
 
   fetchDataLanguage(): Observable<any> {
