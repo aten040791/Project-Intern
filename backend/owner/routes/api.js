@@ -21,7 +21,6 @@ const router = express.Router({ mergeParams: true });
 
 router.group('/post', (router) => {
   router.use(authenticateToken);
-  router.get('/search', validate([postValidation.search]), postController.search),  //API Search
   router.get('/', validate([postValidation.index]), postController.index),     //API get post
   router.get('/user/:uid', validate([postValidation.getByUid]), postController.getByUid),     //API get post
   router.get('/:id', validate([postValidation.getById]), postController.getById),   //API get detail post
