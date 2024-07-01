@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './language-page.component.html',
   styleUrls: ['./language-page.component.scss']
 })
-export class LanguagePageComponent implements OnInit, OnChanges {
+export class LanguagePageComponent implements OnInit {
 
   constructor(private selectAllService: SelectAllService, private http: ApiService, private languageService: LanguagePageService, private router: Router) {}
 
@@ -20,9 +20,13 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   isDeleteFailed: boolean = false;
   isDeleteSuccess: boolean = false;
   isShowEdit: boolean = false;
-
+  search: string = "";
+  
+  // pagination
+  currentPage: number = 1;
   limit: number = 10;
-  paginatedItems: any[] = [];
+  pages: number = 0;
+
   item: any = {}
   items: language[] = []
   url: string = ""
@@ -34,26 +38,20 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   
    ngOnInit(): void {
     this.loadItems()
-    this.updatePaginatedItems();
     this.url = this.router.url
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['limit']) {
-      this.updatePaginatedItems();
-    }
-  }
-
+ 
   loadItems() {
-    // this.http.getItems("languages").subscribe({
-    //   next: (data: any) => {
-    //     this.items = data.data.languages.slice()
-    //     this.updatePaginatedItems()
-    //   },
-    //   error: (error) => {
-    //     console.log(error)
-    //   }
-    // })
+    this.http.getItems("languages", this.search, this.currentPage, this.limit).subscribe({
+      next: (data: any) => {
+        data = data.data.languages
+        this.items = data["result"].slice()
+        this.pages = data["pages"]
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
   }
   
   // from SelectAllService
@@ -78,7 +76,7 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   handleItemsPerPage(event: Event): void {
     const option = event.target as HTMLSelectElement
     this.limit = parseInt(option.value)
-    this.updatePaginatedItems()
+    this.loadItems()
   }
 
   // Add new user
@@ -102,14 +100,6 @@ export class LanguagePageComponent implements OnInit, OnChanges {
     this.isShowEdit = !this.isShowEdit
   }
 
-  handlePaginatedItems(paginatedItems: any[]) {
-    this.paginatedItems = paginatedItems;
-  }
-  
-  updatePaginatedItems(): void {
-    this.paginatedItems = this.items.slice(0, this.limit);
-  }
-
   // init language
   initLanguage(item: any): void {
     this.languageService.setItem(item)
@@ -124,6 +114,16 @@ export class LanguagePageComponent implements OnInit, OnChanges {
   // to delete a particularly item
   onClickDelete(item: any): void {
     this.idDelete.add(item.id)
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadItems();
+  }
+
+  onSubmitSearch(search: string): void {
+    this.search = search
+    this.loadItems()
   }
 
 }

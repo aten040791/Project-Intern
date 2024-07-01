@@ -6,7 +6,8 @@ const slugify = require("slugify");
 
 module.exports = {
   index: async (req, res) => {
-    const categories = await categoryService.list();
+    const { page, limit, search } = req.query;
+    const categories = await categoryService.list(page, limit, search);
     return responseUntils.ok(res, { categories: categories });
   },
   createCategory: async (req, res) => {

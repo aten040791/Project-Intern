@@ -6,8 +6,8 @@ const siteController = require("modules/site/controllers/siteController");
 module.exports = {
   // todo: get all user
   index: async (req, res) => {
-    const { page, limit } = req.query;
-    const result = await userService.list(page, limit);
+    const { page, limit, search } = req.query;
+    const result = await userService.list(page, limit, search);
     return responseUtils.ok(res, { users: result });
   },
   // todo: create a user
