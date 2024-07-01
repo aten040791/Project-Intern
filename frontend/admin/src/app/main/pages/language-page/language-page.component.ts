@@ -46,6 +46,7 @@ export class LanguagePageComponent implements OnInit {
       next: (data: any) => {
         data = data.data.languages
         this.items = data["result"].slice()
+        this.initLanguages(this.items)
         this.pages = data["pages"]
       },
       error: (error) => {
@@ -104,6 +105,12 @@ export class LanguagePageComponent implements OnInit {
   initLanguage(item: any): void {
     this.languageService.setItem(item)
     this.item = this.languageService.getItem()
+  }
+
+  initLanguages(items: any): void {
+    // console.log(items)
+    // this.languageService.setItems(items)
+    // console.log(this.languageService.getItems())
   }
 
   // handle delete all

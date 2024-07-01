@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ShowPasswordService } from '../../features/show-password/show-password.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 import { Router } from '@angular/router';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   inputType: string = 'password'
 
 
-  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router) {}
+  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService) {}
 
   togglePW(): void {
     this.showPW.showPassWord();
@@ -30,6 +31,7 @@ export class LoginComponent {
     this.password = data["password"]
     this.http.login("auth", this.email, this.password).subscribe({
       next: (data: any) => {
+        this.initItems(data.data.user)
         this.router.navigate(['/home'])
       }, 
       error: (error: Error) => {
@@ -37,6 +39,10 @@ export class LoginComponent {
         alert('Email or password is wrong !!')
       }
     })
+  }
+
+  initItems(item: any): void {
+    this.loginService.setItem(item)
   }
 
 }

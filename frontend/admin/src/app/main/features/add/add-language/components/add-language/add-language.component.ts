@@ -10,6 +10,7 @@ export class AddLanguageComponent {
 
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
+  selectedFile: File | null = null;
 
   constructor(private http: ApiService) {}
 
@@ -17,17 +18,31 @@ export class AddLanguageComponent {
     this.close.emit();
   }
 
-  onSubmit(formData: any) {
-    // console.log(formData);
+  onSubmit(form: any) {
+    
+    const formData = new FormData();
+    formData.append('name', form.name);
+    formData.append('locale', form.locale);
+
+    if (this.selectedFile) {
+      formData.append('flag', this.selectedFile);
+    }
+
     this.http.createItem("languages", formData).subscribe({
       next: (data: any) => {
-        // this.closeDialog();
-        console.log(data)
         window.location.reload();
       },
       error: (error: Error) => {
         console.error(error);
       }
     })
+}
+
+  onFileSelected(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
   }
+
 }

@@ -2,6 +2,8 @@ import { role } from "../role/role";
 
 export interface User {
     id: number,
+    fullname: string,
+    avatar: string,
     username: string,
     email: string,
     password: string,

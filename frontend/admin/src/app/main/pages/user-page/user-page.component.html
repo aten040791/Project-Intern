@@ -95,6 +95,7 @@
                   />
                 </th>
                 <th>ID</th>
+                <th>Avatar</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -116,6 +117,19 @@
                   />
                 </td>
                 <td>{{ item.id }}</td>
+                <td>
+                  <div class="avatar-wrapper">
+                    <div class="avatar avatar-sm me-3">
+                      <img
+                        [src]="item.avatar"
+                        routerLink="/users/view-detail/{{ item.id }}"
+                        (click)="initItem(item)"
+                        alt="Avatar"
+                        class="rounded-circle"
+                      />
+                    </div>
+                  </div>
+                </td>
                 <td>{{ item.username }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.phone }}</td>

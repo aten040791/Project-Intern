@@ -12,6 +12,7 @@ const categoryValidation = require("modules/category/validations/categoryValidat
 const languageController = require("modules/language/controllers/languageController");
 const languageValidation = require("modules/language/validations/languageValidation");
 const { auth, admin, user } = require("middlewares/authVerify");
+const { uploads } = require("middlewares/multer");
 
 // router.group("/posts",middlewares([authenticated, role("owner")]), validate([]),(router) => {
 //     router.post("/create",validate([createPostRequest]),postsController.create);
@@ -43,11 +44,13 @@ router.group("/users", admin, (router) => {
   );
   router.put(
     "/update/:id",
+    uploads.single("avatar"),
     validate([userValidation.update]),
     userController.updateUser
   );
   router.post(
     "/create",
+    uploads.single("avatar"),
     validate([userValidation.create]),
     userController.createUser
   );
@@ -92,11 +95,13 @@ router.group("/languages", admin, (router) => {
   );
   router.put(
     "/update/:id",
+    uploads.single("flag"),
     validate([languageValidation.update]),
     languageController.updateLanguage
   );
   router.post(
     "/create",
+    uploads.single("flag"),
     validate([languageValidation.create]),
     languageController.createLanguage
   );

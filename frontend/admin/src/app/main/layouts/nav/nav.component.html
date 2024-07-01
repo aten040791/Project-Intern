@@ -127,7 +127,7 @@
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar">
                       <img
-                        src="../assets/img/avatars/5.png"
+                        [src]="item.avatar"
                         alt=""
                         class="w-px-40 h-auto rounded-circle"
                       />
@@ -443,7 +443,7 @@
         >
           <div class="avatar avatar-online">
             <img
-              src="../assets/img/avatars/5.png"
+              [src]="item.avatar"
               alt
               class="w-px-40 h-auto rounded-circle"
             />
@@ -456,15 +456,15 @@
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar avatar-online">
                     <img
-                      src="../assets/img/avatars/5.png"
+                      [src]="item.avatar"
                       alt
                       class="w-px-40 h-auto rounded-circle"
                     />
                   </div>
                 </div>
                 <div class="flex-grow-1">
-                  <span class="fw-medium d-block">John Doe</span>
-                  <small class="text-muted">Admin</small>
+                  <span class="fw-medium d-block">{{ item.username }}</span>
+                  <small class="text-muted">{{ item.role }}</small>
                 </div>
               </div>
             </a>
@@ -508,7 +508,11 @@
             <div class="dropdown-divider"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <a
+              class="dropdown-item"
+              href="javascript:void(0);"
+              (click)="onLogOut()"
+            >
               <span class="d-flex align-items-center align-middle">
                 <i class="flex-shrink-0 bx bx-power-off me-2"></i>
                 <span class="flex-grow-1 align-middle me-2">Log out</span>

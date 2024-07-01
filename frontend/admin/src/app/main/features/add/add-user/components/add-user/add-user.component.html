@@ -23,8 +23,9 @@
           class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
           novalidate="novalidate"
           (ngSubmit)="onSubmit(formUser.value)"
+          enctype="multipart/form-data"
         >
-          <div class="col-12 fv-plugins-icon-container">
+          <div class="col-12 col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="fullname">Fullname</label>
             <input
               type="text"
@@ -39,10 +40,19 @@
             ></div>
           </div>
           <div class="col-12 col-md-6 fv-plugins-icon-container">
+            <label class="form-label" for="">Avatar</label>
+            <input
+              type="file"
+              name="avatar"
+              class="form-control"
+              (change)="onFileSelected($event)"
+              required
+            />
+          </div>
+          <div class="col-12 col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="">Username</label>
             <input
               type="text"
-              id=""
               name="username"
               class="form-control"
               placeholder="Username"
@@ -93,7 +103,6 @@
             <div class="input-group input-group-merge">
               <input
                 type="text"
-                id="modalEditUserPhone"
                 name="phone"
                 class="form-control phone-number-mask"
                 placeholder="0123 456 789"

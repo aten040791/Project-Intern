@@ -11,12 +11,16 @@ module.exports = {
   },
   createLanguage: async (req, res) => {
     const language = req.body;
+    language.flag = `http://localhost:3000/${req.file.filename}`;
     const result = await languageService.createLanguage(language);
     return responseUntils.ok(res, { language: result });
   },
   updateLanguage: async (req, res) => {
     const id = req.params;
     const language = req.body;
+    if (req.file) {
+      language.flag = `http://localhost:3000/${req.file.filename}`;
+    }
     const result = await languageService.updateLanguage(id, language);
     return responseUntils.ok(res, { language: result });
   },

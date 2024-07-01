@@ -13,26 +13,22 @@ module.exports = {
   // todo: create a user
   createUser: async (req, res) => {
     const user = req.body;
+    user.avatar = `http://localhost:3000/${req.file.filename}`;
     const newUser = await userService.createUser(user);
     return responseUtils.ok(res, { newuser: newUser });
   },
   // todo: delete a user
   deleteUser: async (req, res) => {
-    // try {
     const { ids } = req.body;
     await userService.deleteUser(ids);
     return responseUtils.ok(res, { Delete: "Successfull" });
-    // } catch (error) {
-    //   return responseUtils.errorAdmin(res, "Delete User Failed");
-    // }
-    // const { ids } = req.body;
-    // const idsArray = ids.split(",");
-    // await userService.deleteUser(idsArray);
-    // return responseUtils.ok(res, { message: "Users deleted successfully" });
   },
   updateUser: async (req, res) => {
     const userId = req.params;
     const user = req.body;
+    if (req.file) {
+      user.avatar = `http://localhost:3000/${req.file.filename}`;
+    }
     await userService.updateUser(userId, user);
     return responseUtils.ok(res, { user: "Update successfull" });
   },

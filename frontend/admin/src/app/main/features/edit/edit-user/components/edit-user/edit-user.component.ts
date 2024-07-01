@@ -13,6 +13,7 @@ export class EditUserComponent {
   @Input() isShowEdit: boolean = false;
   @Output() close = new EventEmitter<void>();
   @Input() item: any = {}
+  image: File | null = null;
   
   constructor(private userPageService: UserPageService, private http: ApiService) {}
 
@@ -20,17 +21,37 @@ export class EditUserComponent {
     this.close.emit();
   }
 
-  onSubmit(data: any): void {
-    data.password = "password"
-    this.http.updateItem("users", data, this.item.id).subscribe({
+  onSubmit(form: any): void {
+    const formData = new FormData();
+    
+    if (this.image) {
+      formData.append('avatar', this.image);
+    }
+
+    formData.append('fullname', form.fullname);
+    formData.append('username', form.username);
+    formData.append('role_id', form.role_id);
+    formData.append('email', form.email);
+    formData.append('status', form.status);
+    formData.append('address', form.address);
+    formData.append('password', "password");
+    formData.append('phone', form.phone);
+
+    this.http.updateItem("users", formData, this.item.id).subscribe({
       next: (data: any) => {
-        console.log(data)
-        window.location.reload()
+        window.location.reload();
       },
       error: (error: Error) => {
-        console.log(error)
-      },
+        console.error(error);
+      }
     })
+  }
+  
+  onFileSelected(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.image = input.files[0];
+    }
   }
 
 }

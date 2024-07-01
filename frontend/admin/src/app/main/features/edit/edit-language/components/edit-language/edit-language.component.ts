@@ -10,6 +10,7 @@ export class EditLanguageComponent {
   @Input() isShowEdit: boolean = false;
   @Input() item: any = {};
   @Output() close = new EventEmitter<any>()
+  selectedFile: File | null = null;
 
   constructor(private http: ApiService) { }
 
@@ -17,16 +18,32 @@ export class EditLanguageComponent {
     this.close.emit()
   }
 
-  onSubmit(data: any): void {
+  onSubmit(form: any): void {
     const id = this.item.id
-    this.http.updateItem('languages', data, id).subscribe({
+    
+    const formData = new FormData();
+    formData.append('name', form.name);
+    formData.append('locale', form.locale);
+    
+    if (this.selectedFile) {
+      formData.append('flag', this.selectedFile);
+    }
+
+    this.http.updateItem("languages", formData, id).subscribe({
       next: (data: any) => {
-        window.location.reload()
+        window.location.reload();
       },
-      error: (error: any) => {
-        console.log(error)
+      error: (error: Error) => {
+        console.error(error);
       }
     })
+  }
+
+  onFileSelected(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
   }
 
 }

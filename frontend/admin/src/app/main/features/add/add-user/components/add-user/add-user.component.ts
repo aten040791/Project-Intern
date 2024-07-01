@@ -12,6 +12,7 @@ export class AddUserComponent {
 
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
+  image: File | null = null;
 
   constructor(private http: ApiService) {}
 
@@ -20,19 +21,37 @@ export class AddUserComponent {
   }
 
   // submit 
-  onSubmit(data: User): void {
-    // password default
-    data.password = "password"
-    console.log(data)
-    this.http.createItem("users", data).subscribe({
+  onSubmit(form: any): void {
+    const formData = new FormData();
+    formData.append('fullname', form.fullname);
+    formData.append('username', form.username);
+    formData.append('role_id', form.role_id);
+    formData.append('email', form.email);
+    formData.append('status', form.status);
+    formData.append('address', form.address);
+    formData.append('password', "password");
+    formData.append('phone', form.phone);
+
+    if (this.image) {
+      formData.append('avatar', this.image);
+    }
+
+    this.http.createItem("users", formData).subscribe({
       next: (data: any) => {
-        console.log(data)
-        window.location.reload()
+        window.location.reload();
       },
-      error: (error) => {
-        console.log(error)
+      error: (error: Error) => {
+        console.error(error);
       }
     })
+
+  }
+
+  onFileSelected(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.image = input.files[0];
+    }
   }
 
 }

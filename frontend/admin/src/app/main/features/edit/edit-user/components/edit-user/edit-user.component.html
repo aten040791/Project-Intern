@@ -23,8 +23,9 @@
           class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
           novalidate="novalidate"
           (ngSubmit)="onSubmit(formUser.value)"
+          enctype="multipart/form-data"
         >
-          <div class="col-12 fv-plugins-icon-container">
+          <div class="col-12 col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="fullname">Fullname</label>
             <input
               type="text"
@@ -38,6 +39,16 @@
             <div
               class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
             ></div>
+          </div>
+          <div class="col-12 col-md-6 fv-plugins-icon-container">
+            <label class="form-label" for="">Avatar</label>
+            <input
+              type="file"
+              name="avatar"
+              class="form-control"
+              (change)="onFileSelected($event)"
+              required
+            />
           </div>
           <div class="col-12 col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="">Username</label>
