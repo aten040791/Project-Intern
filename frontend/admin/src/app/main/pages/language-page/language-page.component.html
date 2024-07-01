@@ -47,10 +47,7 @@
             <div class="row justify-content-between">
               <div class="col-md-4 px-0">
                 <div class="search-input ps-re">
-                  <a
-                    class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08"
-                    href="#"
-                  >
+                  <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08">
                     <i class="fa-solid fa-magnifying-glass bg-navbar-theme"></i>
                   </a>
                   <input
@@ -59,6 +56,9 @@
                     value=""
                     placeholder="Language"
                     name="language"
+                    ngModel
+                    [(ngModel)]="search"
+                    (keyup)="onSubmitSearch(search)"
                   />
                 </div>
               </div>
@@ -165,7 +165,13 @@
               </tbody>
             </table>
           </div>
-          <app-pagination [items]="items"></app-pagination>
+          <app-pagination
+            [items]="items"
+            [limit]="limit"
+            [pages]="pages"
+            [currentPage]="currentPage"
+            (currentPageChange)="onPageChange($event)"
+          ></app-pagination>
         </div>
       </div>
     </div>

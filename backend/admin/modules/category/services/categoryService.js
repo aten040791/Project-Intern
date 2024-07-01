@@ -2,9 +2,29 @@ const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
 
 module.exports = {
-  list: async () => {
-    const categories = await db.Category.findAll({});
-    return categories;
+  list: async (page, limit, search) => {
+    const valueLowCase = search.toLowerCase();
+    if (valueLowCase !== "") {
+      var categories = await db.Category.findAll({
+        where: {
+          [Op.or]: [
+            Sequelize.literal(
+              `MATCH(name) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
+            ),
+          ],
+        },
+      });
+    } else {
+      var categories = await db.Category.findAll({});
+    }
+
+    // pagination
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const pages = Math.ceil(categories.length / limit);
+    const result = categories.slice(startIndex, endIndex);
+
+    return { result, pages };
   },
   createCategory: async (ctg) => {
     const category = await db.Category.create(ctg);

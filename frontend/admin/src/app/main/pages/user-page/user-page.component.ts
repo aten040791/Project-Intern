@@ -20,6 +20,7 @@ export class UserPageComponent implements OnInit {
   isDeleteSuccess: boolean = false;
   isDeleteFailed: boolean = false;
   isShowEdit: boolean = false;
+  search: string = "";
 
   // pagination
   currentPage: number = 1;
@@ -42,7 +43,7 @@ export class UserPageComponent implements OnInit {
 
   // load data
   loadItems() {
-    this.api.getItems("users", this.currentPage, this.limit).subscribe({
+    this.api.getItems("users", this.search, this.currentPage, this.limit).subscribe({
       next: (data: any) => {
         data = data.data.users
         this.items = data["result"].slice()
@@ -117,8 +118,9 @@ export class UserPageComponent implements OnInit {
   }
 
   // submit search
-  onSubmitSearch(data: any): void {
-    console.log(data)
+  onSubmitSearch(search: string): void {
+    this.search = search
+    this.loadItems()
   }
 
   onPageChange(page: number): void {

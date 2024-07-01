@@ -5,7 +5,8 @@ const siteController = require("modules/site/controllers/siteController");
 
 module.exports = {
   index: async (req, res) => {
-    const languages = await languageService.list();
+    const { page, limit, search } = req.query;
+    const languages = await languageService.list(page, limit, search);
     return responseUntils.ok(res, { languages: languages });
   },
   createLanguage: async (req, res) => {

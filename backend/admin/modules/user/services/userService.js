@@ -4,10 +4,24 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
   // todo: selet * from users
-  list: async (page, limit) => {
-    const users = await db.User.findAll({
-      include: { model: db.Role, as: "role", attributes: ["id", "name"] },
-    });
+  list: async (page, limit, search) => {
+    const valueLowCase = search.toLowerCase();
+    if (valueLowCase !== "") {
+      var users = await db.User.findAll({
+        include: { model: db.Role, as: "role", attributes: ["id", "name"] },
+        where: {
+          [Op.or]: [
+            Sequelize.literal(
+              `MATCH(username, email, phone) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
+            ),
+          ],
+        },
+      });
+    } else {
+      var users = await db.User.findAll({
+        include: { model: db.Role, as: "role", attributes: ["id", "name"] },
+      });
+    }
 
     // pagination
     const startIndex = (page - 1) * limit;

@@ -42,11 +42,7 @@
         <div class="card-header border-bottom">
           <div class="row justify-content-between">
             <div class="col-md-4 col-4 px-0">
-              <form
-                #formSearch="ngForm"
-                (ngSubmit)="onSubmitSearch(formSearch.value)"
-                class="search-input ps-re"
-              >
+              <div class="search-input ps-re">
                 <a class="ps-ab p-8-11 fs-18 fl-r opacity-08 cursor-pointer">
                   <i class="fa-solid fa-magnifying-glass bg-navbar-theme"></i>
                 </a>
@@ -56,8 +52,10 @@
                   placeholder="Search username, email or phone"
                   name="search"
                   ngModel
+                  (keyup)="onSubmitSearch(search)"
+                  [(ngModel)]="search"
                 />
-              </form>
+              </div>
             </div>
             <div class="col-md-1 col-2">
               <div class="dataTables_length" id="DataTables_Table_0_length">
