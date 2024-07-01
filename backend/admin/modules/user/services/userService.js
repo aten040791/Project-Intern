@@ -41,14 +41,13 @@ module.exports = {
   },
   // todo: delete from users where id = userId
   deleteUser: async (ids) => {
-    // const users = await db.User.findAll({ where: { id: ids } });
-    // if (users.length === 0) throw new Error("No Users found");
     await db.User.destroy({ where: { id: ids } });
     return { message: "Users deleted successfully" };
   },
   updateUser: async (userId, user) => {
     const hashPW = await bcrypt.hash(user.password, 10);
     user.password = hashPW;
+
     const result = await db.User.update(user, {
       where: userId,
     });

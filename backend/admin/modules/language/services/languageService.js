@@ -1,5 +1,6 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
+const { uploads } = require("middlewares/multer");
 
 module.exports = {
   list: async (page, limit, search) => {
@@ -37,21 +38,4 @@ module.exports = {
   deleteLanguage: async (ids) => {
     await db.Language.destroy({ where: { id: ids } });
   },
-  // searchLanguage: async (value) => {
-  //   if (!value) throw new Error("Error");
-  //   if (valueLowCase.length < 3) throw new Error("Enter at least 3 characters");
-  //   const valueLowCase = value.toLowerCase();
-  //   const languages = await db.Language.findAll({
-  //     where: {
-  //       [Op.or]: [
-  //         Sequelize.literal(
-  //           `MATCH(name) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
-  //         ),
-  //       ],
-  //     },
-  //   });
-  //   if (!languages || languages.length === 0)
-  //     throw new Error("Languages not found");
-  //   return languages;
-  // },
 };

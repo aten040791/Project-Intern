@@ -7,8 +7,10 @@ module.exports = {
       "Users",
       [
         {
+          fullname: "Hà Đình Hoàng",
+          avatar: "1.png",
           username: "hoang",
-          email: "bbb@gmail.com",
+          email: "aaa@gmail.com",
           phone: "0365203656",
           birthday: "2003-03-11",
           password: "hoang12345",

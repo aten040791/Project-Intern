@@ -62,6 +62,12 @@ export class ApiService {
     }
   }
 
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user_id');
+  }
+
 // get all items
   getItems(nameApi: string, search: string, page: number, limit: number): Observable<any> {
     const accessToken = localStorage.getItem("access_token")
@@ -83,10 +89,6 @@ export class ApiService {
     const accessToken = localStorage.getItem("access_token")
 
     const url = `${this.apiUrl}/${nameApi}/create`
-
-    // reverce to JSON
-    // const body = queryBody
-    // console.log(body)
 
     const headers = {
       "Authorization": `Bearer ${accessToken}`

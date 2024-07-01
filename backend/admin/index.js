@@ -8,10 +8,9 @@ const router = require("routes/api");
 const { swaggerUIServe, swaggerUISetup } = require("kernels/api-docs");
 const expressLayouts = require("express-ejs-layouts");
 const path = require("path");
-
 const cors = require("cors");
-
 const app = express();
+
 app.disable("x-powered-by");
 
 app.use(express.urlencoded({ extended: true }));
@@ -24,7 +23,7 @@ app.set("views", path.join(__dirname, "views/layouts"));
 app.set("view engine", "ejs");
 
 // user css, js
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/uploads")));
 
 app.use(bodyParser.json());
 app.use("/", [], router);
