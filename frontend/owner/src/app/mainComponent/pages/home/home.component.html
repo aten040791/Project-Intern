@@ -58,7 +58,7 @@
                       <input type="checkbox" class="form-check-input" id="select-all" [(ngModel)]="selectAll" (change)="checkAll($event)">
                     </th>
                     <th class="sorting" style="width: 250px;">Title</th>
-                    <th class="sorting" style="width: 450px;">Content</th>
+                    <th class="sorting" style="width: 400px;">Content</th>
                     <th class="sorting" style="width: 200px;">Date</th>
                     <th class="sorting" style="width: 150px;">Category</th>
                     <th class="sorting" style="width: 150px;">Locale</th>
@@ -67,23 +67,27 @@
                   </tr>
                 </thead>
                 <tbody>
-<tr class="odd" *ngFor="let post of posts">                    <td class="dt-checkboxes-cell">
-                      <input type="checkbox" class="dt-checkboxes form-check-input" [(ngModel)]="post.selected" (change)="updateSelectAllState()">
+                  <tr class="odd" *ngFor="let post of posts">
+                    <td class="dt-checkboxes-cell">
+                      <input type="checkbox" class="dt-checkboxes form-check-input" [(ngModel)]="post.selected"
+                        (change)="updateSelectAllState()">
                     </td>
-                    <td>
+                    <td style="max-width: 250px;">
                       <div class="d-flex justify-content-start align-items-center">
                         <div class="d-flex flex-column"><span class="emp_name text-truncate">{{ post.title }}</span></div>
                       </div>
                     </td>
-                    <td>
-                      <p class="card-text" [class.read-more]="isReadMore[post.id]">{{ post.body }}</p>
+                    <td style="max-width: 400px;">
+                      <p class="card-text" [ngClass]="{'read-more': isReadMore[post.id]}">
+                        <span class="responsive-img-span" [innerHtml]="getSanitizedHtml(post.body)"></span>
+                      </p>
                       <a href="#" (click)="toggleReadMore($event, post.id)" class="read-more-btn">
                         {{ isReadMore[post.id] ? 'Read Less' : 'Read More' }}
                       </a>
                     </td>
-                    <td>{{ post.formattedDate }}</td>
-                    <td>{{ post.category.name }}</td>
-                    <td>{{ post.language.name }}</td>
+                    <td style="max-width: 200px;">{{ post.formattedDate }}</td>
+                    <td style="max-width: 150px;">{{ post.category.name }}</td>
+                    <td style="max-width: 150px;">{{ post.language.name }}</td>
                     <td>
                       <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hidden' }}</span>
                     </td>
@@ -122,7 +126,7 @@
                 </div>
                 <div class="col-md-10" style="padding-top: 10px;text-align: right;">
                   <!-- Pagination -->
-                  <ul class="pagination align-items-center justify-content-end">
+                  <ul class="pagination align-items-center justify-content-end" style="margin-right: 10px;">
                     <li class="page-item" [class.disabled]="currentPage === 1">
                       <a href="javascript:void(0)" class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
                         Previous

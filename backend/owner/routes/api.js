@@ -31,6 +31,12 @@ router.group('/post', (router) => {
   router.patch('/update-multiple', validate([postValidation.updateMultiple]), postController.updateMultiple)    //API update-multiple post
 });
 
+router.group('/user', (router) => {
+  router.use(authenticateToken);
+  router.get('/:uid', siteController.getUserById),
+  router.put('/update/:uid', siteController.updateUser)
+});
+
 router.get('/category', siteController.getCategory);
 router.get('/language', siteController.getLanguage);
 

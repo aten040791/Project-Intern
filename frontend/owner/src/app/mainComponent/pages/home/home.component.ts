@@ -5,6 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash, faLanguage, faBook, faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -35,17 +36,14 @@ export class HomeComponent implements OnInit, DoCheck {
   checkboxChecked: boolean = false;
   isReadMore: { [key: string]: boolean } = {};
 
-  constructor(private apiService: ApiService, private router: Router,  private route: ActivatedRoute) {
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer) {
     library.add(
-      faSliders,
-      faPlusSquare,
-      faEllipsisV,
-      faEdit,
-      faTrash,
-      faEye,
-      faLanguage,
-      faBook,
-      faToggleOn
+      faSliders, faPlusSquare, faEllipsisV, faEdit,
+      faTrash, faEye, faLanguage, faBook, faToggleOn
     );
 
   };
@@ -53,6 +51,10 @@ export class HomeComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.fetchData();
   };
+
+  getSanitizedHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 
   fetchData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage ): void {
     this.apiService.fetchData(Keyword, page, perPage).subscribe({
