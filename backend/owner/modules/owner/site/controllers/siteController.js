@@ -11,6 +11,21 @@ const siteController = {
       const data = await siteService.getLanguage();
       return responseUtils.ok(res, data);
   },
+
+  getUserById: async (req, res) => {
+    const { uid } = req.params;
+    const user = await siteService.getUserById(uid);
+    return responseUtils.ok(res, user);
+  },
+
+  updateUser: async (req, res) => {
+    const { uid } = req.params;
+    const updateUser = req.body;
+    console.log(updateUser);
+    console.log(uid);
+    await siteService.updateUser(uid, updateUser);
+    return responseUtils.ok(res, { user: "Update successfull" });
+  },
 };
 
 module.exports = siteController;

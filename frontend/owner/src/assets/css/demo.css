@@ -169,6 +169,7 @@ body {
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
 }
 
 .form-label {
@@ -194,6 +195,7 @@ body {
 
 .header {
   text-align: center;
+  margin-top: 5px;
   /* margin-bottom: 20px; */
 }
 
@@ -472,4 +474,14 @@ fa-icon{
   padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+.responsive-img-span img,
+.responsive-img-span p img,
+.responsive-img-span picture img,
+.responsive-img-span p picture img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }

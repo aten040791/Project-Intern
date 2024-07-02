@@ -43,7 +43,6 @@ export class ApiService {
   };
 
   createPost(formData: string): Observable<any> { // Changed type to any
-    console.log(formData);
     const headers = this.getHeaders();
     return this.http.post<any>(`${this.apiUrl}/post/create`, { formData }, { headers });
   };
@@ -72,5 +71,17 @@ export class ApiService {
 
   updateStatus(formData: number[]): Observable<any> {
     return this.http.patch<any>(`${this.apiUrl}/post/update-multiple`, { formData });
+  };
+
+  getProfile(): Observable<any> {
+    const userId = localStorage.getItem('user_id');
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/user/${userId}`, { headers });
+  };
+
+  updateUser(formData: string): Observable<any> {
+    const userId = localStorage.getItem('user_id');
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.apiUrl}/user/update/${userId}`, { formData }, { headers });
   };
 }

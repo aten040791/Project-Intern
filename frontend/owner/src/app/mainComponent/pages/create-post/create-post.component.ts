@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CustomUploadAdapter } from '../../custom-upload-adapter';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-post',
@@ -25,6 +27,7 @@ export class CreatePostComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
+    private http: HttpClient
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -38,16 +41,22 @@ export class CreatePostComponent implements OnInit {
   };
 
   // Handle data output ckeditor
-  stripPTags(data: string): string {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = data;
-    return tempDiv.textContent || tempDiv.innerText || '';
-  };
+  // stripPTags(data: string): string {
+  //   const tempDiv = document.createElement('div');
+  //   tempDiv.innerHTML = data;
+  //   return tempDiv.textContent || tempDiv.innerText || '';
+  // };
 
   ngOnInit(): void {
     this.fetchDataCategory();
     this.fetchDataLanguage();
   };
+
+  onReady(editor: any): void {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+      return new CustomUploadAdapter(loader, this.http, 'http://localhost:3000/upload');
+    };
+  }
 
   fetchDataCategory(): void {
     this.apiService.fetchDataCategory().subscribe(
@@ -108,7 +117,7 @@ export class CreatePostComponent implements OnInit {
       const formData = new FormData();
       Object.keys(this.postForm.controls).forEach(key => {
         let value = this.postForm.get(key)?.value;
-        if (key === 'body') value = this.stripPTags(value);
+        // if (key === 'body') value = this.stripPTags(value);
         formData.append(key, value);
       });
       const formDataObject = this.formDataToObject(formData);

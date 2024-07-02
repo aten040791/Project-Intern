@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-post',
@@ -16,7 +17,12 @@ export class DetailPostComponent implements OnInit{
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
-  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private apiService: ApiService,
+    private sanitizer: DomSanitizer
+  ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
       this.post = navigation.extras.state['post'];
@@ -34,6 +40,10 @@ export class DetailPostComponent implements OnInit{
     }
     this.fetchData();
   };
+
+  getSanitizedHtml(body: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(body);
+  }
 
   fetchData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
     this.apiService.fetchData(Keyword, page, perPage).subscribe({
