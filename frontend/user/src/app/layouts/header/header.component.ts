@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -14,26 +13,10 @@ export class HeaderComponent {
 
   constructor (
     private apiService: ApiService,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.fetchDataCategory();
-  };
-
-  getCategory(categoryId: number): void {
-    this.apiService.getPostCategories(categoryId).subscribe({
-      next: (post) => {
-        // console.log('API Response:', post.data);
-        this.router.navigate(['/category', categoryId], {
-          state: { data: post.data },
-        });
-      },
-      error: (error) => {
-        console.error('Failed to fetch post details:', error);
-        alert('Failed to fetch post details');
-      },
-    });
   };
 
   fetchDataCategory(): void {

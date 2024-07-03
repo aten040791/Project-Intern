@@ -54,7 +54,7 @@
                                     <a routerLink="/home">Trang chủ</a>
                                 </li>
                                 <li class="tbl-cell" *ngFor="let category of responseDataCategory">
-                                    <a (click)="getCategory(category.id)">{{ category.name }}</a>
+                                    <a routerLink="/category/{{ category.id }}">{{ category.name }}</a>
                                 </li>
                             </ul>
                         </div>
