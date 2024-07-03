@@ -142,7 +142,7 @@ export class UpdatePostComponent implements OnInit {
       this.apiService.updatePost(Number(postId), formDataString).subscribe({
         next: (response) => {
           console.log('Post updated successfully', response);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/post']);
         },
         error: (error) => {
           console.error('Failed to update post', error);

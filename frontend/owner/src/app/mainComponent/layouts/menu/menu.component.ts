@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
   }
 
   isPostActive(): boolean {
-      return this.router.isActive('/home', true);
+      return this.router.isActive('/post', true);
   }
 
   isAccountActive(): boolean {

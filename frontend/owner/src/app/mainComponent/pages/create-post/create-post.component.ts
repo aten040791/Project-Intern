@@ -119,7 +119,7 @@ export class CreatePostComponent implements OnInit {
       this.apiService.createPost(formDataString).subscribe({
         next: (response) => {
           console.log('Post created successfully', response);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/post']);
         },
         error: (error) => {
           console.error('Failed to create post', error);
