@@ -7,7 +7,7 @@ import { CategoryPostComponent } from './pages/category-post/category-post.compo
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'detail-post', component: DetailPostComponent },
-  { path: 'category', component: CategoryPostComponent },
+  { path: 'category/:id', component: CategoryPostComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

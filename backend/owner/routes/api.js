@@ -21,10 +21,8 @@ const router = express.Router({ mergeParams: true });
 
 router.group('/post', (router) => {
   router.use(authenticateToken);
-  router.get('/', validate([postValidation.index]), postController.index),     //API get post
   router.get('/user/:uid', validate([postValidation.getByUid]), postController.getByUid),     //API get post
   router.get('/:id', validate([postValidation.getById]), postController.getById),   //API get detail post
-  router.get('/category/:id', validate([postValidation.getCategory]), postController.getCategory),   //API get post by category
   router.post('/create', validate([postValidation.create]), postController.create),    //API create post
   router.put('/update/:id', validate([postValidation.update]), postController.update),    //API update post
   router.delete('/delete', validate([postValidation.delete]), postController.delete),    //API delete post 
@@ -37,8 +35,11 @@ router.group('/user', (router) => {
   router.put('/update/:uid', siteController.updateUser)
 });
 
-router.get('/category', siteController.getCategory);
-router.get('/language', siteController.getLanguage);
+router.get('/category', siteController.getCategory); //API get category
+router.get('/language', siteController.getLanguage); //API get language
+router.get('/', validate([postValidation.index]), postController.index);     //API get post
+router.get('/:id', validate([postValidation.getById]), postController.getById);   //API get detail post
+router.get('/category/:id', validate([postValidation.getCategory]), postController.getCategory);   //API get post by category
 
 
 router.group('/auth',(router) => {

@@ -10,6 +10,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CategoryPostComponent } from './pages/category-post/category-post.component';
 import { DetailPostComponent } from './pages/detail-post/detail-post.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DetailPostComponent } from './pages/detail-post/detail-post.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

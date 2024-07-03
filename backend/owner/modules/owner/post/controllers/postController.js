@@ -15,7 +15,7 @@ const postController = {
       const category = await postService.category(id);
       return responseUtils.ok(res, category);
     } catch (error) {
-      return responseUtils.userError(res, error.message);
+      return responseUtils.error(res, error.message);
     }
   },
 
@@ -34,7 +34,7 @@ const postController = {
       const posts = await postService.getByUid(uid, keyword, parseInt(page), parseInt(perPage));
       return responseUtils.ok(res, posts);
     } catch (error) {
-      return responseUtils.userError(res, error.message);
+      return responseUtils.error(res, error.message);
     }
   },
 
