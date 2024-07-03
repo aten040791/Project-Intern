@@ -97,11 +97,11 @@
                           <fa-icon [icon]="faEllipsisV"></fa-icon>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end m-0">
-                          <a (click)="getDetails(post.id)" class="dropdown-item">
+                          <a routerLink="/update-post/{{ post.id }}" class="dropdown-item">
                             <fa-icon [icon]="faEdit"></fa-icon>
                             <span class="ms-1">Update</span>
                           </a>
-                          <a (click)="viewDetails(post.id)" class="dropdown-item">
+                          <a routerLink="/detail-post/{{ post.id }}" class="dropdown-item">
                             <fa-icon [icon]="faEye"></fa-icon>
                             <span class="ms-1">Details</span>
                           </a>
