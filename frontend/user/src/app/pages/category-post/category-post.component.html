@@ -21,7 +21,7 @@
                     <div class="tour-evaluation">
                         <div class="slider-feedback_v1">
                             <ul class="list-root list-item">
-                                <li>
+                                <li *ngFor="let post of posts">
                                     <div class="item">
                                         <div class="avt">
                                             <a routerLink="/detail-post" class="img">
@@ -30,195 +30,31 @@
                                             <div class="voted-star-v1">
                                                 <div class="vote-star">
                                                     <div class="rating">
-                                                        <div class = "full star-v1"  title="Awesome - 5 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Pretty good - 4 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Meh - 3 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Kinda bad - 2 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Sucks big time - 1 star"></div>
+                                                        <div class="full star-v1" title="Awesome - 5 stars"></div>
+                                                        <div class="full star-v1 active" title="Pretty good - 4 stars">
+                                                        </div>
+                                                        <div class="full star-v1 active" title="Meh - 3 stars"></div>
+                                                        <div class="full star-v1 active" title="Kinda bad - 2 stars">
+                                                        </div>
+                                                        <div class="full star-v1 active"
+                                                            title="Sucks big time - 1 star"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                            <p>Chúng tôi gửi lười cảm ơn đến đội ngũ tư vấn viên của Viet Centre đã nhiệt tình hỗ trợ Đoàn trong quá trình chuẩn bị cho hành trình.<a href="detail-post.html">[Xem chi tiết]</a></p>
+                                            <a routerLink="/detail-post" class="title-desc">{{ post.title }}</a>
+                                            <p class="card-text">
+                                                <span class="responsive-img-span">{{ post.body }}</span>
+                                            </p>
                                             <div class="info-use-fb">
                                                 <div class="desc">
-                                                    <p class="name">Lê Hồng Quân</p>
+                                                    <p class="name">{{ post.user_id }}</p>
                                                 </div>
                                                 <div class="avt-company">
                                                     <a routerLink="/detail-post" class="img">
-                                                        <img src="../../../assets/img/company-use-feedback-3.png" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="avt">
-                                            <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/avt-feedback-2.png" alt="">
-                                            </a>
-                                            <div class="voted-star-v1">
-                                                <div class="vote-star">
-                                                    <div class="rating">
-                                                        <div class = "full star-v1"  title="Awesome - 5 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Pretty good - 4 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Meh - 3 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Kinda bad - 2 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Sucks big time - 1 star"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">VCCorp thật tuyệt vời</a>
-                                            <p>Chúng tôi gửi lười cảm ơn đến đội ngũ tư vấn viên của Viet Centre đã nhiệt tình hỗ trợ Đoàn trong quá trình chuẩn bị cho hành trình.<a href="detail-post.html">[Xem chi tiết]</a></p>
-                                            <div class="info-use-fb">
-                                                <div class="desc">
-                                                    <p class="name">Lê Hồng Quân</p>
-                                                </div>
-                                                <div class="avt-company">
-                                                    <a routerLink="/detail-post" class="img">
-                                                        <img src="../../../assets/img/company-use-feedback-2.png" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="avt">
-                                            <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/avt-feedback-3.png" alt="">
-                                            </a>
-                                            <div class="voted-star-v1">
-                                                <div class="vote-star">
-                                                    <div class="rating">
-                                                        <div class = "full star-v1"  title="Awesome - 5 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Pretty good - 4 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Meh - 3 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Kinda bad - 2 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Sucks big time - 1 star"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                            <p>Chúng tôi gửi lười cảm ơn đến đội ngũ tư vấn viên của Viet Centre đã nhiệt tình hỗ trợ Đoàn trong quá trình chuẩn bị cho hành trình.<a href="detail-post.html">[Xem chi tiết]</a></p>
-                                            <div class="info-use-fb">
-                                                <div class="desc">
-                                                    <p class="name">Lê Hồng Quân</p>
-                                                </div>
-                                                <div class="avt-company">
-                                                    <a routerLink="/detail-post" class="img">
-                                                        <img src="../../../assets/img/company-use-feedback-3.png" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="avt">
-                                            <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/avt-feedback-1.png" alt="">
-                                            </a>
-                                            <div class="voted-star-v1">
-                                                <div class="vote-star">
-                                                    <div class="rating">
-                                                        <div class = "full star-v1"  title="Awesome - 5 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Pretty good - 4 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Meh - 3 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Kinda bad - 2 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Sucks big time - 1 star"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                            <p>Chúng tôi gửi lười cảm ơn đến đội ngũ tư vấn viên của Viet Centre đã nhiệt tình hỗ trợ Đoàn trong quá trình chuẩn bị cho hành trình.<a href="detail-post.html">[Xem chi tiết]</a></p>
-                                            <div class="info-use-fb">
-                                                <div class="desc">
-                                                    <p class="name">Lê Hồng Quân</p>
-                                                </div>
-                                                <div class="avt-company">
-                                                    <a routerLink="/detail-post" class="img">
-                                                        <img src="../../../assets/img/company-use-feedback-3.png" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="avt">
-                                            <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/avt-feedback-2.png" alt="">
-                                            </a>
-                                            <div class="voted-star-v1">
-                                                <div class="vote-star">
-                                                    <div class="rating">
-                                                        <div class = "full star-v1"  title="Awesome - 5 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Pretty good - 4 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Meh - 3 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Kinda bad - 2 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Sucks big time - 1 star"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">VCCorp thật tuyệt vời</a>
-                                            <p>Chúng tôi gửi lười cảm ơn đến đội ngũ tư vấn viên của Viet Centre đã nhiệt tình hỗ trợ Đoàn trong quá trình chuẩn bị cho hành trình.<a href="detail-post.html">[Xem chi tiết]</a></p>
-                                            <div class="info-use-fb">
-                                                <div class="desc">
-                                                    <p class="name">Lê Hồng Quân</p>
-                                                </div>
-                                                <div class="avt-company">
-                                                    <a routerLink="/detail-post" class="img">
-                                                        <img src="../../../assets/img/company-use-feedback-2.png" alt="">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="item">
-                                        <div class="avt">
-                                            <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/avt-feedback-3.png" alt="">
-                                            </a>
-                                            <div class="voted-star-v1">
-                                                <div class="vote-star">
-                                                    <div class="rating">
-                                                        <div class = "full star-v1"  title="Awesome - 5 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Pretty good - 4 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Meh - 3 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Kinda bad - 2 stars"></div>
-                                                        <div class = "full star-v1 active"  title="Sucks big time - 1 star"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                            <p>Chúng tôi gửi lười cảm ơn đến đội ngũ tư vấn viên của Viet Centre đã nhiệt tình hỗ trợ Đoàn trong quá trình chuẩn bị cho hành trình.<a href="detail-post.html">[Xem chi tiết]</a></p>
-                                            <div class="info-use-fb">
-                                                <div class="desc">
-                                                    <p class="name">Lê Hồng Quân</p>
-                                                </div>
-                                                <div class="avt-company">
-                                                    <a routerLink="/detail-post" class="img">
-                                                        <img src="../../../assets/img/company-use-feedback-3.png" alt="">
+                                                        <img src="../../../assets/img/company-use-feedback-3.png"
+                                                            alt="">
                                                     </a>
                                                 </div>
                                             </div>
@@ -230,7 +66,8 @@
                         <div class="pagination">
                             <ul>
                                 <li>
-                                    <a routerLink="/category"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                                    <a routerLink="/category"><i class="fa fa-angle-double-left"
+                                            aria-hidden="true"></i></a>
                                 </li>
                                 <li>
                                     <a routerLink="/category"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
@@ -245,7 +82,8 @@
                                     <a routerLink="/category">3</a>
                                 </li>
                                 <li>
-                                    <a routerLink="/category"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                    <a routerLink="/category"><i class="fa fa-angle-double-right"
+                                            aria-hidden="true"></i></a>
                                 </li>
                                 <li>
                                     <a routerLink="/category"><i class="fa fa-angle-right" aria-hidden="true"></i></a>

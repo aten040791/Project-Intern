@@ -5,7 +5,7 @@ const postService = {
   list: () => {
     const posts = db.Post.findAll({
       include: [
-        { model: db.Category, as: 'category', attributes: ['id', 'name'] },
+        { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
       ],
       order: [['createdAt', 'DESC']]
@@ -16,7 +16,7 @@ const postService = {
   getById: async (id) => {
     const post = await db.Post.findByPk(id, {
       include: [
-        { model: db.Category, as: 'category', attributes: ['id', 'name'] },
+        { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
       ],
       order: [['createdAt', 'DESC']]
@@ -39,7 +39,7 @@ const postService = {
     const { count, rows: posts } = await db.Post.findAndCountAll({
       where: whereClause,
       include: [
-        { model: db.Category, as: 'category', attributes: ['id', 'name'] },
+        { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
       ],
       order: [['createdAt', 'DESC']],

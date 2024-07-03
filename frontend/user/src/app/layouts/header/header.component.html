@@ -53,38 +53,11 @@
                                 <li class="tbl-cell">
                                     <a routerLink="/home">Trang chủ</a>
                                 </li>
-                                <li class="tbl-cell">
-                                    <a routerLink="/category">Thời sự</a>
-                                    <ul>
-                                        <li>
-                                            <a routerLink="/category">demo</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="tbl-cell">
-                                    <a routerLink="/category">Du lịch</a>
-                                </li>
-                                <li class="tbl-cell">
-                                    <a routerLink="/category">Thể thao</a>
-                                </li>
-                                <li class="tbl-cell">
-                                    <a routerLink="/category">Giáo dục</a>
-                                </li>
-                                <li class="tbl-cell">
-                                    <a routerLink="/category">Giải trí</a>
+                                <li class="tbl-cell" *ngFor="let category of responseDataCategory">
+                                    <a routerLink="/category/{{ category.id }}">{{ category.name }}</a>
                                 </li>
                             </ul>
                         </div>
-                        <!-- <div class="footer-sticker">
-                            <ul class="mb-lang tbl">
-                                <li class="tbl-cell">
-                                    <a href="#" class="langvi">VN</a>
-                                </li>
-                                <li class="tbl-cell">
-                                    <a href="#" class="langen">EN</a>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
                 </div>
             </div>
