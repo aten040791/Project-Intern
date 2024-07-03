@@ -1,6 +1,6 @@
 <div class="content-wrapper">
   <form [formGroup]="postForm" (ngSubmit)="onCreate()">
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-xxl container-p-y">
       <div class="row justify-content-center align-items-center mb-4">
         <div class="col-lg-12 d-flex justify-content-between">
           <h3 class="header">CREATE POST</h3>
@@ -72,7 +72,7 @@
                   </div>
                 </div>
                 <div class="form-group" style="float: right;">
-                  <a routerLink="/home">
+                  <a routerLink="/post">
                     <button type="button" class="btn btn-danger" style="margin-right: 10px;">Cancel</button>
                   </a>
                   <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">Save</button>

@@ -53,7 +53,7 @@ export class DeleteMutipalPostComponent implements OnInit {
       this.apiService.deletePost(formData).subscribe({
         next: (response) => {
           console.log('Post delete successfully', response);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/post']);
           window.location.reload();
         },
         error: (error) => {

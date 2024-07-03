@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiService implements CanActivate {
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   private getHeaders(): HttpHeaders {
     const accessToken = localStorage.getItem('access_token');
@@ -16,6 +17,15 @@ export class ApiService {
       'Authorization': `Bearer ${accessToken}`
     });
   };
+
+  canActivate(): boolean {
+    if (localStorage.getItem('user_id')) {
+      return true;
+    } else {
+      this.router.navigate(['/auth/login']);
+      return false;
+    }
+  }
 
   fetchData(Keyword: string, page: number = 1, perPage: number = 10): Observable<any> {
     const userId = localStorage.getItem('user_id');

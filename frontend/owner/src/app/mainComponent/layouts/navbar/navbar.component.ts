@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { ApiService } from 'src/app/services/api.service';
 import { faBell, faCog, faEnvelopeOpen, faGlobe, faPowerOff, faSearch, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -20,8 +22,9 @@ export class NavbarComponent implements OnInit {
   languageDropdownOpen = false;
   notificationsDropdownOpen = false;
   userDropdownOpen = false;
+  profile: any;
 
-  constructor() {
+  constructor(private apiService: ApiService, private router: Router) {
     library.add(faSearch, faGlobe, faBell, faEnvelopeOpen, faUser, faCog, faPowerOff, faBars);
   }
 
@@ -32,7 +35,27 @@ export class NavbarComponent implements OnInit {
     } else {
       htmlElement.classList.remove('layout-menu-expanded');
     }
-  }
+  };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getProfile();
+  };
+
+  getProfile() {
+    this.apiService.getProfile().subscribe({
+      next: response => {
+        console.log('API Response - Profile:', response.data.user);
+          this.profile = response.data.user;
+      },
+      error: error => {
+        console.error('Failed to fetch profile:', error);
+      }
+    });
+  };
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
+  };
+
 }
