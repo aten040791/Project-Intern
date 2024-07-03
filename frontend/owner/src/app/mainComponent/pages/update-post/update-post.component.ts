@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CustomUploadAdapter } from '../../custom-upload-adapter';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -25,14 +27,15 @@ export class UpdatePostComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
       body: ['', Validators.required],
       user_id: [this.userId],
       status: [''],
-      file: [null],
+      file: [''],
       category_id: ['', Validators.required],
       language_id: ['', Validators.required],
     });
@@ -41,13 +44,6 @@ export class UpdatePostComponent implements OnInit {
     if (navigation?.extras?.state) {
       this.post = navigation.extras.state['post'];
     }
-  };
-
-  // Handle data output ckeditor
-  stripPTags(data: string): string {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = data;
-    return tempDiv.textContent || tempDiv.innerText || '';
   };
 
   ngOnInit(): void {
@@ -70,11 +66,17 @@ export class UpdatePostComponent implements OnInit {
         this.fetchDataLanguage();
       });
     }
+  };
+
+  onReady(editor: any): void {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
+      return new CustomUploadAdapter(loader, this.http, 'http://localhost:3000/upload');
+    };
   }
 
   fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe(
-      response => {
+    this.apiService.fetchDataCategory().subscribe({
+      next: response => {
         console.log('API Response - Categories:', response.data);
         if (Array.isArray(response.data)) {
           this.responseDataCategory = response.data;
@@ -82,15 +84,15 @@ export class UpdatePostComponent implements OnInit {
           this.responseDataCategory = [];
         }
       },
-      error => {
+      error: error => {
         console.error('Failed to fetch categories:', error);
       }
-    );
-  }
-
+    });
+  };
+  
   fetchDataLanguage(): void {
-    this.apiService.fetchDataLanguage().subscribe(
-      response => {
+    this.apiService.fetchDataLanguage().subscribe({
+      next: response => {
         console.log('API Response - Languages:', response.data);
         if (Array.isArray(response.data)) {
           this.responseDataLanguage = response.data;
@@ -98,11 +100,12 @@ export class UpdatePostComponent implements OnInit {
           this.responseDataLanguage = [];
         }
       },
-      error => {
+      error: error => {
         console.error('Failed to fetch languages:', error);
       }
-    );
-  }
+    });
+  };
+  
 
   toggleLanguageItems(): void {
     this.showLanguageItems = !this.showLanguageItems;
@@ -131,7 +134,6 @@ export class UpdatePostComponent implements OnInit {
       const formData = new FormData();
       Object.keys(this.postForm.controls).forEach(key => {
         let value = this.postForm.get(key)?.value;
-        if (key === 'body') value = this.stripPTags(value);
         formData.append(key, value);
       });
       const formDataObject = this.formDataToObject(formData);

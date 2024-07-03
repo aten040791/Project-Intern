@@ -33,19 +33,12 @@ export class CreatePostComponent implements OnInit {
       title: ['', Validators.required],
       body: ['', Validators.required],
       user_id: [this.userId],
-      status: [false],
+      status: [''],
       file: [''],
       category_id: ['', Validators.required],
       language_id: ['', Validators.required],
     });
   };
-
-  // Handle data output ckeditor
-  // stripPTags(data: string): string {
-  //   const tempDiv = document.createElement('div');
-  //   tempDiv.innerHTML = data;
-  //   return tempDiv.textContent || tempDiv.innerText || '';
-  // };
 
   ngOnInit(): void {
     this.fetchDataCategory();
@@ -56,11 +49,11 @@ export class CreatePostComponent implements OnInit {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
       return new CustomUploadAdapter(loader, this.http, 'http://localhost:3000/upload');
     };
-  }
+  };
 
   fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe(
-      response => {
+    this.apiService.fetchDataCategory().subscribe({
+      next: response => {
         console.log('API Response - Categories:', response.data);
         if (Array.isArray(response.data)) {
           this.responseDataCategory = response.data;
@@ -68,15 +61,15 @@ export class CreatePostComponent implements OnInit {
           this.responseDataCategory = [];
         }
       },
-      error => {
+      error: error => {
         console.error('Failed to fetch categories:', error);
       }
-    );
+    });
   };
-
+  
   fetchDataLanguage(): void {
-    this.apiService.fetchDataLanguage().subscribe(
-      response => {
+    this.apiService.fetchDataLanguage().subscribe({
+      next: response => {
         console.log('API Response - Languages:', response.data);
         if (Array.isArray(response.data)) {
           this.responseDataLanguage = response.data;
@@ -84,11 +77,12 @@ export class CreatePostComponent implements OnInit {
           this.responseDataLanguage = [];
         }
       },
-      error => {
+      error: error => {
         console.error('Failed to fetch languages:', error);
       }
-    );
+    });
   };
+  
 
   toggleLanguageItems(): void {
     this.showLanguageItems = !this.showLanguageItems;
@@ -117,7 +111,6 @@ export class CreatePostComponent implements OnInit {
       const formData = new FormData();
       Object.keys(this.postForm.controls).forEach(key => {
         let value = this.postForm.get(key)?.value;
-        // if (key === 'body') value = this.stripPTags(value);
         formData.append(key, value);
       });
       const formDataObject = this.formDataToObject(formData);

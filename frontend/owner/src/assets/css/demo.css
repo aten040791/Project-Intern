@@ -442,6 +442,7 @@ body {
   line-height: 1.6rem;
   max-height: 21.2rem;
   transition: max-height 0.5s ease;
+  text-align: justify;
 }
 
 .card-text-right{
