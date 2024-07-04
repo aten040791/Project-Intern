@@ -27,7 +27,7 @@ export class ApiService implements CanActivate {
     }
   }
 
-  fetchData(Keyword: string, page: number = 1, perPage: number = 10): Observable<any> {
+  getData(Keyword: string, page: number = 1, perPage: number = 10): Observable<any> {
     const userId = localStorage.getItem('user_id');
     const headers = this.getHeaders();
     const keyword = Keyword ? Keyword : '';
@@ -39,11 +39,11 @@ export class ApiService implements CanActivate {
     return this.http.get<any>(`${this.apiUrl}/post/user/${userId}`, { headers, params });
   };
 
-  fetchDataLanguage(): Observable<any> {
+  getDataLanguage(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/language`);
   };
 
-  fetchDataCategory(): Observable<any> {
+  getDataCategory(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/category`);
   };
 

@@ -17,22 +17,12 @@ export class HeaderComponent {
   ) { }
 
   ngOnInit(): void {
-    this.fetchDataCategory();
+    this.getDataCategory();
   };
 
-  fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe({
-      next: response => {
-        console.log('API Response - Categories:', response.data);
-        if (Array.isArray(response.data)) {
-          this.responseDataCategory = response.data;
-        } else {
-          this.responseDataCategory = [];
-        }
-      },
-      error: error => {
-        console.error('Failed to fetch categories:', error);
-      }
+  getDataCategory(): void {
+    this.apiService.getDataCategory().subscribe((response) => {
+      this.responseDataCategory = response.data || [];
     });
   };
 }

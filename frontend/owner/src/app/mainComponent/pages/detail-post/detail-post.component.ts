@@ -38,41 +38,28 @@ export class DetailPostComponent implements OnInit{
         });
       }
     }
-    this.fetchData();
+    this.getData();
   };
 
   getSanitizedHtml(body: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(body);
   }
 
-  fetchData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
-    this.apiService.fetchData(Keyword, page, perPage).subscribe({
-      next: (response) => {
-        console.log('API Response:', response);
-    
-        this.responseData = response.data.posts;
-        this.posts = this.responseData.map((post) => ({
-          ...post,
-          selected: false,
-          formattedDate: format(new Date(post.createdAt), 'PP')
-        }));
-      },
-      error: (error) => {
-        console.error('Failed to fetch data:', error);
-      }
+  getData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
+    this.apiService.getData(Keyword, page, perPage).subscribe((response) => {
+      this.responseData = response.data.posts;
+      this.posts = this.responseData.map((post) => ({
+        ...post,
+        selected: false,
+        formattedDate: format(new Date(post.createdAt), 'PP')
+      }));
     });
   };
 
   viewDetails(postId: number): void {
-    this.apiService.getPostDetails(postId).subscribe({
-      next: (post) => {
-        this.router.navigate(['/detail-post', postId], { state: { data: post.data } });
-        window.location.href = `/detail-post/${postId}`;
-      },
-      error: (error) => {
-        console.error('Failed to fetch post details:', error);
-        alert('Failed to fetch post details');
-      }
+    this.apiService.getPostDetails(postId).subscribe((post) => {
+      this.router.navigate(['/detail-post', postId], { state: { data: post.data } });
+      window.location.href = `/detail-post/${postId}`;
     });
   };
 }

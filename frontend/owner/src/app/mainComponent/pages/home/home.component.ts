@@ -49,30 +49,22 @@ export class HomeComponent implements OnInit, DoCheck {
   };
 
   ngOnInit(): void {
-    this.fetchData();
+    this.getData();
   };
 
   getSanitizedHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
-  fetchData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage ): void {
-    this.apiService.fetchData(Keyword, page, perPage).subscribe({
-      next: (response) => {
-        console.log('API Response:', response);
-
-        this.responseData = response.data.posts;
-        this.posts = this.responseData.map((post) => ({
-          ...post,
-          selected: false,
-          formattedDate: format(new Date(post.createdAt), 'PP'),
-        }));
-
-        this.totalPages = response.data.totalPages;
-      },
-      error: (error) => {
-        console.error('Failed to fetch data:', error);
-      },
+  getData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage ): void {
+    this.apiService.getData(Keyword, page, perPage).subscribe((response) => {
+      this.responseData = response.data.posts;
+      this.posts = this.responseData.map((post) => ({
+        ...post,
+        selected: false,
+        formattedDate: format(new Date(post.createdAt), 'PP'),
+      }));
+      this.totalPages = response.data.totalPages;
     });
   };
 
@@ -80,14 +72,14 @@ export class HomeComponent implements OnInit, DoCheck {
     this.itemsPerPage = event.target.value;
     this.currentPage = 1;
     this.updateUrl();
-    this.fetchData(this.searchTerm, this.currentPage, this.itemsPerPage);
+    this.getData(this.searchTerm, this.currentPage, this.itemsPerPage);
   };
 
   onPageChange(page: number): void {
     this.currentPage = page;
     console.log('currentPage', this.currentPage);
     this.updateUrl();
-    this.fetchData(this.searchTerm, this.currentPage, this.itemsPerPage);
+    this.getData(this.searchTerm, this.currentPage, this.itemsPerPage);
   };
   
 
@@ -95,7 +87,7 @@ export class HomeComponent implements OnInit, DoCheck {
     this.searchTerm = term;
     this.currentPage = 1;
     this.updateUrl();
-    this.fetchData(this.searchTerm, this.currentPage, this.itemsPerPage);
+    this.getData(this.searchTerm, this.currentPage, this.itemsPerPage);
   };
 
   private updateUrl(): void {

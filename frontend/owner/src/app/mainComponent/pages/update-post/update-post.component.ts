@@ -28,8 +28,7 @@ export class UpdatePostComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
-  ) {
+    private http: HttpClient ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
       body: ['', Validators.required],
@@ -62,8 +61,8 @@ export class UpdatePostComponent implements OnInit {
           category_id: [this.post.data.category.id],
         });
 
-        this.fetchDataCategory();
-        this.fetchDataLanguage();
+        this.getDataCategory();
+        this.getDataLanguage();
       });
     }
   };
@@ -74,35 +73,15 @@ export class UpdatePostComponent implements OnInit {
     };
   }
 
-  fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe({
-      next: response => {
-        console.log('API Response - Categories:', response.data);
-        if (Array.isArray(response.data)) {
-          this.responseDataCategory = response.data;
-        } else {
-          this.responseDataCategory = [];
-        }
-      },
-      error: error => {
-        console.error('Failed to fetch categories:', error);
-      }
+  getDataCategory(): void {
+    this.apiService.getDataCategory().subscribe((response) => {
+      this.responseDataCategory = response.data || [];
     });
   };
   
-  fetchDataLanguage(): void {
-    this.apiService.fetchDataLanguage().subscribe({
-      next: response => {
-        console.log('API Response - Languages:', response.data);
-        if (Array.isArray(response.data)) {
-          this.responseDataLanguage = response.data;
-        } else {
-          this.responseDataLanguage = [];
-        }
-      },
-      error: error => {
-        console.error('Failed to fetch languages:', error);
-      }
+  getDataLanguage(): void {
+    this.apiService.getDataLanguage().subscribe((response) => {
+      this.responseDataLanguage = response.data;
     });
   };
   
@@ -139,15 +118,8 @@ export class UpdatePostComponent implements OnInit {
       const formDataObject = this.formDataToObject(formData);
       const formDataString = JSON.stringify(formDataObject);
       const postId = this.route.snapshot.paramMap.get('id');
-      this.apiService.updatePost(Number(postId), formDataString).subscribe({
-        next: (response) => {
-          console.log('Post updated successfully', response);
-          this.router.navigate(['/post']);
-        },
-        error: (error) => {
-          console.error('Failed to update post', error);
-          alert('Failed to update post');
-        }
+      this.apiService.updatePost(Number(postId), formDataString).subscribe((response) => {
+        this.router.navigate(['/post']);
       });
     }
   };

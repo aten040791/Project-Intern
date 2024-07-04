@@ -33,53 +33,32 @@ export class DetailPostComponent implements OnInit{
     this.route.params.subscribe(params => {
       const postId = +params['id'];
       if (postId) {
-        this.fetchPostDetails(postId);
+        this.getPostDetails(postId);
       }
     });
 
-    this.fetchDataCategory();
-    this.fetchData();
+    this.getDataCategory();
+    this.getData();
   };
 
-  fetchData(): void {
-    this.apiService.fetchData().subscribe({
-      next: (response) => {
+  getData(): void {
+    this.apiService.getData().subscribe((response) => {
         console.log('API Response - Posts:', response);
-        this.reponseDataPosts = response.data;
-        this.reponDataPostsHeader = response.data.slice(0, 3);
-        this.reponDataPostsFooter = response.data.slice(0, 10);
-      },
-      error: (error) => {
-        console.error('Failed to fetch data:', error);
-      },
+        this.reponseDataPosts = response.data || [];
+        this.reponDataPostsHeader = response.data.slice(0, 3) || [];
+        this.reponDataPostsFooter = response.data.slice(0, 10) || [];
     });
   };
 
-  fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe({
-      next: response => {
-        console.log('API Response - Categories:', response.data);
-        if (Array.isArray(response.data)) {
-          this.responseDataCategory = response.data;
-        } else {
-          this.responseDataCategory = [];
-        }
-      },
-      error: error => {
-        console.error('Failed to fetch categories:', error);
-      }
+  getDataCategory(): void {
+    this.apiService.getDataCategory().subscribe((response) => {
+      this.responseDataCategory = response.data || [];
     });
   };
 
-  fetchPostDetails(postId: number): void {
-    this.apiService.getPostDetails(postId).subscribe({
-      next: (response) => {
-        console.log('API Response - Post Details:', response);
-        this.post = response.data;
-      },
-      error: (error) => {
-        console.error('Failed to fetch data:', error);
-      }
+  getPostDetails(postId: number): void {
+    this.apiService.getPostDetails(postId).subscribe((response) => {
+      this.post = response.data || [];
     });
   }
 
