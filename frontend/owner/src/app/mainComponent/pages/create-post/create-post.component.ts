@@ -53,13 +53,13 @@ export class CreatePostComponent implements OnInit {
 
   getDataCategory(): void {
     this.apiService.getDataCategory().subscribe((response) => {
-      this.responseDataCategory = response.data || [];
+      this.responseDataCategory = response.data;
     });
   };
   
   getDataLanguage(): void {
     this.apiService.getDataLanguage().subscribe((response) => {
-      this.responseDataLanguage = response.data || [];
+      this.responseDataLanguage = response.data;
     });
   };
   

@@ -44,21 +44,21 @@ export class DetailPostComponent implements OnInit{
   getData(): void {
     this.apiService.getData().subscribe((response) => {
         console.log('API Response - Posts:', response);
-        this.reponseDataPosts = response.data || [];
-        this.reponDataPostsHeader = response.data.slice(0, 3) || [];
-        this.reponDataPostsFooter = response.data.slice(0, 10) || [];
+        this.reponseDataPosts = response.data;
+        this.reponDataPostsHeader = response.data.slice(0, 3);
+        this.reponDataPostsFooter = response.data.slice(0, 10);
     });
   };
 
   getDataCategory(): void {
     this.apiService.getDataCategory().subscribe((response) => {
-      this.responseDataCategory = response.data || [];
+      this.responseDataCategory = response.data;
     });
   };
 
   getPostDetails(postId: number): void {
     this.apiService.getPostDetails(postId).subscribe((response) => {
-      this.post = response.data || [];
+      this.post = response.data;
     });
   }
 

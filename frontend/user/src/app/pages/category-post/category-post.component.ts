@@ -31,7 +31,7 @@ export class CategoryPostComponent implements OnInit {
 
   getData(): void {
     this.apiService.getData().subscribe((response) => {
-        this.reponseDataPosts = response.data || [];
+        this.reponseDataPosts = response.data;
     });
   };
 
@@ -41,7 +41,7 @@ export class CategoryPostComponent implements OnInit {
 
   getCategoryPosts(categoryId: number): void {
     this.apiService.getPostCategories(categoryId).subscribe((response) => {
-        this.posts = response.data || [];
+        this.posts = response.data;
     });
   }
 }
