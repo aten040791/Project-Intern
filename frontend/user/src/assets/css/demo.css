@@ -6,8 +6,27 @@
     overflow: hidden;
   } */
 
-  #sticker.active {
-    max-height: 100%;
-    opacity: 1;
-    transform: translateY(0);
-  }
+#sticker.active {
+  max-height: 100%;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.read-more {
+  color: #0684ff;
+  line-height: 1.6rem;
+  max-height: 21.2rem;
+  transition: max-height 0.5s ease;
+  text-align: justify;
+  cursor: pointer;
+}
+
+.responsive-img-span img,
+.responsive-img-span p img,
+.responsive-img-span picture img,
+.responsive-img-span p picture img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}

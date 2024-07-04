@@ -331,7 +331,7 @@ ul.date-view li>p{display: table-cell;vertical-align: middle;padding-left: 5px;}
 .slider-feedback_v1 ul.list-root>li .item .avt .img:hover img{transform:scale(1.1)}
 .slider-feedback_v1 ul.list-root>li .item>.desc{padding: 55px 15px 20px 20px;background: url(../img/bg-item-desc-feedback.png)top center no-repeat;background-size: 100%  auto;}
 .slider-feedback_v1 ul.list-root>li .item>.desc .title-desc{display: block;line-height: 24px;padding-left: 30px;padding-right: 30px;background: url(../img/ic-title-feedback.png)left top no-repeat;text-align: center;font-size: 16px;font-family: 'Arial',sans-serif;font-weight: bold;color: #024371;margin-top: 10px;height: 24px;overflow: hidden;}
-.slider-feedback_v1 ul.list-root>li .item>.desc > p{line-height: 24px;font-size: 14px;font-family: 'Arial',sans-serif;color: #333;margin-top: 12px;max-height: 72px;overflow: hidden;}
+.slider-feedback_v1 ul.list-root>li .item>.desc > p{line-height: 24px;font-size: 14px;font-family: 'Arial',sans-serif;color: #333;margin-top: 12px;max-height: 150px;overflow: hidden;}
 .slider-feedback_v1 ul.list-root>li .item>.desc .info-use-fb{margin-top: 12px;display: table;width: 100%;}
 .slider-feedback_v1 ul.list-root>li .item>.desc .info-use-fb>.desc{display: table-cell;vertical-align: middle;text-align: left;color: #333;font-family: 'Arial',sans-serif;font-size: 14px;line-height: 24px;height: 48px;overflow: hidden;}
 .slider-feedback_v1 ul.list-root>li .item>.desc .info-use-fb>.desc .name{font-weight: bold;display: block;}
@@ -547,7 +547,7 @@ footer{border-top: 1px solid #cecece;}
 .list-title li{width: 50%;float: left;text-align: center;}
 .list-title li a{display: block;font-size: 14px;font-weight: bold;font-family: 'Arial',sans-serif;text-transform: uppercase;line-height: 34px;color: #333;}
 .list-title li a:hover , .list-title li.active a{background:#ff8400;color: #fff;}
-.title .title-right-v1{background: #fcfcfc;font-family: 'Arial',sans-serif;font-weight: bold;font-size: 16px;text-transform: uppercase;color: #095184;line-height: 24px;overflow: hidden;padding: 8.5px 0;border-bottom: 1px solid #e0e0e0;}
+.title .title-right-v1{background: #fcfcfc;font-family: 'Arial',sans-serif;font-weight: bold;font-size: 16px;text-transform: uppercase;color: #095184;line-height: 24px;overflow: hidden;padding: 5.5px 0;border-bottom: 1px solid #e0e0e0;}
 .title .title-right-v1:before{content:'';width: 12px;height: 15px;background: #73c04a;margin-left: -1px;display: block;float: left;margin: 4.5px 0;margin-right: 11px;}
 .title .title-right-v1 a{float: left;display: block;}
 .list-tour-right_v1{font-family: 'Arial',sans-serif;list-style: none;margin: 0;}

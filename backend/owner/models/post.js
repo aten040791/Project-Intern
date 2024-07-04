@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Post.belongsTo(models.Language, { foreignKey: 'language_id', as: 'language' });
       Post.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category' });
+      Post.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
     }
   }
   Post.init({

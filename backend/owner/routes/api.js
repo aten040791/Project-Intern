@@ -37,7 +37,7 @@ router.group('/user', (router) => {
 
 router.get('/category', siteController.getCategory); //API get category
 router.get('/language', siteController.getLanguage); //API get language
-router.get('/', validate([postValidation.index]), postController.index);     //API get post
+router.get('/index', validate([postValidation.index]), postController.index);     //API get post
 router.get('/:id', validate([postValidation.getById]), postController.getById);   //API get detail post
 router.get('/category/:id', validate([postValidation.getCategory]), postController.getCategory);   //API get post by category
 
