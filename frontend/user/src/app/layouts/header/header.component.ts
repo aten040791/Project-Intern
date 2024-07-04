@@ -22,7 +22,7 @@ export class HeaderComponent {
 
   getDataCategory(): void {
     this.apiService.getDataCategory().subscribe((response) => {
-      this.responseDataCategory = response.data || [];
+      this.responseDataCategory = response.data;
     });
   };
 }
