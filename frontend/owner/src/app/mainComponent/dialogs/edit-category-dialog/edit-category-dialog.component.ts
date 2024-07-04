@@ -34,11 +34,11 @@ export class EditCategoryDialogComponent {
   };
 
   ngOnInit(): void {
-    this.fetchDataCategory();
+    this.getDataCategory();
   }
 
-  fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe(
+  getDataCategory(): void {
+    this.apiService.getDataCategory().subscribe(
       response => {
         console.log('API Response - Categories:', response.data);
         if (Array.isArray(response.data)) {

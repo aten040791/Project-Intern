@@ -37,11 +37,11 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     document.addEventListener('click', this.onClickOutside.bind(this));
-    this.fetchDataLanguage();
+    this.getDataLanguage();
   };
 
-  fetchDataLanguage(): void {
-    this.apiService.fetchDataLanguage().subscribe(
+  getDataLanguage(): void {
+    this.apiService.getDataLanguage().subscribe(
       response => {
         console.log('API Response - Languages:', response.data);
         if (Array.isArray(response.data)) {

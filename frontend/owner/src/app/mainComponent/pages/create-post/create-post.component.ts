@@ -41,8 +41,8 @@ export class CreatePostComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.fetchDataCategory();
-    this.fetchDataLanguage();
+    this.getDataCategory();
+    this.getDataLanguage();
   };
 
   onReady(editor: any): void {
@@ -51,35 +51,15 @@ export class CreatePostComponent implements OnInit {
     };
   };
 
-  fetchDataCategory(): void {
-    this.apiService.fetchDataCategory().subscribe({
-      next: response => {
-        console.log('API Response - Categories:', response.data);
-        if (Array.isArray(response.data)) {
-          this.responseDataCategory = response.data;
-        } else {
-          this.responseDataCategory = [];
-        }
-      },
-      error: error => {
-        console.error('Failed to fetch categories:', error);
-      }
+  getDataCategory(): void {
+    this.apiService.getDataCategory().subscribe((response) => {
+      this.responseDataCategory = response.data || [];
     });
   };
   
-  fetchDataLanguage(): void {
-    this.apiService.fetchDataLanguage().subscribe({
-      next: response => {
-        console.log('API Response - Languages:', response.data);
-        if (Array.isArray(response.data)) {
-          this.responseDataLanguage = response.data;
-        } else {
-          this.responseDataLanguage = [];
-        }
-      },
-      error: error => {
-        console.error('Failed to fetch languages:', error);
-      }
+  getDataLanguage(): void {
+    this.apiService.getDataLanguage().subscribe((response) => {
+      this.responseDataLanguage = response.data || [];
     });
   };
   
@@ -116,15 +96,8 @@ export class CreatePostComponent implements OnInit {
       const formDataObject = this.formDataToObject(formData);
       const formDataString = JSON.stringify(formDataObject);
 
-      this.apiService.createPost(formDataString).subscribe({
-        next: (response) => {
-          console.log('Post created successfully', response);
-          this.router.navigate(['/post']);
-        },
-        error: (error) => {
-          console.error('Failed to create post', error);
-          alert('Failed to create post');
-        }
+      this.apiService.createPost(formDataString).subscribe((response) => {
+        this.router.navigate(['/post']);
       });
     }
   };

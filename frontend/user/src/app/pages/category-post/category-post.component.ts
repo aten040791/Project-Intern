@@ -22,22 +22,16 @@ export class CategoryPostComponent implements OnInit {
     this.route.params.subscribe(params => {
       const categoryId = +params['id'];
       if (categoryId) {
-        this.fetchCategoryPosts(categoryId);
+        this.getCategoryPosts(categoryId);
       }
     });
 
-    this.fetchData();
+    this.getData();
   };
 
-  fetchData(): void {
-    this.apiService.fetchData().subscribe({
-      next: (response) => {
-        console.log('API Response - Posts:', response);
-        this.reponseDataPosts = response.data;
-      },
-      error: (error) => {
-        console.error('Failed to fetch data:', error);
-      },
+  getData(): void {
+    this.apiService.getData().subscribe((response) => {
+        this.reponseDataPosts = response.data || [];
     });
   };
 
@@ -45,15 +39,9 @@ export class CategoryPostComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
-  fetchCategoryPosts(categoryId: number): void {
-    this.apiService.getPostCategories(categoryId).subscribe({
-      next: (response) => {
-        console.log('API Response category:', response);
-        this.posts = response.data;
-      },
-      error: (error) => {
-        console.error('Failed to fetch data:', error);
-      }
+  getCategoryPosts(categoryId: number): void {
+    this.apiService.getPostCategories(categoryId).subscribe((response) => {
+        this.posts = response.data || [];
     });
   }
 }
