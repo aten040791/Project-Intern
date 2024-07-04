@@ -25,34 +25,34 @@
                                     <div class="item">
                                         <div class="avt">
                                             <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/avt-feedback-1.png" alt="">
+                                                <img src="../../../assets/img/logo.jpg" alt="">
                                             </a>
                                             <div class="voted-star-v1">
                                                 <div class="vote-star">
                                                     <div class="rating">
-                                                        <div class="full star-v1" title="Awesome - 5 stars"></div>
-                                                        <div class="full star-v1 active" title="Pretty good - 4 stars">
-                                                        </div>
+                                                        <div class="full star-v1 active" title="Awesome - 5 stars"></div>
+                                                        <div class="full star-v1 active" title="Pretty good - 4 stars"></div>
                                                         <div class="full star-v1 active" title="Meh - 3 stars"></div>
-                                                        <div class="full star-v1 active" title="Kinda bad - 2 stars">
-                                                        </div>
-                                                        <div class="full star-v1 active"
-                                                            title="Sucks big time - 1 star"></div>
+                                                        <div class="full star-v1 active" title="Kinda bad - 2 stars"></div>
+                                                        <div class="full star-v1 active" title="Sucks big time - 1 star"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="desc">
-                                            <a routerLink="/detail-post" class="title-desc">{{ post.title }}</a>
+                                            <a routerLink="/detail-post/{{ post.id }}" class="title-desc">{{ post.title }}</a>
                                             <p class="card-text">
-                                                <span class="responsive-img-span">{{ post.body }}</span>
+                                                <span class="responsive-img-span" [innerHtml]="getSanitizedHtml(post.body)"></span>
                                             </p>
+                                            <a routerLink="/detail-post/{{ post.id }}" class="read-more">
+                                                [Xem chi tiết]
+                                              </a>
                                             <div class="info-use-fb">
                                                 <div class="desc">
-                                                    <p class="name">{{ post.user_id }}</p>
+                                                    <p class="name">{{ post.user.username }}</p>
                                                 </div>
                                                 <div class="avt-company">
-                                                    <a routerLink="/detail-post" class="img">
+                                                    <a class="img">
                                                         <img src="../../../assets/img/company-use-feedback-3.png"
                                                             alt="">
                                                     </a>
@@ -96,138 +96,18 @@
             <div class="box-right-bar">
                 <div class="title">
                     <h2 class="title-right-v1">
-                        <a href="">Xem nhiều nhất</a>
+                        <a href="">Danh sách bài viết</a>
                     </h2>
                 </div>
                 <ul class="list-news-right_v1">
-                    <li>
+                    <li *ngFor="let reponseDataPost of reponseDataPosts">
                         <div class="avt">
-                            <a routerLink="/detail-post" class="img">
-                                <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
+                            <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
+                                <img src="../../../assets/img/logo.jpg" alt="">
                             </a>
                         </div>
                         <div class="desc">
-                            <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="avt">
-                            <a routerLink="/detail-post" class="img">
-                                <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="avt">
-                            <a routerLink="/detail-post" class="img">
-                                <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="avt">
-                            <a routerLink="/detail-post" class="img">
-                                <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="avt">
-                            <a routerLink="/detail-post" class="img">
-                                <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="avt">
-                            <a routerLink="/detail-post" class="img">
-                                <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
+                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
                             <ul class="date-view">
                                 <li>
                                     <div class="ic-avt">

@@ -16,5 +16,13 @@ export class ApiService {
 
   fetchDataCategory(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/category`);
-  }
+  };
+
+  getPostDetails(postId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${postId}`);
+  };
+
+  fetchData(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/index`);
+  };
 }

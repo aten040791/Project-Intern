@@ -59,7 +59,13 @@ const postService = {
   },
 
   category: async (id) => {
-    const category = await db.Post.findAll({ where: { category_id: id } });
+    const category = await db.Post.findAll({ where: { category_id: id },
+      include: [
+        { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
+        { model: db.User, as: 'user', attributes: ['id', 'username'] }
+      ],
+      order: [['createdAt', 'DESC']]
+    });
     if (!category || category.length === 0) throw new Error("Haven't Post");
     return category;
   },
