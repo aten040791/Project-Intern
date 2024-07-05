@@ -15,7 +15,8 @@ const postValidation = {
   getByUid: [new ParamWithLocale("uid").notEmpty()],
 
   getCategory: [
-    new ParamWithLocale("id").notEmpty().exist(db.Post, "category_id"),
+    new ParamWithLocale("id").notEmpty(),
+    // new ParamWithLocale("id").notEmpty().exist(db.Post, "category_id"),
   ],
 
   create: [

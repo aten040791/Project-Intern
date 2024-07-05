@@ -486,11 +486,11 @@ footer{border-top: 1px solid #cecece;}
 .voted-star-v1 .desc-vote .number{font-weight: bold;padding: 0 3px;}
 
 /* pagination */
-.pagination{margin: 22px auto 35px;display: table;}
+.pagination{margin: 22px auto 35px;display: table;cursor: pointer;}
 .pagination ul{list-style: none;overflow: hidden;margin: 0;}
 .pagination ul li{float: left;margin-right: 10px;margin-bottom: 5px;}
-.pagination ul li a{display: block;width: 30px;height: 30px;text-align: center;line-height: 30px;font-size: 14px;border: 1px solid #ddd;color: #312c2c;}
-.pagination ul li i{line-height: 28px;vertical-align: top;}
+.pagination ul li a{display: block;text-align: center;font-size: 14px;border: 1px solid #ddd;color: #312c2c;height: 34px;}
+.pagination ul li i{line-height: 20px;vertical-align: top;}
 .pagination ul li a:hover , .pagination ul li a.active{border-color: #2377a7;}
 .title .title_v3a{float: left;font-family: 'Arial',sans-serif;font-size: 30px;color: #095184;line-height: 36px;}
 .info-tour-frm .title_v3a{font-size:18px;}

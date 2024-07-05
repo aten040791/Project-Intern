@@ -12,6 +12,11 @@ export class CategoryPostComponent implements OnInit {
   reponseDataPosts: any[] = [];
   posts: any[] = [];
 
+  currentPage: number = 1;
+  totalPosts: number = 0;
+  totalPages: number = 0;
+  itemsPerPage: number = 10;
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
@@ -39,9 +44,18 @@ export class CategoryPostComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
-  getCategoryPosts(categoryId: number): void {
-    this.apiService.getPostCategories(categoryId).subscribe((response) => {
-        this.posts = response.data;
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.route.params.subscribe(params => {
+      const categoryId = +params['id'];
+      this.getCategoryPosts(categoryId, this.currentPage, this.itemsPerPage);
+    });
+  };
+
+  getCategoryPosts(categoryId: number, page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
+    this.apiService.getPostCategories(categoryId, page, perPage).subscribe((response) => {
+        this.posts = response.data.posts;
+        this.totalPages = response.data.totalPages;
     });
   }
 }

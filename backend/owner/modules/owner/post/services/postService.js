@@ -58,17 +58,28 @@ const postService = {
     };
   },
 
-  category: async (id) => {
-    const category = await db.Post.findAll({ where: { category_id: id },
+  category: async (id, page, perPage) => {
+    const offset = (page - 1) * perPage;
+    const { count, rows: posts } = await db.Post.findAndCountAll({
+      where: { category_id: id },
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         { model: db.User, as: 'user', attributes: ['id', 'username'] }
       ],
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
+      offset: offset,
+      limit: perPage
     });
-    if (!category || category.length === 0) throw new Error("Haven't Post");
-    return category;
+    const totalPages = Math.ceil(count / perPage);
+    return {
+      posts: posts,
+      limit: perPage,
+      offset: offset,
+      totalPosts: count,
+      totalPages: totalPages
+    };
   },
+  
 
     create: async (post) => {
     const newPost = await db.Post.create(post);

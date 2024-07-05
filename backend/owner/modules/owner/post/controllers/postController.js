@@ -10,13 +10,10 @@ const postController = {
   },
 
   getCategory: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const category = await postService.category(id);
-      return responseUtils.ok(res, category);
-    } catch (error) {
-      return responseUtils.error(res, error.message);
-    }
+    const { page = 1, perPage = 10 } = req.query;
+    const { id } = req.params;
+    const category = await postService.category(id, parseInt(page), parseInt(perPage));
+    return responseUtils.ok(res, category);
   },
 
   //Get post by ID
@@ -29,32 +26,20 @@ const postController = {
   getByUid: async (req, res) => {
     const { uid } = req.params;
     const { keyword, page = 1, perPage = 10 } = req.query;
-  
-    try {
-      const posts = await postService.getByUid(uid, keyword, parseInt(page), parseInt(perPage));
-      return responseUtils.ok(res, posts);
-    } catch (error) {
-      return responseUtils.error(res, error.message);
-    }
+    const posts = await postService.getByUid(uid, keyword, parseInt(page), parseInt(perPage));
+    return responseUtils.ok(res, posts);
   },
 
   //Create new post
   create: async (req, res) => {
-    try {
       const post = JSON.parse(req.body.formData);
-      if (!post.title ) {
-        return responseUtils.notFound(res);
-      }
+      if (!post.title ) return responseUtils.notFound(res);
       post.slug = slugify(post.title, {
         lower: true,
         strict: true
       });
       const newPost = await postService.create(post);
       return responseUtils.ok(res, newPost);
-    } catch (error) {
-      console.error('Failed to create post:', error);
-      return responseUtils.error(res, error);
-    }
   },
 
   //Update post
