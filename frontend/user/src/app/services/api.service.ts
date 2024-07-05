@@ -10,8 +10,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getPostCategories(categoryId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/category/${categoryId}`);
+  getPostCategories(categoryId: number, page: number = 1, perPage: number = 10): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('perPage', perPage.toString());
+    return this.http.get<any>(`${this.apiUrl}/category/${categoryId}`, { params });
   };
 
   getDataCategory(): Observable<any> {

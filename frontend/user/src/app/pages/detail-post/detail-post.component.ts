@@ -9,10 +9,10 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./detail-post.component.css']
 })
 export class DetailPostComponent implements OnInit{
+  post: any;
   reponseDataPosts: any[] = [];
   reponDataPostsHeader: any[] = [];
   reponDataPostsFooter: any[] = [];
-  post: any;
   responseDataCategory: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
