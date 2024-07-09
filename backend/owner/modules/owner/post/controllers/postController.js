@@ -3,7 +3,7 @@ const responseUtils = require("utils/responseUtils");
 const slugify = require("slugify");
 
 const postController = {
-  //Get post list
+  // Get post list
   index: async (req, res) => {
     const posts = await postService.list();
     return responseUtils.ok(res, posts);
@@ -16,7 +16,7 @@ const postController = {
     return responseUtils.ok(res, category);
   },
 
-  //Get post by ID
+  // Get post by ID
   getById: async (req, res) => {
     const { id } = req.params;
     const post = await postService.getById(id);
@@ -30,31 +30,51 @@ const postController = {
     return responseUtils.ok(res, posts);
   },
 
-  //Create new post
+  // Create new post
   create: async (req, res) => {
-      const post = JSON.parse(req.body.formData);
-      if (!post.title ) return responseUtils.notFound(res);
-      post.slug = slugify(post.title, {
+    try {
+      const { formData } = req.body;
+      const { translations } = req.body.formData;
+      console.log(translations[0].title);
+      if (!translations[0].title) {
+        return responseUtils.notFound(res, "Post title is required.");
+      }
+      formData.slug = slugify(translations[0].title, {
         lower: true,
         strict: true
       });
-      const newPost = await postService.create(post);
+      const newPost = await postService.create(formData, translations);
       return responseUtils.ok(res, newPost);
+    } catch (error) {
+      console.error("Error creating post:", error);
+      return responseUtils.error(res, "Failed to create post.");
+    }
   },
 
-  //Update post
+  // Update post
   update: async (req, res) => {
     const { id } = req.params;
-    const updatedPostData = JSON.parse(req.body.formData);
-    const updatedPost = await postService.update(id, updatedPostData);
-    return responseUtils.ok(res, updatedPost);
+    try {
+      const { formData } = req.body;
+      const { translations } = req.body.formData;
+      const updatedPost = await postService.update(id, formData, translations);
+      return responseUtils.ok(res, updatedPost);
+    } catch (error) {
+      console.error("Error updating post:", error);
+      return responseUtils.error(res, "Failed to update post.");
+    }
   },
 
-  //Delete post
+  // Delete post
   delete: async (req, res) => {
     const idsPost = req.body.formData.Ids;
-    await postService.delete(idsPost);
-    return responseUtils.ok(res, { message: "Posts deleted successfully" });
+    try {
+      await postService.delete(idsPost);
+      return responseUtils.ok(res, { message: "Posts deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting posts:", error);
+      return responseUtils.error(res, "Failed to delete posts.");
+    }
   },
 
   updateMultiple: async (req, res) => {

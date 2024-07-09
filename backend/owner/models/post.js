@@ -13,16 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.Language, { foreignKey: 'language_id', as: 'language' });
       Post.belongsTo(models.Category, { foreignKey: 'category_id', as: 'category' });
       Post.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+      Post.hasMany(models.Translate, { foreignKey: 'post_id', as: 'translations' });
     }
   }
   Post.init({
-    title: DataTypes.STRING,
-    body: DataTypes.STRING,
     user_id: DataTypes.INTEGER,
     status: DataTypes.STRING,
     file: DataTypes.STRING,
     category_id: DataTypes.INTEGER,
-    language_id: DataTypes.INTEGER,
     slug: DataTypes.STRING
   }, {
     sequelize,

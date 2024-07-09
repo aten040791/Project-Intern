@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Language.hasMany(models.Post, { foreignKey: 'language_id', as: 'posts' });
+      Language.hasMany(models.Translate, { foreignKey: 'language_id', as: 'translations' });
     }
   }
   Language.init({

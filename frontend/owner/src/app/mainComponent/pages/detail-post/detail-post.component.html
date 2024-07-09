@@ -1,27 +1,18 @@
-<div class="container" style="margin-top: 10px;">
+<div class="container" style="margin-top: 10px;" *ngIf="post">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-12">
+      <ul class="nav nav-pills flex-column flex-md-row">
+        <li class="nav-item" *ngFor="let translation of post.translations; let i = index">
+          <a class="nav-link" [class.active]="selectedTab === i.toString()" (click)="selectTab(i.toString())">
+            <i class="bx bx-user me-1"></i>{{ translation.language.name }}
+          </a>
+        </li>
+      </ul>
       <div class="card mb-4">
         <div class="card-body">
-          <h4 class="card-title"><b>{{ post?.title }}</b></h4>
-          <p class="">
-            <span [innerHtml]="getSanitizedHtml(post?.body)" class="responsive-img-span"></span>
-          </p>
+          <h4 class="card-title"><b>{{ post.translations[selectedTab]?.title }}</b></h4>
+          <p [innerHtml]="getSanitizedHtml(post.translations[selectedTab]?.body || 'Không có dữ liệu')" class="responsive-img-span"></p>
         </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="list-group">
-        <article class="blog-post mb-4 p-4 bg-light rounded shadow" *ngFor="let post of posts">
-          <a (click)="viewDetails(post.id)" style="cursor: pointer;"><b>{{ post.title }}</b></a>
-          <div class="card-text-right">
-            <p class="">
-              <span [innerHtml]="getSanitizedHtml(post?.body)"></span>
-            </p>
-          </div>
-          <a (click)="viewDetails(post.id)" style="color: #2199e8; cursor: pointer;">Read more…</a>
-          <p class="date text-muted">{{ post.formattedDate }}</p>
-        </article>
       </div>
     </div>
   </div>

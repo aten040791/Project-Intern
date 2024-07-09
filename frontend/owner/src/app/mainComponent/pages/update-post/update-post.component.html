@@ -8,16 +8,37 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <div class="form-container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="form-label" for="title">Title</label>
-                  <input type="text" id="title" class="form-control" formControlName="title" required>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="body">Content</label>
-                  <ckeditor id="body" formControlName="body" [editor]="Editor" (ready)="onReady($event)" required></ckeditor>
+          <ul class="nav nav-pills flex-column flex-md-row">
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="selectedTab === 'Vietnamese'" (click)="selectTab('Vietnamese')">
+                <i class="bx bx-user me-1"></i>Tiếng Việt
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="selectedTab === 'English'" (click)="selectTab('English')">
+                <i class="bx bx-lock-alt me-1"></i>Tiếng Anh
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="selectedTab === 'Chinese'" (click)="selectTab('Chinese')">
+                <i class="bx bx-detail me-1"></i>Tiếng Trung
+              </a>
+            </li>
+          </ul>
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label" for="title">Title</label>
+                    <input type="text" id="title" class="form-control" formControlName="title" placeholder="Title"
+                      required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="body">Content</label>
+                    <ckeditor id="body" formControlName="body" [editor]="Editor" (ready)="onReady($event)" required>
+                    </ckeditor>
+                  </div>
                 </div>
               </div>
             </div>
@@ -30,7 +51,7 @@
                 <div class="form-group" style="margin-bottom: 15px;">
                   <label for="category_id" class="form-label">Category</label>
                   <select class="form-select" id="category_id" formControlName="category_id" required>
-                    <option *ngFor="let category of responseDataCategory" [value]="category.id">
+                    <option *ngFor="let category of categories" [value]="category.id">
                       {{ category.name }}
                     </option>
                   </select>
@@ -40,27 +61,6 @@
                   <input type="file" class="form-control" (change)="onFileChange($event)">
                   <div class="preview">
                     <img *ngIf="previewUrl" [src]="previewUrl" alt="File Preview" class="img-thumbnail mt-2">
-                  </div>
-                </div>
-                <div class="form-group" style="margin-bottom: 15px;">
-                  <label for="language_id" class="form-label">Language</label>
-                  <div class="select-language">
-                    <div class="custom-select" id="language-select">
-                      <div class="select-selected" (click)="toggleLanguageItems()">
-                        {{ selectedLanguageText }}
-                      </div>
-                      <div class="select-items" [ngStyle]="{ display: showLanguageItems ? 'block' : 'none' }">
-                        <div *ngFor="let language of responseDataLanguage" (click)="selectLanguage(language)">
-                          <img [src]="language.flag" alt="{{ language.name }}"> {{ language.name }}
-                        </div>
-                      </div>
-                    </div>
-                    <select class="form-select" id="language_id" formControlName="language_id" required style="display:none;">
-                      <option value="" disabled>Select a language</option>
-                      <option *ngFor="let language of responseDataLanguage" [value]="language.id">
-                        {{ language.name }}
-                      </option>
-                    </select>
                   </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">

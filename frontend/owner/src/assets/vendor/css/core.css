@@ -3372,7 +3372,7 @@ fieldset:disabled .btn {
 }
 
 .nav-pills {
-  --bs-nav-pills-border-radius: var(--bs-border-radius);
+  --bs-nav-pills-border-radius: 7px 7px 0px 0px;
   --bs-nav-pills-link-active-color: #fff;
   --bs-nav-pills-link-active-bg: transparent;
 }
@@ -3886,7 +3886,7 @@ fieldset:disabled .btn {
   background-color: var(--bs-card-bg);
   background-clip: border-box;
   border: var(--bs-card-border-width) solid var(--bs-card-border-color);
-  border-radius: var(--bs-card-border-radius);
+  /* border-radius: var(--bs-card-border-radius); */
 }
 .card > hr {
   margin-right: 0;
@@ -4286,6 +4286,7 @@ fieldset:disabled .btn {
 }
 .page-item .page-link {
   border-radius: var(--bs-pagination-border-radius);
+  cursor: pointer;
 }
 
 .pagination-lg {
@@ -8371,6 +8372,7 @@ button:focus-visible {
 .tab-pane,
 .tab-pane .card-body {
   outline: none !important;
+  cursor: pointer;
 }
 
 .nav-tabs .nav-item .nav-link {
@@ -8394,6 +8396,7 @@ button:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: #dcdcdc69;
 }
 .nav-tabs .nav-link:not(.active):hover,
 .nav-tabs .nav-link:not(.active):focus,

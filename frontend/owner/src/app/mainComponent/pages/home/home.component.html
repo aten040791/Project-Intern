@@ -32,9 +32,6 @@
                         <span><fa-icon [icon]="faSliders"></fa-icon><span>Action</span></span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-end m-0">
-                        <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-language-dialog', getSelectedPostIds())">
-                          <span class="ms-1"><fa-icon [icon]="faLanguage"></fa-icon><span>Update Language</span></span>
-                        </a>
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-status-dialog', getSelectedPostIds())">
                           <span class="ms-1"><fa-icon [icon]="faToggleOn"></fa-icon><span>Update Status</span></span>
                         </a>
@@ -72,22 +69,22 @@
                       <input type="checkbox" class="dt-checkboxes form-check-input" [(ngModel)]="post.selected"
                         (change)="updateSelectAllState()">
                     </td>
-                    <td style="max-width: 250px;">
+                    <td>
                       <div class="d-flex justify-content-start align-items-center">
-                        <div class="d-flex flex-column"><span class="emp_name text-truncate">{{ post.title }}</span></div>
+                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 200px;">{{ post.translations[0].title }}</span></div>
                       </div>
                     </td>
                     <td style="max-width: 400px;">
                       <p class="card-text" [ngClass]="{'read-more': isReadMore[post.id]}">
-                        <span class="responsive-img-span" [innerHtml]="getSanitizedHtml(post.body)"></span>
+                        <span class="responsive-img-span" [innerHtml]="getSanitizedHtml(post.translations[0].body)"></span>
                       </p>
-                      <a href="#" (click)="toggleReadMore($event, post.id)" class="read-more-btn">
+                      <a href="#" *ngIf="shouldShowReadMore(post.translations[0].body)" (click)="toggleReadMore($event, post.id)" class="read-more-btn">
                         {{ isReadMore[post.id] ? 'Read Less' : 'Read More' }}
                       </a>
                     </td>
                     <td style="max-width: 200px;">{{ post.formattedDate }}</td>
                     <td style="max-width: 150px;">{{ post.category.name }}</td>
-                    <td style="max-width: 150px;">{{ post.language.name }}</td>
+                    <td style="max-width: 150px;">{{ post.translations[0].language.name }}</td>
                     <td>
                       <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hidden' }}</span>
                     </td>
@@ -120,7 +117,7 @@
               <div class="row" style="margin: 15px 0px 15px 0px;">
                 <div class="col-md-2" style="display: inline-flex;">
                   <p style="margin-top: 15px; text-align: right;">Rows per page:</p>
-                  <select id="itemsPerPageSelect" style="padding-left: 10px;border: 0px;width: 60px;" class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
+                  <select id="itemsPerPageSelect" style="margin-bottom: 8px;padding-left: 10px;border: 0px;width: 60px;" class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
                     <option *ngFor="let option of availableItemsPerPage" [value]="option">{{ option }}</option>
                   </select>
                 </div>
@@ -128,22 +125,22 @@
                   <!-- Pagination -->
                   <ul class="pagination align-items-center justify-content-end" style="margin-right: 10px;">
                     <li class="page-item" [class.disabled]="currentPage === 1">
-                      <a href="javascript:void(0)" class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
+                      <a class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
                         Previous
                       </a>
                     </li>
                     <li class="page-item" *ngIf="currentPage > 2" [ngStyle]="{ display: currentPage > 1 ? 'block' : 'none' }">
-                      <a href="javascript:void(0)" class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
+                      <a class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
                         ...
                       </a>
                     </li>
                     <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
-                      <a href="javascript:void(0)" class="page-link" (click)="onPageChange(i + 1)">
+                      <a class="page-link" (click)="onPageChange(i + 1)">
                         {{ i + 1 }}
                       </a>
                     </li>
                     <li class="page-item" [class.disabled]="currentPage === totalPages">
-                      <a href="javascript:void(0)" class="page-link" (click)="currentPage < totalPages && onPageChange(currentPage + 1)">
+                      <a class="page-link" (click)="currentPage < totalPages && onPageChange(currentPage + 1)">
                         Next
                       </a>
                     </li>
