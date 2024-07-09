@@ -3,6 +3,7 @@ import { ShowPasswordService } from '../../features/show-password/show-password.
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +18,9 @@ export class LoginComponent {
   isCheckPW: boolean = false
   inputType: string = 'password'
 
+  isDropdown: boolean = false
 
-  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService) {}
+  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService, private authService: AuthService) {}
 
   togglePW(): void {
     this.showPW.showPassWord();
@@ -31,18 +33,17 @@ export class LoginComponent {
     this.password = data["password"]
     this.http.login("auth", this.email, this.password).subscribe({
       next: (data: any) => {
-        this.initItems(data.data.user)
+        this.loginService.setItem(data.data.user)
         this.router.navigate(['/home'])
       }, 
       error: (error: Error) => {
-        // console.error('Email or password is wrong', error);
         alert('Email or password is wrong !!')
       }
     })
   }
 
-  initItems(item: any): void {
-    this.loginService.setItem(item)
+  onDropdown(): void {
+    this.isDropdown = !this.isDropdown
   }
 
 }

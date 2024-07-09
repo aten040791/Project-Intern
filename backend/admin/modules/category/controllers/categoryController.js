@@ -1,14 +1,12 @@
 const responseUntils = require("utils/responseUtils");
 const categoryService = require("modules/category/services/categoryService");
-const siteController = require("modules/site/controllers/siteController");
-const { getApiName } = require("utils/apiUtils");
 const slugify = require("slugify");
 
 module.exports = {
   index: async (req, res) => {
     const { page, limit, search } = req.query;
     const categories = await categoryService.list(page, limit, search);
-    return responseUntils.ok(res, { categories: categories });
+    return responseUntils.ok(res, categories);
   },
   createCategory: async (req, res) => {
     const category = req.body;
@@ -33,17 +31,5 @@ module.exports = {
     return responseUntils.ok(res, {
       message: "Categories deleted successfully",
     });
-  },
-  searchCategory: async (req, res) => {
-    try {
-      const { search } = req.query;
-      // const result = await categoryService.searchCategory(search);
-      // return responseUntils.ok(res, { category: result });
-      const apiName = getApiName(req.originalUrl);
-      const result = await siteController.search(apiName, search);
-      return responseUntils.ok(res, { categories: result });
-    } catch (error) {
-      return responseUntils.errorAdmin(res, error.message);
-    }
   },
 };

@@ -29,7 +29,7 @@ export class LanguagePageComponent implements OnInit {
 
   item: any = {}
   items: language[] = []
-  url: string = ""
+  url: string = this.router.url
 
   // handle delete items
   checkBoxs = new Set<number>();
@@ -37,22 +37,30 @@ export class LanguagePageComponent implements OnInit {
   idDelete = new Set<number>();
   
    ngOnInit(): void {
+    this.url = this.getBasePath(this.url)
     this.loadItems()
-    this.url = this.router.url
   }
  
   loadItems() {
-    this.http.getItems("languages", this.search, this.currentPage, this.limit).subscribe({
+    // const accessToken = localStorage.getItem('access_token')
+    // if (!accessToken) {
+    //   this.router.navigate(['/auth/login'])
+    // }
+    this.http.getItems("/languages", this.search, this.currentPage, this.limit).subscribe({
       next: (data: any) => {
-        data = data.data.languages
+        data = data["data"]
         this.items = data["result"].slice()
         this.initLanguages(this.items)
         this.pages = data["pages"]
       },
       error: (error) => {
-        console.log(error)
+        // console.log(error)
       }
     })
+  }
+
+  private getBasePath(url: string): string {
+    return url.includes('?') ? url.split('?')[0] : url;
   }
   
   // from SelectAllService

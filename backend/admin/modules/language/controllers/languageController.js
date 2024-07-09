@@ -1,19 +1,17 @@
 const responseUntils = require("utils/responseUtils");
 const languageService = require("modules/language/services/languageService");
-const { getApiName } = require("utils/apiUtils");
-const siteController = require("modules/site/controllers/siteController");
 
 module.exports = {
   index: async (req, res) => {
     const { page, limit, search } = req.query;
     const languages = await languageService.list(page, limit, search);
-    return responseUntils.ok(res, { languages: languages });
+    return responseUntils.ok(res, languages);
   },
   createLanguage: async (req, res) => {
     const language = req.body;
     language.flag = `http://localhost:3000/${req.file.filename}`;
     const result = await languageService.createLanguage(language);
-    return responseUntils.ok(res, { language: result });
+    return responseUntils.ok(res, result);
   },
   updateLanguage: async (req, res) => {
     const id = req.params;
@@ -22,7 +20,7 @@ module.exports = {
       language.flag = `http://localhost:3000/${req.file.filename}`;
     }
     const result = await languageService.updateLanguage(id, language);
-    return responseUntils.ok(res, { language: result });
+    return responseUntils.ok(res, result);
   },
   deleteLanguage: async (req, res) => {
     const { ids } = req.body;
@@ -31,16 +29,5 @@ module.exports = {
     return responseUntils.ok(res, {
       message: "Languages deleted successfully",
     });
-  },
-  searchLanguage: async (req, res) => {
-    try {
-      const { search } = req.query;
-      // const result = await languageService.searchLanguage(keysearch);
-      const apiName = getApiName(req.originalUrl);
-      const result = await siteController.search(apiName, search);
-      return responseUntils.ok(res, { languages: result });
-    } catch (error) {
-      return responseUntils.errorAdmin(res, error.message);
-    }
   },
 };

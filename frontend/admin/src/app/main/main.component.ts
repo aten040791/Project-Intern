@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavComponent } from './layouts/nav/nav.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -9,6 +11,8 @@ import { NavComponent } from './layouts/nav/nav.component';
 
 export class MainComponent {
   title = 'admin';
+
+  constructor() {}
 
   toggleIcon() {
     const htmlElement = document.documentElement; // Truy cập phần tử <html>

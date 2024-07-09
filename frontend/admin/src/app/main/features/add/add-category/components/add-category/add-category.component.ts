@@ -7,10 +7,11 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent {
-  @Input() isShow: boolean = false;
-  @Output() close = new EventEmitter<void>();
 
   constructor(private http: ApiService) {}
+
+  @Input() isShow: boolean = false;
+  @Output() close = new EventEmitter<void>();
 
   closeDialog(): void {
     this.close.emit();
@@ -19,12 +20,12 @@ export class AddCategoryComponent {
   onSubmit(data: any): void {
     this.http.createItem('categories', data).subscribe({
       next: (data: any) => { 
-        // console.log(data)
-        // window.location.reload()
-        window.location.href = '/categories'
+        // window.location.href = '/categories'
+        window.location.reload();
       },
-      error: (err: any) => {
-        console.log(err)
+      error: (error: any) => {
+        // console.log(err)
+        alert(`Error fetching items: ${error.message}`)
        },
     });       
   }

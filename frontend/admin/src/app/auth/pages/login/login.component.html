@@ -16,7 +16,7 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2 text-center">Welcome to our Blog! 👋</h4>
+          <h4 class="mb-2 text-center">Welcome to our blog! 👋</h4>
           <p class="mb-4 text-center">Login to access your admin account</p>
 
           <form
@@ -112,6 +112,28 @@
         </div>
       </div>
       <!-- /Register -->
+    </div>
+  </div>
+  <!-- Example single danger button -->
+  <div class="btn-group position-fixed top-0 end-0">
+    <li>
+      <a class="dropdown-item" href="#"
+        ><i class="flag-united-kingdom flag"></i>English
+        <i class="fa fa-check text-success ms-2"></i
+      ></a>
+    </li>
+    <div
+      class="dropdown-menu position-absolute end-0 mt-5"
+      [ngStyle]="{ display: isDropdown ? 'block' : 'none' }"
+    >
+      <li>
+        <a class="dropdown-item" href="#"
+          ><i class="flag-united-kingdom flag"></i>English
+          <i class="fa fa-check text-success ms-2"></i
+        ></a>
+      </li>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagination',
@@ -6,43 +7,53 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
   styleUrls: ['./pagination.component.scss']
 })
 
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
   @Input() items: any[] = [];
   @Input() limit: number = 10;
   @Input() pages: number = 0
   @Input() currentPage: number = 1
+  @Input() search: string = ""
   @Output() currentPageChange = new EventEmitter<number>()
   subPages: number[] = []
+
+  private uploadUrl(): void {
+      const queryParams: any = {
+        currentPage: this.currentPage,
+        limit: this.limit,
+      };
+
+      if (this.search) {
+        queryParams.search = this.search;
+      }
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams,
+        queryParamsHandling: 'merge',
+      });
+  }
 
   ngOnInit(): void {
     this.currentPage = Number(this.currentPage);
     this.limit = Number(this.limit);
-    // this.getPages()
+    this.uploadUrl()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['search']) {
+      this.search = changes['search'].currentValue
+      this.uploadUrl()
+    }
   }
 
   onPageChange(currentPage: any) {
     this.currentPageChange.emit(currentPage);
     this.currentPage = currentPage;
-    // this.getPages()
+    this.uploadUrl();
   }
-
-  // getPages(): void {
-
-  //   const subPages: number[] = [];
-
-  //   // pages = 3
-  //   // currentPage = 3 => start = 2, end = 3
-  //   // subPages = [2, 3]
-  //   const start = this.currentPage > 2 ? this.currentPage - 1 : 1;
-  //   const end = this.currentPage + 1 < this.pages ? this.currentPage + 1 : this.pages;
-
-  //   for (let i = start; i <= end; i++) {
-  //     subPages.push(i);
-  //   }
-
-  //   this.subPages = subPages;
-
-  // }
 
   checkExitsPage(page: number): boolean {
     return this.subPages.includes(page)

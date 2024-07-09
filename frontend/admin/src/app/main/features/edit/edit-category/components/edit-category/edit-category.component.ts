@@ -21,10 +21,10 @@ export class EditCategoryComponent {
     const id = this.item.id
     this.http.updateItem('categories', data, id).subscribe({
       next: (data: any) => {
-        console.log(data)
+        // console.log(data)
       },
       error: (error: any) => {
-        console.log(error)
+        // console.log(error)
       }
     })
   }

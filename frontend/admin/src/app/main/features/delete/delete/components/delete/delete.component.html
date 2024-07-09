@@ -1,38 +1,3 @@
-<!-- <div
-  class="modal"
-  id="delete-dialog"
-  [ngStyle]="{ display: isDelete ? 'block' : 'none' }"
->
-  <div class="modal-dialog dialog-delete bd-1-main br-05rem bg-white fade">
-    <div class="modal-content">
-      <div class="modal-header justify-content-center">
-        <h2 class="mb-0">Are you sure ?</h2>
-      </div>
-      <div class="modal-body text-center">
-        <form action="">
-          <p>You won't be able to revert this!</p>
-          <div class="btn_bottom mt-24 fl-r text-center">
-            <button
-              type="reset"
-              class="btn_cancel btn btn-label-secondary bd-1-main me-sm-3 me-1"
-              data-bs-dismiss="offcanvas"
-              (click)="closeDialog()"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="btn_ok btn-danger btn data-submit text-white"
-            >
-              Yes, delete this
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <div
   class="swal2-container swal2-center swal2-backdrop-show"
   style="overflow-y: auto; z-index: 9999"
@@ -55,14 +20,14 @@
       id="swal2-title"
       style="display: block; color: #a3a4cc"
     >
-      Are you sure?
+      {{ "labels.title" | translate }}
     </h2>
     <div
       class="swal2-html-container"
       id="swal2-html-container"
       style="display: block"
     >
-      You won't be able to revert user!
+      {{ "labels.subtitle" | translate }}
     </div>
     <input id="swal2-input" class="swal2-input" style="display: none" /><input
       type="file"
@@ -100,17 +65,16 @@
         style="display: inline-block"
         (click)="closeDialogSuccess()"
       >
-        Yes, deleted this!</button
-      ><button type="button" class="swal2-deny" style="display: none">
-        No
+        {{ "buttons.yesDeleteIt" | translate }}
       </button>
+      <button type="button" class="swal2-deny" style="display: none">No</button>
       <button
         type="reset"
         class="btn_cancel btn btn-label-secondary bd-1-main me-sm-3 me-1"
         data-bs-dismiss="offcanvas"
         (click)="closeDialog()"
       >
-        Cancel
+        {{ "buttons.cancel" | translate }}
       </button>
     </div>
     <div class="swal2-footer" style="display: none"></div>

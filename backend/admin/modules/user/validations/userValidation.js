@@ -20,12 +20,7 @@ const optionsPhone = {
 };
 
 const userValidation = {
-  index: [
-    // new BodyWithLocale("title").notEmpty(),
-    //other rules goes here
-    // new QueryWithLocale("search").notEmpty(),
-    // new ParamWithLocale("keysearch").isLength(optionsKeySearch),
-  ],
+  index: [],
   create: [
     // new BodyWithLocale("username")
     //   .notEmpty()

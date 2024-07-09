@@ -11,13 +11,8 @@ module.exports = {
       return responseUtils.errorAdmin(res, error.message);
     }
   },
-  logout: async (req, res) => {
-    try {
-      const { refreshToken } = req.body;
-      const data = await authService.logout();
-      return responseUtils.ok(res, data);
-    } catch (error) {
-      return responseUtils.errorAdmin(res, error.message);
-    }
+  getAdmin: async (req, res) => {
+    const admin = await authService.getAdmin(req, res, next);
+    // return responseUtils.ok(res, data);
   },
 };
