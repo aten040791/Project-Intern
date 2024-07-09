@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit, DoCheck {
   };
 
   ngOnInit(): void {
+    this.updateUrl();
     this.getData();
   };
 
@@ -140,4 +141,9 @@ export class HomeComponent implements OnInit, DoCheck {
       .map((post) => post.id);
     return this.selectedIds;
   };
+
+  shouldShowReadMore(body: string): boolean {
+    const maxLength = 200;
+    return body.length > maxLength;
+  }
 }

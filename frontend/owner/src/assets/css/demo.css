@@ -167,9 +167,9 @@ body {
 .form-container {
   background-color: #ffffff;
   padding: 25px;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 5px;
+  margin-top: 39px;
 }
 
 .form-label {

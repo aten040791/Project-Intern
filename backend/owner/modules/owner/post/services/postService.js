@@ -2,14 +2,18 @@ const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
 
 const postService = {
-  list: () => {
-    const posts = db.Post.findAll({
+  list: async () => {
+    const posts = await db.Post.findAll({
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+          include: [
+            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+          ]
+        }
       ],
       order: [['createdAt', 'DESC']]
-  });
+    });
     return posts;
   },
 
@@ -17,9 +21,12 @@ const postService = {
     const post = await db.Post.findByPk(id, {
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+          include: [
+            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+          ]
+        }
       ],
-      order: [['createdAt', 'DESC']]
     });
     return post;
   },
@@ -34,24 +41,28 @@ const postService = {
     }
   
     const offset = (page - 1) * perPage;
-    const limitOption = perPage;
-  
-    const { count, rows: posts } = await db.Post.findAndCountAll({
+    const count = await db.Post.count({
+      where: whereClause
+    });
+    const posts = await db.Post.findAll({
       where: whereClause,
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+          include: [
+            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+          ]
+        }
       ],
       order: [['createdAt', 'DESC']],
       offset: offset,
-      limit: limitOption
+      limit: perPage
     });
   
     const totalPages = Math.ceil(count / perPage);
-  
     return {
       posts: posts,
-      limit: limitOption,
+      limit: perPage,
       offset: offset,
       totalPosts: count,
       totalPages: totalPages
@@ -79,31 +90,53 @@ const postService = {
       totalPages: totalPages
     };
   },
-  
 
-    create: async (post) => {
-    const newPost = await db.Post.create(post);
-    return newPost;
+  create: async (formData, translations) => {
+      const newPost = await db.Post.create(formData);
+      if (translations) {
+        for (const translation of translations) {
+          console.log(translation);
+          translation.post_id = newPost.id;
+          await db.Translate.create(translation);
+        }
+      }
+      return newPost;
   },
 
-  update: async (id, updatedPostData) => {
+  update: async (id, formData, translations) => {
     const post = await db.Post.findByPk(id);
-    await post.update(updatedPostData);
+    await post.update(formData);
+    if (translations && translations.length > 0) {
+      for (const translation of translations) {
+        console.log(translation);
+        const [translate, created] = await db.Translate.findOrCreate({
+          where: { post_id: id, language_id: translation.language_id },
+          defaults: translation
+        });
+        if (!created) {
+          await translate.update(translation);
+        }
+      }
+    }
     return post;
   },
 
   delete: async (idsPost) => {
+    const posts = await db.Post.findAll({ where: { id: idsPost } });
+  if (posts.length !== idsPost.length) {
+    throw new Error("One or more posts not found");
+  }
     await db.Post.destroy({ where: { id: idsPost } });
-    return { message: "Posts deleted successfully" };
+    await db.Translate.destroy({ where: { post_id: idsPost } });
+    return { message: "Post and related translations deleted successfully" };
   },
+  
 
   updateMultiple: async (Ids, updatedPostData) => {
     const posts = await db.Post.findAll({ where: { id: Ids } });
     const updatedPosts = [];
-    for (let i = 0; i < posts.length; i++) {
-      const post = posts[i];
-      const updateData = {};
-      updateData[updatedPostData.type] = updatedPostData.value;
+    for (const post of posts) {
+      const updateData = { [updatedPostData.type]: updatedPostData.value };
       await post.update(updateData);
       updatedPosts.push(post);
     }

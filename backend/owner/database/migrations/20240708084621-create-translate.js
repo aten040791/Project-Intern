@@ -2,34 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Posts', {
+    await queryInterface.createTable('Translates', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      post_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "Posts",
           key: "id",
         },
       },
-      status: {
-        type: Sequelize.STRING
-      },
-      file: {
-        type: Sequelize.STRING
-      },
-      category_id: {
+      language_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Categories",
+          model: "Languages",
           key: "id",
         },
       },
-      slug: {
+      title: {
+        type: Sequelize.STRING
+      },
+      body: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -43,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Posts');
+    await queryInterface.dropTable('Translates');
   }
 };
