@@ -55,7 +55,28 @@ export class HomeComponent implements OnInit, DoCheck {
 
   getSanitizedHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
+  };
+
+  getTranslationData(translations: any[]): { title: string, body: SafeHtml, languageName: string } {
+    let title = 'No title available';
+    let body: SafeHtml = this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>');
+    let languageName = 'No language available';
+  
+    if (translations.length > 0) {
+      for (let i = 0; i < translations.length; i++) {
+        if(translations[i].title && title === 'No title available') title = translations[i].title;
+        if(translations[i].body) body = this.sanitizer.bypassSecurityTrustHtml(translations[i].body);
+        if(translations[i].language && translations[i].language.name &&
+          languageName === 'No language available' &&
+          title !== 'No title available') {
+          languageName = translations[i].language.name; }
+        if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
+          break;
+        }
+      }
+    }
+    return { title, body, languageName };
+  };
 
   getData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage ): void {
     this.apiService.getData(Keyword, page, perPage).subscribe((response) => {

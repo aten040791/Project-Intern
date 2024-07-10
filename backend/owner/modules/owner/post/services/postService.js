@@ -33,41 +33,44 @@ const postService = {
 
   getByUid: async (uid, keyword, page, perPage) => {
     const whereClause = { user_id: uid };
-  
-    if (keyword) {
-      whereClause[Op.or] = [
-        Sequelize.literal(`MATCH(title, body) AGAINST('${keyword}' IN NATURAL LANGUAGE MODE)`)
-      ];
-    }
-  
+
     const offset = (page - 1) * perPage;
     const count = await db.Post.count({
-      where: whereClause
-    });
-    const posts = await db.Post.findAll({
       where: whereClause,
+      distinct: true,
       include: [
-        { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
-          include: [
-            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-          ]
+        { model: db.Translate, as: 'translations', attributes: [],
+          where: keyword ? Sequelize.literal(`MATCH(title, body) AGAINST('${keyword}' IN NATURAL LANGUAGE MODE)`) : undefined
         }
-      ],
-      order: [['createdAt', 'DESC']],
-      offset: offset,
-      limit: perPage
+      ]
     });
-  
+
+    const includeArray = [
+      { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
+      { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+        include: [{ model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }]
+      }
+    ];
+    
+    if(keyword) includeArray[1].where = Sequelize.literal(`MATCH(title, body) AGAINST('${keyword}' IN NATURAL LANGUAGE MODE)`);
+
+    const posts = await db.Post.findAll({
+        where: whereClause,
+        include: includeArray,
+        order: [['createdAt', 'DESC']],
+        offset: offset,
+        limit: perPage
+    });
+
     const totalPages = Math.ceil(count / perPage);
     return {
-      posts: posts,
-      limit: perPage,
-      offset: offset,
-      totalPosts: count,
-      totalPages: totalPages
+        posts: posts,
+        limit: perPage,
+        offset: offset,
+        totalPosts: count,
+        totalPages: totalPages
     };
-  },
+},
 
   category: async (id, page, perPage) => {
     const offset = (page - 1) * perPage;
@@ -92,15 +95,15 @@ const postService = {
   },
 
   create: async (formData, translations) => {
-      const newPost = await db.Post.create(formData);
-      if (translations) {
-        for (const translation of translations) {
-          console.log(translation);
-          translation.post_id = newPost.id;
-          await db.Translate.create(translation);
-        }
+    const newPost = await db.Post.create(formData);
+    if (translations) {
+      for (const translation of translations) {
+        console.log(translation);
+        translation.post_id = newPost.id;
+        await db.Translate.create(translation);
       }
-      return newPost;
+    }
+    return newPost;
   },
 
   update: async (id, formData, translations) => {

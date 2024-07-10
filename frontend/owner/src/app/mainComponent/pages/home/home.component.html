@@ -71,12 +71,12 @@
                     </td>
                     <td>
                       <div class="d-flex justify-content-start align-items-center">
-                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 200px;">{{ post.translations[0].title }}</span></div>
+                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 200px;">{{ getTranslationData(post.translations).title }}</span></div>
                       </div>
                     </td>
                     <td style="max-width: 400px;">
                       <p class="card-text" [ngClass]="{'read-more': isReadMore[post.id]}">
-                        <span class="responsive-img-span" [innerHtml]="getSanitizedHtml(post.translations[0].body)"></span>
+                        <span class="responsive-img-span" [innerHtml]="getTranslationData(post.translations).body"></span>
                       </p>
                       <a href="#" *ngIf="shouldShowReadMore(post.translations[0].body)" (click)="toggleReadMore($event, post.id)" class="read-more-btn">
                         {{ isReadMore[post.id] ? 'Read Less' : 'Read More' }}
@@ -84,7 +84,7 @@
                     </td>
                     <td style="max-width: 200px;">{{ post.formattedDate }}</td>
                     <td style="max-width: 150px;">{{ post.category.name }}</td>
-                    <td style="max-width: 150px;">{{ post.translations[0].language.name }}</td>
+                    <td style="max-width: 150px;">{{ getTranslationData(post.translations).languageName }}</td>
                     <td>
                       <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hidden' }}</span>
                     </td>

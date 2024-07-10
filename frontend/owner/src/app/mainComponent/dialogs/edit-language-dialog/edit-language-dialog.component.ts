@@ -37,7 +37,7 @@ export class EditLanguageDialogComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     document.addEventListener('click', this.onClickOutside.bind(this));
-    this.getDataLanguage();
+    // this.getDataLanguage();
   };
 
   getDataLanguage(): void {
