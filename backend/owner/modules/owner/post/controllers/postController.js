@@ -35,11 +35,11 @@ const postController = {
     try {
       const { formData } = req.body;
       const { translations } = req.body.formData;
-      console.log(translations[0].title);
-      if (!translations[0].title) {
-        return responseUtils.notFound(res, "Post title is required.");
-      }
-      formData.slug = slugify(translations[0].title, {
+      const title = translations[0].title || translations[1].title || translations[2].title;
+      
+      if (!title) return responseUtils.notFound(res, "Post title is required.");
+
+      formData.slug = slugify(title, {
         lower: true,
         strict: true
       });

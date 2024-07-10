@@ -22,10 +22,10 @@ export class CreatePostComponent implements OnInit {
   selectedTab: string = 'Vietnamese'; // Default selected tab
   userId = localStorage.getItem('user_id');
   languageIds: { [key: string]: string } = {};
-  tabData: { [key: string]: { title: string, body: string, language_id: string } } = {
-    Vietnamese: { title: '', body: '', language_id: '' },
-    English: { title: '', body: '', language_id: '' },
-    Chinese: { title: '', body: '', language_id: '' }
+  tabData: { [key: string]: { title: string, body: string } } = {
+    Vietnamese: { title: '', body: '' },
+    English: { title: '', body: '' },
+    Chinese: { title: '', body: '' }
   };
 
   constructor(
@@ -49,14 +49,12 @@ export class CreatePostComponent implements OnInit {
     this.fetchLanguages();
   };
 
-  // CKEditor functions 
   onReady(editor: any): void {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader: any) => {
       return new CustomUploadAdapter(loader, this.http, 'http://localhost:3000/upload');
     };
   };
- 
-  // Helper functions
+
   fetchCategories(): void {
     this.apiService.getDataCategory().subscribe(response => {
       this.categories = response.data;
@@ -69,11 +67,10 @@ export class CreatePostComponent implements OnInit {
       this.languages.forEach(language => {
         this.languageIds[language.name] = language.id;
       });
-      this.updateLanguageId(); // Update language_id based on selected tab
+      this.updateLanguageId();
     });
   };
 
-  // Event handlers on file change
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -85,7 +82,6 @@ export class CreatePostComponent implements OnInit {
     }
   };
 
-  // Event handlers on create post
   onCreate(): void {
     this.saveCurrentTabData();
     if (this.postForm.valid) {
@@ -98,7 +94,6 @@ export class CreatePostComponent implements OnInit {
     }
   };
 
-  // Helper functions for event handlers
   prepareFormData(): FormData {
     const formData = new FormData();
     formData.append('user_id', this.userId || '');
@@ -108,7 +103,6 @@ export class CreatePostComponent implements OnInit {
     return formData;
   };
 
-  // Helper functions for event handlers
   formatPostData(formData: FormData): any {
     const translations = Object.keys(this.tabData).map(tab => ({
       language_id: this.languageIds[tab],
@@ -119,10 +113,10 @@ export class CreatePostComponent implements OnInit {
     return this.formDataToObject(formData, translations);
   };
 
-  formDataToObject( formData: FormData, translations: { language_id: string, title: string, body: string }[] ): any {
+  formDataToObject(formData: FormData, translations: { language_id: string, title: string, body: string }[]): any {
     const object: { [key: string]: any } = {};
-    formData.forEach((value, key) => { 
-      object[key] = value; 
+    formData.forEach((value, key) => {
+      object[key] = value;
     });
     object['translations'] = translations.map(t => ({
       language_id: t.language_id,
@@ -131,24 +125,24 @@ export class CreatePostComponent implements OnInit {
     }));
     return object;
   };
-  
-  // Event handlers on tab change
+
   selectTab(tab: string): void {
     this.saveCurrentTabData();
     this.selectedTab = tab;
     this.updateForm();
   };
 
-  // Helper functions for event handlers
   saveCurrentTabData(): void {
-    this.tabData[this.selectedTab] = { ...this.postForm.value };
+    this.tabData[this.selectedTab].title = this.postForm.get('title')?.value;
+    this.tabData[this.selectedTab].body = this.postForm.get('body')?.value;
   };
 
-  // Helper functions for event handlers
   updateForm(): void {
     const data = this.tabData[this.selectedTab];
-    const languageId = this.languageIds[this.selectedTab] || '';
-    this.postForm.patchValue({ ...data, language_id: languageId });
+    this.postForm.patchValue({
+      title: data.title,
+      body: data.body
+    });
   };
 
   updateLanguageId(): void {

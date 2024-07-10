@@ -33,7 +33,8 @@ export class UpdatePostComponent implements OnInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient ) {
+    private http: HttpClient
+  ) {
     this.initializeForm();
 
     const navigation = this.router.getCurrentNavigation();
@@ -57,8 +58,8 @@ export class UpdatePostComponent implements OnInit {
 
   initializeForm(): void {
     this.postForm = this.fb.group({
-      title: ['', Validators.required],
-      body: ['', Validators.required],
+      title: [''],
+      body: [''],
       user_id: [this.userId],
       status: [false],
       file: [''],
@@ -145,13 +146,16 @@ export class UpdatePostComponent implements OnInit {
   };
 
   saveCurrentTabData(): void {
-    this.tabData[this.selectedTab] = { ...this.postForm.value };
+    this.tabData[this.selectedTab].title = this.postForm.get('title')?.value;
+    this.tabData[this.selectedTab].body = this.postForm.get('body')?.value;
   };
 
   updateForm(): void {
     const data = this.tabData[this.selectedTab];
-    const languageId = this.languageIds[this.selectedTab] || '';
-    this.postForm.patchValue({ ...data, language_id: languageId });
+    this.postForm.patchValue({
+      title: data.title,
+      body: data.body
+    });
   };
 
   updateLanguageId(): void {
