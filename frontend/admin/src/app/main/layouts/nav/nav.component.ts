@@ -30,8 +30,9 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData()
-    this.translate.setDefaultLang('en')
-    this.selectedLanguage.locale = "en"
+    // this.selectedLanguage.locale = "en"
+    this.selectedLanguage.locale = localStorage.getItem('locale')
+    this.translate.setDefaultLang(this.selectedLanguage.locale)
   }
 
   loadData() {
@@ -60,7 +61,7 @@ export class NavComponent implements OnInit {
       next: (data: any) => {
         this.languages = data["data"]["result"]
         this.languages.map((language: language) => {
-          if (language.locale === 'en') {
+          if (language.locale === localStorage.getItem('locale')) {
             this.selectedLanguage = language
           }
         })
@@ -89,6 +90,7 @@ export class NavComponent implements OnInit {
   onClickActive(language: any): void {
     this.selectedLanguage = language
     this.translate.switchLang(this.selectedLanguage.locale);
+    localStorage.setItem('locale', this.selectedLanguage.locale)
   }
   
 }

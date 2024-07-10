@@ -6,6 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })
+
 export class SideBarComponent implements OnInit {
 
   constructor(private router: Router) {}

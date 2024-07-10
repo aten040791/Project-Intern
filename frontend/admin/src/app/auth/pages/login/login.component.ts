@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { AuthService } from '../../auth.service';
+import { TranslationService } from 'src/app/main/shared/i18n/translation.service';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +13,28 @@ import { AuthService } from '../../auth.service';
 })
 
 export class LoginComponent {
+  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService, private authService: AuthService, private translate: TranslationService) {
+  }
+
   email: string = ""
   password: string = ""
+  locale: string = "en"
 
   isCheckPW: boolean = false
   inputType: string = 'password'
 
   isDropdown: boolean = false
 
-  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService, private authService: AuthService) {}
+  ngOnInit(): void {
+    const savedLocale = localStorage.getItem('locale');
+    if (savedLocale) {
+      this.locale = savedLocale;
+    } else {
+      this.locale = 'en';
+      localStorage.setItem('locale', this.locale);
+    }
+    this.translate.setDefaultLang(this.locale);
+  }
 
   togglePW(): void {
     this.showPW.showPassWord();
@@ -44,6 +58,12 @@ export class LoginComponent {
 
   onDropdown(): void {
     this.isDropdown = !this.isDropdown
+  }
+
+  onClickLocale(locale: string): void {
+    this.locale = locale
+    localStorage.setItem('locale', locale)
+    this.translate.setDefaultLang(locale)
   }
 
 }

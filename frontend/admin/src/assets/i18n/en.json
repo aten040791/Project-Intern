@@ -17,7 +17,8 @@
         },
         "login": {
             "welcome": "Welcome to our blog",
-            "subWelcome": "Login to access your admin account"
+            "subWelcome": "Login to access your admin account",
+            "holderEmail": "Enter your email or username"
         }
     },
     "buttons": {

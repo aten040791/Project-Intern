@@ -17,7 +17,8 @@
         },
         "login": {
             "welcome": "Chào mừng tới blog của chúng tôi",
-            "subWelcome": "Đăng nhập để truy cập tài khoản quản trị của bạn"
+            "subWelcome": "Đăng nhập để truy cập tài khoản quản trị của bạn",
+            "holderEmail": "Nhập email hoặc username"
         }
     },
     "buttons": {
