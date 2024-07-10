@@ -64,11 +64,11 @@ const postService = {
 
     const totalPages = Math.ceil(count / perPage);
     return {
-        posts: posts,
-        limit: perPage,
-        offset: offset,
-        totalPosts: count,
-        totalPages: totalPages
+      posts: posts,
+      limit: perPage,
+      offset: offset,
+      totalPosts: count,
+      totalPages: totalPages
     };
 },
 
