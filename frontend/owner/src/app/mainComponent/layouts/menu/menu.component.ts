@@ -16,15 +16,26 @@ export class MenuComponent implements OnInit {
   constructor(private router: Router) {}
 
   isDashboardActive(): boolean {
-      return this.router.isActive('/#', true);
+    return this.router.isActive('/#', {
+      paths: 'exact',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
   }
 
   isPostActive(): boolean {
-      return this.router.isActive('/post', true);
+    const currentUrl = this.router.url.split('?')[0];
+    return currentUrl === '/post';
   }
 
   isAccountActive(): boolean {
-      return this.router.isActive('/account-page', true);
+    return this.router.isActive('/account-page', {
+      paths: 'exact',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    });
   }
 
   ngOnInit(): void {}
