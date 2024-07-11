@@ -108,63 +108,18 @@
 
             <!-- Post -->
             <li class="menu-item">
-              <a href="post.html" class="menu-link">
+              <a href="index.html" class="menu-link">
                 <i class="menu-icon bx bx-book-content"></i>
                 <div data-i18n="Basic">Post</div>
               </a>
             </li>
 
             <!-- Pages -->
-            <li class="menu-item active open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
+            <li class="menu-item active">
+              <a href="pages-account-settings-account.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Account">Account</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item active">
-                  <a
-                    href="pages-account-settings-account.html"
-                    class="menu-link"
-                  >
-                    <div data-i18n="Account">Account</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Authentications">Authentications</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a
-                    href="auth-login-basic.html"
-                    class="menu-link"
-                    target="_blank"
-                  >
-                    <div data-i18n="Basic">Login</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a
-                    href="auth-register-basic.html"
-                    class="menu-link"
-                    target="_blank"
-                  >
-                    <div data-i18n="Basic">Register</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a
-                    href="auth-forgot-password-basic.html"
-                    class="menu-link"
-                    target="_blank"
-                  >
-                    <div data-i18n="Basic">Forgot Password</div>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </aside>
@@ -174,15 +129,29 @@
         <div class="layout-page">
           <!-- Navbar -->
           <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme navbar-custom"
             id="layout-navbar"
           >
+            <div
+              class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none"
+            >
+              <a
+                class="nav-item nav-link px-0 me-xl-4"
+                href="javascript:void(0)"
+              >
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+
             <div
               class="navbar-nav-right d-flex align-items-center"
               id="navbar-collapse"
             >
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
+              <div
+                class="navbar-nav d-none d-xl-flex justify-content-between align-items-center"
+                style="width: 65%"
+              >
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
@@ -196,6 +165,192 @@
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- language -->
+                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+                  <a
+                    class="nav-link dropdown-toggle hide-arrow"
+                    href="javascript:void(0);"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="bx bx-globe bx-sm"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a
+                        class="dropdown-item active"
+                        href="javascript:void(0);"
+                        data-language="en"
+                        data-text-direction="ltr"
+                      >
+                        <span class="align-middle">English</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        href="javascript:void(0);"
+                        data-language="fr"
+                        data-text-direction="ltr"
+                      >
+                        <span class="align-middle">French</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        href="javascript:void(0);"
+                        data-language="ar"
+                        data-text-direction="rtl"
+                      >
+                        <span class="align-middle">Arabic</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        href="javascript:void(0);"
+                        data-language="de"
+                        data-text-direction="ltr"
+                      >
+                        <span class="align-middle">German</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- language -->
+                <!-- notification -->
+                <li
+                  class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1"
+                >
+                  <a
+                    class="nav-link dropdown-toggle hide-arrow"
+                    href="javascript:void(0);"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    aria-expanded="false"
+                  >
+                    <i class="bx bx-bell bx-sm"></i>
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end py-0"
+                    style="width: 350px"
+                  >
+                    <li class="dropdown-menu-header border-bottom">
+                      <div
+                        class="dropdown-header d-flex align-items-center py-3"
+                      >
+                        <h5 class="text-body mb-0 me-auto">Notification</h5>
+                        <a
+                          href="javascript:void(0)"
+                          class="dropdown-notifications-all text-body"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          aria-label="Mark all as read"
+                          data-bs-original-title="Mark all as read"
+                          ><i class="bx fs-4 bx-envelope-open"></i
+                        ></a>
+                      </div>
+                    </li>
+                    <li
+                      class="dropdown-notifications-list scrollable-container ps"
+                    >
+                      <ul class="list-group list-group-flush">
+                        <li
+                          class="list-group-item list-group-item-action dropdown-notifications-item"
+                        >
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <img
+                                  src="../../assets/img/avatars/6.png"
+                                  alt=""
+                                  class="w-px-40 h-auto rounded-circle"
+                                />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">New message from Jane</h6>
+                              <p class="mb-0">
+                                Your have new message from Jane
+                              </p>
+                              <small class="text-muted">5 days ago</small>
+                            </div>
+                            <div
+                              class="flex-shrink-0 dropdown-notifications-actions"
+                            >
+                              <a
+                                href="javascript:void(0)"
+                                class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a
+                                href="javascript:void(0)"
+                                class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                        <li
+                          class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                        >
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar">
+                                <span
+                                  class="avatar-initial rounded-circle bg-label-warning"
+                                  ><i class="bx bx-error"></i
+                                ></span>
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">CPU is running high</h6>
+                              <p class="mb-0">
+                                CPU Utilization Percent is currently at 88.63%,
+                              </p>
+                              <small class="text-muted">5 days ago</small>
+                            </div>
+                            <div
+                              class="flex-shrink-0 dropdown-notifications-actions"
+                            >
+                              <a
+                                href="javascript:void(0)"
+                                class="dropdown-notifications-read"
+                                ><span class="badge badge-dot"></span
+                              ></a>
+                              <a
+                                href="javascript:void(0)"
+                                class="dropdown-notifications-archive"
+                                ><span class="bx bx-x"></span
+                              ></a>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="ps__rail-x" style="left: 0px; bottom: 0px">
+                        <div
+                          class="ps__thumb-x"
+                          tabindex="0"
+                          style="left: 0px; width: 0px"
+                        ></div>
+                      </div>
+                      <div class="ps__rail-y" style="top: 0px; right: 0px">
+                        <div
+                          class="ps__thumb-y"
+                          tabindex="0"
+                          style="top: 0px; height: 0px"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="dropdown-menu-footer border-top p-3">
+                      <button class="btn btn-primary text-uppercase w-100">
+                        view all notifications
+                      </button>
+                    </li>
+                  </ul>
+                </li>
+                <!-- notification -->
+                <!-- Place this tag where you want the button to render. -->
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a
@@ -206,7 +361,7 @@
                     <div class="avatar avatar-online">
                       <img
                         src="../assets/img/avatars/1.png"
-                        alt
+                        alt=""
                         class="w-px-40 h-auto rounded-circle"
                       />
                     </div>
@@ -219,7 +374,7 @@
                             <div class="avatar avatar-online">
                               <img
                                 src="../assets/img/avatars/1.png"
-                                alt
+                                alt=""
                                 class="w-px-40 h-auto rounded-circle"
                               />
                             </div>
@@ -235,7 +390,10 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a
+                        class="dropdown-item"
+                        href="pages-account-settings-account.html"
+                      >
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
@@ -250,7 +408,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="javascript:void(0);">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -261,7 +419,6 @@
               </ul>
             </div>
           </nav>
-
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
@@ -340,66 +497,15 @@
                             />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label"
-                              >Last Name</label
+                            <label for="birthday" class="form-label"
+                              >Birthday</label
                             >
                             <input
                               class="form-control"
                               type="text"
-                              name="lastName"
-                              id="lastName"
-                              value="Doe"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="password" class="form-label"
-                              >Password</label
-                            >
-                            <input
-                              class="form-control"
-                              type="password"
-                              name="password"
-                              id="password"
-                              value="***********"
-                            />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="email"
-                              name="email"
-                              value=""
-                              placeholder="lee@gmail.com"
-                            />
-                          </div>
-
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="phoneNumber"
-                              >Phone Number</label
-                            >
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">Vi (+84)</span>
-                              <input
-                                type="text"
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                class="form-control"
-                                placeholder="912345678"
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="address" class="form-label"
-                              >Address</label
-                            >
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="address"
-                              name="address"
-                              placeholder="Address"
+                              name="birthday"
+                              id="birthday"
+                              value="18-04-2001"
                             />
                           </div>
                           <div class="mb-3 col-md-6">
@@ -441,16 +547,43 @@
                             </select>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="language" class="form-label"
-                              >Language</label
+                            <label for="email" class="form-label">E-mail</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="email"
+                              name="email"
+                              value=""
+                              placeholder="lee@gmail.com"
+                            />
+                          </div>
+
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="phoneNumber"
+                              >Phone Number</label
                             >
-                            <select id="language" class="select2 form-select">
-                              <option value="">Select Language</option>
-                              <option value="en">English</option>
-                              <option value="fr">French</option>
-                              <option value="de">German</option>
-                              <option value="pt">Portuguese</option>
-                            </select>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">Vi (+84)</span>
+                              <input
+                                type="text"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                class="form-control"
+                                placeholder="912345678"
+                              />
+                            </div>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="address" class="form-label"
+                              >Address</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="address"
+                              name="address"
+                              placeholder="Address"
+                            />
                           </div>
                         </div>
                         <div class="mt-2">
