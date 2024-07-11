@@ -33,10 +33,11 @@ router.group("/auth", (router) => {
     validate([authValidation.index]),
     authController.login
   );
-  // router.get("/user", auth, authController.getUser);
+  router.get("/", admin, authController.getAdmin);
 });
 
 router.group("/users", admin, (router) => {
+  router.get("/get-user", userController.getUser);
   router.delete(
     "/delete",
     validate([userValidation.delete]),
@@ -54,11 +55,6 @@ router.group("/users", admin, (router) => {
     validate([userValidation.create]),
     userController.createUser
   );
-  // router.get(
-  //   "/search",
-  //   validate([userValidation.index]),
-  //   userController.searchUser
-  // );
   router.get("/", userController.index);
   // localhost:3000/users/search?search=
 });
@@ -78,11 +74,6 @@ router.group("/categories", admin, (router) => {
     "/create",
     validate([categoryValidation.create]),
     categoryController.createCategory
-  );
-  router.get(
-    "/search",
-    validate([categoryValidation.index]),
-    categoryController.searchCategory
   );
   router.get("/", categoryController.index);
 });
@@ -104,11 +95,6 @@ router.group("/languages", admin, (router) => {
     uploads.single("flag"),
     validate([languageValidation.create]),
     languageController.createLanguage
-  );
-  router.get(
-    "/search",
-    validate([languageValidation.index]),
-    languageController.searchLanguage
   );
   router.get("/", languageController.index);
 });

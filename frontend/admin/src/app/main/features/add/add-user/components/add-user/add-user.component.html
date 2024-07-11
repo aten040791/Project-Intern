@@ -16,7 +16,7 @@
           (click)="closeDialog()"
         ></button>
         <div class="text-center mb-4">
-          <h3>Add User</h3>
+          <h3>{{ "buttons.add-new-user" | translate }}</h3>
         </div>
         <form
           #formUser="ngForm"
@@ -63,11 +63,13 @@
             ></div>
           </div>
           <div class="col-12 col-md-6 fv-plugins-icon-container">
-            <label class="form-label" for="modalEditUserStatus">Role</label>
+            <label class="form-label" for="modalEditUserStatus">{{
+              "labels.role" | translate
+            }}</label>
             <select id="" name="role_id" class="form-select" ngModel>
-              <option value="">Select</option>
-              <option value="1">Admin</option>
-              <option value="2">User</option>
+              <option value="">{{ "labels.select" | translate }}</option>
+              <option value="1">{{ "common.admin" | translate }}</option>
+              <option value="2">{{ "common.user" | translate }}</option>
             </select>
           </div>
           <div class="col-12 col-md-6">
@@ -83,7 +85,9 @@
             />
           </div>
           <div class="col-12 col-md-6">
-            <label class="form-label" for="modalEditUserStatus">Status</label>
+            <label class="form-label" for="modalEditUserStatus">{{
+              "labels.status" | translate
+            }}</label>
             <select
               id=""
               name="status"
@@ -91,15 +95,15 @@
               aria-label="Default select example"
               ngModel
             >
-              <option value="">Select</option>
+              <option value="">{{ "labels.select" | translate }}</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
           <div class="col-12 col-md-6">
-            <label class="form-label" for="modalEditUserPhone"
-              >Phone Number</label
-            >
+            <label class="form-label" for="modalEditUserPhone">{{
+              "labels.phone" | translate
+            }}</label>
             <div class="input-group input-group-merge">
               <input
                 type="text"
@@ -122,7 +126,9 @@
                 aria-hidden="true"
                 ngModel
               >
-                <option value="" data-select2-id="5">Select</option>
+                <option value="" data-select2-id="5">
+                  {{ "labels.select" | translate }}
+                </option>
                 <option value="Australia">Australia</option>
                 <option value="Bangladesh">Bangladesh</option>
                 <option value="Belarus">Belarus</option>
@@ -154,7 +160,7 @@
           </div>
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary me-sm-3 me-1">
-              Submit
+              {{ "buttons.submit" | translate }}
             </button>
             <button
               type="reset"
@@ -163,7 +169,7 @@
               aria-label="Close"
               (click)="closeDialog()"
             >
-              Cancel
+              {{ "buttons.cancel" | translate }}
             </button>
           </div>
           <input type="hidden" />

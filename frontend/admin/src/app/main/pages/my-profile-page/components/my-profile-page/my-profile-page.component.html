@@ -2,12 +2,12 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card mb-4" style="padding: 20px">
-        <h2 class="card-header">My Profile</h2>
+        <h2 class="card-header">{{ "labels.myProfile" | translate }}</h2>
         <!-- Account -->
         <div class="card-body">
           <div class="d-flex align-items-start align-items-sm-center gap-4">
             <img
-              src="../assets/img/avatars/5.png"
+              [src]="item.avatar"
               alt="user-avatar"
               class="d-block rounded"
               height="100"
@@ -20,59 +20,82 @@
                 class="btn btn-primary me-2 mb-4"
                 tabindex="0"
               >
-                <span class="d-none d-sm-block">Upload new photo</span>
+                <span class="d-none d-sm-block">{{
+                  "buttons.uploadImages" | translate
+                }}</span>
                 <i class="bx bx-upload d-block d-sm-none"></i>
                 <input
                   type="file"
                   id="upload"
+                  name="avatar"
                   class="account-file-input"
                   hidden
                   accept="image/png, image/jpeg"
+                  (change)="onFileSelected($event)"
                 />
               </label>
-              <button
-                type="button"
-                class="btn btn-outline-secondary account-image-reset mb-4"
-              >
-                <i class="bx bx-reset d-block d-sm-none"></i>
-                <span class="d-none d-sm-block">Reset</span>
-              </button>
-
               <p class="text-muted mb-0">
-                Allowed JPG, GIF or PNG. Max size of 800K
+                {{ "labels.allowed" | translate }} JPG, GIF
+                {{ "labels.or" | translate }} PNG. Max size
+                {{ "labels.of" | translate }} 800K
               </p>
             </div>
           </div>
         </div>
         <hr class="my-0" />
         <div class="card-body">
-          <form id="formAccountSettings" method="POST" onsubmit="return false">
+          <form
+            #formData="ngForm"
+            enctype="multipart/form-data"
+            method="POST"
+            (ngSubmit)="onSubmit(formData.value)"
+          >
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="firstName" class="form-label">First Name</label>
+                <label for="firstName" class="form-label">Full Name</label>
                 <input
                   class="form-control"
                   type="text"
-                  id="firstName"
-                  name="firstName"
-                  value="John"
-                  autofocus
+                  name="fullname"
+                  placeholder="Full name"
+                  ngModel
+                  [(ngModel)]="item.fullname"
                 />
               </div>
               <div class="mb-3 col-md-6">
-                <label for="birthday" class="form-label">Birthday</label>
+                <label for="" class="form-label">Username</label>
                 <input
                   class="form-control"
                   type="text"
-                  name="birthday"
+                  name="username"
+                  placeholder="Full name"
+                  ngModel
+                  [(ngModel)]="item.username"
+                />
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="birthday" class="form-label">{{
+                  "labels.birthday" | translate
+                }}</label>
+                <input
+                  class="form-control"
+                  type="text"
                   id="birthday"
                   value="18-04-2001"
                 />
               </div>
               <div class="mb-3 col-md-6">
-                <label class="form-label" for="country">Country</label>
-                <select id="country" class="select2 form-select">
-                  <option value="">Select</option>
+                <label class="form-label" for="country">{{
+                  "labels.address" | translate
+                }}</label>
+                <select
+                  id="address"
+                  class="select2 form-select"
+                  name="address"
+                  ngModel
+                  [(ngModel)]="item.address"
+                >
+                  <option value="">{{ "labels.select" | translate }}</option>
                   <option value="Australia">Australia</option>
                   <option value="Bangladesh">Bangladesh</option>
                   <option value="Belarus">Belarus</option>
@@ -108,41 +131,65 @@
                   type="text"
                   id="email"
                   name="email"
-                  value=""
                   placeholder="lee@gmail.com"
+                  ngModel
+                  [(ngModel)]="item.email"
                 />
               </div>
-
               <div class="mb-3 col-md-6">
-                <label class="form-label" for="phoneNumber">Phone Number</label>
+                <label class="form-label" for="phoneNumber">{{
+                  "labels.phone" | translate
+                }}</label>
                 <div class="input-group input-group-merge">
                   <span class="input-group-text">Vi (+84)</span>
                   <input
                     type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
+                    id="phone"
+                    name="phone"
                     class="form-control"
-                    placeholder="912345678"
+                    placeholder="12-345-678"
+                    ngModel
+                    [(ngModel)]="item.phone"
                   />
                 </div>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="address" class="form-label">Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="address"
-                  name="address"
-                  placeholder="Address"
-                />
+                <label class="form-label" for="">{{
+                  "labels.role" | translate
+                }}</label>
+                <div class="input-group input-group-merge">
+                  <input
+                    type="text"
+                    name="role"
+                    class="form-control"
+                    [(ngModel)]="item.role.name"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="modalEditUserStatus" class="form-label"
+                  >Status</label
+                ><select
+                  name="status"
+                  aria-label="Default select example"
+                  ngmodel
+                  class="form-select ng-untouched ng-pristine ng-valid"
+                  [(ngModel)]="item.status"
+                >
+                  <option value="">{{ "labels.select" | translate }}</option>
+                  <option value="active">
+                    {{ "labels.active" | translate }}
+                  </option>
+                  <option value="inactive">
+                    {{ "labels.inactive" | translate }}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="mt-2">
               <button type="submit" class="btn btn-primary me-2">
-                Save changes
-              </button>
-              <button type="reset" class="btn btn-outline-secondary">
-                Cancel
+                {{ "buttons.saveChanges" | translate }}
               </button>
             </div>
           </form>
@@ -150,33 +197,40 @@
         <!-- /Account -->
       </div>
       <div class="card" style="padding: 20px">
-        <h5 class="card-header">Delete Account</h5>
+        <h5 class="card-header">
+          {{ "buttons.delete" | translate }} {{ "buttons.account" | translate }}
+        </h5>
         <div class="card-body">
           <div class="mb-3 col-12 mb-0">
             <div class="alert alert-warning">
               <h6 class="alert-heading mb-1">
-                Are you sure you want to delete your account?
+                {{ "labels.titleConfirm_1" | translate }}
               </h6>
               <p class="mb-0">
-                Once you delete your account, there is no going back. Please be
-                certain.
+                {{ "labels.titleConfirm_2" | translate }}
               </p>
             </div>
           </div>
-          <form id="formAccountDeactivation" onsubmit="return false">
+          <form id="formAccountDeactivation">
             <div class="form-check mb-3">
               <input
                 class="form-check-input"
                 type="checkbox"
                 name="accountActivation"
                 id="accountActivation"
+                (change)="onCheckConfirm()"
               />
-              <label class="form-check-label" for="accountActivation"
-                >I confirm my account deactivation</label
-              >
+              <label class="form-check-label" for="accountActivation">
+                {{ "labels.subtitleConfirm_3" | translate }}
+              </label>
             </div>
-            <button type="submit" class="btn btn-danger deactivate-account">
-              Deactivate Account
+            <button
+              type="button"
+              class="btn btn-danger deactivate-account"
+              [class.disabled]="!checkConfirm"
+              (click)="toggleDelete(); onClickDelete(item)"
+            >
+              {{ "buttons.deactive" | translate }}
             </button>
           </form>
         </div>
@@ -184,3 +238,23 @@
     </div>
   </div>
 </div>
+
+<!-- delete -->
+<app-delete
+  [isDelete]="isDelete"
+  (close)="toggleDelete()"
+  (close)="toggleDeleteFailed()"
+  (closeSuccess)="toggleDeleteSuccess()"
+></app-delete>
+
+<app-delete-failed
+  [isDeleteFailed]="isDeleteFailed"
+  (close)="toggleDeleteFailed()"
+></app-delete-failed>
+
+<app-delete-success
+  [isDeleteSuccess]="isDeleteSuccess"
+  (close)="toggleDeleteSuccess()"
+  [url]="url"
+  [idDelete]="idDelete"
+></app-delete-success>

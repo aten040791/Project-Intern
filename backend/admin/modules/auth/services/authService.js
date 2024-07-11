@@ -1,7 +1,7 @@
 const db = require("models/index");
 const { sign, signRefreshToken } = require("utils/jwtUtils");
-// const { setItem, getItem, removeToken } = require("helpers/localStorage");
 const bcrypt = require("bcryptjs");
+const { admin } = require("middlewares/authVerify");
 
 module.exports = {
   login: async (email, password) => {
@@ -28,9 +28,5 @@ module.exports = {
       access_token: access_token,
       refresh_token: refresh_token,
     };
-  },
-  logout: async (refreshToken) => {
-    // remove in localstorage
-    removeItem("refreshToken");
   },
 };

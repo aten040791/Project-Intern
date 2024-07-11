@@ -9,12 +9,12 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 })
 
 export class AddUserComponent {
+  
+  constructor(private http: ApiService) {}
 
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
   image: File | null = null;
-
-  constructor(private http: ApiService) {}
 
   closeDialog(): void {
     this.close.emit();
@@ -41,7 +41,8 @@ export class AddUserComponent {
         window.location.reload();
       },
       error: (error: Error) => {
-        console.error(error);
+        // console.error(error);
+        alert(`Error fetching items: ${error.message}`)
       }
     })
 

@@ -1,11 +1,17 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
+const { debounce } = require("middlewares/debounce");
+
+const debounceList = debounce((categories) => {
+  return categories;
+}, 500);
 
 module.exports = {
   list: async (page, limit, search) => {
-    const valueLowCase = search.toLowerCase();
-    if (valueLowCase !== "") {
-      var categories = await db.Category.findAll({
+    let categories;
+    if (search !== "") {
+      const valueLowCase = search.toLowerCase();
+      categories = await db.Category.findAll({
         where: {
           [Op.or]: [
             Sequelize.literal(
@@ -14,8 +20,9 @@ module.exports = {
           ],
         },
       });
+      categories = await debounceList(categories);
     } else {
-      var categories = await db.Category.findAll({});
+      categories = await db.Category.findAll({});
     }
 
     // pagination
@@ -37,21 +44,4 @@ module.exports = {
   deleteCategory: async (ids) => {
     await db.Category.destroy({ where: { id: ids } });
   },
-  // searchCategory: async (value) => {
-  //   if (!value) throw new Error("Error");
-  //   // const valueLowCase = value.toLowerCase();
-  //   const categories = await db.Category.findAll({
-  //     where: {
-  //       [Op.or]: [
-  //         Sequelize.literal(
-  //           `MATCH(name) AGAINST('${value}' IN NATURAL LANGUAGE MODE)`
-  //         ),
-  //       ],
-  //     },
-  //   });
-  //   console.log(categories);
-  //   if (!categories || categories.length === 0)
-  //     throw new Error("Categories not found");
-  //   return categories;
-  // },
 };

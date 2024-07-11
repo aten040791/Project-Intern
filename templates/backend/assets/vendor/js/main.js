@@ -135,7 +135,7 @@ if (input != null) {
   table.addEventListener("click", function (e) {
     const category = e.target.closest("tr");
     if (e.target.closest(".text-primary")) {
-      console.log(category.children[2].textContent);
+      // console.log(category.children[2].textContent);
       if (isHiddenEditCate === false || isHiddenEditUser === false) {
         dialogEdit.style.display = "block";
         content.style.opacity = "0.4";
@@ -192,7 +192,7 @@ if (inputUserName != null && table !== null) {
         isHiddenEditCate = false;
       }
     } else if (e.target.closest(".text-danger")) {
-      console.log(category.children[1].textContent);
+      // console.log(category.children[1].textContent);
       if (isHiddenDeleteUser === false || isHiddenDeleteCate === false) {
         dialogDelete.style.display = "block";
         content.style.opacity = "0.4";

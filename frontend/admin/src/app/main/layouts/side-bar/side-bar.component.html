@@ -36,12 +36,14 @@
         (click)="setActiveAndOpenItem('dashboards')"
       >
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Dashboards">Dashboards</div>
+        <div data-i18n="Dashboards">{{ "labels.dashboards" | translate }}</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item" [class.active]="activeSubItem === 'analytics'">
           <a href="/home" class="menu-link" (click)="setActiveSub('analytics')">
-            <div data-i18n="Analytics">Analytics</div>
+            <div data-i18n="Analytics">
+              {{ "labels.analytics" | translate }}
+            </div>
           </a>
         </li>
       </ul>
@@ -63,23 +65,27 @@
         (click)="setActiveAndOpenItem('users')"
       >
         <i class="menu-icon tf-icons bx bx-user"></i>
-        <div data-i18n="Account Settings">Users</div>
+        <div data-i18n="Account Settings">{{ "labels.users" | translate }}</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item" [class.active]="activeSubItem === 'user-list'">
+        <li class="menu-item" [class.active]="activeSubItem === 'users-list'">
           <a
-            routerLink="/users"
+            routerLink="/users/list"
             class="menu-link"
-            (click)="setActiveSub('user-list')"
+            (click)="setActiveSub('users-list')"
           >
-            <div data-i18n="Categories">List</div>
+            <div data-i18n="users">{{ "common.list" | translate }}</div>
           </a>
         </li>
-        <!-- <li class="menu-item" [class.active]="activeSubItem === 'user-view'">
-          <a href="#" class="menu-link" (click)="setActiveSub('user-view')">
-            <div data-i18n="Categories">View</div>
+        <li class="menu-item" [class.active]="activeSubItem === 'users-add'">
+          <a
+            routerLink="/users/add"
+            class="menu-link"
+            (click)="setActiveSub('users-add')"
+          >
+            <div data-i18n="users">Add Users</div>
           </a>
-        </li> -->
+        </li>
       </ul>
     </li>
     <!-- category-page -->
@@ -94,19 +100,21 @@
         (click)="setActiveAndOpenItem('categories')"
       >
         <i class="menu-icon tf-icons bx bx-category"></i>
-        <div data-i18n="Account Settings">Category</div>
+        <div data-i18n="Account Settings">
+          {{ "labels.category" | translate }}
+        </div>
       </a>
       <ul class="menu-sub">
         <li
           class="menu-item"
-          [class.active]="activeSubItem === 'category-list'"
+          [class.active]="activeSubItem === 'categories-list'"
         >
           <a
-            routerLink="/categories"
+            routerLink="/categories/list"
             class="menu-link"
-            (click)="setActiveSub('category-list')"
+            (click)="setActiveSub('categories-list')"
           >
-            <div data-i18n="Categories">List</div>
+            <div data-i18n="Categories">{{ "common.list" | translate }}</div>
           </a>
         </li>
       </ul>
@@ -123,19 +131,21 @@
         (click)="setActiveAndOpenItem('languages')"
       >
         <i class="menu-icon tf-icons bx bx-globe"></i>
-        <div data-i18n="Account Settings">Language</div>
+        <div data-i18n="Account Settings">
+          {{ "labels.language" | translate }}
+        </div>
       </a>
       <ul class="menu-sub">
         <li
           class="menu-item"
-          [class.active]="activeSubItem === 'language-list'"
+          [class.active]="activeSubItem === 'languages-list'"
         >
           <a
-            routerLink="/languages"
+            routerLink="/languages/list"
             class="menu-link"
-            (click)="setActiveSub('language-list')"
+            (click)="setActiveSub('languages-list')"
           >
-            <div data-i18n="Languages">List</div>
+            <div data-i18n="Languages">{{ "common.list" | translate }}</div>
           </a>
         </li>
       </ul>
@@ -152,7 +162,7 @@
         class="menu-link"
       >
         <i class="menu-icon tf-icons bx bx-support"></i>
-        <div data-i18n="Support">Support</div>
+        <div data-i18n="Support">{{ "common.support" | translate }}</div>
       </a>
     </li>
   </ul>

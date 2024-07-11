@@ -8,11 +8,11 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 })
 export class AddLanguageComponent {
 
+  constructor(private http: ApiService) {}
+
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
   selectedFile: File | null = null;
-
-  constructor(private http: ApiService) {}
 
   closeDialog(): void {
     this.close.emit();
@@ -33,7 +33,8 @@ export class AddLanguageComponent {
         window.location.reload();
       },
       error: (error: Error) => {
-        console.error(error);
+        // console.error(error);
+        alert(`Error fetching items: ${error.message}`)
       }
     })
 }

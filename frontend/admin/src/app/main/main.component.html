@@ -4,20 +4,18 @@
     <app-side-bar></app-side-bar>
 
     <div class="layout-page bg-dark-demo">
+      <!-- nav -->
+      <app-nav></app-nav>
+      <!-- / nav -->
+
       <!-- Content wrapper -->
       <div class="content-wrapper">
-        <!-- nav -->
-        <app-nav></app-nav>
-        <!-- / nav -->
-
         <!-- routing -->
         <router-outlet></router-outlet>
         <div class="content-backdrop fade"></div>
       </div>
       <!-- / Content wrapper -->
     </div>
-    <!-- Content wrapper -->
-    <!-- <div class="layout-overlay layout-menu-toggle" (click)="toggleIcon()"></div> -->
   </div>
   <div class="layout-overlay layout-menu-toggle" (click)="toggleIcon()"></div>
 </div>

@@ -29,40 +29,55 @@ export class UserPageComponent implements OnInit {
 
   item: any = {}
   items: User[] = []
-  url: string = ""
+  url: string = this.router.url
 
   // handle deleting
   checkBoxs = new Set<number>();
   checkBoxsTmp = new Set<number>();
   idDelete = new Set<number>();
+  checkDeleteAll: boolean = false;
   
   ngOnInit(): void {
+    this.url = this.getBasePath(this.url)
     this.loadItems()
-    this.url = this.router.url
   }
 
   // load data
   loadItems() {
-    this.api.getItems("users", this.search, this.currentPage, this.limit).subscribe({
+    const accessToken = localStorage.getItem('access_token')
+    if (!accessToken) {
+      this.router.navigate(['/auth/login'])
+    }
+    this.api.getItems("/users", this.search, this.currentPage, this.limit).subscribe({
       next: (data: any) => {
-        data = data.data.users
+        data = data.data
         this.items = data["result"].slice()
         this.pages = data["pages"]
       }, 
       error: (error) => {
-        console.error('Error fetching items', error);
+        // alert(`Error fetching items: ${error.message}`)
       }
     });
   }
 
+  private getBasePath(url: string): string {
+    return url.includes('?') ? url.split('?')[0] : url;
+  }
+
   // from SelectAllService
   handleCheckBoxAll(event: any): void {
+    if (event.target.checked) {
+      this.selectAllService.selectAll(event)
+    } else {
+      this.selectAllService.unSelectAll(event)
+    }
     this.selectAllService.selectAll(event)
     // add all items
     this.items.forEach(item => {
       // fix
       this.checkBoxsTmp.add(item.id)
     })
+    this.onCheckDeleteAll()
   }
 
   // handle each checkbox
@@ -72,6 +87,7 @@ export class UserPageComponent implements OnInit {
     } else {
       this.checkBoxsTmp.delete(item.id)
     }
+    this.onCheckDeleteAll()
   }
 
   // Add new user
@@ -81,7 +97,7 @@ export class UserPageComponent implements OnInit {
 
   toggleDelete(): void {
     this.isDelete = !this.isDelete
-    console.log(this.isDeleteSuccess)
+    // console.log(this.isDeleteSuccess)
   }
 
   toggleDeleteSuccess(): void {
@@ -128,6 +144,9 @@ export class UserPageComponent implements OnInit {
     this.loadItems();
   }
 
+  onCheckDeleteAll() {
+    this.checkDeleteAll = this.checkBoxsTmp.size !== 0 ? true : false
+  }
 }
 
 

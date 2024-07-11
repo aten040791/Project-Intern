@@ -1,14 +1,27 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
 const bcrypt = require("bcryptjs");
+const { debounce } = require("middlewares/debounce");
+
+const debounceList = debounce((users) => {
+  return users;
+}, 500);
 
 module.exports = {
   // todo: selet * from users
   list: async (page, limit, search) => {
-    const valueLowCase = search.toLowerCase();
-    if (valueLowCase !== "") {
-      var users = await db.User.findAll({
-        include: { model: db.Role, as: "role", attributes: ["id", "name"] },
+    // console.log("id: ", id);
+    // const debounceSearch = debounce(search, 2000);
+    // console.log(debounceSearch);
+    let users;
+    if (search != "") {
+      const valueLowCase = search.toLowerCase();
+      users = await db.User.findAll({
+        include: {
+          model: db.Role,
+          as: "role",
+          attributes: ["id", "name"],
+        },
         where: {
           [Op.or]: [
             Sequelize.literal(
@@ -17,8 +30,9 @@ module.exports = {
           ],
         },
       });
+      users = await debounceList(users);
     } else {
-      var users = await db.User.findAll({
+      users = await db.User.findAll({
         include: { model: db.Role, as: "role", attributes: ["id", "name"] },
       });
     }
@@ -53,19 +67,11 @@ module.exports = {
     });
     return result;
   },
-  // searchUser: async (value) => {
-  //   if (value.length < 3) throw new Error("Enter at least 3 characteres");
-  //   const valueLowCase = value.toLowerCase();
-  //   const users = await db.User.findAll({
-  //     where: {
-  //       [Op.or]: [
-  //         Sequelize.literal(
-  //           `MATCH(username, email, phone) AGAINST('${valueLowCase}' IN NATURAL LANGUAGE MODE)`
-  //         ),
-  //       ],
-  //     },
-  //   });
-  //   if (!users || users.length === 0) throw new Error("Users not found");
-  //   return users;
-  // },
+  getUser: async (id) => {
+    const result = await db.User.findOne({
+      include: { model: db.Role, as: "role", attributes: ["id", "name"] },
+      where: { id: id },
+    });
+    return result;
+  },
 };

@@ -21,8 +21,7 @@ export class ApiService {
 
   private apiUrl = "http://localhost:3000"
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   // login
   login(nameApi: string, email: string, password: string): Observable<any> {
@@ -36,12 +35,10 @@ export class ApiService {
     return this.http.post<any>(url, body)
       .pipe(
         tap(response => {
-          console.log('Response received from API:', response); // Log response to debug
 
           if (response && response.data) {
             this.storeTokens(response.data);
           } else {
-            console.error('Invalid response structure:', response);
           }
 
         }),
@@ -68,6 +65,21 @@ export class ApiService {
     localStorage.removeItem('user_id');
   }
 
+  // get current admin
+  getUser(id: any): Observable<any> {
+    let body = new HttpParams()
+    
+    if (id !== null) {
+      body = body.set('id', id);
+    }
+
+    const headers = {
+      "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/users/get-user`, { params: body, headers: headers })
+  }
+
 // get all items
   getItems(nameApi: string, search: string, page: number, limit: number): Observable<any> {
     const accessToken = localStorage.getItem("access_token")
@@ -81,7 +93,7 @@ export class ApiService {
       'Authorization': `Bearer ${accessToken}`
     })
 
-    return this.http.get<any>(`${this.apiUrl}/${nameApi}`, {params: query, headers: headers})
+    return this.http.get<any>(`${this.apiUrl}${nameApi}`, {params: query, headers: headers})
   }
 
   // create a item
@@ -98,7 +110,7 @@ export class ApiService {
     .pipe(
         tap(response => {
           
-          console.log('Response received from API:', response); // Log response to debug
+          // console.log('Response received from API:', response); // Log response to debug
 
           if (response && response.data) {
             this.storeTokens(response.data);
@@ -123,21 +135,11 @@ export class ApiService {
       "Authorization": `Bearer ${accessToken}`
     }
 
-    console.log(queryBody)
-
     const url = `${this.apiUrl}${nameApi}/delete`
     return this.http.delete<any>(url, { body: queryBody, headers: headers })
     .pipe(
         tap(response => {
-          
-          console.log('Response received from API:', response); // Log response to debug
-
-          // if (response && response.data) {
-          //   this.storeTokens(response.data);
-          // } else {
-          //   console.error('Invalid response structure:', response);
-          // }
-
+          // console.log('Response received from API:', response); // Log response to debug
         }),
         catchError(error => {
             console.error('Error in API call:', error);
@@ -146,35 +148,45 @@ export class ApiService {
       );
   }
 
-    // update a item
-    updateItem(nameApi: string, queryBody: any, id: any): Observable<any> {
-      const accessToken = localStorage.getItem("access_token")
-  
-      const url = `${this.apiUrl}/${nameApi}/update/${id}`
-  
-      const headers = {
-        "Authorization": `Bearer ${accessToken}`
-      }
-  
-      return this.http.put<any>(url, queryBody, { headers })
-      .pipe(
-          tap(response => {
-            
-            console.log('Response received from API:', response); // Log response to debug
-  
-            if (response && response.data) {
-              this.storeTokens(response.data);
-            } else {
-              console.error('Invalid response structure:', response);
-            }
-  
-          }),
-          catchError(error => {
-              console.error('Error in API call:', error);
-              return throwError(error);
-          })
-        );
-  
+  // update a item
+  updateItem(nameApi: string, queryBody: any, id: any): Observable<any> {
+    const accessToken = localStorage.getItem("access_token")
+
+    const url = `${this.apiUrl}/${nameApi}/update/${id}`
+
+    const headers = {
+      "Authorization": `Bearer ${accessToken}`
     }
+
+    return this.http.put<any>(url, queryBody, { headers })
+    .pipe(
+        tap(response => {
+          
+          // console.log('Response received from API:', response); // Log response to debug
+
+          if (response && response.data) {
+            this.storeTokens(response.data);
+          } else {
+            console.error('Invalid response structure:', response);
+          }
+
+        }),
+        catchError(error => {
+            console.error('Error in API call:', error);
+            return throwError(error);
+        })
+      );
+
+  }
+
+  // authorization
+  checkAuth(): boolean {
+    const accessToken = localStorage.getItem("access_token");
+    if (accessToken) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

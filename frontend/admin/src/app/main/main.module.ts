@@ -22,7 +22,8 @@ import { ViewDetailComponent } from './pages/view-detail/components/view-detail/
 import { MyProfilePageComponent } from './pages/my-profile-page/components/my-profile-page/my-profile-page.component';
 import { DeleteSuccessComponent } from './features/delete/delete-success/components/delete-success/delete-success.component';
 import { DeleteFailedComponent } from './features/delete/delete-failed/delete-failed.component';
-
+import { TranslateModule } from '@ngx-translate/core';
+import { AddUsersComponent } from './pages/add-users/add-users.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -41,12 +42,13 @@ import { DeleteFailedComponent } from './features/delete/delete-failed/delete-fa
     EditCategoryComponent, 
     EditLanguageComponent, 
     ViewDetailComponent, 
-    MyProfilePageComponent, DeleteSuccessComponent, DeleteFailedComponent,  
+    MyProfilePageComponent, DeleteSuccessComponent, DeleteFailedComponent, AddUsersComponent,
   ],
   imports: [
     MainRoutingModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    TranslateModule.forChild()
   ],
   providers: [],
   bootstrap: [MainComponent]
