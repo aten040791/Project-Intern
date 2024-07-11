@@ -51,8 +51,7 @@ export class AccountPageComponent implements OnInit {
         formData.append(key, value);
       });
       const formDataObject = this.formDataToObject(formData);
-      const formDataString = JSON.stringify(formDataObject);
-      this.apiService.updateUser(formDataString).subscribe({
+      this.apiService.updateUser(formDataObject).subscribe({
         next: (response) => {
           console.log('User updated successfully', response);
           this.router.navigate(['/account-page']);
@@ -65,7 +64,7 @@ export class AccountPageComponent implements OnInit {
     }
   };
 
-  formDataToObject(formData: FormData): { [key: string]: any } {
+  formDataToObject(formData: FormData): any {
     const object: { [key: string]: any } = {};
     formData.forEach((value, key) => {
       object[key] = value;

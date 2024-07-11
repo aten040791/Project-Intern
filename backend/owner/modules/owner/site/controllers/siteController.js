@@ -3,13 +3,13 @@ const responseUtils = require("utils/responseUtils");
 
 const siteController = {
   getCategory: async (req, res) => {
-      const data = await siteService.getCategory();
-      return responseUtils.ok(res, data);
+    const data = await siteService.getCategory();
+    return responseUtils.ok(res, data);
   },
 
   getLanguage: async (req, res) => {
-      const data = await siteService.getLanguage();
-      return responseUtils.ok(res, data);
+    const data = await siteService.getLanguage();
+    return responseUtils.ok(res, data);
   },
 
   getUserById: async (req, res) => {
@@ -20,9 +20,7 @@ const siteController = {
 
   updateUser: async (req, res) => {
     const { uid } = req.params;
-    const updateUser = req.body;
-    console.log(updateUser);
-    console.log(uid);
+    const updateUser = req.body.formData;
     await siteService.updateUser(uid, updateUser);
     return responseUtils.ok(res, { user: "Update successfull" });
   },
