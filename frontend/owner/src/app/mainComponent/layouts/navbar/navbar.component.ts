@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { ApiService } from 'src/app/services/api.service';
 import { faBell, faCog, faEnvelopeOpen, faGlobe, faPowerOff, faSearch, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { TranslationService } from '../../shared/i18n/translation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,12 @@ export class NavbarComponent implements OnInit {
   userDropdownOpen = false;
   profile: any;
 
-  constructor(private apiService: ApiService, private router: Router) {
+  item: any = {}
+  languages: any[] = []
+  icActive: boolean = false
+  selectedLanguage: any = {}
+
+  constructor(private apiService: ApiService, private router: Router, private translate: TranslationService) {
     library.add(faSearch, faGlobe, faBell, faEnvelopeOpen, faUser, faCog, faPowerOff, faBars);
   }
 
@@ -39,6 +45,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfile();
+    this.selectedLanguage.locale = localStorage.getItem('locale')
+    this.translate.setDefaultLang(this.selectedLanguage.locale)
   };
 
   getProfile() {
@@ -46,6 +54,7 @@ export class NavbarComponent implements OnInit {
       next: response => {
         console.log('API Response - Profile:', response.data.user);
           this.profile = response.data.user;
+          this.getDataLanguage()
       },
       error: error => {
         console.error('Failed to fetch profile:', error);
@@ -53,9 +62,31 @@ export class NavbarComponent implements OnInit {
     });
   };
 
+  getDataLanguage(): void {
+    this.apiService.getDataLanguage().subscribe(
+      response => {
+        console.log('API Response - Languages:', response.data);
+        if (Array.isArray(response.data)) {
+          this.languages = response.data;
+        } else {
+          this.languages = [];
+        }
+      },
+      error => {
+        console.error('Failed to fetch languages:', error);
+      }
+    );
+  };
+
   logout() {
     localStorage.clear();
     this.router.navigate(['/auth/login']);
   };
+
+  onClickActive(language: any): void {
+    this.selectedLanguage = language
+    this.translate.switchLang(this.selectedLanguage.locale);
+    localStorage.setItem('locale', this.selectedLanguage.locale)
+  }
 
 }

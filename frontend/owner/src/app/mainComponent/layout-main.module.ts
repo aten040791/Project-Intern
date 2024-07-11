@@ -19,6 +19,7 @@ import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit
 import { DeleteMutipalPostComponent } from './dialogs/delete-mutipal-post/delete-mutipal-post.component';
 import { CommonModule } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     NgxPaginationModule,
     ReactiveFormsModule,
     CKEditorModule,
+    TranslateModule.forChild(),
   ]
 })
 export class LayoutMainModule {}

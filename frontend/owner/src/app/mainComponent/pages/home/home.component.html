@@ -2,12 +2,12 @@
     <div>
       <div class="header-container" style="display: flex; align-items: center; justify-content: space-between; margin: 0px 0px 20px 0px;">
         <div class="title flex direction-col">
-          <h2 class="my-0">POST LIST</h2>
+          <h2 class="my-0">{{ "labels.postList" | translate }}</h2>
         </div>
         <div>
           <a routerLink="/create-post" class="">
             <button class="btn btn-secondary add-item btn-primary">
-              <span><fa-icon [icon]="faPlusSquare"></fa-icon><span class="d-none d-sm-inline-block">Create new</span></span>
+              <span><fa-icon [icon]="faPlusSquare"></fa-icon><span class="d-none d-sm-inline-block">{{ "labels.addNewPost" | translate }}</span></span>
             </button>
           </a>
         </div>
@@ -29,17 +29,17 @@
                     </div>
                     <div class="col-md-4 offset-md-4" style="text-align: right;padding-right: 5px;">
                       <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isAnyPostSelected()">
-                        <span><fa-icon [icon]="faSliders"></fa-icon><span>Action</span></span>
+                        <span><fa-icon [icon]="faSliders"></fa-icon><span>{{ "labels.actions" | translate }}</span></span>
                       </button>
                       <div class="dropdown-menu dropdown-menu-end m-0">
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-status-dialog', getSelectedPostIds())">
-                          <span class="ms-1"><fa-icon [icon]="faToggleOn"></fa-icon><span>Update Status</span></span>
+                          <span class="ms-1"><fa-icon [icon]="faToggleOn"></fa-icon><span>{{ "labels.editStatus" | translate }}</span></span>
                         </a>
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('edit-category-dialog', getSelectedPostIds())">
-                          <span class="ms-1"><fa-icon [icon]="faBook"></fa-icon><span>Update Category</span></span>
+                          <span class="ms-1"><fa-icon [icon]="faBook"></fa-icon><span>{{ "labels.editCategory" | translate }}</span></span>
                         </a>
                         <a href="javascript:;" class="dropdown-item" (click)="showModal('delete-mutipal-post', getSelectedPostIds())">
-                          <span class="ms-1"><fa-icon [icon]="faTrash"></fa-icon><span>Delete Multiple Posts</span></span>
+                          <span class="ms-1"><fa-icon [icon]="faTrash"></fa-icon><span>{{ "buttons.deleteAll" | translate }}</span></span>
                         </a>
                       </div>
                     </div>
@@ -54,13 +54,13 @@
                     <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" style="width: 18px;" data-col="1" aria-label="">
                       <input type="checkbox" class="form-check-input" id="select-all" [(ngModel)]="selectAll" (change)="checkAll($event)">
                     </th>
-                    <th class="sorting" style="width: 250px;">Title</th>
-                    <th class="sorting" style="width: 400px;">Content</th>
-                    <th class="sorting" style="width: 200px;">Date</th>
-                    <th class="sorting" style="width: 150px;">Category</th>
-                    <th class="sorting" style="width: 150px;">Locale</th>
-                    <th class="sorting">Status</th>
-                    <th class="sorting" style="width: 120px; text-align-last: center;">Actions</th>
+                    <th class="sorting" style="width: 250px;">{{ "labels.title" | translate }}</th>
+                    <th class="sorting" style="width: 350px;">{{ "labels.content" | translate }}</th>
+                    <th class="sorting" style="width: 200px;">{{ "labels.createdDate" | translate }}</th>
+                    <th class="sorting" style="width: 150px;">{{ "labels.category" | translate }}</th>
+                    <th class="sorting" style="width: 150px;">{{ "labels.locale" | translate }}</th>
+                    <th class="sorting" style="width: 130px;">{{ "labels.status" | translate }}</th>
+                    <th class="sorting" style="width: 150px; text-align-last: center;">{{ "labels.actions" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -74,7 +74,7 @@
                         <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 200px;">{{ getTranslationData(post.translations).title }}</span></div>
                       </div>
                     </td>
-                    <td style="max-width: 400px;">
+                    <td style="max-width: 350px;">
                       <p class="card-text" [ngClass]="{'read-more': isReadMore[post.id]}">
                         <span class="responsive-img-span" [innerHtml]="getTranslationData(post.translations).body"></span>
                       </p>
@@ -96,16 +96,16 @@
                         <div class="dropdown-menu dropdown-menu-end m-0">
                           <a routerLink="/update-post/{{ post.id }}" class="dropdown-item">
                             <fa-icon [icon]="faEdit"></fa-icon>
-                            <span class="ms-1">Update</span>
+                            <span class="ms-1">{{ "buttons.update" | translate }}</span>
                           </a>
                           <a routerLink="/detail-post/{{ post.id }}" class="dropdown-item">
                             <fa-icon [icon]="faEye"></fa-icon>
-                            <span class="ms-1">Details</span>
+                            <span class="ms-1">{{ "buttons.details" | translate }}</span>
                           </a>
                           <div class="dropdown-divider"></div>
                           <a href="javascript:;" (click)="showModal('delete-mutipal-post', [post.id])" class="dropdown-item text-danger delete-record align-items-center fs-15" data-id="#">
                             <fa-icon [icon]="faTrash"></fa-icon>
-                            <span class="ms-1">Delete</span>
+                            <span class="ms-1">{{ "buttons.delete" | translate }}</span>
                           </a>
                         </div>
                       </div>
@@ -116,7 +116,7 @@
               </table>
               <div class="row" style="margin: 15px 0px 15px 0px;">
                 <div class="col-md-2" style="display: inline-flex;">
-                  <p style="margin-top: 15px; text-align: right;">Rows per page:</p>
+                  <p style="margin-top: 15px; text-align: right;">{{ "labels.rowsPerPage" | translate }}</p>
                   <select id="itemsPerPageSelect" style="margin-bottom: 8px;padding-left: 10px;border: 0px;width: 60px;" class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
                     <option *ngFor="let option of availableItemsPerPage" [value]="option">{{ option }}</option>
                   </select>
@@ -126,7 +126,7 @@
                   <ul class="pagination align-items-center justify-content-end" style="margin-right: 10px;">
                     <li class="page-item" [class.disabled]="currentPage === 1">
                       <a class="page-link" (click)="currentPage > 1 && onPageChange(currentPage - 1)">
-                        Previous
+                        {{ "buttons.previous" | translate }}
                       </a>
                     </li>
                     <li class="page-item" *ngIf="currentPage > 2" [ngStyle]="{ display: currentPage > 1 ? 'block' : 'none' }">
@@ -141,7 +141,7 @@
                     </li>
                     <li class="page-item" [class.disabled]="currentPage === totalPages">
                       <a class="page-link" (click)="currentPage < totalPages && onPageChange(currentPage + 1)">
-                        Next
+                        {{ "buttons.next" | translate }}
                       </a>
                     </li>
                   </ul>

@@ -3,7 +3,7 @@
     <div class="container-xxl container-p-y">
       <div class="row justify-content-center align-items-center mb-4">
         <div class="col-lg-12 d-flex justify-content-between">
-          <h3 class="header">CREATE POST</h3>
+          <h3 class="header">{{ "labels.createPost" | translate }}</h3>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -12,17 +12,17 @@
           <ul class="nav nav-pills flex-column flex-md-row">
             <li class="nav-item">
               <a class="nav-link" [class.active]="selectedTab === 'Vietnamese'" (click)="selectTab('Vietnamese')">
-                <i class="bx bx-user me-1"></i>Tiếng Việt
+                <img class="flags" src="../../../../assets/img/flags/vietnam.png" alt="">Tiếng Việt
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" [class.active]="selectedTab === 'English'" (click)="selectTab('English')">
-                <i class="bx bx-lock-alt me-1"></i>Tiếng Anh
+                <img class="flags" src="../../../../assets/img/flags/united-states.png" alt="" >Tiếng Anh
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" [class.active]="selectedTab === 'Chinese'" (click)="selectTab('Chinese')">
-                <i class="bx bx-detail me-1"></i>Tiếng Trung
+                <img class="flags" src="../../../../assets/img/flags/china.png" alt="" >Tiếng Trung
               </a>
             </li>
           </ul>
@@ -34,11 +34,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="form-label" for="title">Title</label>
+                    <label class="form-label" for="title">{{ "labels.title" | translate }}</label>
                     <input type="text" id="title" class="form-control" formControlName="title" placeholder="Title" required>
                   </div>
                   <div class="form-group">
-                    <label class="form-label" for="body">Content</label>
+                    <label class="form-label" for="body">{{ "labels.content" | translate }}</label>
                     <ckeditor id="body" formControlName="body" [editor]="Editor" (ready)="onReady($event)" required></ckeditor>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group" style="margin-bottom: 15px;">
-                  <label for="category_id" class="form-label">Category</label>
+                  <label for="category_id" class="form-label">{{ "labels.category" | translate }}</label>
                   <select class="form-select" id="category_id" formControlName="category_id" required>
                     <option value="" selected disabled>{{ selectedCategoryText }}</option>
                     <option *ngFor="let category of categories" [value]="category.id">
@@ -61,14 +61,14 @@
                   </select>
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
-                  <label class="form-label" for="file">File</label>
+                  <label class="form-label" for="file">{{ "labels.file" | translate }}</label>
                   <input type="file" class="form-control" (change)="onFileChange($event)">
                   <div class="preview">
                     <img *ngIf="previewUrl" [src]="previewUrl" alt="File Preview" class="img-thumbnail mt-2">
                   </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
-                  <label for="status" class="form-label">Status:</label>
+                  <label for="status" class="form-label">{{ "labels.status" | translate }}</label>
                   <div id="status" class="switch" style="margin: 20px;">
                     <input type="checkbox" id="switch1" formControlName="status">
                     <label for="switch1"></label>
@@ -76,9 +76,9 @@
                 </div>
                 <div class="form-group" style="float: right;">
                   <a routerLink="/post">
-                    <button type="button" class="btn btn-danger" style="margin-right: 10px;">Cancel</button>
+                    <button type="button" class="btn btn-danger" style="margin-right: 10px;">{{ "buttons.cancel" | translate }}</button>
                   </a>
-                  <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">Save</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">{{ "buttons.save" | translate }}</button>
                 </div>
               </div>
             </div>
