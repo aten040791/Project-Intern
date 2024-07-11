@@ -3,6 +3,8 @@ import { ShowPasswordService } from '../../features/show-password/show-password.
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
+import { AuthService } from '../../auth.service';
+import { TranslationService } from 'src/app/main/shared/i18n/translation.service';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +13,28 @@ import { LoginService } from './services/login.service';
 })
 
 export class LoginComponent {
+  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService, private authService: AuthService, private translate: TranslationService) {
+  }
+
   email: string = ""
   password: string = ""
+  locale: string = "en"
 
   isCheckPW: boolean = false
   inputType: string = 'password'
 
+  isDropdown: boolean = false
 
-  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService) {}
+  ngOnInit(): void {
+    const savedLocale = localStorage.getItem('locale');
+    if (savedLocale) {
+      this.locale = savedLocale;
+    } else {
+      this.locale = 'en';
+      localStorage.setItem('locale', this.locale);
+    }
+    this.translate.setDefaultLang(this.locale);
+  }
 
   togglePW(): void {
     this.showPW.showPassWord();
@@ -31,18 +47,23 @@ export class LoginComponent {
     this.password = data["password"]
     this.http.login("auth", this.email, this.password).subscribe({
       next: (data: any) => {
-        this.initItems(data.data.user)
+        this.loginService.setItem(data.data.user)
         this.router.navigate(['/home'])
       }, 
       error: (error: Error) => {
-        // console.error('Email or password is wrong', error);
         alert('Email or password is wrong !!')
       }
     })
   }
 
-  initItems(item: any): void {
-    this.loginService.setItem(item)
+  onDropdown(): void {
+    this.isDropdown = !this.isDropdown
+  }
+
+  onClickLocale(locale: string): void {
+    this.locale = locale
+    localStorage.setItem('locale', locale)
+    this.translate.setDefaultLang(locale)
   }
 
 }

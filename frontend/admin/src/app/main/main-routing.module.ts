@@ -7,6 +7,8 @@ import { LanguagePageComponent } from './pages/language-page/language-page.compo
 import { ViewDetailComponent } from './pages/view-detail/components/view-detail/view-detail.component';
 import { MyProfilePageComponent } from './pages/my-profile-page/components/my-profile-page/my-profile-page.component';
 import { MainComponent } from './main.component';
+import { AddUsersComponent } from './pages/add-users/add-users.component';
+import { authGuard } from '../auth/auth.guard';
   
 const routes: Routes = [
   {
@@ -14,16 +16,16 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomePageComponent },
-      { path: 'categories', component: CategoryPageComponent },
-      { path: 'users', component: UserPageComponent },
-      { path: 'languages', component: LanguagePageComponent },
-      { path: 'users/view-detail/:id', component: ViewDetailComponent },
-      { path: 'my-profile', component: MyProfilePageComponent },
+      { path: 'home', component: HomePageComponent, canActivate: [authGuard] },
+      { path: 'categories/list', component: CategoryPageComponent, canActivate: [authGuard] },
+      { path: 'users/list', component: UserPageComponent, canActivate: [authGuard] },
+      { path: 'users/add', component: AddUsersComponent, canActivate: [authGuard] },
+      { path: 'users/view-detail/:id', component: ViewDetailComponent, canActivate: [authGuard] },
+      { path: 'languages/list', component: LanguagePageComponent, canActivate: [authGuard] },
+      { path: 'my-profile', component: MyProfilePageComponent, canActivate: [authGuard] },
     ]
   },
   
-  // { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 @NgModule({

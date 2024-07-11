@@ -31,25 +31,34 @@ export class CategoryPageComponent implements OnInit {
   checkBoxs = new Set<number>();
   checkBoxsTmp = new Set<number>();
   idDelete = new Set<number>();
-  url: string = ""
+  url: string = this.router.url
 
   ngOnInit(): void {
+    this.url = this.getBasePath(this.url)
     this.loadItems()
-    this.url = this.router.url
+  }
+
+  private getBasePath(url: string): string {
+    return url.includes('?') ? url.split('?')[0] : url;
   }
 
   // load data
   loadItems() {
-    this.http.getItems("categories", this.search, this.currentPage, this.limit).subscribe({
+    // const accessToken = localStorage.getItem('access_token')
+    // if (!accessToken) {
+    //   this.router.navigate(['/auth/login'])
+    // }
+    this.http.getItems("/categories", this.search, this.currentPage, this.limit).subscribe({
       next: (data: any) => {
-        data = data.data.categories
+        data = data["data"]
         this.items = data["result"].slice()
         this.pages = data["pages"]
       },
       error: (error) => {
-        console.error('Error fetching items', error);
+        alert(`Error fetching items: ${error.message}`)
       }
     })
+    this.url = this.getBasePath(this.url)
   }
   
   // handle all checkbox

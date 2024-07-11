@@ -1,12 +1,17 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
-const { uploads } = require("middlewares/multer");
+const { debounce } = require("middlewares/debounce");
+
+const debounceList = debounce((languages) => {
+  return languages;
+}, 500);
 
 module.exports = {
   list: async (page, limit, search) => {
-    const valueLowCase = search.toLowerCase();
-    if (valueLowCase !== "") {
-      var languages = await db.Language.findAll({
+    let languages;
+    if (search !== "") {
+      const valueLowCase = search.toLowerCase();
+      languages = await db.Language.findAll({
         where: {
           [Op.or]: [
             Sequelize.literal(
@@ -15,8 +20,9 @@ module.exports = {
           ],
         },
       });
+      languages = await debounceList(languages);
     } else {
-      var languages = await db.Language.findAll({});
+      languages = await db.Language.findAll({});
     }
 
     // pagination
@@ -24,7 +30,6 @@ module.exports = {
     const endIndex = page * limit;
     const pages = Math.ceil(languages.length / limit);
     const result = languages.slice(startIndex, endIndex);
-
     return { result, pages };
   },
   createLanguage: async (lg) => {

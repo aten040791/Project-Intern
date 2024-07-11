@@ -3,6 +3,9 @@ import { LoginService } from 'src/app/auth/pages/login/services/login.service';
 import { ApiService } from '../../shared/httpApi/api.service';
 import { Router } from '@angular/router';
 import { LanguagePageService } from '../../pages/language-page/services/language-page.service';
+import { language } from '../../interfaces/language/language';
+// import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../shared/i18n/translation.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,15 +15,62 @@ import { LanguagePageService } from '../../pages/language-page/services/language
 
 export class NavComponent implements OnInit {
 
+  constructor(private loginService: LoginService, private http: ApiService, private router: Router, private languageService: LanguagePageService, private translate: TranslationService) {}
+
   item: any = {}
   languages: any[] = []
+  icActive: boolean = false
+  selectedLanguage: any = {}
 
-  constructor(private loginService: LoginService, private http: ApiService, private router: Router, private languageService: LanguagePageService) {}
+  // pagination
+  currentPage: number = 1;
+  limit: number = 10;
+  pages: number = 0;
+  search: string = "";
 
   ngOnInit(): void {
-    this.item = this.loginService.getItem()
-    // this.languages = this.languageService.getItems()
-    // console.log(this.languages)
+    this.loadData()
+    // this.selectedLanguage.locale = "en"
+    this.selectedLanguage.locale = localStorage.getItem('locale')
+    this.translate.setDefaultLang(this.selectedLanguage.locale)
+  }
+
+  loadData() {
+    const id = localStorage.getItem('user_id');
+    // const accessToken = localStorage.getItem('access_token')
+
+    // if (!accessToken || !id) {
+    //   this.router.navigate(['/auth/login'])
+    // }
+
+    this.http.getUser(id).subscribe({
+      next: (data: any) => {
+        this.item = data["data"]
+        this.loadLanguage()
+      },
+      error: (err: any) => {
+        // alert(`Error fetching items: ${err.message}`)
+        // this.router.navigate(['/auth/login'])
+      }
+    })
+    
+  }
+
+  loadLanguage() {
+    this.http.getItems('/languages', this.search, this.currentPage, this.limit).subscribe({
+      next: (data: any) => {
+        this.languages = data["data"]["result"]
+        this.languages.map((language: language) => {
+          if (language.locale === localStorage.getItem('locale')) {
+            this.selectedLanguage = language
+          }
+        })
+
+      },
+      error: (err: any) => {
+        // this.router.navigate(['/auth/login'])
+      }
+    })
   }
 
   toggleIcon() {
@@ -35,6 +85,12 @@ export class NavComponent implements OnInit {
   onLogOut() {
     this.http.logout()
     this.router.navigate(['/auth/login'])
+  }
+
+  onClickActive(language: any): void {
+    this.selectedLanguage = language
+    this.translate.switchLang(this.selectedLanguage.locale);
+    localStorage.setItem('locale', this.selectedLanguage.locale)
   }
   
 }

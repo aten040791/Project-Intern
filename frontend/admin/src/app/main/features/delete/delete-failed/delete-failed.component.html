@@ -29,14 +29,14 @@
     </div>
     <img class="swal2-image" style="display: none" />
     <h2 class="swal2-title" id="swal2-title" style="display: block">
-      Cancelled
+      {{ "labels.titleDeleteFailed" | translate }}
     </h2>
     <div
       class="swal2-html-container"
       id="swal2-html-container"
       style="display: block"
     >
-      Cancelled Suspension :)
+      {{ "labels.subtitleDeleteFailed" | translate }}
     </div>
     <input id="swal2-input" class="swal2-input" style="display: none" /><input
       type="file"
@@ -70,7 +70,7 @@
       <div class="swal2-loader"></div>
       <button
         type="button"
-        class="swal2-confirm btn btn-success"
+        class="swal2-confirm btn btn-danger"
         aria-label=""
         style="display: inline-block"
         (click)="closeDialog()"
