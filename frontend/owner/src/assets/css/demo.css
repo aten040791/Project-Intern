@@ -486,3 +486,8 @@ fa-icon{
   display: block;
   margin: 0 auto;
 }
+
+.flags {
+  height: 20px;
+  padding-right: 10px;
+}

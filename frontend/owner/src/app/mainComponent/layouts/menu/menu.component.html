@@ -11,7 +11,7 @@
         <li class="menu-item" [ngClass]="{'active': isDashboardActive()}">
             <a routerLink="/#" class="menu-link">
                 <fa-icon [icon]="faDashboard"></fa-icon>
-                <div data-i18n="Basic">Dashboards</div>
+                <div data-i18n="Basic">{{ "labels.dashboards" | translate }}</div>
             </a>
         </li>
 
@@ -19,7 +19,7 @@
         <li class="menu-item" [ngClass]="{'active': isPostActive()}">
             <a routerLink="/post" class="menu-link">
                 <fa-icon [icon]="faNewspaper"></fa-icon>
-                <div data-i18n="Basic">Post</div>
+                <div data-i18n="Basic">{{ "buttons.post" | translate }}</div>
             </a>
         </li>
 
@@ -27,7 +27,7 @@
         <li class="menu-item" [ngClass]="{'active': isAccountActive()}">
             <a routerLink="/account-page" class="menu-link">
                 <fa-icon [icon]="faUser"></fa-icon>
-                <div data-i18n="Account">Account</div>
+                <div data-i18n="Account">{{ "buttons.account" | translate }}</div>
             </a>
         </li>
     </ul>

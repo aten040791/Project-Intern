@@ -12,7 +12,8 @@
         <div class="navbar-nav d-none d-xl-flex justify-content-between align-items-center" style="width: 65%;">
             <div class="nav-item d-flex align-items-center">
                 <fa-icon [icon]="faSearch"></fa-icon>
-                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..." aria-label="Search...">
+                <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2" placeholder="Search..."
+                    aria-label="Search...">
             </div>
         </div>
         <!-- /Search -->
@@ -23,25 +24,13 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <fa-icon [icon]="faGlobe"></fa-icon>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item active" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                            <span class="align-middle">English</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                            <span class="align-middle">French</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                            <span class="align-middle">Arabic</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                            <span class="align-middle">German</span>
+                <ul class="dropdown-menu dropdown-menu-end" data-bs-popper="static">
+                    <li *ngFor="let language of languages">
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            [class.active]="selectedLanguage.locale === language.locale"
+                            (click)="onClickActive(language)">
+                            <img class="me-2" [src]="language.flag" alt="" width="21" />
+                            <span class="align-middle">{{ language.name }}</span>
                         </a>
                     </li>
                 </ul>
@@ -49,14 +38,17 @@
             <!-- language -->
             <!-- notification -->
             <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside" aria-expanded="false">
                     <fa-icon [icon]="faBell"></fa-icon>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end py-0" style="width: 350px;">
                     <li class="dropdown-menu-header border-bottom">
                         <div class="dropdown-header d-flex align-items-center py-3">
                             <h5 class="text-body mb-0 me-auto">Notification</h5>
-                            <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark all as read" data-bs-original-title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
+                            <a href="javascript:void(0)" class="dropdown-notifications-all text-body"
+                                data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark all as read"
+                                data-bs-original-title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
                         </div>
                     </li>
                     <li class="dropdown-notifications-list scrollable-container ps">
@@ -65,7 +57,8 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar">
-                                            <img src="assets/img/avatars/6.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                            <img src="assets/img/avatars/6.png" alt=""
+                                                class="w-px-40 h-auto rounded-circle">
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
@@ -74,16 +67,20 @@
                                         <small class="text-muted">5 days ago</small>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span
+                                                class="badge badge-dot"></span></a>
+                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span
+                                                class="bx bx-x"></span></a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                            <li
+                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar">
-                                            <span class="avatar-initial rounded-circle bg-label-warning"><fa-icon [icon]="faEnvelopeOpen"></fa-icon></span>
+                                            <span class="avatar-initial rounded-circle bg-label-warning"><fa-icon
+                                                    [icon]="faEnvelopeOpen"></fa-icon></span>
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
@@ -92,8 +89,10 @@
                                         <small class="text-muted">5 days ago</small>
                                     </div>
                                     <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span
+                                                class="badge badge-dot"></span></a>
+                                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span
+                                                class="bx bx-x"></span></a>
                                     </div>
                                 </div>
                             </li>
@@ -125,7 +124,8 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                        <img src="assets/img/avatars/1.png" alt=""
+                                            class="w-px-40 h-auto rounded-circle">
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
@@ -141,13 +141,13 @@
                     <li>
                         <a class="dropdown-item" routerLink="/account-page">
                             <fa-icon [icon]="faUser"></fa-icon>
-                            <span class="align-middle">My Profile</span>
+                            <span class="align-middle">{{ "labels.myProfile" | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="#">
                             <fa-icon [icon]="faCog"></fa-icon>
-                            <span class="align-middle">Settings</span>
+                            <span class="align-middle">{{ "buttons.settings" | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -156,7 +156,9 @@
                     <li>
                         <a class="dropdown-item" (click)="logout()">
                             <fa-icon [icon]="faPowerOff"></fa-icon>
-                            <span class="align-middle">Log Out</span>
+                            <span class="align-middle">
+                                {{ "buttons.logout" | translate }}
+                            </span>
                         </a>
                     </li>
                 </ul>
