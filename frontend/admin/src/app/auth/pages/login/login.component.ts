@@ -64,6 +64,7 @@ export class LoginComponent {
     this.locale = locale
     localStorage.setItem('locale', locale)
     this.translate.setDefaultLang(locale)
+    this.isDropdown = this.isDropdown ? false : this.isDropdown
   }
 
 }
