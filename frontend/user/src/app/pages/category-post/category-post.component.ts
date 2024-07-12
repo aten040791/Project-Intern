@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import { format } from 'date-fns';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -10,6 +11,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class CategoryPostComponent implements OnInit {
   reponseDataPosts: any[] = [];
+  reponsePosts: any[] = [];
   posts: any[] = [];
 
   currentPage: number = 1;
@@ -36,7 +38,11 @@ export class CategoryPostComponent implements OnInit {
 
   getData(): void {
     this.apiService.getData().subscribe((response) => {
-        this.reponseDataPosts = response.data;
+        this.reponsePosts = response.data,
+        this.reponseDataPosts = this.reponsePosts.map((post) => ({
+          ...post,
+          formattedDate: format(new Date(post.createdAt), 'PP'),
+        }));
     });
   };
 
@@ -50,6 +56,27 @@ export class CategoryPostComponent implements OnInit {
       const categoryId = +params['id'];
       this.getCategoryPosts(categoryId, this.currentPage, this.itemsPerPage);
     });
+  };
+
+  getTranslationData(translations: any[]): { title: string, body: SafeHtml, languageName: string } {
+    let title = 'No title available';
+    let body: SafeHtml = this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>');
+    let languageName = 'No language available';
+  
+    if (translations.length > 0) {
+      for (let i = 0; i < translations.length; i++) {
+        if(translations[i].title && title === 'No title available') title = translations[i].title;
+        if(translations[i].body) body = this.sanitizer.bypassSecurityTrustHtml(translations[i].body);
+        if(translations[i].language && translations[i].language.name &&
+          languageName === 'No language available' &&
+          title !== 'No title available') {
+          languageName = translations[i].language.name; }
+        if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
+          break;
+        }
+      }
+    }
+    return { title, body, languageName };
   };
 
   getCategoryPosts(categoryId: number, page: number = this.currentPage, perPage: number = this.itemsPerPage): void {

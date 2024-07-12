@@ -22,7 +22,7 @@
                     <li>
                         <a href="">Giới Thiệu</a>
                     </li>
-                    <li class="active">
+                    <li class="">
                         <a href="">Tin tức du lịch</a>
                     </li>
                     <li>
@@ -39,29 +39,30 @@
                     <img src="../../../assets/img/logo.jpg" alt="" style="border-radius: 50px;">
                 </a>
             </div>
-            <div id="sticker">
+            <div id="sticker" [ngClass]="{'active': isMenuOpen}">
                 <div class="sticker-container" id="sticker-container">
-                    <div class="overlay-sticker"></div>
-                    <div class="warpper">
-                        <div class="head-sticker">
-                            <p>Danh mục</p>
-                            <div id="touch-out">
-                            </div>
-                        </div>
-                        <div class="body-sticker">
-                            <ul class="tbl">
-                                <li class="tbl-cell">
-                                    <a routerLink="/home">Trang chủ</a>
-                                </li>
-                                <li class="tbl-cell" *ngFor="let category of responseDataCategory">
-                                    <a routerLink="/category/{{ category.id }}">{{ category.name }}</a>
-                                </li>
-                            </ul>
-                        </div>
+                  <div class="overlay-sticker" (click)="onCloseMenu()"></div>
+                  <div class="warpper">
+                    <div class="head-sticker">
+                      <p>Danh mục</p>
+                      <div id="touch-out" (click)="onCloseMenu()"></div>
                     </div>
+                    <div class="body-sticker">
+                      <ul class="tbl">
+                        <li class="tbl-cell" [ngClass]="{'active': activeCategoryId === null}">
+                          <a routerLink="/home" (click)="setActiveCategory(null)">Trang chủ</a>
+                        </li>
+                        <li class="tbl-cell" *ngFor="let category of responseDataCategory" [ngClass]="{'active': activeCategoryId === category.id}">
+                          <a routerLink="/category/{{ category.id }}" (click)="setActiveCategory(category.id)">
+                            {{ category.name }}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-            </div>
-            <div id="touch-on">
+              </div>
+            <div id="touch-on" (click)="onTouchOn()">
                 <span></span>
             </div>
         </div>

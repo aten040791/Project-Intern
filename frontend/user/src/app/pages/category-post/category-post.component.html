@@ -40,9 +40,9 @@
                                             </div>
                                         </div>
                                         <div class="desc">
-                                            <a routerLink="/detail-post/{{ post.id }}" class="title-desc">{{ post.title }}</a>
+                                            <a routerLink="/detail-post/{{ post.id }}" class="title-desc">{{ getTranslationData(post.translations).title }}</a>
                                             <p class="card-text">
-                                                <span class="responsive-img-span" [innerHtml]="getSanitizedHtml(post.body)"></span>
+                                                <span class="responsive-img-span" [innerHtml]="getTranslationData(post.translations).body"></span>
                                             </p>
                                             <a routerLink="/detail-post/{{ post.id }}" class="read-more">
                                                 [Xem chi tiết]
@@ -104,19 +104,13 @@
                             </a>
                         </div>
                         <div class="desc">
-                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
+                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ getTranslationData(reponseDataPost.translations).title }}</a>
                             <ul class="date-view">
                                 <li>
                                     <div class="ic-avt">
                                         <img src="../../../assets/img/ic-departure.png" alt="">
                                     </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
+                                    <p>{{ reponseDataPost.formattedDate }}</p>
                                 </li>
                             </ul>
                         </div>

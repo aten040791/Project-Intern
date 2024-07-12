@@ -1,9 +1,10 @@
 const db = require("models/index");
-const { Op, Sequelize } = require("sequelize");
+const { Op, Sequelize, where } = require("sequelize");
 
 const postService = {
   list: async () => {
     const posts = await db.Post.findAll({
+      where: { status: 'true' },
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
@@ -75,10 +76,16 @@ const postService = {
   category: async (id, page, perPage) => {
     const offset = (page - 1) * perPage;
     const { count, rows: posts } = await db.Post.findAndCountAll({
-      where: { category_id: id },
+      where: { category_id: id, status: 'true' },
+      distinct: true,
       include: [
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.User, as: 'user', attributes: ['id', 'username'] }
+        { model: db.User, as: 'user', attributes: ['id', 'username'] },
+        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+          include: [
+            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
+          ]
+        }
       ],
       order: [['createdAt', 'DESC']],
       offset: offset,

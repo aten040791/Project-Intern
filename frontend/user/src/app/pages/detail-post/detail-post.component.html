@@ -9,7 +9,7 @@
                     <a routerLink="/category/{{ post?.category.id }}">{{ post?.category.name }}</a>
                 </li>
                 <li>
-                    <a routerLink="/detail-post/{{ post?.id }}">{{ post?.title }}</a>
+                    <a routerLink="/detail-post/{{ post?.id }}">{{ getTranslationData(post.translations).title }}</a>
                 </li>
             </ul>
         </div>
@@ -18,27 +18,27 @@
                 <div class="ss3 ss3a">
                     <div class="title title2">
                         <h1 class="title_v3a">
-                            {{ post?.title }}
+                            {{ getTranslationData(post.translations).title }}
                         </h1>
                         <ul class="date-view">
                             <li>
                                 <div class="ic-avt">
                                     <img src="../../../assets/img/ic-departure.png" alt="">
                                 </div>
-                                <p>20:04</p>
-                                <p>9/10/2018</p>
+                                <p>{{ formattedDate }}</p>
                             </li>
                         </ul>
                     </div>
                     <div class="box-related-news">
                         <ul>
                             <li *ngFor="let reponDataPostHeader of reponDataPostsHeader">
-                                <a routerLink="/detail-post/{{ reponDataPostHeader.id }}">{{ reponDataPostHeader.title }}</a>
+                                <a routerLink="/detail-post/{{ reponDataPostHeader.id }}">{{ getTranslationData(reponDataPostHeader.translations).title }}</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="text-news" style="font-family: 'Arial',sans-serif;"><br>
-                        <span [innerHtml]="getSanitizedHtml(post?.body)" class="responsive-img-span"></span>
+                    <div class="text-news" style="font-family: 'Arial', sans-serif;">
+                        <br>
+                        <span [innerHtml]="getTranslationData(post.translations).body" class="responsive-img-span"></span>
                     </div>
                     <div class="btn-social-v2">
                         <img src="../../../assets/img/btn-social-v2.png" alt="">
@@ -46,18 +46,17 @@
                 </div>
                 <div class="ss3 ss3a">
                     <div class="title">
-                        <h2 class="title_v3a">
-                            Các tin liên quan
-                        </h2>
+                        <h2 class="title_v3a">Các tin liên quan</h2>
                     </div>
                     <ul class="list-news-v2">
                         <li *ngFor="let reponDataPostFooter of reponDataPostsFooter">
-                            <a routerLink="/detail-post/{{ reponDataPostFooter.id }}"><i class="fa fa-chevron-right"
-                                    aria-hidden="true"></i>{{ reponDataPostFooter.title }}</a>
+                            <a routerLink="/detail-post/{{ reponDataPostFooter.id }}">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>{{ getTranslationData(post.translations).title }}
+                            </a>
                         </li>
                     </ul>
                 </div>
-                <div class="title">
+                <!-- <div class="title">
                     <h2 class="title_v3a">
                         Tour khuyến mại
                     </h2>
@@ -82,15 +81,14 @@
                                 </div>
                                 <div class="desc">
                                     <h3>
-                                        <a routerLink="/detail-post">Du lịch Đà Nẵng - Sơn Trà - Hội An - Bà Nà -
-                                            Huế</a>
+                                        <a routerLink="/detail-post">Du lịch Đà Nẵng - Sơn Trà - Hội An - Bà Nà - Huế</a>
                                     </h3>
                                     <ul class="list-info-summary">
                                         <li>
                                             <div class="ic-avt">
                                                 <img src="../../../assets/img/ic-departure.png" alt="">
                                             </div>
-                                            <p>Khời hành: 12,26/10.</p>
+                                            <p>Khời hành: 12, 26/10.</p>
                                         </li>
                                         <li>
                                             <div class="ic-avt">
@@ -126,15 +124,14 @@
                                 </div>
                                 <div class="desc">
                                     <h3>
-                                        <a routerLink="/detail-post">Du lịch Châu Đốc: Rừng tràm Trà Sư (Tour Tiết
-                                            Kiệm)</a>
+                                        <a routerLink="/detail-post">Du lịch Châu Đốc: Rừng tràm Trà Sư (Tour Tiết Kiệm)</a>
                                     </h3>
                                     <ul class="list-info-summary">
                                         <li>
                                             <div class="ic-avt">
                                                 <img src="../../../assets/img/ic-departure.png" alt="">
                                             </div>
-                                            <p>Khời hành: 12,26/10.</p>
+                                            <p>Khời hành: 12, 26/10.</p>
                                         </li>
                                         <li>
                                             <div class="ic-avt">
@@ -170,15 +167,14 @@
                                 </div>
                                 <div class="desc">
                                     <h3>
-                                        <a routerLink="/detail-post">Du lịch Đà Nẵng - Bà Nà - Hội An - Huế - Động Phong
-                                            Nha</a>
+                                        <a routerLink="/detail-post">Du lịch Đà Nẵng - Bà Nà - Hội An - Huế - Động Phong Nha</a>
                                     </h3>
                                     <ul class="list-info-summary">
                                         <li>
                                             <div class="ic-avt">
                                                 <img src="../../../assets/img/ic-departure.png" alt="">
                                             </div>
-                                            <p>Khời hành: 12,26/10.</p>
+                                            <p>Khời hành: 12, 26/10.</p>
                                         </li>
                                         <li>
                                             <div class="ic-avt">
@@ -197,56 +193,50 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-            </div> -->
-        </div>
-        <div class="col-md-3 col-child">
-            <div class="box-right-bar">
-                <div class="title">
-                    <h2 class="title-right-v1">
-                        <a>Danh mục</a>
-                    </h2>
-                </div>
-                <ul class="list-tour-right_v1 list-tour-right_v1a">
-                    <li *ngFor="let category of responseDataCategory">
-                        <span>
-                            <a routerLink="/category/{{ category.id }}">{{ category.name }}</a>
-                        </span>
-                    </li>
-                </ul>
+                </div> -->
             </div>
-            <div class="box-right-bar">
-                <div class="title">
-                    <h2 class="title-right-v1">
-                        <a routerLink="/detail-post">Các bài viết</a>
-                    </h2>
+            <div class="col-md-3 col-child">
+                <div class="box-right-bar">
+                    <div class="title">
+                        <h2 class="title-right-v1">
+                            <a>Danh mục</a>
+                        </h2>
+                    </div>
+                    <ul class="list-tour-right_v1 list-tour-right_v1a">
+                        <li *ngFor="let category of responseDataCategory">
+                            <span>
+                                <a routerLink="/category/{{ category.id }}">{{ category.name }}</a>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="list-news-right_v1">
-                    <li *ngFor="let reponseDataPost of reponseDataPosts">
-                        <div class="avt">
-                            <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
-                                <img src="../../../assets/img/logo.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>9/10/2018</p>
-                                </li>
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-view.png" alt="">
-                                    </div>
-                                    <p>22</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                <div class="box-right-bar">
+                    <div class="title">
+                        <h2 class="title-right-v1">
+                            <a routerLink="/detail-post">Các bài viết</a>
+                        </h2>
+                    </div>
+                    <ul class="list-news-right_v1">
+                        <li *ngFor="let reponseDataPost of reponseDataPosts">
+                            <div class="avt">
+                                <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
+                                    <img src="../../../assets/img/logo.jpg" alt="">
+                                </a>
+                            </div>
+                            <div class="desc">
+                                <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ getTranslationData(reponseDataPost.translations).title }}</a>
+                                <ul class="date-view">
+                                    <li>
+                                        <div class="ic-avt">
+                                            <img src="../../../assets/img/ic-departure.png" alt="">
+                                        </div>
+                                        <p>{{ reponseDataPost.formattedDate }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
