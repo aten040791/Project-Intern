@@ -5,6 +5,8 @@ import { ApiService } from 'src/app/services/api.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CustomUploadAdapter } from '../../custom-upload-adapter';
 import { HttpClient } from '@angular/common/http';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-post',
@@ -28,6 +30,9 @@ export class CreatePostComponent implements OnInit {
     Chinese: { title: '', body: '' }
   };
 
+  faFloppyDisk = faFloppyDisk;
+  faXmark = faXmark;
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -38,10 +43,12 @@ export class CreatePostComponent implements OnInit {
       title: ['', Validators.required],
       body: ['', Validators.required],
       user_id: [this.userId],
-      status: [false],
+      status: [true],
       file: [''],
       category_id: ['', Validators.required]
     });
+
+    library.add(faFloppyDisk, faXmark);
   };
 
   ngOnInit(): void {

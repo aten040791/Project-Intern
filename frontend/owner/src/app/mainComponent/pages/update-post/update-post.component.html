@@ -11,17 +11,17 @@
           <ul class="nav nav-pills flex-column flex-md-row">
             <li class="nav-item">
               <a class="nav-link" [class.active]="selectedTab === 'Vietnamese'" (click)="selectTab('Vietnamese')">
-                <i class="bx bx-user me-1"></i>Tiếng Việt
+                <img class="flags" src="../../../../assets/img/flags/vietnam.png" alt="">Tiếng Việt
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" [class.active]="selectedTab === 'English'" (click)="selectTab('English')">
-                <i class="bx bx-lock-alt me-1"></i>Tiếng Anh
+                <img class="flags" src="../../../../assets/img/flags/united-states.png" alt="" >Tiếng Anh
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" [class.active]="selectedTab === 'Chinese'" (click)="selectTab('Chinese')">
-                <i class="bx bx-detail me-1"></i>Tiếng Trung
+                <img class="flags" src="../../../../assets/img/flags/china.png" alt="" >Tiếng Trung
               </a>
             </li>
           </ul>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="form-container" style="height: 560px;">
+          <div class="form-container">
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group" style="margin-bottom: 15px;">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
                   <label class="form-label" for="file">{{"labels.file" | translate}}</label>
-                  <input type="file" class="form-control" (change)="onFileChange($event)">
+                  <input type="file" id="file" class="form-control" formControlName="file" (change)="onFileChange($event)">
                   <div class="preview">
                     <img *ngIf="previewUrl" [src]="previewUrl" alt="File Preview" class="img-thumbnail mt-2">
                   </div>
@@ -69,11 +69,11 @@
                     <label for="switch1"></label>
                   </div>
                 </div>
-                <div class="form-group" style="float: right;">
+                <div class="form-group">
                   <a routerLink="/post">
-                    <button type="button" class="btn btn-danger" style="margin-right: 10px;">{{"buttons.cancel" | translate}}</button>
+                    <button type="button" class="btn btn-danger" style="margin-right: 10px;"><fa-icon [icon]="faXmark"></fa-icon>{{"buttons.cancel" | translate}}</button>
                   </a>
-                  <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">{{"buttons.save" | translate}}</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid"><fa-icon [icon]="faFloppyDisk"></fa-icon>{{"buttons.save" | translate}}</button>
                 </div>
               </div>
             </div>

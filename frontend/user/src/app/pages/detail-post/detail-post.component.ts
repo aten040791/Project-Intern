@@ -57,9 +57,9 @@ export class DetailPostComponent implements OnInit{
           languageName === 'No language available' &&
           title !== 'No title available') {
           languageName = translations[i].language.name; }
-        if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
-          break;
-        }
+          if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
+            break;
+          }
       }
     }
     return { title, body, languageName };
