@@ -6,11 +6,11 @@
     overflow: hidden;
   } */
 
-#sticker.active {
+/* #sticker.active {
   max-height: 100%;
   opacity: 1;
   transform: translateY(0);
-}
+} */
 
 .read-more {
   color: #0684ff;
@@ -29,4 +29,15 @@
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+#sticker {
+  display: none;
+}
+
+#sticker.active {
+  display: block;
+  max-height: 100%;
+  opacity: 1;
+  transform: translateY(0);
 }

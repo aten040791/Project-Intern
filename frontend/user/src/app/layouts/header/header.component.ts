@@ -9,8 +9,8 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class HeaderComponent {
   responseDataCategory: any[] = [];
-  // itemsPerPage: number = 10;
-  // currentPage: number = 1;
+  isMenuOpen: boolean = true;
+  activeCategoryId: number | null = null;
 
   constructor (
     private apiService: ApiService,
@@ -20,9 +20,22 @@ export class HeaderComponent {
     this.getDataCategory();
   };
 
+  onTouchOn(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  };
+
+  onCloseMenu(): void {
+    this.isMenuOpen = false;
+  };
+
+  setActiveCategory(categoryId: number | null): void {
+    this.activeCategoryId = categoryId;
+  }
+
   getDataCategory(): void {
     this.apiService.getDataCategory().subscribe((response) => {
       this.responseDataCategory = response.data;
+      console.log(this.responseDataCategory);
     });
   };
 }
