@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CustomUploadAdapter } from '../../custom-upload-adapter';
 import { ApiService } from 'src/app/services/api.service';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-update-post',
@@ -28,6 +30,9 @@ export class UpdatePostComponent implements OnInit {
   };
   userId = localStorage.getItem('user_id');
 
+  faFloppyDisk = faFloppyDisk;
+  faXmark = faXmark;
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -36,6 +41,7 @@ export class UpdatePostComponent implements OnInit {
     private http: HttpClient
   ) {
     this.initializeForm();
+    library.add(faFloppyDisk, faXmark);
 
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
@@ -116,8 +122,8 @@ export class UpdatePostComponent implements OnInit {
     const formData = new FormData();
     formData.append('user_id', this.userId || '');
     formData.append('status', this.postForm.get('status')?.value);
-    formData.append('file', this.postForm.get('file')?.value);
     formData.append('category_id', this.postForm.get('category_id')?.value);
+    formData.append('file', this.postForm.get('file')?.value);
     return formData;
   };
 

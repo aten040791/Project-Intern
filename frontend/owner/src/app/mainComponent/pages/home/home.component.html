@@ -59,8 +59,8 @@
                     <th class="sorting" style="width: 200px;">{{ "labels.createdDate" | translate }}</th>
                     <th class="sorting" style="width: 150px;">{{ "labels.category" | translate }}</th>
                     <th class="sorting" style="width: 150px;">{{ "labels.locale" | translate }}</th>
-                    <th class="sorting" style="width: 130px;">{{ "labels.status" | translate }}</th>
-                    <th class="sorting" style="width: 150px; text-align-last: center;">{{ "labels.actions" | translate }}</th>
+                    <th class="sorting" style="width: 140px;">{{ "labels.status" | translate }}</th>
+                    <th class="sorting" style="width: 155px; text-align-last: center;">{{ "labels.actions" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -86,7 +86,7 @@
                     <td style="max-width: 150px;">{{ post.category.name }}</td>
                     <td style="max-width: 150px;">{{ getTranslationData(post.translations).languageName }}</td>
                     <td>
-                      <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Display' : 'Hidden' }}</span>
+                      <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Active' : 'Hidden' }}</span>
                     </td>
                     <td>
                       <div class="d-flex justify-content-center">

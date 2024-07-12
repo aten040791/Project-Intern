@@ -8373,6 +8373,7 @@ button:focus-visible {
 .tab-pane .card-body {
   outline: none !important;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .nav-tabs .nav-item .nav-link {

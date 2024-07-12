@@ -9,7 +9,7 @@
                     <a routerLink="/category/{{ post?.category.id }}">{{ post?.category.name }}</a>
                 </li>
                 <li>
-                    <a routerLink="/detail-post/{{ post?.id }}">{{ getTranslationData(post.translations).title }}</a>
+                    <a routerLink="/detail-post/{{ post?.id }}">{{ getTranslationData(post.translations)?.title }}</a>
                 </li>
             </ul>
         </div>
