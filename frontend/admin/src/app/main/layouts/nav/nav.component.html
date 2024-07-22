@@ -457,7 +457,11 @@
                 </div>
                 <div class="flex-grow-1">
                   <span class="fw-medium d-block">{{ item.username }}</span>
-                  <small class="text-muted">{{ item.role.name }}</small>
+                  <small class="text-muted">{{
+                    item?.role?.name === "admin"
+                      ? ("common.admin" | translate)
+                      : ("common.user" | translate)
+                  }}</small>
                 </div>
               </div>
             </a>

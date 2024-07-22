@@ -102,7 +102,7 @@
                   </th>
                   <th>ID</th>
                   <th>{{ "labels.category" | translate }}</th>
-                  <th>Created On</th>
+                  <th>{{ "labels.createdAt" | translate }}</th>
                   <th>{{ "labels.actions" | translate }}</th>
                 </tr>
               </thead>
@@ -118,9 +118,9 @@
                       (change)="handleCheckBox($event, item)"
                     />
                   </td>
-                  <td>{{ item.id }}</td>
+                  <td>#{{ item.id }}</td>
                   <td>{{ item.name }}</td>
-                  <td>{{ item.createdAt }}</td>
+                  <td>{{ item.createdAt | date : "dd/MM/yyyy" }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <a

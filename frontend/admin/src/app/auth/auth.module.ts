@@ -5,9 +5,12 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavComponent } from './layouts/nav/nav.component';
+import { SharedModule } from '../main/shared/shared.module';
+// import { ToastsComponent } from '../main/features/toasts/toasts.component';
+
 
 @NgModule({
   declarations: [
@@ -20,6 +23,8 @@ import { NavComponent } from './layouts/nav/nav.component';
     CommonModule,
     FormsModule,
     AuthRoutingModule,
+    SharedModule,
+    // ToastsComponent,
     TranslateModule.forChild()
   ]
 })

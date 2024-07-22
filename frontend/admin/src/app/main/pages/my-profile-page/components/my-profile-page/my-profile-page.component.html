@@ -7,7 +7,13 @@
         <div class="card-body">
           <div class="d-flex align-items-start align-items-sm-center gap-4">
             <img
-              [src]="item.avatar"
+              [src]="
+                isReset
+                  ? item.avatar
+                  : showImageTmp
+                  ? showImageTmp
+                  : item.avatar
+              "
               alt="user-avatar"
               class="d-block rounded"
               height="100"
@@ -17,7 +23,7 @@
             <div class="button-wrapper">
               <label
                 for="upload"
-                class="btn btn-primary me-2 mb-4"
+                class="btn btn-primary me-2 mb-3"
                 tabindex="0"
               >
                 <span class="d-none d-sm-block">{{
@@ -34,6 +40,14 @@
                   (change)="onFileSelected($event)"
                 />
               </label>
+              <button
+                type="button"
+                class="btn btn-label-secondary account-image-reset mb-3"
+                (click)="onReset()"
+              >
+                <i class="bx bx-reset d-block d-sm-none"></i>
+                <span class="d-none d-sm-block">Reset</span>
+              </button>
               <p class="text-muted mb-0">
                 {{ "labels.allowed" | translate }} JPG, GIF
                 {{ "labels.or" | translate }} PNG. Max size
@@ -52,7 +66,9 @@
           >
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="firstName" class="form-label">Full Name</label>
+                <label for="firstName" class="form-label">{{
+                  "labels.fullname" | translate
+                }}</label>
                 <input
                   class="form-control"
                   type="text"
@@ -63,7 +79,10 @@
                 />
               </div>
               <div class="mb-3 col-md-6">
-                <label for="" class="form-label">Username</label>
+                <label for="" class="form-label"
+                  >{{ "labels.username" | translate }}
+                  <span class="text-danger">*</span>
+                </label>
                 <input
                   class="form-control"
                   type="text"
@@ -72,6 +91,20 @@
                   ngModel
                   [(ngModel)]="item.username"
                 />
+                <div
+                  class="fv-plugins-message-container fv-plugins-message-container--enabled"
+                >
+                  <div
+                    class="text-danger"
+                    data-field="username"
+                    *ngFor="let error of errors"
+                    [ngClass]="
+                      error.field === 'username' ? 'd-block' : 'd-none'
+                    "
+                  >
+                    {{ error.message }}
+                  </div>
+                </div>
               </div>
               <div class="mb-3 col-md-6">
                 <label for="birthday" class="form-label">{{
@@ -125,7 +158,10 @@
                 </select>
               </div>
               <div class="mb-3 col-md-6">
-                <label for="email" class="form-label">E-mail</label>
+                <label for="email" class="form-label">
+                  E-mail
+                  <span class="text-danger">*</span>
+                </label>
                 <input
                   class="form-control"
                   type="text"
@@ -135,11 +171,24 @@
                   ngModel
                   [(ngModel)]="item.email"
                 />
+                <div
+                  class="fv-plugins-message-container fv-plugins-message-container--enabled"
+                >
+                  <div
+                    class="text-danger"
+                    data-field="email"
+                    *ngFor="let error of errors"
+                    [ngClass]="error.field === 'email' ? 'd-block' : 'd-none'"
+                  >
+                    {{ error.message }}
+                  </div>
+                </div>
               </div>
               <div class="mb-3 col-md-6">
-                <label class="form-label" for="phoneNumber">{{
-                  "labels.phone" | translate
-                }}</label>
+                <label class="form-label" for="phoneNumber"
+                  >{{ "labels.phone" | translate }}
+                  <span class="text-danger">*</span>
+                </label>
                 <div class="input-group input-group-merge">
                   <span class="input-group-text">Vi (+84)</span>
                   <input
@@ -151,12 +200,25 @@
                     ngModel
                     [(ngModel)]="item.phone"
                   />
+                  <div
+                    class="fv-plugins-message-container fv-plugins-message-container--enabled"
+                  >
+                    <div
+                      class="text-danger"
+                      data-field="phone"
+                      *ngFor="let error of errors"
+                      [ngClass]="error.field === 'phone' ? 'd-block' : 'd-none'"
+                    >
+                      {{ error.message }}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="mb-3 col-md-6">
-                <label class="form-label" for="">{{
-                  "labels.role" | translate
-                }}</label>
+                <label class="form-label" for=""
+                  >{{ "labels.role" | translate }}
+                  <span class="text-danger">*</span>
+                </label>
                 <div class="input-group input-group-merge">
                   <input
                     type="text"
@@ -166,10 +228,24 @@
                     readonly
                   />
                 </div>
+
+                <div
+                  class="fv-plugins-message-container fv-plugins-message-container--enabled"
+                >
+                  <div
+                    class="text-danger"
+                    data-field="role_id"
+                    *ngFor="let error of errors"
+                    [ngClass]="error.field === 'role_id' ? 'd-block' : 'd-none'"
+                  >
+                    {{ error.message }}
+                  </div>
+                </div>
               </div>
               <div class="mb-3 col-md-6">
                 <label for="modalEditUserStatus" class="form-label"
-                  >Status</label
+                  >{{ "labels.status" | translate }}
+                  <span class="text-danger">*</span> </label
                 ><select
                   name="status"
                   aria-label="Default select example"
@@ -185,6 +261,19 @@
                     {{ "labels.inactive" | translate }}
                   </option>
                 </select>
+
+                <div
+                  class="fv-plugins-message-container fv-plugins-message-container--enabled"
+                >
+                  <div
+                    class="text-danger"
+                    data-field="status"
+                    *ngFor="let error of errors"
+                    [ngClass]="error.field === 'status' ? 'd-block' : 'd-none'"
+                  >
+                    {{ error.message }}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="mt-2">
@@ -198,7 +287,7 @@
       </div>
       <div class="card" style="padding: 20px">
         <h5 class="card-header">
-          {{ "buttons.delete" | translate }} {{ "buttons.account" | translate }}
+          {{ "buttons.deactive" | translate }}
         </h5>
         <div class="card-body">
           <div class="mb-3 col-12 mb-0">
@@ -211,7 +300,10 @@
               </p>
             </div>
           </div>
-          <form id="formAccountDeactivation">
+          <form
+            id="formAccountDeactivation"
+            [ngStyle]="{ display: isShowDeactive ? 'block' : 'none' }"
+          >
             <div class="form-check mb-3">
               <input
                 class="form-check-input"
@@ -233,6 +325,22 @@
               {{ "buttons.deactive" | translate }}
             </button>
           </form>
+          <div class="d-flex align-items-center" *ngIf="idDelete.has(item.id)">
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="onClickCancel(item)"
+            >
+              {{ "buttons.cancel" | translate }}
+            </button>
+            <p class="mb-0 ms-3">
+              Please wait
+              <span class="badge mx-1 bg-label-warning">
+                {{ (timeRemaining[item.id] | async) || 0 | duration }}
+              </span>
+              to deactivate your account
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -240,21 +348,21 @@
 </div>
 
 <!-- delete -->
-<app-delete
+<!-- <app-delete
   [isDelete]="isDelete"
   (close)="toggleDelete()"
   (close)="toggleDeleteFailed()"
   (closeSuccess)="toggleDeleteSuccess()"
-></app-delete>
+></app-delete> -->
 
-<app-delete-failed
+<!-- <app-delete-failed
   [isDeleteFailed]="isDeleteFailed"
   (close)="toggleDeleteFailed()"
-></app-delete-failed>
+></app-delete-failed> -->
 
-<app-delete-success
+<!-- <app-delete-success
   [isDeleteSuccess]="isDeleteSuccess"
   (close)="toggleDeleteSuccess()"
   [url]="url"
   [idDelete]="idDelete"
-></app-delete-success>
+></app-delete-success> -->

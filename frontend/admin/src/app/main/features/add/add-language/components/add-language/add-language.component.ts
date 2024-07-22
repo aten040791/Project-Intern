@@ -14,6 +14,8 @@ export class AddLanguageComponent {
   @Output() close = new EventEmitter<void>();
   selectedFile: File | null = null;
 
+  errors: any[] = []
+
   closeDialog(): void {
     this.close.emit();
   }
@@ -32,9 +34,10 @@ export class AddLanguageComponent {
       next: (data: any) => {
         window.location.reload();
       },
-      error: (error: Error) => {
+      error: (error: any) => {
         // console.error(error);
-        alert(`Error fetching items: ${error.message}`)
+        // alert(`Error fetching items: ${error.message}`)
+        this.errors = error["error"]["data"]["errors"];
       }
     })
 }

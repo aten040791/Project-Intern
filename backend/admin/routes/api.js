@@ -33,7 +33,7 @@ router.group("/auth", (router) => {
     validate([authValidation.index]),
     authController.login
   );
-  router.get("/", admin, authController.getAdmin);
+  // router.get("/", admin, authController.getAdmin);
 });
 
 router.group("/users", admin, (router) => {

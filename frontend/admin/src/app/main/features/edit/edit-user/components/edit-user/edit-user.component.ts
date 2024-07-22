@@ -14,6 +14,8 @@ export class EditUserComponent {
   @Output() close = new EventEmitter<void>();
   @Input() item: any = {}
   image: File | null = null;
+
+  errors: any[] = [];
   
   constructor(private userPageService: UserPageService, private http: ApiService) {}
 
@@ -41,8 +43,9 @@ export class EditUserComponent {
       next: (data: any) => {
         window.location.reload();
       },
-      error: (error: Error) => {
-        console.error(error);
+      error: (error: any) => {
+        // console.error(error);
+        this.errors = error["error"]["data"]["errors"];
       }
     })
   }

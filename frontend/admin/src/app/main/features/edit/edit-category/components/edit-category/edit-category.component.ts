@@ -11,6 +11,8 @@ export class EditCategoryComponent {
   @Input() item: any = {};
   @Output() close = new EventEmitter<void>();
 
+  errors: any[] = []
+
   constructor( private http: ApiService) { }
 
   closeDialog(): void {
@@ -22,9 +24,11 @@ export class EditCategoryComponent {
     this.http.updateItem('categories', data, id).subscribe({
       next: (data: any) => {
         // console.log(data)
+        window.location.reload()
       },
       error: (error: any) => {
         // console.log(error)
+        this.errors = error["error"]["data"]["errors"];
       }
     })
   }

@@ -16,6 +16,8 @@ export class AddUsersComponent {
   imageSize: number | null = null;
   uploadProgress: number = 0;
 
+  errors: any[] = []
+
   onSubmit(form: any): void {
 
     const formData = new FormData();
@@ -35,11 +37,10 @@ export class AddUsersComponent {
     this.http.createItem("users", formData).subscribe({
       next: (data: any) => {
         // window.location.reload();
-        this.router.navigate(['/users']);
+        this.router.navigate(['/users/list']);
       },
-      error: (error: Error) => {
-        // console.error(error);
-        alert(`Error fetching items: ${error.message}`)
+      error: (error: any) => {
+        this.errors = error["error"]["data"]["errors"];
       }
     })
 

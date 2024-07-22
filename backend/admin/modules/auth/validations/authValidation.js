@@ -10,7 +10,10 @@ const options = {
 };
 
 const sampleValidation = {
-  index: [],
+  index: [
+    new BodyWithLocale("email").notEmpty().isEmail(),
+    new BodyWithLocale("password").notEmpty().isLength(options),
+  ],
   create: [
     // new BodyWithLocale("username").notEmpty(),
     // new BodyWithLocale("email").notEmpty().isEmail(),

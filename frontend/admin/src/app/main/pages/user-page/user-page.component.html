@@ -31,7 +31,7 @@
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasAddUser"
-            routerLink="/add-users"
+            routerLink="/users/add"
           >
             <span>
               <i class="fa-solid fa-plus"></i>
@@ -124,7 +124,7 @@
                     (change)="handleCheckBox($event, item)"
                   />
                 </td>
-                <td>{{ item.id }}</td>
+                <td>#{{ item.id }}</td>
                 <td>
                   <div class="avatar-wrapper">
                     <div class="avatar avatar-sm me-3">

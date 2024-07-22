@@ -76,12 +76,12 @@
         "flag": "Cờ",
         "users": "Người dùng",
         "analytics": "Phân tích",
-        "avatar": "Avatar",
-        "username": "Username",
+        "avatar": "Ảnh đại diện",
+        "username": "Tên người dùng",
         "email": "Email",
         "phone": "Số điện thoại",
         "role": "Vai trò",
-        "fullname": "Fullname",
+        "fullname": "Tên đầy đủ",
         "address": "Địa chỉ",
         "password": "Mật khẩu",
         "select": "Lựa chọn",
@@ -97,6 +97,11 @@
         "titleConfirm_2": "Một khi bạn xóa tài khoản của mình, bạn sẽ không thể quay lại. Xin hãy chắc chắn.",
         "subtitleConfirm_3": "Tôi xác nhận việc vô hiệu hóa tài khoản của mình",
         "myProfile": "Hồ sơ",
-        "rememberMe": "Ghi nhớ tôi"
+        "rememberMe": "Ghi nhớ tôi",
+        "isWrong": "không chính xác",
+        "addUser": "Thêm người dùng",
+        "createdAt": "Tạo lúc",
+        "userInfor": "Thông tin người dùng",
+        "drag": "Kéo hoặc thả ảnh của bạn vào đây"
     }
 }

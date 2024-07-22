@@ -39,9 +39,19 @@
               ngModel
               [(ngModel)]="item.name"
             />
+
             <div
               class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
-            ></div>
+            >
+              <div
+                class="text-danger"
+                data-field="name"
+                *ngFor="let error of errors"
+                [ngClass]="error.field === 'name' ? 'd-block' : 'd-none'"
+              >
+                {{ error.message }}
+              </div>
+            </div>
           </div>
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary me-sm-3 me-1">

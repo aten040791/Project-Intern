@@ -63,7 +63,16 @@
             />
             <div
               class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
-            ></div>
+            >
+              <div
+                class="text-danger"
+                data-field="username"
+                *ngFor="let error of errors"
+                [ngClass]="error.field === 'username' ? 'd-block' : 'd-none'"
+              >
+                {{ error.message }}
+              </div>
+            </div>
           </div>
           <div class="col-12 col-md-6 fv-plugins-icon-container">
             <label class="form-label" for="modalEditUserStatus">{{
@@ -80,6 +89,18 @@
               <option value="1">{{ "common.admin" | translate }}</option>
               <option value="2">{{ "common.user" | translate }}</option>
             </select>
+            <div
+              class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+            >
+              <div
+                class="text-danger"
+                data-field="role_id"
+                *ngFor="let error of errors"
+                [ngClass]="error.field === 'role_id' ? 'd-block' : 'd-none'"
+              >
+                {{ error.message }}
+              </div>
+            </div>
           </div>
           <div class="col-12 col-md-6">
             <label class="form-label" for="modalEditUserEmail">Email</label>
@@ -92,6 +113,18 @@
               ngModel
               [(ngModel)]="item.email"
             />
+            <div
+              class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+            >
+              <div
+                class="text-danger"
+                data-field="email"
+                *ngFor="let error of errors"
+                [ngClass]="error.field === 'email' ? 'd-block' : 'd-none'"
+              >
+                {{ error.message }}
+              </div>
+            </div>
           </div>
           <div class="col-12 col-md-6">
             <label class="form-label" for="modalEditUserStatus">{{
@@ -111,6 +144,18 @@
                 {{ "labels.inactive" | translate }}
               </option>
             </select>
+            <div
+              class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+            >
+              <div
+                class="text-danger"
+                data-field="status"
+                *ngFor="let error of errors"
+                [ngClass]="error.field === 'status' ? 'd-block' : 'd-none'"
+              >
+                {{ error.message }}
+              </div>
+            </div>
           </div>
           <div class="col-12 col-md-6">
             <label class="form-label" for="modalEditUserPhone">{{
@@ -126,6 +171,18 @@
                 ngModel
                 [(ngModel)]="item.phone"
               />
+              <div
+                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"
+              >
+                <div
+                  class="text-danger"
+                  data-field="phone"
+                  *ngFor="let error of errors"
+                  [ngClass]="error.field === 'phone' ? 'd-block' : 'd-none'"
+                >
+                  {{ error.message }}
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-12 col-md-6">

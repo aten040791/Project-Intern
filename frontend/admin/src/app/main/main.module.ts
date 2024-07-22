@@ -24,6 +24,7 @@ import { DeleteSuccessComponent } from './features/delete/delete-success/compone
 import { DeleteFailedComponent } from './features/delete/delete-failed/delete-failed.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddUsersComponent } from './pages/add-users/add-users.component';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     MainComponent,
@@ -42,12 +43,13 @@ import { AddUsersComponent } from './pages/add-users/add-users.component';
     EditCategoryComponent, 
     EditLanguageComponent, 
     ViewDetailComponent, 
-    MyProfilePageComponent, DeleteSuccessComponent, DeleteFailedComponent, AddUsersComponent,
+    MyProfilePageComponent, DeleteSuccessComponent, DeleteFailedComponent, AddUsersComponent
   ],
   imports: [
     MainRoutingModule,
     FormsModule,
     CommonModule,
+    SharedModule,
     TranslateModule.forChild()
   ],
   providers: [],

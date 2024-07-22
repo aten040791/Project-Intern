@@ -12,6 +12,8 @@ export class EditLanguageComponent {
   @Output() close = new EventEmitter<any>()
   selectedFile: File | null = null;
 
+  errors: any[] = [];
+
   constructor(private http: ApiService) { }
 
   closeDialog(): void {
@@ -33,8 +35,9 @@ export class EditLanguageComponent {
       next: (data: any) => {
         window.location.reload();
       },
-      error: (error: Error) => {
-        console.error(error);
+      error: (error: any) => {
+        // console.error(error);
+        this.errors = error["error"]["data"]["errors"];
       }
     })
   }

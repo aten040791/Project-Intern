@@ -13,10 +13,14 @@ const languageValidation = {
     //other rules goes here
   ],
   create: [
-    // new BodyWithLocale("name")
-    //   .notEmpty()
-    //   .isString()
-    //   .unique(db.Language, "name"),
+    new BodyWithLocale("name")
+      .notEmpty()
+      .isString()
+      .unique(db.Language, "name"),
+    new BodyWithLocale("locale")
+      .notEmpty()
+      .isString()
+      .unique(db.Language, "locale"),
     // new BodyWithLocale("locale").isString().notEmpty(),
     // new BodyWithLocale("flag").isString(),
   ],
@@ -26,7 +30,7 @@ const languageValidation = {
   update: [
     // new ParamWithLocale("id").exist(db.Language, "id"),
     // new BodyWithLocale("name").notEmpty().isString(),
-    // new BodyWithLocale("locale").isString().notEmpty(),
+    // new BodyWithLocale("locale").notEmpty().isString().notEmpty(),
     // new BodyWithLocale("flag").isString(),
   ],
 };
