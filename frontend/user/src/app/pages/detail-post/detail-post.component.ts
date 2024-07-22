@@ -25,12 +25,7 @@ export class DetailPostComponent implements OnInit{
     private router: Router,
     private apiService: ApiService,
     private sanitizer: DomSanitizer
-  ) {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.post = navigation.extras.state['post'];
-    }
-  }
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

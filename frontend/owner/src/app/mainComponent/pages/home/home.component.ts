@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit, DoCheck {
         formattedDate: format(new Date(post.createdAt), 'PP'),
       }));
       this.totalPages = response.data.totalPages;
+      this.totalPosts = response.data.totalPosts;
     });
   };
 

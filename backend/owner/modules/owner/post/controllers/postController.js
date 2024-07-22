@@ -24,10 +24,14 @@ const postController = {
   },
 
   getByUid: async (req, res) => {
-    const { uid } = req.params;
-    const { keyword, page = 1, perPage = 10 } = req.query;
-    const posts = await postService.getByUid(uid, keyword, parseInt(page), parseInt(perPage));
-    return responseUtils.ok(res, posts);
+    try {
+      const { uid } = req.params;
+      const { keyword, page = 1, perPage = 10 } = req.query;
+      const posts = await postService.getByUid(uid, keyword, parseInt(page), parseInt(perPage));
+      return responseUtils.ok(res, posts);
+    } catch (error) {
+      return responseUtils.error(res, error);
+    }
   },
 
   // Create new post

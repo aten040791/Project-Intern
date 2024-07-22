@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const router = require("routes/api");
 const { swaggerUIServe,swaggerUISetup } = require("kernels/api-docs");
 const cors = require('cors');
+const path = require('path');
+const uploadRouter = require('./modules/uploads/uploadRouter');
 
 
 const app = express();
@@ -18,5 +20,8 @@ app.use("/", [], router);
 app.use(express.json());
 
 app.use("/api-docs", swaggerUIServe, swaggerUISetup);
+
+app.use('/owner/public/uploads', express.static(path.join(__dirname, '../owner/public/uploads')));
+app.use('/upload', uploadRouter);
 
 module.exports = app

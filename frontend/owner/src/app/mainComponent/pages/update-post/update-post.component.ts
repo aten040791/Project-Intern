@@ -7,6 +7,7 @@ import { CustomUploadAdapter } from '../../custom-upload-adapter';
 import { ApiService } from 'src/app/services/api.service';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { CustomUploadImage } from '../../custom-upload-image';
 
 @Component({
   selector: 'app-update-post',
@@ -28,6 +29,7 @@ export class UpdatePostComponent implements OnInit {
     English: { title: '', body: '', language_id: '' },
     Chinese: { title: '', body: '', language_id: '' }
   };
+  selectedFile: File | null = null;
   userId = localStorage.getItem('user_id');
 
   faFloppyDisk = faFloppyDisk;
@@ -42,18 +44,13 @@ export class UpdatePostComponent implements OnInit {
   ) {
     this.initializeForm();
     library.add(faFloppyDisk, faXmark);
-
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state) {
-      this.post = navigation.extras.state['post'];
-    }
   };
 
   ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('id');
     if (postId) {
       this.apiService.getPostDetails(Number(postId)).subscribe((post) => {
-        this.post = post;
+        this.post = post.data;
         this.initializeFormWithPostData();
         this.initializeTranslations(post.data.translations);
         this.getDataCategory();
@@ -103,27 +100,40 @@ export class UpdatePostComponent implements OnInit {
         this.previewUrl = reader.result;
       };
       reader.readAsDataURL(file);
+      this.selectedFile = file;
     }
   };
 
-  onUpdate(): void {
+  async onUpdate(): Promise<void> {
     this.saveCurrentTabData();
     if (this.postForm.valid) {
-      const formData = this.prepareFormData();
+      const formData = await this.prepareFormData();
       const postData = this.formatPostData(formData);
       const postId = this.route.snapshot.paramMap.get('id');
-      this.apiService.updatePost(Number(postId), postData).subscribe(() => {
-        this.router.navigate(['/post']);
+      this.apiService.updatePost(Number(postId), postData).subscribe({
+        next: () => {
+          this.router.navigate(['/post']);
+        },
+        error: (error) => {
+          console.error('Error updating post:', error);
+        }
+
       });
     }
   };
 
-  prepareFormData(): FormData {
+  async prepareFormData(): Promise<FormData> {
     const formData = new FormData();
+    const file = this.selectedFile;
+    if (file) {
+      const customUploadImage = new CustomUploadImage(file, this.http, 'http://localhost:3000/upload');
+      const fileUrl = await customUploadImage.uploadImage();
+      formData.append('file', fileUrl);
+    }
+  
     formData.append('user_id', this.userId || '');
     formData.append('status', this.postForm.get('status')?.value);
     formData.append('category_id', this.postForm.get('category_id')?.value);
-    formData.append('file', this.postForm.get('file')?.value);
     return formData;
   };
 
@@ -171,12 +181,15 @@ export class UpdatePostComponent implements OnInit {
 
   initializeFormWithPostData(): void {
     this.postForm.patchValue({
-      title: this.post.data.translations[0].title,
-      body: this.post.data.translations[0].body,
-      file: this.post.data.file,
-      status: this.post.data.status === 'true',
-      category_id: this.post.data.category.id,
+      title: this.post.translations[0].title,
+      body: this.post.translations[0].body,
+      file: '',
+      status: this.post.status === 'true',
+      category_id: this.post.category.id,
     });
+     if (!this.previewUrl && this.post.file) {
+      this.previewUrl = this.post.file;
+    }
   };
 
   initializeTranslations(translations: any[]): void {

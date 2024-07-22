@@ -52,7 +52,6 @@ export class NavbarComponent implements OnInit {
   getProfile() {
     this.apiService.getProfile().subscribe({
       next: response => {
-        console.log('API Response - Profile:', response.data.user);
           this.profile = response.data.user;
           this.getDataLanguage()
       },
@@ -65,7 +64,6 @@ export class NavbarComponent implements OnInit {
   getDataLanguage(): void {
     this.apiService.getDataLanguage().subscribe(
       response => {
-        console.log('API Response - Languages:', response.data);
         if (Array.isArray(response.data)) {
           this.languages = response.data;
         } else {

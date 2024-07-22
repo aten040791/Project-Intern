@@ -107,5 +107,8 @@
     "postList": "DANH SÁCH BÀI VIẾT",
     "createdDate": "Ngày tạo",
     "rowsPerPage": "Hàng trên mỗi trang"
+  },
+  "messages": {
+    "noPosts": "Không có bài viết nào"
   }
 }

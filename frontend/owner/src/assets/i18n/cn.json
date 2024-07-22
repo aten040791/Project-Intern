@@ -107,5 +107,8 @@
       "postList": "帖子列表",
       "createdDate": "创建日期",
       "rowsPerPage": "每页行数"
+    },
+    "messages": {
+      "noPosts": "没有帖子"
     }
   }
