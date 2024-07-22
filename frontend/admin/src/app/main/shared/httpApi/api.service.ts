@@ -24,26 +24,37 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   // login
-  login(nameApi: string, email: string, password: string): Observable<any> {
+  login(nameApi: string, email: string, password: string, checked: boolean): Observable<any> {
     const url = `${this.apiUrl}/${nameApi}/sign-in`;
 
     const body = {
       email: email,
-      password: password
+      password: password,
+      // checked: checked
     }
 
-    return this.http.post<any>(url, body)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<any>(url, body, { headers: headers, withCredentials: true })
       .pipe(
         tap(response => {
 
           if (response && response.data) {
             this.storeTokens(response.data);
+
+            // if (checked) {
+            //   this.cookie.set('token', response.data["access_token"], { expires: 1, path: '/', secure: true, sameSite: 'Strict' });
+            // }
+
           } else {
+
           }
 
         }),
         catchError(error => {
-            console.error('Error in API call:', error);
+            // console.error('Error in API call:', error);
             return throwError(error);
         })
       );
@@ -63,6 +74,7 @@ export class ApiService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user_id');
+    localStorage.removeItem('countdown_time');
   }
 
   // get current admin
@@ -98,6 +110,7 @@ export class ApiService {
 
   // create a item
   createItem(nameApi: string, queryBody: any): Observable<any> {
+
     const accessToken = localStorage.getItem("access_token")
 
     const url = `${this.apiUrl}/${nameApi}/create`
@@ -189,4 +202,8 @@ export class ApiService {
     }
   }
 
+  // check email or username
+  // exists(emailOrUsername: string): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/users/check-email-username/${emailOrUsername}`);
+  // }
 }

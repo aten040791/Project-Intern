@@ -98,6 +98,11 @@
         "titleConfirm_2": "Once you delete your account, there is no going back. Please be certain.",
         "subtitleConfirm_3": "I confirm my account deactivation",
         "myProfile": "My Profile",
-        "rememberMe": "Remember Me"
+        "rememberMe": "Remember Me",
+        "isWrong": "is wrong",
+        "addUser": "Add User",
+        "createdAt": "Create at",
+        "userInfor": "User Information",
+        "drag": "Drag and drop your image here"
     }
 }

@@ -29,7 +29,7 @@ export class LanguagePageComponent implements OnInit {
 
   item: any = {}
   items: language[] = []
-  url: string = this.router.url
+  url: string = "/languages"
 
   // handle delete items
   checkBoxs = new Set<number>();
@@ -37,7 +37,7 @@ export class LanguagePageComponent implements OnInit {
   idDelete = new Set<number>();
   
    ngOnInit(): void {
-    this.url = this.getBasePath(this.url)
+    // this.url = this.getBasePath(this.url)
     this.loadItems()
   }
  

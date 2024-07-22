@@ -29,7 +29,7 @@ export class UserPageComponent implements OnInit {
 
   item: any = {}
   items: User[] = []
-  url: string = this.router.url
+  url: string = "/users"
 
   // handle deleting
   checkBoxs = new Set<number>();
@@ -38,7 +38,7 @@ export class UserPageComponent implements OnInit {
   checkDeleteAll: boolean = false;
   
   ngOnInit(): void {
-    this.url = this.getBasePath(this.url)
+    // this.url = this.getBasePath(this.url)
     this.loadItems()
   }
 

@@ -13,6 +13,8 @@ export class AddCategoryComponent {
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
 
+  errors: any[] = [];
+
   closeDialog(): void {
     this.close.emit();
   }
@@ -25,7 +27,8 @@ export class AddCategoryComponent {
       },
       error: (error: any) => {
         // console.log(err)
-        alert(`Error fetching items: ${error.message}`)
+        // alert(`Error fetching items: ${error.message}`)
+        this.errors = error["error"]["data"]["errors"];
        },
     });       
   }

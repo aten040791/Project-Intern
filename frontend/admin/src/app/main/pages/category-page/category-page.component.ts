@@ -31,10 +31,10 @@ export class CategoryPageComponent implements OnInit {
   checkBoxs = new Set<number>();
   checkBoxsTmp = new Set<number>();
   idDelete = new Set<number>();
-  url: string = this.router.url
+  url: string = "/categories"
 
   ngOnInit(): void {
-    this.url = this.getBasePath(this.url)
+    // this.url = this.getBasePath(this.url)
     this.loadItems()
   }
 

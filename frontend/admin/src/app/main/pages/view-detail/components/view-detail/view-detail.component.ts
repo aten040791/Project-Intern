@@ -26,6 +26,7 @@ export class ViewDetailComponent implements OnInit {
   @Input() isShowEdit: boolean = false;
   @Output() close = new EventEmitter<void>();
   image: File | null = null;
+  showImageTmp: string = "";
 
   ngOnInit(): void {
     this.loadItem()
@@ -96,6 +97,7 @@ export class ViewDetailComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.image = input.files[0];
+      this.showImageTmp = "http://localhost:3000/" + this.image.name
     }
   }
 
