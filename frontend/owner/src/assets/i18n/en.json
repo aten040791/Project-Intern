@@ -107,5 +107,8 @@
     "postList": "POSTS",
     "createdDate": "Create date",
     "rowsPerPage": "Rows per page"
+  },
+  "messages": {
+    "noPosts": "There are no posts"
   }
 }

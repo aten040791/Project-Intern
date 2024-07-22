@@ -40,7 +40,6 @@ export class EditCategoryDialogComponent {
   getDataCategory(): void {
     this.apiService.getDataCategory().subscribe(
       response => {
-        console.log('API Response - Categories:', response.data);
         if (Array.isArray(response.data)) {
           this.responseDataCategory = response.data;
         } else {

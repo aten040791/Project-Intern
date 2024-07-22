@@ -1,5 +1,4 @@
-// Path: backend/owner/modules/uploads/controllers/uploadController.js
-const uploadService = require('../services/uploadService'); // Adjusted path
+const uploadService = require('../services/uploadService');
 
 const uploadController = {
   uploadFile: (req, res) => {

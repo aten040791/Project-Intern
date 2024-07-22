@@ -111,6 +111,9 @@
                       </div>
                     </td>
                   </tr>
+                  <tr *ngIf="totalPosts === 0">
+                    <td colspan="9" class="text-center">{{ "messages.noPosts" | translate }}</td>
+                  </tr>
                 </tbody>
                 <tfoot></tfoot>
               </table>

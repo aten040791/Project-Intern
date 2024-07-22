@@ -7,6 +7,7 @@ import { CustomUploadAdapter } from '../../custom-upload-adapter';
 import { HttpClient } from '@angular/common/http';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { CustomUploadImage } from '../../custom-upload-image';
 
 @Component({
   selector: 'app-create-post',
@@ -29,6 +30,7 @@ export class CreatePostComponent implements OnInit {
     English: { title: '', body: '' },
     Chinese: { title: '', body: '' }
   };
+  selectedFile: File | null = null;
 
   faFloppyDisk = faFloppyDisk;
   faXmark = faXmark;
@@ -86,26 +88,32 @@ export class CreatePostComponent implements OnInit {
         this.previewUrl = reader.result;
       };
       reader.readAsDataURL(file);
+      this.selectedFile = file;
     }
   };
 
-  onCreate(): void {
+  async onCreate(): Promise<void> {
     this.saveCurrentTabData();
     if (this.postForm.valid) {
-      const formData = this.prepareFormData();
+      const formData = await this.prepareFormData();
       const postData = this.formatPostData(formData);
-      console.log('postData', postData);
       this.apiService.createPost(postData).subscribe(() => {
         this.router.navigate(['/post']);
       });
     }
   };
 
-  prepareFormData(): FormData {
+  async prepareFormData(): Promise<FormData> {
     const formData = new FormData();
+    const file = this.selectedFile;
+    if (file) {
+      const customUploadImage = new CustomUploadImage(file, this.http, 'http://localhost:3000/upload');
+      const fileUrl = await customUploadImage.uploadImage();
+      formData.append('file', fileUrl);
+    }
+  
     formData.append('user_id', this.userId || '');
     formData.append('status', this.postForm.get('status')?.value);
-    formData.append('file', this.postForm.get('file')?.value);
     formData.append('category_id', this.postForm.get('category_id')?.value);
     return formData;
   };

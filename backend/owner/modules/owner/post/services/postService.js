@@ -105,7 +105,6 @@ const postService = {
     const newPost = await db.Post.create(formData);
     if (translations) {
       for (const translation of translations) {
-        console.log(translation);
         translation.post_id = newPost.id;
         await db.Translate.create(translation);
       }
@@ -118,7 +117,6 @@ const postService = {
     await post.update(formData);
     if (translations && translations.length > 0) {
       for (const translation of translations) {
-        console.log(translation);
         const [translate, created] = await db.Translate.findOrCreate({
           where: { post_id: id, language_id: translation.language_id },
           defaults: translation
