@@ -6,6 +6,7 @@ import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash, faLanguag
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TranslationService } from '../../shared/i18n/translation.service';
 
 @Component({
   selector: 'app-home',
@@ -35,12 +36,14 @@ export class HomeComponent implements OnInit, DoCheck {
   selectAll: boolean = false;
   checkboxChecked: boolean = false;
   isReadMore: { [key: string]: boolean } = {};
+  locale: string = '';
 
   constructor(
     private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private translate: TranslationService) {
     library.add(
       faSliders, faPlusSquare, faEllipsisV, faEdit,
       faTrash, faEye, faLanguage, faBook, faToggleOn
@@ -49,6 +52,8 @@ export class HomeComponent implements OnInit, DoCheck {
   };
 
   ngOnInit(): void {
+    this.locale = localStorage.getItem('locale') || 'en';
+    this.translate.setDefaultLang(this.locale);
     this.updateUrl();
     this.getData();
   };
@@ -69,7 +74,7 @@ export class HomeComponent implements OnInit, DoCheck {
         if(translations[i].language && translations[i].language.name &&
           languageName === 'No language available' &&
           title !== 'No title available') {
-          languageName = translations[i].language.name; }
+          languageName = translations[i].language.flag; }
         if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
           break;
         }

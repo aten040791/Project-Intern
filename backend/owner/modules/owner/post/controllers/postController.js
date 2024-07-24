@@ -5,21 +5,24 @@ const slugify = require("slugify");
 const postController = {
   // Get post list
   index: async (req, res) => {
-    const posts = await postService.list();
+    const { languageId } = req.query;
+    const posts = await postService.list(languageId);
     return responseUtils.ok(res, posts);
   },
 
   getCategory: async (req, res) => {
     const { page = 1, perPage = 10 } = req.query;
     const { id } = req.params;
-    const category = await postService.category(id, parseInt(page), parseInt(perPage));
+    const { languageId } = req.query;
+    const category = await postService.category(id, parseInt(page), parseInt(perPage), languageId);
     return responseUtils.ok(res, category);
   },
 
   // Get post by ID
   getById: async (req, res) => {
     const { id } = req.params;
-    const post = await postService.getById(id);
+    const { languageId } = req.query;
+    const post = await postService.getById(id, languageId);
     return responseUtils.ok(res, post);
   },
 
@@ -39,6 +42,7 @@ const postController = {
     try {
       const { formData } = req.body;
       const { translations } = req.body.formData;
+      const { file } = 'http://localhost:3000/owner/public/uploads/' + req.file.filename;
       const title = translations[0].title || translations[1].title || translations[2].title;
       
       if (!title) return responseUtils.notFound(res, "Post title is required.");

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
+import { TranslationService } from '../../shared/i18n/translation.service';
 
 @Component({
   selector: 'app-account-page',
@@ -12,11 +13,13 @@ import { format } from 'date-fns';
 export class AccountPageComponent implements OnInit {
   postForm: FormGroup;
   profile: any;
+  locale: string = '';
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router) {
+    private router: Router,
+    private translate: TranslationService) {
       this.postForm = this.fb.group({
         name: ['', Validators.required],
         birthday: [''],
@@ -28,10 +31,11 @@ export class AccountPageComponent implements OnInit {
    };
 
    ngOnInit(): void {
+    this.locale = localStorage.getItem('locale') || 'en';
+    this.translate.setDefaultLang(this.locale);
+
     this.apiService.getProfile().subscribe((profile) => {
       this.profile = profile;
-      console.log(this.profile.data);
-  
       this.postForm = this.fb.group({
         name: [this.profile.data.user.username],
         birthday: [format(new Date(this.profile.data.user.birthday), 'PP')],

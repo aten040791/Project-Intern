@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TranslationService } from 'src/app/shared/i18n/translation.service';
 
 @Component({
   selector: 'app-detail-post',
@@ -15,16 +16,16 @@ export class DetailPostComponent implements OnInit{
   reponsePosts: any[] = [];
   reponseDataPosts: any[] = [];
   reponDataPostsHeader: any[] = [];
-  reponDataPostsFooter: any[] = [];
   responseDataCategory: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  selectedLanguage: any = { locale: '', id: '' };
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private apiService: ApiService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private translate: TranslationService
   ) { }
 
   ngOnInit(): void {
@@ -34,9 +35,19 @@ export class DetailPostComponent implements OnInit{
         this.getPostDetails(postId);
       }
     });
-
+    this.selectedLanguage.locale = this.getLocaleFromLocalStorage() || 'vi';
+    this.translate.setDefaultLang(this.selectedLanguage.locale);
     this.getDataCategory();
     this.getData();
+  };
+
+  getLocaleFromLocalStorage(): string | null {
+    const storedLocale = localStorage.getItem('locale');
+    if (storedLocale) {
+      const { locale } = JSON.parse(storedLocale);
+      return locale;
+    }
+    return null;
   };
 
   getTranslationData(translations: any[]): { title: string, body: SafeHtml, languageName: string } {
@@ -64,11 +75,12 @@ export class DetailPostComponent implements OnInit{
     this.apiService.getData().subscribe((response) => {
         this.reponsePosts = response.data;
         this.reponDataPostsHeader = response.data.slice(0, 3);
-        this.reponDataPostsFooter = response.data.slice(0, 10);
         this.reponseDataPosts = this.reponsePosts.map((post) => ({
           ...post,
           formattedDate: format(new Date(post.createdAt), 'PP'),
-        }));
+          title: this.getTranslationData(post.translations).title,
+        }))
+        .filter(post => post.title !== 'No title available');
     });
   };
 

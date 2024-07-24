@@ -3,10 +3,10 @@
         <div id="map-link-bar">
             <ul>
                 <li>
-                    <a routerLink="/home">Trang chủ</a>
+                    <a routerLink="/home">{{ "labels.home" | translate }}</a>
                 </li>
                 <li>
-                    <a routerLink="/category">Danh mục</a>
+                    <a routerLink="/category">{{ "labels.category" | translate }}</a>
                 </li>
             </ul>
         </div>
@@ -15,7 +15,7 @@
                 <div class="ss2">
                     <div class="title title2">
                         <h1 class="title_v3a">
-                            Danh mục
+                           {{ "labels.category" | translate }}
                         </h1>
                     </div>
                     <div class="tour-evaluation">
@@ -25,7 +25,7 @@
                                     <div class="item">
                                         <div class="avt">
                                             <a routerLink="/detail-post" class="img">
-                                                <img src="../../../assets/img/logo.jpg" alt="">
+                                                <img src="{{ post.file }}" alt="">
                                             </a>
                                             <div class="voted-star-v1">
                                                 <div class="vote-star">
@@ -45,7 +45,7 @@
                                                 <span class="responsive-img-span" [innerHtml]="getTranslationData(post.translations).body"></span>
                                             </p>
                                             <a routerLink="/detail-post/{{ post.id }}" class="read-more">
-                                                [Xem chi tiết]
+                                                [{{ "labels.showDetails" | translate }}]
                                               </a>
                                             <div class="info-use-fb">
                                                 <div class="desc">
@@ -60,6 +60,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </li>
+                                <li *ngIf="totalPosts === 0">
+                                    <div class="text-center">{{ "messages.noPosts" | translate }}</div>
                                 </li>
                             </ul>
                         </div>
@@ -93,18 +96,18 @@
             <div class="box-right-bar">
                 <div class="title">
                     <h2 class="title-right-v1">
-                        <a href="">Danh sách bài viết</a>
+                        <a href="">{{ "labels.listOfArticles" | translate }}</a>
                     </h2>
                 </div>
                 <ul class="list-news-right_v1">
                     <li *ngFor="let reponseDataPost of reponseDataPosts">
                         <div class="avt">
                             <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
-                                <img src="../../../assets/img/logo.jpg" alt="">
+                                <img src="{{ reponseDataPost.file }}" alt="">
                             </a>
                         </div>
                         <div class="desc">
-                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ getTranslationData(reponseDataPost.translations).title }}</a>
+                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
                             <ul class="date-view">
                                 <li>
                                     <div class="ic-avt">
