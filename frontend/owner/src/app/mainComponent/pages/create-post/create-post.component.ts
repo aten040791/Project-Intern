@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CustomUploadImage } from '../../custom-upload-image';
+import { TranslationService } from '../../shared/i18n/translation.service';
 
 @Component({
   selector: 'app-create-post',
@@ -34,12 +35,14 @@ export class CreatePostComponent implements OnInit {
 
   faFloppyDisk = faFloppyDisk;
   faXmark = faXmark;
+  locale: string = '';
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslationService
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -54,6 +57,9 @@ export class CreatePostComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.locale = localStorage.getItem('locale') || 'en';
+    this.translate.setDefaultLang(this.locale);
+    
     this.fetchCategories();
     this.fetchLanguages();
   };

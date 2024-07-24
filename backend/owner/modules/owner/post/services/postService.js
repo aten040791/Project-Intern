@@ -2,31 +2,40 @@ const db = require("models/index");
 const { Op, Sequelize, where } = require("sequelize");
 
 const postService = {
-  list: async () => {
+  list: async (languageId) => {
+    const languageInclude = {
+      model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+      include: [
+        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] },
+      ],
+    };
+  
+    if (languageId) { languageInclude.where = { language_id: languageId }; }
+  
     const posts = await db.Post.findAll({
       where: { status: 'true' },
-      include: [
+      include: [ 
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
-          include: [
-            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-          ]
-        }
+        languageInclude,
       ],
-      order: [['createdAt', 'DESC']]
     });
     return posts;
   },
 
-  getById: async (id) => {
-    const post = await db.Post.findByPk(id, {
+  getById: async (id, languageId) => {
+    const languageInclude = {
+      model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
       include: [
+        { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] },
+      ],
+    };
+  
+    if (languageId) { languageInclude.where = { language_id: languageId }; }
+  
+    const post = await db.Post.findByPk(id, {
+      include: [ 
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
-          include: [
-            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-          ]
-        }
+        languageInclude,
       ],
     });
     return post;
@@ -73,33 +82,48 @@ const postService = {
     };
 },
 
-  category: async (id, page, perPage) => {
-    const offset = (page - 1) * perPage;
-    const { count, rows: posts } = await db.Post.findAndCountAll({
-      where: { category_id: id, status: 'true' },
-      distinct: true,
-      include: [
-        { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
-        { model: db.User, as: 'user', attributes: ['id', 'username'] },
-        { model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
-          include: [
-            { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] }
-          ]
-        }
-      ],
-      order: [['createdAt', 'DESC']],
-      offset: offset,
-      limit: perPage
-    });
-    const totalPages = Math.ceil(count / perPage);
-    return {
-      posts: posts,
-      limit: perPage,
-      offset: offset,
-      totalPosts: count,
-      totalPages: totalPages
-    };
-  },
+category: async (id, page, perPage, languageId) => {
+  const offset = (page - 1) * perPage;
+  const baseIncludes = [
+    { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
+    { model: db.User, as: 'user', attributes: ['id', 'username'] },
+  ];
+
+  const translationsInclude = {
+    model: db.Translate, as: 'translations', attributes: ['id', 'language_id', 'title', 'body'],
+    include: [
+      { model: db.Language, as: 'language', attributes: ['id', 'name', 'flag'] },
+    ],
+  };
+
+  if (languageId) {
+    translationsInclude.where = { language_id: languageId };
+  }
+
+  const includeOptions = [
+    ...baseIncludes,
+    translationsInclude,
+  ];
+
+  const { count, rows: posts } = await db.Post.findAndCountAll({
+    where: { category_id: id, status: 'true' },
+    distinct: true,
+    include: includeOptions,
+    order: [['createdAt', 'DESC']],
+    offset: offset,
+    limit: perPage,
+  });
+
+  const totalPages = Math.ceil(count / perPage);
+
+  return {
+    posts: posts,
+    limit: perPage,
+    offset: offset,
+    totalPosts: count,
+    totalPages: totalPages,
+  };
+},
 
   create: async (formData, translations) => {
     const newPost = await db.Post.create(formData);

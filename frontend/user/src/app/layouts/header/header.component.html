@@ -20,13 +20,13 @@
             <div class="right">
                 <ul>
                     <li>
-                        <a href="">Giới Thiệu</a>
-                    </li>
-                    <li class="">
-                        <a href="">Tin tức du lịch</a>
-                    </li>
-                    <li>
-                        <a href="">Liên hệ</a>
+                        <a style="margin-right: 10px;">{{ 'labels.chooseLanguage' | translate }}:</a>
+                        <select class="form-select" (change)="onLanguageChange($event)">
+                            <option *ngFor="let language of languages" [value]="language.locale + ',' + language.id"
+                                [selected]="selectedLanguage.locale === language.locale">
+                                {{ language.name }}
+                            </option>
+                        </select>
                     </li>
                 </ul>
             </div>
@@ -41,27 +41,29 @@
             </div>
             <div id="sticker" [ngClass]="{'active': isMenuOpen}">
                 <div class="sticker-container" id="sticker-container">
-                  <div class="overlay-sticker" (click)="onCloseMenu()"></div>
-                  <div class="warpper">
-                    <div class="head-sticker">
-                      <p>Danh mục</p>
-                      <div id="touch-out" (click)="onCloseMenu()"></div>
+                    <div class="overlay-sticker" (click)="onCloseMenu()"></div>
+                    <div class="warpper">
+                        <div class="head-sticker">
+                            <p>Danh mục</p>
+                            <div id="touch-out" (click)="onCloseMenu()"></div>
+                        </div>
+                        <div class="body-sticker">
+                            <ul class="tbl">
+                                <li class="tbl-cell" [ngClass]="{'active': activeCategoryId === null}">
+                                    <a routerLink="/home" (click)="setActiveCategory(null)">Trang chủ</a>
+                                </li>
+                                <li class="tbl-cell" *ngFor="let category of responseDataCategory"
+                                    [ngClass]="{'active': activeCategoryId === category.id}">
+                                    <a routerLink="/category/{{ category.id }}"
+                                        (click)="setActiveCategory(category.id)">
+                                        {{ category.name }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="body-sticker">
-                      <ul class="tbl">
-                        <li class="tbl-cell" [ngClass]="{'active': activeCategoryId === null}">
-                          <a routerLink="/home" (click)="setActiveCategory(null)">Trang chủ</a>
-                        </li>
-                        <li class="tbl-cell" *ngFor="let category of responseDataCategory" [ngClass]="{'active': activeCategoryId === category.id}">
-                          <a routerLink="/category/{{ category.id }}" (click)="setActiveCategory(category.id)">
-                            {{ category.name }}
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
-              </div>
+            </div>
             <div id="touch-on" (click)="onTouchOn()">
                 <span></span>
             </div>
@@ -80,7 +82,7 @@
                         <div class="input-search-tour input-search-tour-v2">
                             <input type="text" placeholder="Tìm kiếm điểm đến, hoạt động">
                         </div>
-                        <button>Tìm Kiếm</button>
+                        <button>{{ 'labels.search' | translate }}</button>
                     </div>
                 </form>
             </div>

@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CustomUploadImage } from '../../custom-upload-image';
+import { TranslationService } from '../../shared/i18n/translation.service';
 
 @Component({
   selector: 'app-update-post',
@@ -34,19 +35,24 @@ export class UpdatePostComponent implements OnInit {
 
   faFloppyDisk = faFloppyDisk;
   faXmark = faXmark;
+  locale: string = '';
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslationService
   ) {
     this.initializeForm();
     library.add(faFloppyDisk, faXmark);
   };
 
   ngOnInit(): void {
+    this.locale = localStorage.getItem('locale') || 'en';
+    this.translate.setDefaultLang(this.locale);
+    
     const postId = this.route.snapshot.paramMap.get('id');
     if (postId) {
       this.apiService.getPostDetails(Number(postId)).subscribe((post) => {

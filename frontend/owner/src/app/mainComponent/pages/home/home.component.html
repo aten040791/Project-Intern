@@ -7,7 +7,7 @@
         <div>
           <a routerLink="/create-post" class="">
             <button class="btn btn-secondary add-item btn-primary">
-              <span><fa-icon [icon]="faPlusSquare"></fa-icon><span class="d-none d-sm-inline-block">{{ "labels.addNewPost" | translate }}</span></span>
+              <span><fa-icon [icon]="faPlusSquare" style="margin-right: 6px;"></fa-icon><span class="d-none d-sm-inline-block">{{ "labels.addNewPost" | translate }}</span></span>
             </button>
           </a>
         </div>
@@ -84,7 +84,7 @@
                     </td>
                     <td style="max-width: 200px;">{{ post.formattedDate }}</td>
                     <td style="max-width: 150px;">{{ post.category.name }}</td>
-                    <td style="max-width: 150px;">{{ getTranslationData(post.translations).languageName }}</td>
+                    <td style="max-width: 150px;"><img src="{{ getTranslationData(post.translations).languageName }}" alt="" style="height: 32px; width: 32px;"></td>
                     <td>
                       <span [ngClass]="post.status === 'true' ? 'badge bg-label-success' : 'badge bg-label-danger'">{{ post.status === 'true' ? 'Active' : 'Hidden' }}</span>
                     </td>

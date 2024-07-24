@@ -25,10 +25,10 @@ export class NavbarComponent implements OnInit {
   userDropdownOpen = false;
   profile: any;
 
-  item: any = {}
-  languages: any[] = []
-  icActive: boolean = false
-  selectedLanguage: any = {}
+  item: any = {};
+  languages: any[] = [];
+  icActive: boolean = false;
+  selectedLanguage: any = {};
 
   constructor(private apiService: ApiService, private router: Router, private translate: TranslationService) {
     library.add(faSearch, faGlobe, faBell, faEnvelopeOpen, faUser, faCog, faPowerOff, faBars);
@@ -45,15 +45,16 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfile();
-    this.selectedLanguage.locale = localStorage.getItem('locale')
-    this.translate.setDefaultLang(this.selectedLanguage.locale)
+    this.getDataLanguage();
+    this.selectedLanguage.locale = localStorage.getItem('locale');
+    this.selectedLanguage = this.languages.find(language => language.locale === this.selectedLanguage.locale) || {};
+    this.translate.setDefaultLang(this.selectedLanguage.locale);
   };
 
   getProfile() {
     this.apiService.getProfile().subscribe({
       next: response => {
           this.profile = response.data.user;
-          this.getDataLanguage()
       },
       error: error => {
         console.error('Failed to fetch profile:', error);
@@ -66,6 +67,8 @@ export class NavbarComponent implements OnInit {
       response => {
         if (Array.isArray(response.data)) {
           this.languages = response.data;
+          const locale = localStorage.getItem('locale');
+          this.selectedLanguage = this.languages.find(language => language.locale === locale) || this.languages[0];
         } else {
           this.languages = [];
         }
@@ -85,6 +88,6 @@ export class NavbarComponent implements OnInit {
     this.selectedLanguage = language
     this.translate.switchLang(this.selectedLanguage.locale);
     localStorage.setItem('locale', this.selectedLanguage.locale)
-  }
+  };
 
 }
