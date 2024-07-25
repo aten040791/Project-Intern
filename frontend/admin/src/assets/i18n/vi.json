@@ -102,6 +102,10 @@
         "addUser": "Thêm người dùng",
         "createdAt": "Tạo lúc",
         "userInfor": "Thông tin người dùng",
-        "drag": "Kéo hoặc thả ảnh của bạn vào đây"
+        "drag": "Kéo hoặc thả ảnh của bạn vào đây",
+        "successful": "Thành công",
+        "failed": "Thất bại",
+        "loginSuccess": "Đăng nhập thành công",
+        "loginFailed": "Đăng nhập thất bại"
     }
 }

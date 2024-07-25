@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, takeWhile, timer } from 'rxjs';
+import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
 @Component({
@@ -11,6 +12,8 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 export class MyProfilePageComponent implements OnInit {
   
   constructor(private router: Router, private http: ApiService) {}
+
+  toastService = inject(ToastsService)
 
   errors: any[] = []
   
@@ -34,11 +37,6 @@ export class MyProfilePageComponent implements OnInit {
   // display img tmp
   showImageTmp: string = "";
 
-  // timeRemaining$ = timer(0, 1000).pipe(
-  //   map(n => (86400 - n) * 1000), // 86400s = 24h
-  //   takeWhile(n => n >= 0),
-  // );
-
   timeRemaining: { [id: number]: Observable<number> } = {};
 
   ngOnInit(): void {
@@ -47,15 +45,11 @@ export class MyProfilePageComponent implements OnInit {
 
   loadData() {
     const id = localStorage.getItem('user_id');
-    // if (!id) {
-    //   this.router.navigate(['/auth/login'])
-    // }
     this.http.getUser(id).subscribe({
       next: (data: any) => {
         this.item = data["data"]
       },
       error: (error: any) => {
-        // alert(`Error fetching items: ${error.message}`)
         this.errors = error["error"]["data"]["errors"];
       },
     })
@@ -80,11 +74,12 @@ export class MyProfilePageComponent implements OnInit {
 
     this.http.updateItem("users", formData, this.item.id).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        this.toastService.show({template: "Update successfully", classname: "toast--success", delay: 4000});
+        this.loadData()
       },
       error: (error: any) => {
-        console.error(error["error"]["data"]["errors"]);
         this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error, index) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 2000 + (index * 500)}));
       }
     })
   }
@@ -137,6 +132,10 @@ export class MyProfilePageComponent implements OnInit {
 
   onReset(): void {
     this.isReset = true
+    this.image = null
+    this.loadData()
+    this.toastService.show({template: "Reset", classname: "", delay: 4000});
   }
+
 
 }

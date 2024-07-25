@@ -90,7 +90,7 @@ export class ViewDetailComponent implements OnInit {
 
     this.http.updateItem("users", formData, this.item.id).subscribe({
       next: (data: any) => {
-        this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
+        this.toastService.show({template: "Update successfully", classname: "toast--success", delay: 4000});
         this.loadItem()
       },
       error: (error: any) => {

@@ -78,14 +78,18 @@ export class LoginComponent {
     this.http.login("auth", this.email, this.password, this.checked).subscribe({
       next: (data: any) => {
         this.loginService.setItem(data.data.user)
-        // this.toastService.show({template: data["message"], classname: "toast--success", delay: 10000})
-        this.setNoty(data["message"], "toast--success", 4000)
+        this.setNoty("Login Successful", "toast--success", 4000)
         setTimeout(() => {
           this.router.navigate(['/home'])
         }, 500);
       }, 
       error: (error: any) => {
-        this.errors = error["error"]["data"]["errors"];
+        if (error["error"]["status"] === 401) {
+          this.toastService.show({template: "Incorrect email or password", classname: "toast--error", delay: 4000})
+        } else {
+          this.errors = error["error"]["data"]["errors"];
+          this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 4000}));
+        }
       }
     })
   }

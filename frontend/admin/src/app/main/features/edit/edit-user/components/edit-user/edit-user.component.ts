@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { EditUserService } from '../../services/edit-user.service';
+import { Component, EventEmitter, HostListener, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { UserPageService } from 'src/app/main/pages/user-page/services/user-page.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
@@ -10,6 +10,10 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 })
 
 export class EditUserComponent {
+  constructor(private userPageService: UserPageService, private http: ApiService) {}
+
+  toastService = inject(ToastsService)
+
   @Input() isShowEdit: boolean = false;
   @Output() close = new EventEmitter<void>();
   @Input() item: any = {}
@@ -17,7 +21,6 @@ export class EditUserComponent {
 
   errors: any[] = [];
   
-  constructor(private userPageService: UserPageService, private http: ApiService) {}
 
   closeDialog(): void {
     this.close.emit();
@@ -41,11 +44,12 @@ export class EditUserComponent {
 
     this.http.updateItem("users", formData, this.item.id).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
+        this.closeDialog()
       },
       error: (error: any) => {
-        // console.error(error);
         this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 4000}));
       }
     })
   }
@@ -54,6 +58,14 @@ export class EditUserComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.image = input.files[0];
+    }
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(event: MouseEvent) {
+    const dialog = event?.target as HTMLElement
+    if(!dialog.closest('.modal-dialog')) {
+      this.closeDialog()
     }
   }
 

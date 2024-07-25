@@ -26,7 +26,6 @@ module.exports = {
   },
   deleteCategory: async (req, res) => {
     const { ids } = req.body;
-    // const idsArray = id.split(",");
     await categoryService.deleteCategory(ids);
     return responseUntils.ok(res, {
       message: "Categories deleted successfully",

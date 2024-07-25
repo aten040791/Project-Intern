@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, inject, Input, Output } from '@angular/core';
 import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 })
 export class AddCategoryComponent {
 
-  constructor(private http: ApiService) {}
+  constructor(private http: ApiService, private el: ElementRef) {}
 
   toastService = inject(ToastsService)
 
@@ -33,8 +33,17 @@ export class AddCategoryComponent {
       error: (error: any) => {
         this.errors = error["error"]["data"]["errors"];
         this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 4000}));
-        this.closeDialog()
+        // this.closeDialog()
        },
     });       
   }
+
+  @HostListener('click', ['$event'])
+  onClick(event: MouseEvent) {
+    const dialog = event?.target as HTMLElement
+    if(!dialog.closest('.modal-dialog')) {
+      this.closeDialog()
+    }
+  }
+
 }
