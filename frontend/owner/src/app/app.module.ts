@@ -10,6 +10,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ToastsComponent } from './mainComponent/featrue/toasts/toasts.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -45,6 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         disallowedRoutes: []
       }
     }),
+    ToastsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

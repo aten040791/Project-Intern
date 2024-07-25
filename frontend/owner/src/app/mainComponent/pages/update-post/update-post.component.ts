@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CustomUploadImage } from '../../custom-upload-image';
 import { TranslationService } from '../../shared/i18n/translation.service';
+import { ToastsService } from '../../featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-update-post',
@@ -36,6 +37,8 @@ export class UpdatePostComponent implements OnInit {
   faFloppyDisk = faFloppyDisk;
   faXmark = faXmark;
   locale: string = '';
+
+  toastService = inject(ToastsService);
 
   constructor(
     private fb: FormBuilder,
@@ -82,6 +85,13 @@ export class UpdatePostComponent implements OnInit {
     };
   };
 
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+    localStorage.setItem('msg', "Create successfully.")
+  };
+
   getDataCategory(): void {
     this.apiService.getDataCategory().subscribe((response) => {
       this.categories = response.data;
@@ -117,13 +127,19 @@ export class UpdatePostComponent implements OnInit {
       const postData = this.formatPostData(formData);
       const postId = this.route.snapshot.paramMap.get('id');
       this.apiService.updatePost(Number(postId), postData).subscribe({
-        next: () => {
-          this.router.navigate(['/post']);
+        next: (data: any) => {
+          this.setNoty(data["message"], "toast--success", 4000)
+          setTimeout(() => {
+            this.router.navigate(['/post'])
+          }, 500);
         },
         error: (error) => {
-          console.error('Error updating post:', error);
+          this.toastService.show({
+            template: error["error"]["message"],
+            classname: "toast--error",
+            delay: 5000
+          });
         }
-
       });
     }
   };

@@ -8,13 +8,17 @@ const authController = {
       const data = await authService.login(email, password);
       return responseUtils.ok(res, data);
     } catch (error) {
-      return responseUtils.userError(res, error.message);
+      return responseUtils.unauthorized(res, error.message);
     }
   },
 
   signUp: async (req, res) => {
-    const newUser = await authService.createUser(req.body);
-    return responseUtils.ok(res, newUser);
+    try {
+      const newUser = await authService.createUser(req.body);
+      return responseUtils.ok(res, newUser);
+    } catch (error) {
+      return responseUtils.unauthorized(res, error.message);
+    }
   },
 
   resPass: async (req, res) => {

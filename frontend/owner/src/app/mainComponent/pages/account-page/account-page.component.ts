@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
 import { TranslationService } from '../../shared/i18n/translation.service';
+import { ToastsService } from '../../featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-account-page',
@@ -15,13 +16,15 @@ export class AccountPageComponent implements OnInit {
   profile: any;
   locale: string = '';
 
+  toastService = inject(ToastsService);
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
     private translate: TranslationService) {
       this.postForm = this.fb.group({
-        name: ['', Validators.required],
+        username: ['', Validators.required],
         birthday: [''],
         address: [''],
         email: ['', Validators.required],
@@ -33,11 +36,12 @@ export class AccountPageComponent implements OnInit {
    ngOnInit(): void {
     this.locale = localStorage.getItem('locale') || 'en';
     this.translate.setDefaultLang(this.locale);
+    this.loadToast();
 
     this.apiService.getProfile().subscribe((profile) => {
       this.profile = profile;
       this.postForm = this.fb.group({
-        name: [this.profile.data.user.username],
+        username: [this.profile.data.user.username],
         birthday: [format(new Date(this.profile.data.user.birthday), 'PP')],
         address: [this.profile.data.user.address],
         email: [this.profile.data.user.email],
@@ -56,15 +60,42 @@ export class AccountPageComponent implements OnInit {
       });
       const formDataObject = this.formDataToObject(formData);
       this.apiService.updateUser(formDataObject).subscribe({
-        next: (response) => {
-          console.log('User updated successfully', response);
-          this.router.navigate(['/account-page']);
+        next: (data: any) => {
+          this.setNoty(data["message"], "toast--success", 4000)
+          setTimeout(() => {
+            window.location.href = '/account-page';
+          }, 500);
+          // window.location.href = '/account-page';
         },
         error: (error) => {
-          console.error('Failed to update user', error);
-          alert('Failed to update user');
+          this.toastService.show({
+            template: error["error"]["message"],
+            classname: "toast--error",
+            delay: 5000
+          });
         }
       });
+    }
+  };
+
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+    localStorage.setItem('msg', "Successfully.")
+  };
+
+  loadToast() {
+    const template = localStorage.getItem('template');
+    const classname = localStorage.getItem('classname');
+    const delay = localStorage.getItem('delay');
+    const msg = localStorage.getItem('msg') || "";
+    if (template && classname && delay) {
+      this.toastService.show({template, msg, classname, delay: Number(delay)});
+      localStorage.removeItem('template')
+      localStorage.removeItem('classname')
+      localStorage.removeItem('delay')
+      localStorage.removeItem('msg')
     }
   };
 
