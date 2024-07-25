@@ -15,14 +15,11 @@ export class CustomUploadAdapter {
   upload() {
     return this.loader.file.then(file => new Promise((resolve, reject) => {
       if (file) {
-        console.log('img_ckeditor_api_1:', file);
         const data = new FormData();
         data.append('file', file);
-        console.log('data_file: ',data);
 
         this.http.post(this.url, data).subscribe({
           next: (response: any) => {
-            console.log('img_ckeditor_api_2:', response.url);
             resolve({
               default: response.url
             });

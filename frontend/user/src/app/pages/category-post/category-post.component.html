@@ -93,32 +93,34 @@
                     </div>
                 </div>
             </div>
-            <div class="box-right-bar">
-                <div class="title">
-                    <h2 class="title-right-v1">
-                        <a href="">{{ "labels.listOfArticles" | translate }}</a>
-                    </h2>
+            <div class="col-md-3 col-sm-4">
+                <div class="box-right-bar" >
+                    <div class="title">
+                        <h2 class="title-right-v1">
+                            <a href="">{{ "labels.listOfArticles" | translate }}</a>
+                        </h2>
+                    </div>
+                    <ul class="list-news-right_v1">
+                        <li *ngFor="let reponseDataPost of reponseDataPosts">
+                            <div class="avt">
+                                <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
+                                    <img src="{{ reponseDataPost.file }}" alt="">
+                                </a>
+                            </div>
+                            <div class="desc">
+                                <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
+                                <ul class="date-view">
+                                    <li>
+                                        <div class="ic-avt">
+                                            <img src="../../../assets/img/ic-departure.png" alt="">
+                                        </div>
+                                        <p>{{ reponseDataPost.formattedDate }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="list-news-right_v1">
-                    <li *ngFor="let reponseDataPost of reponseDataPosts">
-                        <div class="avt">
-                            <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
-                                <img src="{{ reponseDataPost.file }}" alt="">
-                            </a>
-                        </div>
-                        <div class="desc">
-                            <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
-                            <ul class="date-view">
-                                <li>
-                                    <div class="ic-avt">
-                                        <img src="../../../assets/img/ic-departure.png" alt="">
-                                    </div>
-                                    <p>{{ reponseDataPost.formattedDate }}</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

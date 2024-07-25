@@ -18,6 +18,7 @@ const postService = {
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         languageInclude,
       ],
+      order: [['createdAt', 'DESC']],
     });
     return posts;
   },
@@ -37,6 +38,7 @@ const postService = {
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
         languageInclude,
       ],
+      order: [['createdAt', 'DESC']],
     });
     return post;
   },

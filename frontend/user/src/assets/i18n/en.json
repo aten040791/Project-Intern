@@ -110,7 +110,11 @@
     "chooseLanguage": "Choose Language",
     "home": "Home",
     "showDetails": "Show details",
-    "listOfArticles": "List of articles"
+    "listOfArticles": "List of articles",
+    "news": "News",
+    "sportsNews": "Sports news",
+    "scienceNews": "Science news",
+    "entertainmentNews": "Entertainment news"
   },
   "messages": {
     "noPosts": "There are no posts"

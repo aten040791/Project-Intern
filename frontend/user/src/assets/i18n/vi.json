@@ -110,7 +110,11 @@
     "chooseLanguage": "Chọn ngôn ngữ",
     "home": "Trang chủ",
     "showDetails": "Xem chi tiết",
-    "listOfArticles": "Danh sách bài viết"
+    "listOfArticles": "Danh sách bài viết",
+    "news": "Tin tức thời sự",
+    "sportsNews": "Tin tức thể thao",
+    "scienceNews": "Tin tức khoa học",
+    "entertainmentNews": "Tin tức giải trí"
   },
   "messages": {
     "noPosts": "Không có bài viết nào"

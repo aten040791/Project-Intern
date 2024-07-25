@@ -42,7 +42,6 @@ const postController = {
     try {
       const { formData } = req.body;
       const { translations } = req.body.formData;
-      const { file } = 'http://localhost:3000/owner/public/uploads/' + req.file.filename;
       const title = translations[0].title || translations[1].title || translations[2].title;
       
       if (!title) return responseUtils.notFound(res, "Post title is required.");

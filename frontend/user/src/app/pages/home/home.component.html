@@ -3,10 +3,7 @@
         <div id="map-link-bar">
             <ul>
                 <li>
-                    <a routerLink="/home">Trang chủ</a>
-                </li>
-                <li>
-                    <a routerLink="/category">Tin tức du lịch</a>
+                    <a routerLink="/home">{{ "labels.home" | translate }}</a>
                 </li>
             </ul>
         </div>
@@ -15,53 +12,39 @@
                 <div class="ss3">
                     <div class="title title2">
                         <h1 class="title_v3a">
-                            Tin tức du lịch
+                            {{ "labels.news" | translate }}
                         </h1>
                         <div class="btn-see-more_v3">
-                            <a routerLink="/category">Xem thêm <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a routerLink="/category/1">{{ "labels.showDetails" | translate }}<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="list-news-cubes-v1">
                         <div class="item-1 item">
                             <ul class="run-slider">
-                                <li>
+                                <li *ngFor="let postsNewFirst of postsNewsFirst">
                                     <div class="item">
                                         <div class="avt">
-                                            <img src="../../../assets/img/item-slider-news-cubes-1-1.png" alt="">
+                                            <img src="{{ postsNewFirst.file }}" alt="" style="width: 558.22px; height: 348px;">
                                         </div>
                                         <div class="desc">
                                             <div class="box-desc">
-                                                <a routerLink="/detail-post" class="titleA">Tận hưởng cuộc sống ở thiên đường nghỉ dưỡng Six Senses Côn Đảo sang chảnh bậc nhất Việt Nam</a>
-                                                <p>Nếu bạn đã từng đặt chân đến những bãi biển nổi tiếng ở Đà Nẵng hay Nha Trang thì Côn Đảo hẳn là một sự lựa chọn không quá mới mẻ nhưng </p>
-                                                <a routerLink="/detail-post" class="btn-detail">Chi tiết</a>
+                                                <a routerLink="/detail-post/{{ postsNewFirst.id }}" class="titleA">{{ getTranslationData(postsNewFirst.translations).title }}</a>
+                                                <a routerLink="/detail-post/{{ postsNewFirst.id }}" class="btn-detail">{{ "labels.showDetails" | translate }}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="item-2 item">
+                        <div class="item-2 item"  *ngFor="let postsNewSecond of postsNewsSecond">
                             <div class="item">
-                                <div class="avt">
-                                    <img src="../../../assets/img/item-slider-news-cubes-1-2.png" alt="">
+                                <div class="avt" style="width: 259.52px; height: 171.02px;">
+                                    <img src="{{ postsNewSecond.file }}" alt="">
                                 </div>
                                 <div class="desc">
                                     <div class="box-desc">
-                                        <a routerLink="/detail-post" class="titleA">Trekking Núi Chúa chuyến đi ấn tượng</a>
-                                        <a routerLink="/detail-post" class="btn-detail">Chi tiết</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item-2 item">
-                            <div class="item">
-                                <div class="avt">
-                                    <img src="../../../assets/img/item-slider-news-cubes-1-3.png" alt="">
-                                </div>
-                                <div class="desc">
-                                    <div class="box-desc">
-                                        <a routerLink="/detail-post" class="titleA">Trekking Núi Chúa chuyến đi ấn tượng</a>
-                                        <a routerLink="/detail-post" class="btn-detail">Chi tiết</a>
+                                        <a routerLink="/detail-post/{{ postsNewSecond.id }}" class="titleA">{{ getTranslationData(postsNewSecond.translations).title }}</a>
+                                        <a routerLink="/detail-post/{{ postsNewSecond.id }}" class="btn-detail">Chi tiết</a>
                                     </div>
                                 </div>
                             </div>
@@ -71,134 +54,52 @@
                 <div class="ss3">
                     <div class="title title2">
                         <h2 class="title_v3a">
-                            Cẩm nang du lịch
+                            {{ "labels.sportsNews" | translate }}
                         </h2>
                         <div class="btn-see-more_v3">
-                            <a routerLink="/category">Xem thêm <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a routerLink="/category/2">{{ "labels.showDetails" | translate }} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="news news-v2">
                         <div class="body-news">
                             <div class="item-news-active">
-                                <div class="box-item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-11.png" alt="">
+                                <div class="box-item"  *ngFor="let postSportFirst of postsSportFirst">
+                                    <a routerLink="/detail-post/{{ postSportFirst.id }}" class="avt">
+                                        <img src="{{ postSportFirst.file }}" alt="" style="width: 418.38px; height: 236.11px;">
                                     </a>
                                     <div class="desc">
                                         <h4 class="title-item_v1">
-                                            <a routerLink="/detail-post">7 điểm đến tuyệt đẹp trên thế giới trong tháng 10 năm nay</a>
+                                            <a routerLink="/detail-post/{{ postSportFirst.id }}">{{ getTranslationData(postSportFirst.translations).title }}</a>
                                         </h4>
                                         <ul class="date-view">
                                             <li>
                                                 <div class="ic-avt">
                                                     <img src="../../../assets/img/ic-departure.png" alt="">
                                                 </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
+                                                <p>{{ postSportFirst.formattedDate }}</p>
                                             </li>
                                         </ul>
-                                        <p>7 điểm đến tuyệt đẹp trên thế giới trong tháng 10 năm nay</p>
+                                        <p class="card-text">
+                                            <span class="responsive-img-span" [innerHtml]="getTranslationData(postSportFirst.translations).body"></span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="slider-news_v1">
                                 <ul class="list-root">
-                                    <li>
+                                    <li *ngFor="let postSportSecond of postsSportSecond">
                                         <div class="item">
-                                            <a routerLink="/detail-post" class="avt">
-                                                <img src="../../../assets/img/item-slider-news-v1-12.png" alt="">
+                                            <a routerLink="/detail-post/{{ postSportSecond.id }}" class="avt">
+                                                <img src="{{ postSportSecond.file }}" alt="">
                                             </a>
                                             <div class="desc">
-                                                <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
+                                                <a routerLink="/detail-post/{{ postSportSecond.id }}" class="titleA" >{{ getTranslationData(postSportSecond.translations).title }}</a>
                                                 <ul class="date-view">
                                                     <li>
                                                         <div class="ic-avt">
                                                             <img src="../../../assets/img/ic-departure.png" alt="">
                                                         </div>
-                                                        <p>9/10/2018</p>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                                        </div>
-                                                        <p>22</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                            <a routerLink="/detail-post" class="avt">
-                                                <img src="../../../assets/img/item-slider-news-v1-13.png" alt="">
-                                            </a>
-                                            <div class="desc">
-                                                <a routerLink="/detail-post" class="titleA" >7 điểm đến tuyệt đẹp trên thế giới trong tháng 10 năm nay</a>
-                                                <ul class="date-view">
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                                        </div>
-                                                        <p>9/10/2018</p>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                                        </div>
-                                                        <p>22</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                            <a routerLink="/detail-post" class="avt">
-                                                <img src="../../../assets/img/item-slider-news-v1-14.png" alt="">
-                                            </a>
-                                            <div class="desc">
-                                                <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
-                                                <ul class="date-view">
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                                        </div>
-                                                        <p>9/10/2018</p>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                                        </div>
-                                                        <p>22</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="item">
-                                            <a routerLink="/detail-post" class="avt">
-                                                <img src="../../../assets/img/item-slider-news-v1-15.png" alt="">
-                                            </a>
-                                            <div class="desc">
-                                                <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
-                                                <ul class="date-view">
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                                        </div>
-                                                        <p>9/10/2018</p>
-                                                    </li>
-                                                    <li>
-                                                        <div class="ic-avt">
-                                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                                        </div>
-                                                        <p>22</p>
+                                                        <p>{{ postSportSecond.formattedDate }}</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -212,153 +113,27 @@
                 <div class="ss3">
                     <div class="title title2">
                         <h2 class="title_v3a">
-                            Kinh nghiệm du lịch
+                            {{ "labels.scienceNews" | translate }}
                         </h2>
                         <div class="btn-see-more_v3">
-                            <a routerLink="/category">Xem thêm <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a routerLink="/category/3">{{ "labels.showDetails" | translate }} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                     <div class="slider-news_v1 slider-news_v1a">
                         <ul class="list-root list-item">
-                            <li>
+                            <li *ngFor="let postScienceFirst of postsScienceFirst">
                                 <div class="item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-5.png" alt="">
+                                    <a routerLink="/detail-post/{{ postScienceFirst.id }}" class="avt">
+                                        <img src="{{ postScienceFirst.file }}" alt="">
                                     </a>
                                     <div class="desc">
-                                        <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
+                                        <a routerLink="/detail-post" class="titleA" >{{ getTranslationData(postScienceFirst.translations).title }}</a>
                                         <ul class="date-view">
                                             <li>
                                                 <div class="ic-avt">
                                                     <img src="../../../assets/img/ic-departure.png" alt="">
                                                 </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-6.png" alt="">
-                                    </a>
-                                    <div class="desc">
-                                        <a routerLink="/detail-post" class="titleA" >7 điểm đến tuyệt đẹp trên thế giới trong tháng 10 năm nay</a>
-                                        <ul class="date-view">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-7.png" alt="">
-                                    </a>
-                                    <div class="desc">
-                                        <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
-                                        <ul class="date-view">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-5.png" alt="">
-                                    </a>
-                                    <div class="desc">
-                                        <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
-                                        <ul class="date-view">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-8.png" alt="">
-                                    </a>
-                                    <div class="desc">
-                                        <a routerLink="/detail-post" class="titleA" >7 điểm đến tuyệt đẹp trên thế giới trong tháng 10 năm nay</a>
-                                        <ul class="date-view">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <a routerLink="/detail-post" class="avt">
-                                        <img src="../../../assets/img/item-slider-news-v1-9.png" alt="">
-                                    </a>
-                                    <div class="desc">
-                                        <a routerLink="/detail-post" class="titleA" >Những điệu nhảy truyền thống được yêu thích trên thế giới</a>
-                                        <ul class="date-view">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>9/10/2018</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-view.png" alt="">
-                                                </div>
-                                                <p>22</p>
+                                                <p>{{ postScienceFirst.formattedDate }}</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -370,144 +145,43 @@
                 <div class="ss3">
                     <div class="title title2">
                         <h2 class="title_v3a">
-                            Tour khuyến mại
+                            {{ "labels.entertainmentNews" | translate }}
                         </h2>
                         <div class="btn-see-more_v3">
-                            <a routerLink="/category">Xem thêm <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a routerLink="/category/4">{{ "labels.showDetails" | translate }} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
-                    <div class="slider-tour_v1 slider-tour_v1a">
-                        <ul class="list-item list-root">
-                            <li>
-                                <div class="item">
-                                    <div class="avt">
-                                        <a routerLink="/detail-post" class="img">
-                                            <img src="../../../assets/img/item-slider-tour-v1-4.png" alt="">
-                                        </a>
-                                        <div class="desc-avt">
-                                            <div class="price">
-                                                <span class="new-price">2.381.000đ</span>
-                                                <span class="old-price">2.580.000đ</span>
-                                            </div>
-                                            <div class="btn-see-more">
-                                                <a routerLink="/detail-post">Chi tiết</a>
+                    <div class="list-news-cubes-v1">
+                        <div class="item-1 item">
+                            <ul class="run-slider">
+                                <li *ngFor="let postEntertaimentFirst of postsEntertaimentFirst">
+                                    <div class="item">
+                                        <div class="avt">
+                                            <img src="{{ postEntertaimentFirst.file }}" alt="" style="width: 558.22px; height: 348px;">
+                                        </div>
+                                        <div class="desc">
+                                            <div class="box-desc">
+                                                <a routerLink="/detail-post/{{ postEntertaimentFirst.id }}" class="titleA">{{ getTranslationData(postEntertaimentFirst.translations).title }}</a>
+                                                <a routerLink="/detail-post/{{ postEntertaimentFirst.id }}" class="btn-detail">Chi tiết</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="desc">
-                                        <h3>
-                                            <a routerLink="/detail-post">Du lịch Đà Nẵng - Sơn Trà - Hội An - Bà Nà - Huế</a>
-                                        </h3>
-                                        <ul class="list-info-summary">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>Khời hành: 12,26/10.</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-time.png" alt="">
-                                                </div>
-                                                <p>Thời gian: 3 ngày 2 đêm</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-planes.png" alt="">
-                                                </div>
-                                                <p>Phương tiện: máy bay</p>
-                                            </li>
-                                        </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item-2 item"  *ngFor="let postEntertaimentSecond of postsEntertaimentSecond">
+                            <div class="item">
+                                <div class="avt" style="width: 259.52px; height: 171.02px;">
+                                    <img src="{{ postEntertaimentSecond.file }}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <div class="box-desc">
+                                        <a routerLink="/detail-post/{{ postEntertaimentSecond.id }}" class="titleA">{{ getTranslationData(postEntertaimentSecond.translations).title }}</a>
+                                        <a routerLink="/detail-post/{{ postEntertaimentSecond.id }}" class="btn-detail">Chi tiết</a>
                                     </div>
                                 </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="avt">
-                                        <a routerLink="/detail-post" class="img">
-                                            <img src="../../../assets/img/item-slider-tour-v1-5.png" alt="">
-                                        </a>
-                                        <div class="desc-avt">
-                                            <div class="price">
-                                                <span class="new-price">6.500.000đ</span>
-                                                <span class="old-price">7.580.000đ</span>
-                                            </div>
-                                            <div class="btn-see-more">
-                                                <a routerLink="/detail-post">Chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <h3>
-                                            <a routerLink="/detail-post">Du lịch Châu Đốc: Rừng tràm Trà Sư (Tour Tiết Kiệm)</a>
-                                        </h3>
-                                        <ul class="list-info-summary">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>Khời hành: 12,26/10.</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-time.png" alt="">
-                                                </div>
-                                                <p>Thời gian: 3 ngày 2 đêm</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-oto.png" alt="">
-                                                </div>
-                                                <p>Phương tiện: ô tô</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="item">
-                                    <div class="avt">
-                                        <a routerLink="/detail-post" class="img">
-                                            <img src="../../../assets/img/item-slider-tour-v1-6.png" alt="">
-                                        </a>
-                                        <div class="desc-avt">
-                                            <div class="price">
-                                                <span class="new-price">18.900.000đ</span>
-                                                <span class="old-price">20.900.000đ</span>
-                                            </div>
-                                            <div class="btn-see-more">
-                                                <a routerLink="/detail-post">Chi tiết</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <h3>
-                                            <a routerLink="/detail-post">Du lịch Đà Nẵng - Bà Nà - Hội An - Huế - Động Phong Nha</a>
-                                        </h3>
-                                        <ul class="list-info-summary">
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-departure.png" alt="">
-                                                </div>
-                                                <p>Khời hành: 12,26/10.</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-time.png" alt="">
-                                                </div>
-                                                <p>Thời gian: 3 ngày 2 đêm</p>
-                                            </li>
-                                            <li>
-                                                <div class="ic-avt">
-                                                    <img src="../../../assets/img/ic-planes.png" alt="">
-                                                </div>
-                                                <p>Phương tiện: máy bay</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -515,150 +189,24 @@
                 <div class="box-right-bar">
                     <div class="title">
                         <h2 class="title-right-v1">
-                            <a routerLink="/detail-post">Xem nhiều nhất</a>
+                            <a routerLink="">{{ "labels.listOfArticles" | translate }}</a>
                         </h2>
                     </div>
                     <ul class="list-news-right_v1">
-                        <li>
+                        <li *ngFor="let reponseDataPost of reponseDataPosts">
                             <div class="avt">
-                                <a routerLink="/detail-post" class="img">
-                                    <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
+                                <a routerLink="/detail-post/{{ reponseDataPost.id }}" class="img">
+                                    <img src="{{ reponseDataPost.file }}" alt="">
                                 </a>
                             </div>
                             <div class="desc">
-                                <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
+                                <a routerLink="/detail-post/{{ reponseDataPost.id }}">{{ reponseDataPost.title }}</a>
                                 <ul class="date-view">
                                     <li>
                                         <div class="ic-avt">
                                             <img src="../../../assets/img/ic-departure.png" alt="">
                                         </div>
-                                        <p>9/10/2018</p>
-                                    </li>
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                        </div>
-                                        <p>22</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="avt">
-                                <a routerLink="/detail-post" class="img">
-                                    <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                                </a>
-                            </div>
-                            <div class="desc">
-                                <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                <ul class="date-view">
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                        </div>
-                                        <p>9/10/2018</p>
-                                    </li>
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                        </div>
-                                        <p>22</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="avt">
-                                <a routerLink="/detail-post" class="img">
-                                    <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                                </a>
-                            </div>
-                            <div class="desc">
-                                <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                <ul class="date-view">
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                        </div>
-                                        <p>9/10/2018</p>
-                                    </li>
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                        </div>
-                                        <p>22</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="avt">
-                                <a routerLink="/detail-post" class="img">
-                                    <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                                </a>
-                            </div>
-                            <div class="desc">
-                                <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                <ul class="date-view">
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                        </div>
-                                        <p>9/10/2018</p>
-                                    </li>
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                        </div>
-                                        <p>22</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="avt">
-                                <a routerLink="/detail-post" class="img">
-                                    <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                                </a>
-                            </div>
-                            <div class="desc">
-                                <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                <ul class="date-view">
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                        </div>
-                                        <p>9/10/2018</p>
-                                    </li>
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                        </div>
-                                        <p>22</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="avt">
-                                <a routerLink="/detail-post" class="img">
-                                    <img src="../../../assets/img/item-news-right-v1-1.png" alt="">
-                                </a>
-                            </div>
-                            <div class="desc">
-                                <a routerLink="/detail-post">Hành trình du lịch Đông Bắc của những đôi chân không</a>
-                                <ul class="date-view">
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-departure.png" alt="">
-                                        </div>
-                                        <p>9/10/2018</p>
-                                    </li>
-                                    <li>
-                                        <div class="ic-avt">
-                                            <img src="../../../assets/img/ic-view.png" alt="">
-                                        </div>
-                                        <p>22</p>
+                                        <p>{{ reponseDataPost.formattedDate }}</p>
                                     </li>
                                 </ul>
                             </div>
