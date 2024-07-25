@@ -139,9 +139,9 @@
                   ></div>
                 </div>
                 <div class="col-12 col-md-6 fv-plugins-icon-container">
-                  <label for="" class="form-label">{{
-                    "labels.avatar" | translate
-                  }}</label
+                  <label for="" class="form-label"
+                    >{{ "labels.avatar" | translate }}
+                    <span class="text-danger">*</span> </label
                   ><input
                     type="file"
                     name="avatar"
@@ -151,9 +151,9 @@
                   />
                 </div>
                 <div class="col-12 col-md-6 fv-plugins-icon-container">
-                  <label for="" class="form-label">{{
-                    "labels.username" | translate
-                  }}</label
+                  <label for="" class="form-label"
+                    >{{ "labels.username" | translate }}
+                    <span class="text-danger">*</span></label
                   ><input
                     type="text"
                     name="username"
@@ -167,9 +167,9 @@
                   ></div>
                 </div>
                 <div class="col-12 col-md-6 fv-plugins-icon-container">
-                  <label for="modalEditUserStatus" class="form-label">{{
-                    "labels.role" | translate
-                  }}</label
+                  <label for="modalEditUserStatus" class="form-label"
+                    >{{ "labels.role" | translate }}
+                    <span class="text-danger">*</span></label
                   ><select
                     name="role_id"
                     ngmodel
@@ -183,7 +183,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <label for="modalEditUserEmail" class="form-label"
-                    >Email</label
+                    >Email <span class="text-danger">*</span></label
                   ><input
                     type="email"
                     name="email"
@@ -194,9 +194,9 @@
                   />
                 </div>
                 <div class="col-12 col-md-6">
-                  <label for="modalEditUserStatus" class="form-label">{{
-                    "labels.status" | translate
-                  }}</label
+                  <label for="modalEditUserStatus" class="form-label"
+                    >{{ "labels.status" | translate }}
+                    <span class="text-danger">*</span></label
                   ><select
                     name="status"
                     aria-label="Default select example"
@@ -214,9 +214,10 @@
                   </select>
                 </div>
                 <div class="col-12 col-md-6">
-                  <label for="modalEditUserPhone" class="form-label">{{
-                    "labels.phone" | translate
-                  }}</label>
+                  <label for="modalEditUserPhone" class="form-label"
+                    >{{ "labels.phone" | translate }}
+                    <span class="text-danger">*</span></label
+                  >
                   <div class="input-group input-group-merge">
                     <input
                       type="text"

@@ -103,6 +103,10 @@
         "addUser": "Add User",
         "createdAt": "Create at",
         "userInfor": "User Information",
-        "drag": "Drag and drop your image here"
+        "drag": "Drag and drop your image here",
+        "successful": "Successful",
+        "failed": "Failed",
+        "loginSuccess": "Login Successful",
+        "loginFailed": "Login Failed"
     }
 }

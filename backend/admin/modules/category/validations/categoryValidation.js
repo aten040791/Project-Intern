@@ -6,11 +6,7 @@ const {
 const db = require("models/index");
 
 const categoryValidation = {
-  index: [
-    // new BodyWithLocale("title").notEmpty(),
-    //other rules goes here
-    new QueryWithLocale("search").notEmpty(),
-  ],
+  index: [new QueryWithLocale("search").notEmpty()],
   create: [
     new BodyWithLocale("name")
       .notEmpty()

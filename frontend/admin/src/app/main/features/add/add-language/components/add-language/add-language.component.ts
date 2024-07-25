@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, inject, Input, Output, TemplateRef } from '@angular/core';
 import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 })
 export class AddLanguageComponent {
 
-  constructor(private http: ApiService, private cdr: ChangeDetectorRef) {}
+  constructor(private http: ApiService, private el: ElementRef) {}
 
   toastService = inject(ToastsService)
 
@@ -52,6 +52,14 @@ export class AddLanguageComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+    }
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(event: MouseEvent) {
+    const dialog = event?.target as HTMLElement
+    if(!dialog.closest('.modal-dialog')) {
+      this.closeDialog()
     }
   }
 

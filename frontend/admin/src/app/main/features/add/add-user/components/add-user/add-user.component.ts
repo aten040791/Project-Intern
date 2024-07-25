@@ -38,11 +38,11 @@ export class AddUserComponent {
 
     this.http.createItem("users", formData).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        // window.location.reload();
       },
       error: (error: Error) => {
         // console.error(error);
-        alert(`Error fetching items: ${error.message}`)
+        // alert(`Error fetching items: ${error.message}`)
       }
     })
 

@@ -7,11 +7,7 @@ const {
 const db = require("models/index");
 
 const languageValidation = {
-  index: [
-    // new BodyWithLocale("title").notEmpty(),
-    // new QueryWithLocale("search").notEmpty(),
-    //other rules goes here
-  ],
+  index: [],
   create: [
     new BodyWithLocale("name")
       .notEmpty()
@@ -21,17 +17,11 @@ const languageValidation = {
       .notEmpty()
       .isString()
       .unique(db.Language, "locale"),
-    // new BodyWithLocale("locale").isString().notEmpty(),
-    // new BodyWithLocale("flag").isString(),
   ],
-  delete: [
-    // new BodyWithLocale("id").notEmpty().exist(db.Language, "id")
-  ],
+  delete: [],
   update: [
-    // new ParamWithLocale("id").exist(db.Language, "id"),
-    // new BodyWithLocale("name").notEmpty().isString(),
-    // new BodyWithLocale("locale").notEmpty().isString().notEmpty(),
-    // new BodyWithLocale("flag").isString(),
+    new BodyWithLocale("name").notEmpty().isString(),
+    new BodyWithLocale("locale").notEmpty().isString(),
   ],
 };
 

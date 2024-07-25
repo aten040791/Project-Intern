@@ -39,12 +39,4 @@ module.exports = {
       data: errors,
     });
   },
-
-  errorAdmin: (res, message) => {
-    return res.status(400).send({
-      success: false,
-      status: 400,
-      message: message || "Cannot find resouces",
-    });
-  },
 };

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/auth/pages/login/services/login.service';
 import { ApiService } from '../../shared/httpApi/api.service';
 import { Router } from '@angular/router';
@@ -30,18 +30,12 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData()
-    // this.selectedLanguage.locale = "en"
     this.selectedLanguage.locale = localStorage.getItem('locale')
     this.translate.setDefaultLang(this.selectedLanguage.locale)
   }
 
   loadData() {
     const id = localStorage.getItem('user_id');
-    // const accessToken = localStorage.getItem('access_token')
-
-    // if (!accessToken || !id) {
-    //   this.router.navigate(['/auth/login'])
-    // }
 
     this.http.getUser(id).subscribe({
       next: (data: any) => {
@@ -49,8 +43,6 @@ export class NavComponent implements OnInit {
         this.loadLanguage()
       },
       error: (err: any) => {
-        // alert(`Error fetching items: ${err.message}`)
-        // this.router.navigate(['/auth/login'])
       }
     })
     
@@ -65,10 +57,8 @@ export class NavComponent implements OnInit {
             this.selectedLanguage = language
           }
         })
-
       },
       error: (err: any) => {
-        // this.router.navigate(['/auth/login'])
       }
     })
   }
