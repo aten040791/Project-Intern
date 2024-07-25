@@ -41,6 +41,17 @@
                 </div>
               </div>
             </div>
+            <div class="mb-3 form-password-toggle">
+              <label class="form-label" for="confirmPassword">Confirm password</label>
+              <div class="input-group input-group-merge">
+                <input type="password" id="confirmPassword" class="form-control" name="confirmPassword"
+                  placeholder="Enter your confirm password" aria-describedby="confirmPassword" formControlName="confirmPassword"
+                  [(ngModel)]="confirmPassword" required>
+                <div *ngIf="postForm.get('confirmPassword')?.invalid && postForm.get('confirmPassword')?.touched" class="error">
+                  Please enter a valid password has min length is 6 characters.
+                </div>
+              </div>
+            </div>
             <button class="btn btn-primary d-grid w-100" type="submit" [disabled]="postForm.invalid">Sign up</button>
           </form>
 

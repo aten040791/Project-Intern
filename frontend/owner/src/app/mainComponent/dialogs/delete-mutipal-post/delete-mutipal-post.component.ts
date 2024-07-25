@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { ToastsService } from '../../featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-delete-mutipal-post',
@@ -15,6 +16,8 @@ export class DeleteMutipalPostComponent implements OnInit {
   postForm: FormGroup;
 
   faFloppyDisk = faFloppyDisk;
+
+  toastService = inject(ToastsService);
   
   constructor(
     private fb: FormBuilder,
@@ -51,17 +54,29 @@ export class DeleteMutipalPostComponent implements OnInit {
         ...this.postForm.value,
       }
       this.apiService.deletePost(formData).subscribe({
-        next: (response) => {
-          console.log('Post delete successfully', response);
-          this.router.navigate(['/post']);
+        next: (data: any) => {
+          this.setNoty(data["message"], "toast--success", 4000)
+          setTimeout(() => {
+            this.router.navigate(['/post'])
+          }, 500);
           window.location.reload();
         },
         error: (error) => {
-          console.error('Failed to delete post', error);
-          alert('Failed to delete post');
+          this.toastService.show({
+            template: error["error"]["message"],
+            classname: "toast--error",
+            delay: 5000
+          });
         }
       });
     }
     this.closeModal();
-  }
+  };
+
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+    localStorage.setItem('msg', "Delete successfully.")
+  };
 }

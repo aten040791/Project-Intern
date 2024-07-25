@@ -1,9 +1,10 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from 'src/app/services/api.service';
+import { ToastsService } from '../../featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-edit-category-dialog',
@@ -18,6 +19,8 @@ export class EditCategoryDialogComponent {
   selectedCategoryText = '-- Choose category --';
 
   faFloppyDisk = faFloppyDisk;
+
+  toastService = inject(ToastsService);
 
   constructor(
     private fb: FormBuilder,
@@ -77,17 +80,29 @@ export class EditCategoryDialogComponent {
         ...this.postForm.value,
       };
       this.apiService.updateCategory(formData).subscribe({
-        next: (response) => {
-          console.log('Post update category successfully', response);
-          this.router.navigate(['/post']);
+        next: (data: any) => {
+          this.setNoty(data["message"], "toast--success", 4000)
+          setTimeout(() => {
+            this.router.navigate(['/post'])
+          }, 500);
           window.location.reload();
         },
         error: (error) => {
-          console.error('Failed to update category post', error);
-          alert('Failed to update category post');
-        },
+          this.toastService.show({
+            template: error["error"]["message"],
+            classname: "toast--error",
+            delay: 5000
+          });
+        }
       });
       this.closeModal();
     }
-  }
+  };
+
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+    localStorage.setItem('msg', "Update category successfully.")
+  };
 }

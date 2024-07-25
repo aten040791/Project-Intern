@@ -1,5 +1,5 @@
 import { state } from '@angular/animations';
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, DoCheck, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash, faLanguage, faBook, faToggleOn } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TranslationService } from '../../shared/i18n/translation.service';
+import { ToastsService } from '../../featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,8 @@ export class HomeComponent implements OnInit, DoCheck {
   isReadMore: { [key: string]: boolean } = {};
   locale: string = '';
 
+  toastService = inject(ToastsService)
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -56,6 +59,7 @@ export class HomeComponent implements OnInit, DoCheck {
     this.translate.setDefaultLang(this.locale);
     this.updateUrl();
     this.getData();
+    this.loadToast();
   };
 
   getSanitizedHtml(html: string): SafeHtml {
@@ -172,5 +176,19 @@ export class HomeComponent implements OnInit, DoCheck {
   shouldShowReadMore(body: string): boolean {
     const maxLength = 200;
     return body.length > maxLength;
-  }
+  };
+  
+  loadToast() {
+    const template = localStorage.getItem('template');
+    const classname = localStorage.getItem('classname');
+    const delay = localStorage.getItem('delay');
+    const msg = localStorage.getItem('msg') || "";
+    if (template && classname && delay) {
+      this.toastService.show({template, msg, classname, delay: Number(delay)});
+      localStorage.removeItem('template');
+      localStorage.removeItem('classname');
+      localStorage.removeItem('delay');
+      localStorage.removeItem('msg');
+    }
+  };
 }

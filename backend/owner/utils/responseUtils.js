@@ -4,7 +4,7 @@ module.exports = {
       success: true,
       data,
       status: 200,
-      message: "ok",
+      message: "Successfull",
     });
   },
 

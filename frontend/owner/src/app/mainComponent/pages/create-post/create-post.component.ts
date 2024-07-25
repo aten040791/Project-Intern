@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CustomUploadImage } from '../../custom-upload-image';
 import { TranslationService } from '../../shared/i18n/translation.service';
+import { ToastsService } from '../../featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-create-post',
@@ -32,6 +33,8 @@ export class CreatePostComponent implements OnInit {
     Chinese: { title: '', body: '' }
   };
   selectedFile: File | null = null;
+
+  toastService = inject(ToastsService);
 
   faFloppyDisk = faFloppyDisk;
   faXmark = faXmark;
@@ -103,10 +106,29 @@ export class CreatePostComponent implements OnInit {
     if (this.postForm.valid) {
       const formData = await this.prepareFormData();
       const postData = this.formatPostData(formData);
-      this.apiService.createPost(postData).subscribe(() => {
-        this.router.navigate(['/post']);
+      this.apiService.createPost(postData).subscribe({
+        next: (data: any) => {
+          this.setNoty(data["message"], "toast--success", 4000)
+          setTimeout(() => {
+            this.router.navigate(['/post'])
+          }, 500);
+        },
+        error: (error) => {
+          this.toastService.show({
+            template: error["error"]["message"],
+            classname: "toast--error",
+            delay: 5000
+          });
+        }
       });
     }
+  };
+
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+    localStorage.setItem('msg', "Create successfully.")
   };
 
   async prepareFormData(): Promise<FormData> {
