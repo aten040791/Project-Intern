@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 export class AddCategoryComponent {
 
   constructor(private http: ApiService) {}
+
+  toastService = inject(ToastsService)
 
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
@@ -21,14 +24,16 @@ export class AddCategoryComponent {
 
   onSubmit(data: any): void {
     this.http.createItem('categories', data).subscribe({
-      next: (data: any) => { 
-        // window.location.href = '/categories'
-        window.location.reload();
+      next: (data: any) => {
+        setTimeout(() => {
+          this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
+          this.close.emit();
+        }, 300);
       },
       error: (error: any) => {
-        // console.log(err)
-        // alert(`Error fetching items: ${error.message}`)
         this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 4000}));
+        this.closeDialog()
        },
     });       
   }

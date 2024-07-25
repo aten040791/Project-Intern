@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiService } from '../../shared/httpApi/api.service';
 import { Router } from '@angular/router';
+import { ToastsService } from '../../features/toasts/toasts.service';
 
 @Component({
   selector: 'app-add-users',
@@ -12,11 +13,16 @@ export class AddUsersComponent {
 
   constructor(private http: ApiService, private router: Router) {}
 
+  toastService = inject(ToastsService)
+
   image: File | null = null;
   imageSize: number | null = null;
   uploadProgress: number = 0;
 
   errors: any[] = []
+
+  ngOnInit(): void {
+  }
 
   onSubmit(form: any): void {
 
@@ -36,14 +42,14 @@ export class AddUsersComponent {
 
     this.http.createItem("users", formData).subscribe({
       next: (data: any) => {
-        // window.location.reload();
+        this.setToast(data["message"], "toast--success", 3000)
         this.router.navigate(['/users/list']);
       },
       error: (error: any) => {
         this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error, index) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 2000 + (index * 500)}));
       }
     })
-
   }
 
   triggerFileInputClick(): void {
@@ -60,5 +66,12 @@ export class AddUsersComponent {
       this.imageSize = this.image.size / 1000;
     }
   }
+
+  setToast(message: string, classname: string, delay: any) {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+  }
+
 
 }

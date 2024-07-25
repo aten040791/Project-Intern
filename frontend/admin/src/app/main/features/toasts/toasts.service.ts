@@ -1,7 +1,7 @@
 import { Injectable, TemplateRef } from '@angular/core';
 
 export interface Toast {
-  template: TemplateRef<any>,
+  template: string | TemplateRef<any>,
   classname?: string,
   delay?: number
 }
@@ -12,12 +12,18 @@ export interface Toast {
 
 export class ToastsService {
 
-  constructor() { }
+  constructor() {
+  }
 
   toasts: Toast[] = [];
 
   show(toast: Toast) {
     this.toasts.push(toast);
+    if (toast.delay) {
+      setTimeout(() => {
+        this.remove(toast);
+      }, toast.delay);
+    }
   }
 
   remove(toast: Toast) {

@@ -296,8 +296,10 @@
 <app-delete
   [isDelete]="isDelete"
   (close)="toggleDelete()"
-  (close)="toggleDeleteFailed()"
-  (closeSuccess)="toggleDeleteSuccess()"
+  (isDeleteFailed)="toggleDeleteFailed()"
+  (isDeleteSuccess)="toggleDeleteSuccess()"
+  [idDelete]="idDelete"
+  [url]="url"
 ></app-delete>
 
 <app-delete-failed
@@ -308,6 +310,4 @@
 <app-delete-success
   [isDeleteSuccess]="isDeleteSuccess"
   (close)="toggleDeleteSuccess()"
-  [url]="url"
-  [idDelete]="idDelete"
 ></app-delete-success>

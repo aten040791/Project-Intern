@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SelectAllService } from '../../features/select-all/services/select-all.service';
 import { Category } from '../../interfaces/category/category';
 import { ApiService } from '../../shared/httpApi/api.service';
@@ -34,31 +34,19 @@ export class CategoryPageComponent implements OnInit {
   url: string = "/categories"
 
   ngOnInit(): void {
-    // this.url = this.getBasePath(this.url)
     this.loadItems()
   }
 
-  private getBasePath(url: string): string {
-    return url.includes('?') ? url.split('?')[0] : url;
-  }
-
-  // load data
   loadItems() {
-    // const accessToken = localStorage.getItem('access_token')
-    // if (!accessToken) {
-    //   this.router.navigate(['/auth/login'])
-    // }
     this.http.getItems("/categories", this.search, this.currentPage, this.limit).subscribe({
       next: (data: any) => {
-        data = data["data"]
-        this.items = data["result"].slice()
+        this.items = data["data"]["result"].slice()
         this.pages = data["pages"]
       },
       error: (error) => {
-        alert(`Error fetching items: ${error.message}`)
+        // alert(`Error fetching items: ${error.message}`)
       }
     })
-    this.url = this.getBasePath(this.url)
   }
   
   // handle all checkbox
@@ -83,6 +71,7 @@ export class CategoryPageComponent implements OnInit {
   // Add new user
   toggleShow(): void {
     this.isShow = !this.isShow
+    this.loadItems()
   }
 
   toggleDelete(): void {
@@ -91,14 +80,18 @@ export class CategoryPageComponent implements OnInit {
 
   toggleDeleteSuccess(): void {
     this.isDeleteSuccess = !this.isDeleteSuccess
+    this.loadItems()
   }
 
   toggleDeleteFailed(): void {
     this.isDeleteFailed = !this.isDeleteFailed
+    this.loadItems()
   }
 
   toggleEdit(): void {
     this.isShowEdit = !this.isShowEdit
+    this.loadItems()
+
   }
   
   handleItemsPerPage(event: Event): void {
@@ -119,7 +112,12 @@ export class CategoryPageComponent implements OnInit {
   }
 
   onClickDeleteAll(): void {
-    this.checkBoxs = this.checkBoxsTmp
+    this.idDelete = this.checkBoxsTmp
+    if (this.idDelete.size === 0) {
+      this.toggleDeleteFailed();
+    } else {
+      this.toggleDelete();
+    }
   }
 
   onPageChange(page: number): void {

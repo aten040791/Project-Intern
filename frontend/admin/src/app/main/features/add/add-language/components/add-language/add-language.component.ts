@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, Output, TemplateRef } from '@angular/core';
+import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 })
 export class AddLanguageComponent {
 
-  constructor(private http: ApiService) {}
+  constructor(private http: ApiService, private cdr: ChangeDetectorRef) {}
+
+  toastService = inject(ToastsService)
 
   @Input() isShow: boolean = false;
   @Output() close = new EventEmitter<void>();
@@ -32,15 +35,18 @@ export class AddLanguageComponent {
 
     this.http.createItem("languages", formData).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        setTimeout(() => {
+          this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
+          this.close.emit();
+        }, 300);
       },
       error: (error: any) => {
-        // console.error(error);
-        // alert(`Error fetching items: ${error.message}`)
         this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
+        this.closeDialog()
       }
     })
-}
+  }
 
   onFileSelected(event: any) {
     const input = event.target as HTMLInputElement;

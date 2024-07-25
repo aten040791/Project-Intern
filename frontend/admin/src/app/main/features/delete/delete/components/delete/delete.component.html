@@ -63,7 +63,7 @@
         type="button"
         class="swal2-confirm btn btn-danger me-2"
         style="display: inline-block"
-        (click)="closeDialogSuccess()"
+        (click)="onDelete()"
       >
         {{ "buttons.yesDeleteIt" | translate }}
       </button>
@@ -72,7 +72,7 @@
         type="reset"
         class="btn_cancel btn btn-label-secondary bd-1-main me-sm-3 me-1"
         data-bs-dismiss="offcanvas"
-        (click)="closeDialog()"
+        (click)="dialogFailed()"
       >
         {{ "buttons.cancel" | translate }}
       </button>

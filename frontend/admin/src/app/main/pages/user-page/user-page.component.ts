@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UserPageService } from './services/user-page.service';
 import { SelectAllService } from '../../features/select-all/services/select-all.service';
 import { User } from '../../interfaces/user/user';
 import { ApiService } from '../../shared/httpApi/api.service';
 import { Router } from '@angular/router';
+import { ToastsService } from '../../features/toasts/toasts.service';
 
 @Component({
   selector: 'app-user-page',
@@ -14,6 +15,8 @@ import { Router } from '@angular/router';
 export class UserPageComponent implements OnInit {
 
   constructor(private selectAllService: SelectAllService, private itemDetail: UserPageService, private api: ApiService, private router: Router) {}
+
+  toastService = inject(ToastsService)
 
   isShow:boolean = false;
   isDelete: boolean = false;
@@ -40,6 +43,7 @@ export class UserPageComponent implements OnInit {
   ngOnInit(): void {
     // this.url = this.getBasePath(this.url)
     this.loadItems()
+    this.loadToast()
   }
 
   // load data
@@ -97,15 +101,17 @@ export class UserPageComponent implements OnInit {
 
   toggleDelete(): void {
     this.isDelete = !this.isDelete
-    // console.log(this.isDeleteSuccess)
+    this.loadItems()
   }
 
   toggleDeleteSuccess(): void {
     this.isDeleteSuccess = !this.isDeleteSuccess
+    this.loadItems()
   }
 
   toggleDeleteFailed(): void {
     this.isDeleteFailed = !this.isDeleteFailed
+    this.loadItems()
   }
 
   toggleEdit(): void {
@@ -131,6 +137,11 @@ export class UserPageComponent implements OnInit {
 
   onClickDeleteAll(): void {
     this.idDelete = this.checkBoxsTmp
+    if (this.idDelete.size === 0) {
+      this.toggleDeleteFailed();
+    } else {
+      this.toggleDelete();
+    }
   }
 
   // submit search
@@ -147,6 +158,19 @@ export class UserPageComponent implements OnInit {
   onCheckDeleteAll() {
     this.checkDeleteAll = this.checkBoxsTmp.size !== 0 ? true : false
   }
+  
+  loadToast() {
+    const template = localStorage.getItem('template')
+    const classname = localStorage.getItem('classname')
+    const delay = localStorage.getItem('delay')
+    if (template && classname && delay) {
+      this.toastService.show({template, classname, delay: Number(delay)});
+      localStorage.removeItem('template')
+      localStorage.removeItem('classname')
+      localStorage.removeItem('delay')
+    }
+  }
+
 }
 
 
