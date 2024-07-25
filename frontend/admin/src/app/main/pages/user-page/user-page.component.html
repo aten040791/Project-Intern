@@ -15,7 +15,7 @@
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasAddUser"
-            (click)="toggleDelete(); onClickDeleteAll()"
+            (click)="onClickDeleteAll()"
           >
             <span>
               <i class="fa-regular fa-trash-can"></i>
@@ -247,8 +247,11 @@
 <app-delete
   [isDelete]="isDelete"
   (close)="toggleDelete()"
-  (close)="toggleDeleteFailed()"
-  (closeSuccess)="toggleDeleteSuccess()"
+  (isDeleteFailed)="toggleDeleteFailed()"
+  (isDeleteSuccess)="toggleDeleteSuccess()"
+  [checkBoxs]="checkBoxs"
+  [idDelete]="idDelete"
+  [url]="url"
 ></app-delete>
 
 <app-delete-failed
@@ -259,8 +262,4 @@
 <app-delete-success
   [isDeleteSuccess]="isDeleteSuccess"
   (close)="toggleDeleteSuccess()"
-  [item]="item"
-  [checkBoxs]="checkBoxs"
-  [url]="url"
-  [idDelete]="idDelete"
 ></app-delete-success>

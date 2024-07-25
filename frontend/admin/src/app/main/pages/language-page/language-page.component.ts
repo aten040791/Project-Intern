@@ -1,18 +1,20 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SelectAllService } from '../../features/select-all/services/select-all.service';
 import { language } from '../../interfaces/language/language';
 import { ApiService } from '../../shared/httpApi/api.service';
 import { LanguagePageService } from './services/language-page.service';
 import { Router } from '@angular/router';
+import { ToastsComponent } from '../../features/toasts/toasts.component';
 
 @Component({
   selector: 'app-language-page',
   templateUrl: './language-page.component.html',
-  styleUrls: ['./language-page.component.scss']
+  styleUrls: ['./language-page.component.scss'],
 })
 export class LanguagePageComponent implements OnInit {
 
-  constructor(private selectAllService: SelectAllService, private http: ApiService, private languageService: LanguagePageService, private router: Router) {}
+  constructor(private selectAllService: SelectAllService, private http: ApiService, private languageService: LanguagePageService, private router: Router) {
+  }
 
   // check dialog
   isShow:boolean = false;
@@ -91,6 +93,7 @@ export class LanguagePageComponent implements OnInit {
   // Add new user
   toggleShow(): void {
     this.isShow = !this.isShow
+    this.loadItems()
   }
 
   toggleDelete(): void {
@@ -99,14 +102,17 @@ export class LanguagePageComponent implements OnInit {
   
   toggleDeleteSuccess(): void {
     this.isDeleteSuccess = !this.isDeleteSuccess
+    this.loadItems()
   }
 
   toggleDeleteFailed(): void {
     this.isDeleteFailed = !this.isDeleteFailed
+    this.loadItems()
   }
 
   toggleEdit(): void {
     this.isShowEdit = !this.isShowEdit
+    this.loadItems()
   }
 
   // init language
@@ -123,7 +129,12 @@ export class LanguagePageComponent implements OnInit {
 
   // handle delete all
   onClickDeleteAll(): void {
-    this.checkBoxs = this.checkBoxsTmp
+    this.idDelete = this.checkBoxsTmp
+    if (this.idDelete.size === 0) {
+      this.toggleDeleteFailed();
+    } else {
+      this.toggleDelete();
+    }
   }
 
   // to delete a particularly item

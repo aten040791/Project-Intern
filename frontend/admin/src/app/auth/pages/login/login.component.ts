@@ -6,10 +6,8 @@ import { LoginService } from './services/login.service';
 import { AuthService } from '../../auth.service';
 import { TranslationService } from 'src/app/main/shared/i18n/translation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from 'jwt-decode';
 import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +19,7 @@ export class LoginComponent {
 
   // postForm: FormGroup;
 
-  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService, private authService: AuthService, private translate: TranslationService, private fb: FormBuilder,  private snackBar: MatSnackBar) {}
+  constructor(public showPW: ShowPasswordService, private http: ApiService, private router: Router, private loginService: LoginService, private authService: AuthService, private translate: TranslationService, private fb: FormBuilder) {}
 
   email: string = ""
   password: string = ""
@@ -80,12 +78,11 @@ export class LoginComponent {
     this.http.login("auth", this.email, this.password, this.checked).subscribe({
       next: (data: any) => {
         this.loginService.setItem(data.data.user)
-        this.router.navigate(['/home'])
-        // this.snackBar.open('Login successful', 'Close', {duration: 20000})
-        // setTimeout(() => {
-        //   // this.router.navigate(['/home'])
-        // }, 1000);
-
+        // this.toastService.show({template: data["message"], classname: "toast--success", delay: 10000})
+        this.setNoty(data["message"], "toast--success", 4000)
+        setTimeout(() => {
+          this.router.navigate(['/home'])
+        }, 500);
       }, 
       error: (error: any) => {
         this.errors = error["error"]["data"]["errors"];
@@ -108,17 +105,10 @@ export class LoginComponent {
     this.checked = event.target.checked
   }
 
-  // Toasts
-  showStandard(template: TemplateRef<any>) {
-    this.toastService.show({template})
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
   }
-
-  showSuccess(template: TemplateRef<any>) {
-		this.toastService.show({ template, classname: 'bg-success text-light', delay: 10000 });
-	}
-
-	showDanger(template: TemplateRef<any>) {
-		this.toastService.show({ template, classname: 'bg-danger text-light', delay: 15000 });
-	}
 
 }

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UserPageService } from '../../../user-page/services/user-page.service';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
+import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 
 @Component({
   selector: 'app-view-detail',
@@ -12,9 +12,12 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 export class ViewDetailComponent implements OnInit {
 
   constructor(private http: ApiService, private route: ActivatedRoute, private router: Router) {}
+
+  toastService = inject(ToastsService)
   
   item: any = {}
   url: string = ""
+  errors: any[] = []
 
   // delete
   isDelete: boolean = false;
@@ -55,6 +58,9 @@ export class ViewDetailComponent implements OnInit {
 
   toggleDeleteSuccess(): void {
     this.isDeleteSuccess = !this.isDeleteSuccess
+    setTimeout(() => {
+      this.router.navigate(["/users/list"])
+    }, 10000);
   }
 
   toggleDeleteFailed(): void {
@@ -84,11 +90,12 @@ export class ViewDetailComponent implements OnInit {
 
     this.http.updateItem("users", formData, this.item.id).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        this.toastService.show({template: data["message"], classname: "toast--success", delay: 4000});
+        this.loadItem()
       },
-      error: (error: Error) => {
-        // console.error(error);
-        alert(`Error fetching items: ${error.message}`)
+      error: (error: any) => {
+        this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
       }
     })
   }

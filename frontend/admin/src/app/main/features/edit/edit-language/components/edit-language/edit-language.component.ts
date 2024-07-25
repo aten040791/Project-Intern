@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ToastsService } from 'src/app/main/features/toasts/toasts.service';
 import { ApiService } from 'src/app/main/shared/httpApi/api.service';
 
 @Component({
@@ -7,6 +8,10 @@ import { ApiService } from 'src/app/main/shared/httpApi/api.service';
   styleUrls: ['./edit-language.component.scss']
 })
 export class EditLanguageComponent {
+  constructor(private http: ApiService) { }
+
+  toastService = inject(ToastsService)
+
   @Input() isShowEdit: boolean = false;
   @Input() item: any = {};
   @Output() close = new EventEmitter<any>()
@@ -14,7 +19,6 @@ export class EditLanguageComponent {
 
   errors: any[] = [];
 
-  constructor(private http: ApiService) { }
 
   closeDialog(): void {
     this.close.emit()
@@ -33,11 +37,13 @@ export class EditLanguageComponent {
 
     this.http.updateItem("languages", formData, id).subscribe({
       next: (data: any) => {
-        window.location.reload();
+        this.toastService.show({template: data["message"], classname: "toast--success", delay: 5000});
+        this.closeDialog()
       },
       error: (error: any) => {
-        // console.error(error);
         this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 5000}));
+        this.closeDialog()
       }
     })
   }
