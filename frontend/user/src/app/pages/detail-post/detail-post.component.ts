@@ -73,14 +73,20 @@ export class DetailPostComponent implements OnInit{
 
   getData(): void {
     this.apiService.getData().subscribe((response) => {
-        this.reponsePosts = response.data;
-        this.reponDataPostsHeader = response.data.slice(0, 3);
-        this.reponseDataPosts = this.reponsePosts.map((post) => ({
-          ...post,
-          formattedDate: format(new Date(post.createdAt), 'PP'),
-          title: this.getTranslationData(post.translations).title,
-        }))
-        .filter(post => post.title !== 'No title available');
+      this.reponsePosts = response.data;
+      this.reponDataPostsHeader = this.reponsePosts.map((post) => ({
+        ...post,
+        title: this.getTranslationData(post.translations).title,
+      }))
+      .filter(post => post.title !== 'No title available')
+      .slice(0, 3);
+  
+      this.reponseDataPosts = this.reponsePosts.map((post) => ({
+        ...post,
+        formattedDate: format(new Date(post.createdAt), 'PP'),
+        title: this.getTranslationData(post.translations).title,
+      }))
+      .filter(post => post.title !== 'No title available');
     });
   };
 

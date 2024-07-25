@@ -2,23 +2,13 @@
     <div id="menu-footer">
         <div class="container">
             <ul>
-                <li>
-                    <a routerLink="/category">Trang chủ</a>
+                <li class="tbl-cell">
+                    <a routerLink="/home">{{ "labels.home" | translate }}</a>
                 </li>
-                <li>
-                    <a routerLink="/category">Du lịch</a>
-                </li>
-                <li>
-                    <a routerLink="/category">Thời sự</a>
-                </li>
-                <li>
-                    <a routerLink="/category">Thể thao</a>
-                </li>
-                <li>
-                    <a routerLink="/category">Giáo dục</a>
-                </li>
-                <li>
-                    <a routerLink="/category">Giải trí</a>
+                <li class="tbl-cell" *ngFor="let category of responseDataCategory">
+                    <a routerLink="/category/{{ category.id }}">
+                        {{ category.name }}
+                    </a>
                 </li>
             </ul>
         </div>
@@ -38,15 +28,7 @@
         <div class="container">
             <div class="item item-1">
                 <div class="box-item">
-                    <div class="logo-footer">
-                        <!-- <a href="" class="img">
-                            <img src="../../../assets/img/logo-footer.png" alt="">
-                        </a> -->
-                    </div>
                     <div class="vote-star-footer">
-                        <!-- <div class="avt">
-                            <img src="../../../assets/img/vote-star-v1.png" alt="">
-                        </div> -->
                         <div class="desc">
                             <p class="number">16,668</p>
                             <p>Đánh giá</p>

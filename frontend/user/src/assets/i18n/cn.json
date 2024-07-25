@@ -110,7 +110,11 @@
       "chooseLanguage": "选择语言",
       "home": "家",
       "showDetails": "查看具体信息",
-      "listOfArticles": "文章列表"
+      "listOfArticles": "文章列表",
+      "news": "消息",
+      "sportsNews": "体育新闻",
+      "scienceNews": "科学新闻",
+      "entertainmentNews": "娱乐新闻"
     },
     "messages": {
       "noPosts": "没有帖子"
