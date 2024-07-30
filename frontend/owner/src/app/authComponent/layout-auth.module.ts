@@ -7,6 +7,8 @@ import { LoginComponent } from './site/login/login.component';
 import { RegisterComponent } from './site/register/register.component';
 import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VerifyEmailComponent } from './site/verify-email/verify-email.component';
+import { ResetPasswordComponent } from './site/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LayoutAuthComponent,
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, DoCheck {
   isReadMore: { [key: string]: boolean } = {};
   locale: string = '';
 
-  toastService = inject(ToastsService)
+  toastService = inject(ToastsService);
 
   constructor(
     private apiService: ApiService,

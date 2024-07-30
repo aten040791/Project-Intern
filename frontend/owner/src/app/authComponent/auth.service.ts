@@ -33,7 +33,7 @@ export class AuthService {
           }
         })
       );
-  }
+  };
 
   private storeTokens(tokens: AuthResponse) {
     if (tokens && tokens.access_token && tokens.refresh_token && tokens.user.id) {
@@ -43,13 +43,21 @@ export class AuthService {
     } else {
       console.error('Tokens received from API are invalid:', tokens);
     }
-  }
+  };
 
   register(username: string, email: string, password: string, confirmPassword: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/sign-up`, { username, email, password, confirmPassword });
-  }
+  };
 
-  resetPassword(username: string, newPassword: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/reset-password`, { username, newPassword });
-  }
+  resetPassword(email: string, password: string, confirmPassword: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/reset-password`, { email, password, confirmPassword });
+  };
+
+  forgotPassword( email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+  };
+  
+  checkOtpMail(email: string, otp: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/check-otp-mail`, { email, otp });
+  };
 }

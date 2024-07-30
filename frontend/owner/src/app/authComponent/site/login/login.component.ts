@@ -24,13 +24,13 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
     });
-  }
+  };
 
   ngOnInit(): void {
     localStorage.setItem('locale', this.locale);
     this.translate.setDefaultLang(this.locale);
     this.loadToast();
-  }
+  };
 
   login(): void {
     this.authService.login(this.email, this.password).subscribe({
