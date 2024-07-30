@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
 const { sign, signRefreshToken } = require("utils/jwtUtils");
 const bcrypt = require("bcrypt");
 const db = require("models/index");
+const nodemailer = require("nodemailer");
 
 const authService = {
   login: async (email, password) => {
@@ -47,34 +47,42 @@ const authService = {
     return { message: "Password reset successfully" };
   },
 
-  // refreshToken: async (refreshToken) => {
-  //   console.log(config.refreshTokenSecret);
-  //   try {
-  //     const decoded = jwt.verify(refreshToken, config.refreshTokenSecret);
-  //     const user = await db.User.findOne({ where: { id: decoded.id } });
+  forgotPassword: async (email) => {
+    const user = await db.User.findOne({ where: { email } });
+    if (!user) return { message: "User not found" };
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    user.otp = otp;
+    await user.save();
 
-  //     const role = await db.Role.findOne({ where: { id: user.role_id } });
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "lequan18042001@gmail.com",
+        pass: "skxa cccp rslw iulg"
+      },
+    });
 
-  //     const newAccessToken = sign(user.id, role.name);
-  //     const newRefreshToken = signRefreshToken(user.id, role);
+    const mailOptions = {
+      from: "lequan18042001@gmail.com",
+      to: email,
+      subject: "Password reset OTP",
+      text: `Your OTP for password reset is: ${otp}`,
+    };
 
-  //     return {
-  //       accessToken: newAccessToken,
-  //       refreshToken: newRefreshToken,
-  //       user: {
-  //         id: user.id,
-  //         username: user.username,
-  //         email: user.email,
-  //         role_id: role.name,
-  //         created_at: user.createdAt,
-  //         updated_at: user.updatedAt,
-  //       },
-  //     };
-  //   } catch (err) {
-  //     throw new Error("Invalid refresh token");
-  //   }
-  // },
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) throw new Error("Email send failed!,", error);
+      else { return email; }
+    });
+  },
 
+  checkOtpMail: async (email, otp) => {
+    const user = await db.User.findOne({ where: { email } });
+    if (user.otp === otp) {
+      return { message: "OTP verified successfully" };
+    } else {
+      throw new Error("Invalid OTP");
+    }
+  },
 };
 
 module.exports = authService;

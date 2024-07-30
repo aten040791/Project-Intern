@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
+import { ToastsService } from 'src/app/mainComponent/featrue/toasts/toasts.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,23 +12,41 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ForgotPasswordComponent implements OnInit {
   postForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  errors: any[] = [];
+
+  toastService = inject(ToastsService);
+
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.postForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
-  }
+  };
   
   ngOnInit(): void {
-    console.log(this.postForm);
-  }
+  };
 
   onSubmit(): void {
-    if (this.postForm.valid) {
-      console.log(this.postForm.value);
-      // Handle form submission logic here
-    } else {
-      console.log('Form is invalid');
-    }
-  }
+    const email = this.postForm.get('email')?.value;
+    localStorage.setItem('email', email);
+    this.authService.forgotPassword(email).subscribe({
+      next: (data: any) => {
+          this.setNoty(data["message"], "toast--success", 4000)
+          setTimeout(() => {
+            this.router.navigate(['/auth/verify-email'])
+          }, 500);
+      },
+      error: (error) => {
+        this.errors = error["error"]["data"]["errors"];
+        this.errors.forEach((error) => this.toastService.show({template: error["message"], classname: "toast--error", delay: 4000}));
+      }
+    })
+  };
+
+  setNoty(message: string, classname: string, delay: any): void {
+    localStorage.setItem('template', message)
+    localStorage.setItem('classname', classname)
+    localStorage.setItem('delay', delay)
+    localStorage.setItem('msg', "Send OTP successfully.")
+  };
 
 }

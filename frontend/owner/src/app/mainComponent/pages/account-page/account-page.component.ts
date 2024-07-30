@@ -42,7 +42,7 @@ export class AccountPageComponent implements OnInit {
       this.profile = profile;
       this.postForm = this.fb.group({
         username: [this.profile.data.user.username],
-        birthday: [format(new Date(this.profile.data.user.birthday), 'PP')],
+        birthday: [format(new Date(this.profile.data.user.birthday), 'yyyy-MM-dd')],
         address: [this.profile.data.user.address],
         email: [this.profile.data.user.email],
         phone: [this.profile.data.user.phone],
@@ -65,7 +65,6 @@ export class AccountPageComponent implements OnInit {
           setTimeout(() => {
             window.location.href = '/account-page';
           }, 500);
-          // window.location.href = '/account-page';
         },
         error: (error) => {
           this.toastService.show({

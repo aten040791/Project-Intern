@@ -45,9 +45,9 @@ router.get('/category/:id', validate([postValidation.getCategory]), postControll
 router.group('/auth',(router) => {
   router.post('/sign-in',validate([authValidation.signIn]), authController.signIn),   //login
   router.post('/sign-up',validate([authValidation.signUp]), authController.signUp),   //register
-  router.put('/reset-password',validate([authValidation.resPass]), authController.resPass)    //reset password
-  // router.put('/refresh-token', authController.refreshToken)    //reset password
-  // router.post('/recover-password', authController.recPass),
+  router.put('/reset-password',validate([authValidation.resPass]), authController.resPass),    //reset password
+  router.post('/forgot-password',validate([authValidation.forgotPassword]), authController.forgotPassword)
+  router.post('/check-otp-mail',validate([authValidation.checkOtpMail]), authController.checkOtpMail)
 })
 
 router.group('/sample', (router) => {
