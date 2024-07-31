@@ -43,8 +43,14 @@ const postService = {
     return post;
   },
 
-  getByUid: async (uid, keyword, page, perPage) => {
-    const whereClause = { user_id: uid };
+  getByUid: async (uid , keyword, categoryId, status, page, perPage) => {
+    const whereClause = { 
+      user_id: uid,
+      ...(categoryId && { category_id: categoryId }),
+      ...(status && { status: status })
+    };
+
+    console.log('whereClause', whereClause);
 
     const offset = (page - 1) * perPage;
     const count = await db.Post.count({

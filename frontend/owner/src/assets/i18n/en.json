@@ -106,7 +106,8 @@
     "file": "File",
     "postList": "POSTS",
     "createdDate": "Create date",
-    "rowsPerPage": "Rows per page"
+    "rowsPerPage": "Rows per page",
+    "filter": "Filter"
   },
   "messages": {
     "noPosts": "There are no posts"

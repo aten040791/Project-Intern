@@ -19,7 +19,7 @@
               <div class="row" style="margin: 15px 0px 15px 0px;">
                 <div id="DataTables_Table_1_filter" class="dataTables_filter">
                   <div class="row">
-                    <div class="col-md-4 px-0">
+                    <div class="col-4 px-0">
                       <div class="search-input ps-re">
                         <a class="text-black ps-ab p-8-11 fs-18 fl-r opacity-08" style="cursor: pointer;">
                           <i class="fa-solid fa-magnifying-glass" (click)="search(searchTerm)"></i>
@@ -27,7 +27,8 @@
                         <input class="form-control ms-2" type="text" [(ngModel)]="searchTerm" placeholder="Search ..." (keyup.enter)="search(searchTerm)" />
                       </div>
                     </div>
-                    <div class="col-md-4 offset-md-4" style="text-align: right;padding-right: 5px;">
+                    <div class="col-5"></div>
+                    <div class="col-2" style="text-align: right;padding-right: 0px;">
                       <button class="btn btn-secondary item" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isAnyPostSelected()">
                         <span><fa-icon [icon]="faSliders"></fa-icon><span>{{ "labels.actions" | translate }}</span></span>
                       </button>
@@ -42,6 +43,13 @@
                           <span class="ms-1"><fa-icon [icon]="faTrash"></fa-icon><span>{{ "buttons.deleteAll" | translate }}</span></span>
                         </a>
                       </div>
+                    </div>
+                    <div class="col-1" style="text-align: left;">
+                      <button class="btn btn-secondary item" style="width: 80px;">
+                        <a href="javascript:;" class="dropdown-item" (click)="showModal('filter-dialog')">
+                          <span style="margin-left: -7px;"><fa-icon [icon]="faFilter"></fa-icon><span>{{ "labels.filter" | translate }}</span></span>
+                        </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -157,7 +165,8 @@
     </div>
     <!-- Placeholder for dynamically loading components -->
     <ng-container #modalContainer></ng-container>
-  
+    
+    <app-filter-dialog  (filterApplied)="onFilterApplied($event)"></app-filter-dialog>
     <app-edit-language-dialog [selectedPostIds]="selectedIds"></app-edit-language-dialog>
     <app-edit-status-dialog [selectedPostIds]="selectedIds"></app-edit-status-dialog>
     <app-edit-category-dialog [selectedPostIds]="selectedIds"></app-edit-category-dialog>

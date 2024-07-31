@@ -27,12 +27,16 @@ export class ApiService implements CanActivate {
     }
   }
 
-  getData(Keyword: string, page: number = 1, perPage: number = 10): Observable<any> {
+  getData(Keyword: string, CategoryId: number, Status: string ,page: number = 1, perPage: number = 10): Observable<any> {
     const userId = localStorage.getItem('user_id');
     const headers = this.getHeaders();
     const keyword = Keyword ? Keyword : '';
+    const categoryId = CategoryId ? CategoryId : '';
+    const status = Status ? Status : '';
     let params = new HttpParams()
       .set('keyword', keyword)
+      .set('categoryId', categoryId)
+      .set('status', status)
       .set('page', page.toString())
       .set('perPage', perPage.toString());
   
