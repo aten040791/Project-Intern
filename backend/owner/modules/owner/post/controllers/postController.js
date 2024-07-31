@@ -30,7 +30,6 @@ const postController = {
     try {
       const { uid } = req.params;
       const { keyword, categoryId, status, page = 1, perPage = 10 } = req.query;
-      console.log(req.query);
       const posts = await postService.getByUid(uid, keyword, categoryId, status, parseInt(page), parseInt(perPage));
       return responseUtils.ok(res, posts);
     } catch (error) {
@@ -80,7 +79,6 @@ const postController = {
       await postService.delete(idsPost);
       return responseUtils.ok(res, { message: "Posts deleted successfully" });
     } catch (error) {
-      console.error("Error deleting posts:", error);
       return responseUtils.error(res, "Failed to delete posts.");
     }
   },
