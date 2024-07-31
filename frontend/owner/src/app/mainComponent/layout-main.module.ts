@@ -20,6 +20,7 @@ import { DeleteMutipalPostComponent } from './dialogs/delete-mutipal-post/delete
 import { CommonModule } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { FilterDialogComponent } from './dialogs/filter-dialog/filter-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TranslateModule } from '@ngx-translate/core';
     EditStatusDialogComponent,
     EditCategoryDialogComponent,
     DeleteMutipalPostComponent,
+    FilterDialogComponent,
   ],
   imports: [
     CommonModule,

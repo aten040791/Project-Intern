@@ -106,7 +106,8 @@
     "file": "Tệp",
     "postList": "DANH SÁCH BÀI VIẾT",
     "createdDate": "Ngày tạo",
-    "rowsPerPage": "Hàng trên mỗi trang"
+    "rowsPerPage": "Hàng trên mỗi trang",
+    "filter": "Bộ lọc"
   },
   "messages": {
     "noPosts": "Không có bài viết nào"

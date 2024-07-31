@@ -1,8 +1,7 @@
-import { state } from '@angular/animations';
-import { Component, OnInit, DoCheck, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash, faLanguage, faBook, faToggleOn } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faSliders, faEllipsisV, faEdit, faEye, faTrash, faLanguage, faBook, faToggleOn, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from 'src/app/services/api.service';
 import { format } from 'date-fns';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -14,7 +13,7 @@ import { ToastsService } from '../../featrue/toasts/toasts.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit, DoCheck {
+export class HomeComponent implements OnInit {
   faPlusSquare = faPlusSquare;
   faSliders = faSliders;
   faEllipsisV = faEllipsisV;
@@ -24,6 +23,7 @@ export class HomeComponent implements OnInit, DoCheck {
   faLanguage = faLanguage;
   faBook = faBook;
   faToggleOn = faToggleOn;
+  faFilter = faFilter;
 
   posts: any[] = [];
   currentPage: number = 1;
@@ -32,6 +32,10 @@ export class HomeComponent implements OnInit, DoCheck {
   itemsPerPage: number = 10;
   availableItemsPerPage: number[] = [10, 20, 30, 50];
   searchTerm: string = '';
+  keyword: string = '';
+  categoryId: number = 0;
+  status: string = '';
+  categories: any[] = [];
   responseData: any[] = [];
   selectedIds: number[] = [];
   selectAll: boolean = false;
@@ -49,9 +53,8 @@ export class HomeComponent implements OnInit, DoCheck {
     private translate: TranslationService) {
     library.add(
       faSliders, faPlusSquare, faEllipsisV, faEdit,
-      faTrash, faEye, faLanguage, faBook, faToggleOn
+      faTrash, faEye, faLanguage, faBook, faToggleOn, faFilter
     );
-
   };
 
   ngOnInit(): void {
@@ -60,6 +63,7 @@ export class HomeComponent implements OnInit, DoCheck {
     this.updateUrl();
     this.getData();
     this.loadToast();
+    this.fetchCategories();
   };
 
   getSanitizedHtml(html: string): SafeHtml {
@@ -87,8 +91,8 @@ export class HomeComponent implements OnInit, DoCheck {
     return { title, body, languageName };
   };
 
-  getData(Keyword: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage ): void {
-    this.apiService.getData(Keyword, page, perPage).subscribe((response) => {
+  getData(keyword: string = '', categoryId: number = 0, status: string = '', page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
+    this.apiService.getData(keyword, categoryId, status, page, perPage).subscribe((response) => {
       this.responseData = response.data.posts;
       this.posts = this.responseData.map((post) => ({
         ...post,
@@ -97,6 +101,18 @@ export class HomeComponent implements OnInit, DoCheck {
       }));
       this.totalPages = response.data.totalPages;
       this.totalPosts = response.data.totalPosts;
+    }, error => {
+      console.error('Error fetching posts:', error);
+      this.toastService.show({ template: 'Error fetching posts', classname: 'bg-danger text-light', delay: 3000 });
+    });
+  };
+
+  fetchCategories(): void {
+    this.apiService.getDataCategory().subscribe(response => {
+      this.categories = response.data;
+    }, error => {
+      console.error('Error fetching categories:', error);
+      this.toastService.show({ template: 'Error fetching categories', classname: 'bg-danger text-light', delay: 3000 });
     });
   };
 
@@ -104,22 +120,21 @@ export class HomeComponent implements OnInit, DoCheck {
     this.itemsPerPage = event.target.value;
     this.currentPage = 1;
     this.updateUrl();
-    this.getData(this.searchTerm, this.currentPage, this.itemsPerPage);
+    this.getData(this.searchTerm, this.categoryId, this.status, this.currentPage, this.itemsPerPage);
   };
 
   onPageChange(page: number): void {
     this.currentPage = page;
     console.log('currentPage', this.currentPage);
     this.updateUrl();
-    this.getData(this.searchTerm, this.currentPage, this.itemsPerPage);
+    this.getData(this.searchTerm, this.categoryId, this.status, this.currentPage, this.itemsPerPage);
   };
   
-
   search(term: string): void {
     this.searchTerm = term;
     this.currentPage = 1;
     this.updateUrl();
-    this.getData(this.searchTerm, this.currentPage, this.itemsPerPage);
+    this.getData(this.searchTerm, this.categoryId, this.status, this.currentPage, this.itemsPerPage);
   };
 
   private updateUrl(): void {
@@ -133,8 +148,6 @@ export class HomeComponent implements OnInit, DoCheck {
       queryParamsHandling: 'merge',
     });
   };
-
-  ngDoCheck(): void {};
 
   isAnyPostSelected(): boolean {
     return this.posts.some((post) => post.selected === true);
@@ -177,7 +190,7 @@ export class HomeComponent implements OnInit, DoCheck {
     const maxLength = 200;
     return body.length > maxLength;
   };
-  
+
   loadToast() {
     const template = localStorage.getItem('template');
     const classname = localStorage.getItem('classname');
@@ -190,5 +203,11 @@ export class HomeComponent implements OnInit, DoCheck {
       localStorage.removeItem('delay');
       localStorage.removeItem('msg');
     }
+  };
+
+  onFilterApplied(filter: { status: string, categories: number[] }) {
+    this.status = filter.status;
+    this.categoryId = filter.categories.length ? filter.categories[0] : 0;
+    this.getData(this.searchTerm, this.categoryId, this.status, this.currentPage, this.itemsPerPage);
   };
 }

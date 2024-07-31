@@ -106,7 +106,8 @@
       "file": "文件",
       "postList": "帖子列表",
       "createdDate": "创建日期",
-      "rowsPerPage": "每页行数"
+      "rowsPerPage": "每页行数",
+      "filter": "筛选"
     },
     "messages": {
       "noPosts": "没有帖子"
