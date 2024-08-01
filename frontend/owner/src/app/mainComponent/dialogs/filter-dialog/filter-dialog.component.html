@@ -31,9 +31,12 @@
                 </option>
               </select>
             </div>
-            <div style="float: right;">
+            <div style="float: right; margin-top: 20px;">
+              <button type="submit" class="btn_ok btn btn-danger data-submit" style="margin-right: 10px;" (click)="deleteFilter()">
+               {{ "buttons.deleteFilter" | translate }}
+              </button>
               <button type="submit" class="btn_ok btn btn-primary data-submit" [disabled]="postForm.invalid">
-                <fa-icon [icon]="faFloppyDisk"></fa-icon>{{ "buttons.save" | translate }}
+                {{ "buttons.save" | translate }}
               </button>
             </div>
           </form>

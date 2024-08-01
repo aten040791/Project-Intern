@@ -29,7 +29,6 @@ export class DetailPostComponent implements OnInit {
     if (postId) {
       this.apiService.getPostDetails(Number(postId)).subscribe(response => {
         this.post = response.data;
-        // Set default tab to the first translation
         this.selectedTab = '0';
       });
     }

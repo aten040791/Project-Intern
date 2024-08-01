@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faNewspaper, faDashboard } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,7 +7,7 @@ import { faUser, faNewspaper, faDashboard } from '@fortawesome/free-solid-svg-ic
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
   faDashboard = faDashboard;
   faNewspaper = faNewspaper;
   faUser = faUser;
@@ -22,12 +21,12 @@ export class MenuComponent implements OnInit {
       fragment: 'ignored',
       matrixParams: 'ignored'
     });
-  }
+  };
 
   isPostActive(): boolean {
     const currentUrl = this.router.url.split('?')[0];
     return currentUrl === '/post';
-  }
+  };
 
   isAccountActive(): boolean {
     return this.router.isActive('/account-page', {
@@ -36,7 +35,6 @@ export class MenuComponent implements OnInit {
       fragment: 'ignored',
       matrixParams: 'ignored'
     });
-  }
+  };
 
-  ngOnInit(): void {}
 }

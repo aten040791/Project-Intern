@@ -27,8 +27,13 @@ export class EditCategoryDialogComponent {
     private apiService: ApiService,
     private router: Router) {
     library.add(faFloppyDisk);
-    this.createForm();
-  }
+    
+    this.postForm = this.fb.group({
+      Ids: [this.selectedPostIds],
+      value: ['', Validators.required],
+      type: ['category_id'],
+    });
+  };
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedPostIds'] && changes['selectedPostIds'].currentValue) {
@@ -38,43 +43,26 @@ export class EditCategoryDialogComponent {
 
   ngOnInit(): void {
     this.getDataCategory();
-  }
+  };
 
   getDataCategory(): void {
-    this.apiService.getDataCategory().subscribe(
-      response => {
-        if (Array.isArray(response.data)) {
-          this.responseDataCategory = response.data;
-        } else {
-          this.responseDataCategory = [];
-        }
-      },
-      error => {
-        console.error('Failed to fetch categories:', error);
-      }
-    );
-  }
-
-  createForm() {
-    this.postForm = this.fb.group({
-      Ids: [this.selectedPostIds],
-      value: ['', Validators.required],
-      type: ['category_id'],
+    this.apiService.getDataCategory().subscribe(response => {
+      this.responseDataCategory = response.data;
     });
-  }
+  };
 
-  toggleItems() {
+  toggleItems(): void {
     this.showItems = !this.showItems;
-  }
+  };
 
-  closeModal() {
+  closeModal(): void {
     const modal = document.getElementById('edit-category-dialog');
     if (modal) {
       modal.style.display = 'none';
     }
-  }
+  };
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.postForm.valid) {
       const formData = {
         ...this.postForm.value,
@@ -100,9 +88,9 @@ export class EditCategoryDialogComponent {
   };
 
   setNoty(message: string, classname: string, delay: any): void {
-    localStorage.setItem('template', message)
-    localStorage.setItem('classname', classname)
-    localStorage.setItem('delay', delay)
-    localStorage.setItem('msg', "Update category successfully.")
+    localStorage.setItem('template', message);
+    localStorage.setItem('classname', classname);
+    localStorage.setItem('delay', delay);
+    localStorage.setItem('msg', "Update category successfully.");
   };
 }

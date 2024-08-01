@@ -25,7 +25,6 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/sign-in`, { email, password })
       .pipe(
         tap(response => {
-          console.log('Response received from API:', response); // Log response to debug
           if (response && response.data) {
             this.storeTokens(response.data);
           } else {
