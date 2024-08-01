@@ -50,7 +50,8 @@
       "yesDeleteIt": "删除它",
       "previous": "以前",
       "next": "下一个",
-      "post": "帖子"
+      "post": "帖子",
+      "deleteFilter": "删除过滤器"
     },
     "labels": {
       "items": "项目",

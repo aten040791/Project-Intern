@@ -50,7 +50,8 @@
     "yesDeleteIt": "Yes, deleted this",
     "previous": "Previous",
     "next": "Next",
-    "post": "Post"
+    "post": "Post",
+    "deleteFilter": "Delete filter"
   },
   "labels": {
     "items": "items",

@@ -24,8 +24,11 @@ export class DeleteMutipalPostComponent implements OnInit {
     private apiService: ApiService,
     private router: Router) {
       library.add(faFloppyDisk);
-    this.createForm();
-  }
+
+      this.postForm = this.fb.group({
+        Ids: [this.selectedPostIds],
+      });
+    }
 
   ngOnInit(): void {}
 
@@ -35,20 +38,14 @@ export class DeleteMutipalPostComponent implements OnInit {
     }
   };
 
-  createForm() {
-    this.postForm = this.fb.group({
-      Ids: [this.selectedPostIds],
-    });
-  }
-
-  closeModal() {
+  closeModal(): void {
     const modal = document.getElementById('delete-mutipal-post');
     if (modal) {
       modal.style.display = 'none';
     }
   }
 
-  onDelete() {
+  onDelete(): void {
     if (this.postForm.valid) {
       const formData = {
         ...this.postForm.value,
@@ -58,8 +55,8 @@ export class DeleteMutipalPostComponent implements OnInit {
           this.setNoty(data["message"], "toast--success", 4000)
           setTimeout(() => {
             this.router.navigate(['/post'])
+            window.location.reload();
           }, 500);
-          window.location.reload();
         },
         error: (error) => {
           this.toastService.show({
@@ -74,9 +71,9 @@ export class DeleteMutipalPostComponent implements OnInit {
   };
 
   setNoty(message: string, classname: string, delay: any): void {
-    localStorage.setItem('template', message)
-    localStorage.setItem('classname', classname)
-    localStorage.setItem('delay', delay)
-    localStorage.setItem('msg', "Delete successfully.")
+    localStorage.setItem('template', message);
+    localStorage.setItem('classname', classname);
+    localStorage.setItem('delay', delay);
+    localStorage.setItem('msg', "Delete successfully.");
   };
 }

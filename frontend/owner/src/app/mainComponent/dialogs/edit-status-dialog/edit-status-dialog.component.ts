@@ -40,9 +40,7 @@ export class EditStatusDialogComponent {
     }
   }
 
-  ngOnInit() {}
-
-  createForm() {
+  createForm(): void {
     this.postForm = this.fb.group({
       Ids: [this.selectedPostIds],
       value: ['', Validators.required],
@@ -50,18 +48,18 @@ export class EditStatusDialogComponent {
     });
   }
 
-  toggleItems() {
+  toggleItems(): void {
     this.showItems = !this.showItems;
   }
 
-  closeModal() {
+  closeModal(): void {
     const modal = document.getElementById('edit-status-dialog');
     if (modal) {
       modal.style.display = 'none';
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.postForm.valid) {
       const formData = {
         ...this.postForm.value,
@@ -87,9 +85,9 @@ export class EditStatusDialogComponent {
   };
 
   setNoty(message: string, classname: string, delay: any): void {
-    localStorage.setItem('template', message)
-    localStorage.setItem('classname', classname)
-    localStorage.setItem('delay', delay)
-    localStorage.setItem('msg', "Update status successfully.")
+    localStorage.setItem('template', message);
+    localStorage.setItem('classname', classname);
+    localStorage.setItem('delay', delay);
+    localStorage.setItem('msg', "Update status successfully.");
   };
 }

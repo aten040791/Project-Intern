@@ -50,7 +50,8 @@
     "yesDeleteIt": "Xóa nó",
     "previous": "Trước",
     "next": "Sau",
-    "post": "Bài viết"
+    "post": "Bài viết",
+    "deleteFilter": "Xoá bộ lọc"
   },
   "labels": {
     "items": "items",

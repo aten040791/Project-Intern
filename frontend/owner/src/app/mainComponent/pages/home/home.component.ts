@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
     this.updateUrl();
     this.getData();
     this.loadToast();
-    this.fetchCategories();
+    this.getCategories();
   };
 
   getSanitizedHtml(html: string): SafeHtml {
@@ -75,19 +75,13 @@ export class HomeComponent implements OnInit {
     let body: SafeHtml = this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>');
     let languageName = 'No language available';
   
-    if (translations.length > 0) {
-      for (let i = 0; i < translations.length; i++) {
-        if(translations[i].title && title === 'No title available') title = translations[i].title;
-        if(translations[i].body) body = this.sanitizer.bypassSecurityTrustHtml(translations[i].body);
-        if(translations[i].language && translations[i].language.name &&
-          languageName === 'No language available' &&
-          title !== 'No title available') {
-          languageName = translations[i].language.flag; }
-        if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
-          break;
-        }
+    translations.forEach(translation => {
+      if (translation.title && title === 'No title available') title = translation.title;
+      if (translation.body) body = this.sanitizer.bypassSecurityTrustHtml(translation.body);
+      if (translation.language?.name && languageName === 'No language available' && title !== 'No title available') {
+        languageName = translation.language.flag;
       }
-    }
+    });
     return { title, body, languageName };
   };
 
@@ -101,18 +95,12 @@ export class HomeComponent implements OnInit {
       }));
       this.totalPages = response.data.totalPages;
       this.totalPosts = response.data.totalPosts;
-    }, error => {
-      console.error('Error fetching posts:', error);
-      this.toastService.show({ template: 'Error fetching posts', classname: 'bg-danger text-light', delay: 3000 });
     });
   };
 
-  fetchCategories(): void {
+  getCategories(): void {
     this.apiService.getDataCategory().subscribe(response => {
       this.categories = response.data;
-    }, error => {
-      console.error('Error fetching categories:', error);
-      this.toastService.show({ template: 'Error fetching categories', classname: 'bg-danger text-light', delay: 3000 });
     });
   };
 
@@ -125,7 +113,6 @@ export class HomeComponent implements OnInit {
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    console.log('currentPage', this.currentPage);
     this.updateUrl();
     this.getData(this.searchTerm, this.categoryId, this.status, this.currentPage, this.itemsPerPage);
   };
@@ -153,12 +140,12 @@ export class HomeComponent implements OnInit {
     return this.posts.some((post) => post.selected === true);
   };
 
-  toggleReadMore(event: Event, postId: string) {
+  toggleReadMore(event: Event, postId: string): void {
     event.preventDefault();
     this.isReadMore[postId] = !this.isReadMore[postId];
   };
 
-  checkAll(event: Event) {
+  checkAll(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.posts.forEach((post) => {
       post.selected = checked;
@@ -166,32 +153,29 @@ export class HomeComponent implements OnInit {
     this.selectAll = checked;
   };
 
-  updateSelectAllState() {
+  updateSelectAllState(): void {
     this.selectAll = this.posts.every((post) => post.selected);
   };
 
-  showModal(modalId: string, ids?: number[]) {
+  showModal(modalId: string, ids?: number[]): void {
     const modal = document.getElementById(modalId);
     if (modal) {
-      if (!ids) ids = this.getSelectedPostIds();
-      this.selectedIds = ids;
+      this.selectedIds = ids ?? this.getSelectedPostIds();
       modal.style.display = 'block';
     }
   };
 
   getSelectedPostIds(): number[] {
-    this.selectedIds = this.posts
-      .filter((post) => post.selected)
-      .map((post) => post.id);
-    return this.selectedIds;
+    return this.posts
+    .filter(post => post.selected)
+    .map(post => post.id);
   };
 
   shouldShowReadMore(body: string): boolean {
-    const maxLength = 200;
-    return body.length > maxLength;
+    return body.length > 200;
   };
 
-  loadToast() {
+  loadToast(): void {
     const template = localStorage.getItem('template');
     const classname = localStorage.getItem('classname');
     const delay = localStorage.getItem('delay');
@@ -205,7 +189,7 @@ export class HomeComponent implements OnInit {
     }
   };
 
-  onFilterApplied(filter: { status: string, categories: number[] }) {
+  onFilterApplied(filter: { status: string, categories: number[] }): void {
     this.status = filter.status;
     this.categoryId = filter.categories.length ? filter.categories[0] : 0;
     this.getData(this.searchTerm, this.categoryId, this.status, this.currentPage, this.itemsPerPage);
