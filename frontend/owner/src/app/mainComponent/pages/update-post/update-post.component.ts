@@ -89,7 +89,7 @@ export class UpdatePostComponent implements OnInit {
     localStorage.setItem('template', message)
     localStorage.setItem('classname', classname)
     localStorage.setItem('delay', delay)
-    localStorage.setItem('msg', "Create successfully.")
+    localStorage.setItem('msg', "Update successfully.")
   };
 
   getDataCategory(): void {

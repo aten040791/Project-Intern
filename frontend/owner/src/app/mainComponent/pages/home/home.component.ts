@@ -75,13 +75,19 @@ export class HomeComponent implements OnInit {
     let body: SafeHtml = this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>');
     let languageName = 'No language available';
   
-    translations.forEach(translation => {
-      if (translation.title && title === 'No title available') title = translation.title;
-      if (translation.body) body = this.sanitizer.bypassSecurityTrustHtml(translation.body);
-      if (translation.language?.name && languageName === 'No language available' && title !== 'No title available') {
-        languageName = translation.language.flag;
+    if (translations.length > 0) {
+      for (let i = 0; i < translations.length; i++) {
+        if(translations[i].title && title === 'No title available') title = translations[i].title;
+        if(translations[i].body) body = this.sanitizer.bypassSecurityTrustHtml(translations[i].body);
+        if(translations[i].language && translations[i].language.name &&
+          languageName === 'No language available' &&
+          title !== 'No title available') {
+          languageName = translations[i].language.flag; }
+        if(title !== 'No title available' && body !== this.sanitizer.bypassSecurityTrustHtml('<p>No content available</p>') && languageName !== 'No language available') {
+          break;
+        }
       }
-    });
+    }
     return { title, body, languageName };
   };
 
