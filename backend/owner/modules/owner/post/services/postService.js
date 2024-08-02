@@ -36,6 +36,7 @@ const postService = {
     const post = await db.Post.findByPk(id, {
       include: [ 
         { model: db.Category, as: 'category', attributes: ['id', 'name', 'slug'] },
+        { model: db.User, as: 'user', attributes: ['id', 'username'] },
         languageInclude,
       ],
       order: [['createdAt', 'DESC']],
@@ -49,8 +50,6 @@ const postService = {
       ...(categoryId && { category_id: categoryId }),
       ...(status && { status: status })
     };
-
-    console.log('whereClause', whereClause);
 
     const offset = (page - 1) * perPage;
     const count = await db.Post.count({

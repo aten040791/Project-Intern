@@ -99,6 +99,7 @@ export class DetailPostComponent implements OnInit{
   getPostDetails(postId: number): void {
     this.apiService.getPostDetails(postId).subscribe((response) => {
       this.post = response.data;
+      console.log('post', this.post);
       this.formattedDate = format(new Date(response.data.createdAt), 'PP');
     });
   }
