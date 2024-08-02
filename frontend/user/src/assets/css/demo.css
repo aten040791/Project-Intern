@@ -72,3 +72,11 @@ select {
   transition: max-height 0.5s ease;
   line-height: 1.6rem;
 }
+
+.info-use{
+  text-align: right;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Segoe-UI-B';
+  margin-top: 20px;
+}

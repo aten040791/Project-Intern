@@ -96,9 +96,24 @@ export class CategoryPostComponent implements OnInit {
 
   getCategoryPosts(categoryId: number, page: number = this.currentPage, perPage: number = this.itemsPerPage): void {
     this.apiService.getPostCategories(categoryId, page, perPage).subscribe((response) => {
-      this.posts = response.data.posts.filter((post: { translations: any[]; }) => this.getTranslationData(post.translations).title !== 'No title available');
+      this.posts = response.data.posts
+        .map((post: { translations: any[]; content: string; }) => {
+          post.translations[0].body = this.removeFigureTags(post.translations[0].body);
+          return post;
+        })
+        .filter((post: { translations: any[]; }) => this.getTranslationData(post.translations).title !== 'No title available');
       this.totalPages = response.data.totalPages;
       this.totalPosts = this.posts.length;
     });
+  };
+  
+  removeFigureTags(content: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content, 'text/html');
+    const figures = doc.getElementsByTagName('figure');
+    while (figures.length > 0) {
+      figures[0].parentNode?.removeChild(figures[0]);
+    }
+    return doc.body.innerHTML;
   };
 }

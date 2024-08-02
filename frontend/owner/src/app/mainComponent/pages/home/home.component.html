@@ -62,8 +62,7 @@
                     <th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" style="width: 18px;" data-col="1" aria-label="">
                       <input type="checkbox" class="form-check-input" id="select-all" [(ngModel)]="selectAll" (change)="checkAll($event)">
                     </th>
-                    <th class="sorting" style="width: 250px;">{{ "labels.title" | translate }}</th>
-                    <th class="sorting" style="width: 350px;">{{ "labels.content" | translate }}</th>
+                    <th class="sorting" style="width: 400px;">{{ "labels.title" | translate }}</th>
                     <th class="sorting" style="width: 200px;">{{ "labels.createdDate" | translate }}</th>
                     <th class="sorting" style="width: 150px;">{{ "labels.category" | translate }}</th>
                     <th class="sorting" style="width: 150px;">{{ "labels.locale" | translate }}</th>
@@ -79,16 +78,8 @@
                     </td>
                     <td>
                       <div class="d-flex justify-content-start align-items-center">
-                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 200px;">{{ getTranslationData(post.translations).title }}</span></div>
+                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 400px;">{{ getTranslationData(post.translations).title }}</span></div>
                       </div>
-                    </td>
-                    <td style="max-width: 350px;">
-                      <p class="card-text" [ngClass]="{'read-more': isReadMore[post.id]}">
-                        <span class="responsive-img-span" [innerHtml]="getTranslationData(post.translations).body"></span>
-                      </p>
-                      <a href="#" *ngIf="shouldShowReadMore(post.translations[0].body)" (click)="toggleReadMore($event, post.id)" class="read-more-btn">
-                        {{ isReadMore[post.id] ? 'Read Less' : 'Read More' }}
-                      </a>
                     </td>
                     <td style="max-width: 200px;">{{ post.formattedDate }}</td>
                     <td style="max-width: 150px;">{{ post.category.name }}</td>
