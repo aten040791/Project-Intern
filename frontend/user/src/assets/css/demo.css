@@ -31,10 +31,6 @@
   margin: 0 auto;
 }
 
-#sticker {
-  display: none;
-}
-
 #sticker.active {
   display: block;
   max-height: 100%;
