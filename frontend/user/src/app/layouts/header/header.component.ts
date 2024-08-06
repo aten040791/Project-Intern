@@ -12,7 +12,7 @@ import { TranslationService } from 'src/app/shared/i18n/translation.service';
 export class HeaderComponent implements OnInit {
   faGlobe = faGlobe;
   responseDataCategory: any[] = [];
-  isMenuOpen: boolean = true;
+  isMenuOpen: boolean = false;
   activeCategoryId: number | null = null;
   languages: any[] = [];
   icActive: boolean = false;
