@@ -72,8 +72,8 @@ export class EditCategoryDialogComponent {
           this.setNoty(data["message"], "toast--success", 4000)
           setTimeout(() => {
             this.router.navigate(['/post'])
+            window.location.reload();
           }, 500);
-          window.location.reload();
         },
         error: (error) => {
           this.toastService.show({

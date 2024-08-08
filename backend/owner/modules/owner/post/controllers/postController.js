@@ -53,7 +53,6 @@ const postController = {
       const newPost = await postService.create(formData, translations);
       return responseUtils.ok(res, newPost);
     } catch (error) {
-      console.error("Error creating post:", error);
       return responseUtils.error(res, "Failed to create post.");
     }
   },
@@ -67,7 +66,6 @@ const postController = {
       const updatedPost = await postService.update(id, formData, translations);
       return responseUtils.ok(res, updatedPost);
     } catch (error) {
-      console.error("Error updating post:", error);
       return responseUtils.error(res, "Failed to update post.");
     }
   },
