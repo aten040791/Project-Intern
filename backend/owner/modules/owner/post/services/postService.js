@@ -165,8 +165,8 @@ category: async (id, page, perPage, languageId) => {
   if (posts.length !== idsPost.length) {
     throw new Error("One or more posts not found");
   }
-    await db.Post.destroy({ where: { id: idsPost } });
     await db.Translate.destroy({ where: { post_id: idsPost } });
+    await db.Post.destroy({ where: { id: idsPost } });
     return { message: "Post and related translations deleted successfully" };
   },
   
