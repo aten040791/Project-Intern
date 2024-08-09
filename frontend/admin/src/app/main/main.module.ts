@@ -25,7 +25,6 @@ import { DeleteFailedComponent } from './features/delete/delete-failed/delete-fa
 import { TranslateModule } from '@ngx-translate/core';
 import { AddUsersComponent } from './pages/add-users/add-users.component';
 import { SharedModule } from './shared/shared.module';
-import { ToastsComponent } from './features/toasts/toasts.component';
 
 @NgModule({
   declarations: [

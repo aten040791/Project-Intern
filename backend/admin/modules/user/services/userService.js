@@ -1,7 +1,7 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
 const bcrypt = require("bcryptjs");
-const { debounce } = require("middlewares/debounce");
+const { debounce } = require("modules/kernels/debounce");
 
 const debounceList = debounce((users) => {
   return users;

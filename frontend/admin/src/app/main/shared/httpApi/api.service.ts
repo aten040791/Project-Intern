@@ -203,7 +203,38 @@ export class ApiService {
   }
 
   // check email or username
-  // exists(emailOrUsername: string): Observable<any> {
-  //   return this.http.get<any>(`${this.apiUrl}/users/check-email-username/${emailOrUsername}`);
-  // }
+  exists(email: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/forgot-password`, email).pipe(
+      tap(response => {
+        localStorage.setItem('email', response.data.email);
+      }),
+      catchError(error => {
+          return throwError(error);
+      })
+    )
+  }
+
+  // send email
+  sendEmail(body: any): Observable<any> {
+    const url = `${this.apiUrl}/auth/send-email`;
+    return this.http.post<any>(url, body);
+  }
+
+  // verify email
+  verifyEmail(body: any): Observable<any> {
+    const url = `${this.apiUrl}/auth/verify-email`;
+    return this.http.post<any>(url, body);
+  }
+
+  newPassword(body: any): Observable<any> {
+    const url = `${this.apiUrl}/auth/newpassword`;
+    return this.http.put<any>(url, body);
+  }
+
+  // delete otp
+  deleteOtp(body: any): Observable<any> {
+    const url = `${this.apiUrl}/auth/delete-otp`;
+    return this.http.delete<any>(url, {body: body});
+  }
+
 }
