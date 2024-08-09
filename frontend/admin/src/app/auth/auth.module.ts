@@ -9,7 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavComponent } from './layouts/nav/nav.component';
 import { SharedModule } from '../main/shared/shared.module';
-// import { ToastsComponent } from '../main/features/toasts/toasts.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './features/verify-email/verify-email.component';
+import { NewPasswordComponent } from './features/new-password/new-password.component';
 
 
 @NgModule({
@@ -18,13 +20,15 @@ import { SharedModule } from '../main/shared/shared.module';
     LoginComponent,
     ResetPasswordComponent,
     NavComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     AuthRoutingModule,
+    VerifyEmailComponent,
     SharedModule,
-    // ToastsComponent,
+    NewPasswordComponent,
     TranslateModule.forChild()
   ]
 })

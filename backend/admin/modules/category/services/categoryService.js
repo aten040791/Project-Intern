@@ -1,6 +1,6 @@
 const db = require("models/index");
 const { Op, Sequelize } = require("sequelize");
-const { debounce } = require("middlewares/debounce");
+const { debounce } = require("modules/kernels/debounce");
 
 const debounceList = debounce((categories) => {
   return categories;

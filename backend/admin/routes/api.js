@@ -27,13 +27,26 @@ const { uploads } = require("middlewares/multer");
 // })
 
 router.group("/auth", (router) => {
+  router.delete("/delete-otp", authController.deleteOtp);
   // router.post("/sign-up", authController.register);
   router.post(
     "/sign-in",
     validate([authValidation.index]),
     authController.login
   );
-  // router.get("/", admin, authController.getAdmin);
+  router.post(
+    "/forgot-password",
+    validate([authValidation.checkEmail]),
+    authController.forgotPassword
+  );
+  // send email
+  router.post("/send-email", authController.sendMail);
+  router.post(
+    "/verify-email",
+    validate([authValidation.checkOTP]),
+    authController.verifyEmail
+  );
+  router.put("/newpassword", authController.newPassword);
 });
 
 router.group("/users", admin, (router) => {

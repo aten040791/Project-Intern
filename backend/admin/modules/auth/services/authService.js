@@ -1,7 +1,7 @@
 const db = require("models/index");
 const { sign, signRefreshToken } = require("utils/jwtUtils");
 const bcrypt = require("bcryptjs");
-const { admin } = require("middlewares/authVerify");
+const { sendMail } = require("modules/kernels/nodemailer");
 
 module.exports = {
   login: async (email, password) => {
@@ -28,5 +28,35 @@ module.exports = {
       access_token: access_token,
       refresh_token: refresh_token,
     };
+  },
+  forgotPassword: async (email) => {
+    const user = await db.User.findOne({ where: email });
+    return user;
+  },
+  sendMail: async (code) => {
+    const user = await db.User.findOne({ where: code.email });
+    const verification = {
+      user_id: user.id,
+      code: code.text,
+    };
+    await db.Verification.create(verification);
+    code.text = `Your verification code is: ${code.text}`;
+    const result = sendMail(code);
+    return result;
+  },
+  verifyEmail: async (otp) => {
+    const result = await db.Verification.findOne({ where: { code: otp } });
+    return result;
+  },
+  deleteOtp: async (otp) => {
+    await db.Verification.destroy({ where: { code: otp } });
+  },
+  newPassword: async (body) => {
+    const password = await bcrypt.hash(body.password, 10);
+    const result = await db.User.update(
+      { password: password },
+      { where: { email: body.email } }
+    );
+    return result;
   },
 };
