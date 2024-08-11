@@ -114,6 +114,12 @@ export class CategoryPostComponent implements OnInit {
     while (figures.length > 0) {
       figures[0].parentNode?.removeChild(figures[0]);
     }
+
+    const pictures = doc.getElementsByTagName('picture');
+    while (pictures.length > 0) {
+      pictures[0].parentNode?.removeChild(pictures[0]);
+    }
+
     return doc.body.innerHTML;
   };
 }

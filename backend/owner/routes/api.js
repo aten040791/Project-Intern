@@ -19,6 +19,7 @@ const router = express.Router({ mergeParams: true });
 //   }
 // );
 
+// API post routes
 router.group('/post', (router) => {
   router.use(authenticateToken);
   router.get('/user/:uid', validate([postValidation.getByUid]), postController.getByUid),     //API get post
@@ -29,19 +30,21 @@ router.group('/post', (router) => {
   router.patch('/update-multiple', validate([postValidation.updateMultiple]), postController.updateMultiple)    //API update-multiple post
 });
 
+// API site routes
 router.group('/user', (router) => {
   router.use(authenticateToken);
   router.get('/:uid', siteController.getUserById),
   router.put('/update/:uid', siteController.updateUser)
 });
 
+// API site routes
 router.get('/category', siteController.getCategory); //API get category
 router.get('/language', siteController.getLanguage); //API get language
 router.get('/index', validate([postValidation.index]), postController.index);     //API get post
 router.get('/:id', validate([postValidation.getById]), postController.getById);   //API get detail post
 router.get('/category/:id', validate([postValidation.getCategory]), postController.getCategory);   //API get post by category
 
-
+// API auth routes
 router.group('/auth',(router) => {
   router.post('/sign-in',validate([authValidation.signIn]), authController.signIn),   //login
   router.post('/sign-up',validate([authValidation.signUp]), authController.signUp),   //register
