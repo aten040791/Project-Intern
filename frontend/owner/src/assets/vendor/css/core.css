@@ -9005,7 +9005,6 @@ button:focus-visible {
 }
 .input-group-merge .form-control:not(:last-child) {
   padding-right: 0;
-  border-right: 0;
 }
 .input-group-merge .form-control:is(textarea):not(:last-child) {
   padding-right: 1.25rem;
