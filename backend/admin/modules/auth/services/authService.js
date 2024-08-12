@@ -34,7 +34,7 @@ module.exports = {
     return user;
   },
   sendMail: async (code) => {
-    const user = await db.User.findOne({ where: code.email });
+    const user = await db.User.findOne({ where: { email: code.email } });
     const verification = {
       user_id: user.id,
       code: code.text,

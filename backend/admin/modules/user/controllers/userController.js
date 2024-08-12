@@ -11,7 +11,8 @@ module.exports = {
   // todo: create a user
   createUser: async (req, res) => {
     const user = req.body;
-    user.avatar = `http://localhost:3000/${req.file.filename}`;
+    if (req.file && req.file.filename)
+      user.avatar = `http://localhost:3000/${req.file.filename}`;
     const newUser = await userService.createUser(user);
     return responseUtils.ok(res, newUser);
   },
@@ -24,7 +25,7 @@ module.exports = {
   updateUser: async (req, res) => {
     const userId = req.params;
     const user = req.body;
-    if (req.file) {
+    if (req.file && req.file.filename) {
       user.avatar = `http://localhost:3000/${req.file.filename}`;
     }
     await userService.updateUser(userId, user);
