@@ -9,7 +9,7 @@ const debounceList = debounce((languages) => {
 module.exports = {
   list: async (page, limit, search) => {
     let languages;
-    if (search !== "") {
+    if (search && search !== "") {
       const valueLowCase = search.toLowerCase();
       languages = await db.Language.findAll({
         where: {

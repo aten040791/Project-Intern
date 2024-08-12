@@ -14,7 +14,7 @@ module.exports = {
     // const debounceSearch = debounce(search, 2000);
     // console.log(debounceSearch);
     let users;
-    if (search != "") {
+    if (search && search != "") {
       const valueLowCase = search.toLowerCase();
       users = await db.User.findAll({
         include: {

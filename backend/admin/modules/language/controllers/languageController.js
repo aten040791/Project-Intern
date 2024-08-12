@@ -9,14 +9,16 @@ module.exports = {
   },
   createLanguage: async (req, res) => {
     const language = req.body;
-    language.flag = `http://localhost:3000/${req.file.filename}`;
+    if (req.file && req.file.filename) {
+      language.flag = `http://localhost:3000/${req.file.filename}`;
+    }
     const result = await languageService.createLanguage(language);
     return responseUntils.ok(res, result);
   },
   updateLanguage: async (req, res) => {
     const id = req.params;
     const language = req.body;
-    if (req.file) {
+    if (req.file && req.file.filename) {
       language.flag = `http://localhost:3000/${req.file.filename}`;
     }
     const result = await languageService.updateLanguage(id, language);

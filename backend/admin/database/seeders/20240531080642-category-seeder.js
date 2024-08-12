@@ -7,29 +7,29 @@ module.exports = {
       "Categories",
       [
         {
-          name: "Thời sự",
-          slug: "thoi-su",
+          name: "News",
+          slug: "news",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: "Thể thao",
-          slug: "the-thao",
+          name: "Sports",
+          slug: "sports",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        {
-          name: "Khoa học",
-          slug: "khoa-hoc",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          name: "Giải trí",
-          slug: "giai-tri",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
+        // {
+        //   name: "Khoa học",
+        //   slug: "khoa-hoc",
+        //   createdAt: new Date(),
+        //   updatedAt: new Date(),
+        // },
+        // {
+        //   name: "Giải trí",
+        //   slug: "giai-tri",
+        //   createdAt: new Date(),
+        //   updatedAt: new Date(),
+        // },
       ],
       {}
     );
