@@ -21,8 +21,7 @@ export class AddUsersComponent {
 
   errors: any[] = []
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(form: any): void {
 
