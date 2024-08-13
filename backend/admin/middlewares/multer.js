@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
   },
   // xác định tên file khi lưu trữ trên server
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
