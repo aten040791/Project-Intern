@@ -1,5 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { BaseService } from 'src/app/services/base.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -8,6 +9,8 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 
 export class SideBarComponent implements OnInit {
+
+  baseService = inject(BaseService)
 
   constructor(private router: Router) {}
 
@@ -28,6 +31,7 @@ export class SideBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleSideBar()
+    // this.loadActiveUrl()
     this.router.url.split('?')[0].split('/').forEach((e: string, index: number, array: string[]) => {
       if (e !== "" && (index + 1 !== array.length)) {
         // this.listItem[e] = array[index + 1]
@@ -48,6 +52,7 @@ export class SideBarComponent implements OnInit {
   setActiveSub(subItem: string) {
     this.url = this.router.url;
     this.activeSubItem = subItem;
+    // this.baseService.setSubActiveNav(subItem)
   }
 
   handleSideBar(): void {
@@ -62,6 +67,12 @@ export class SideBarComponent implements OnInit {
       this.openItem = url
       this.activeSubItem = this.listItem[url];
     }
+  }
+
+  loadActiveUrl() {
+    this.baseService.activeNav$.subscribe( url => {
+      this.activeItem = url
+    })
   }
 
 }

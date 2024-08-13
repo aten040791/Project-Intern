@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, inject, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/auth/pages/login/services/login.service';
 import { ApiService } from '../../shared/httpApi/api.service';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { LanguagePageService } from '../../pages/language-page/services/language
 import { language } from '../../interfaces/language/language';
 // import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../../shared/i18n/translation.service';
+import { BaseService } from 'src/app/services/base.service';
 
 @Component({
   selector: 'app-nav',
@@ -21,6 +22,7 @@ export class NavComponent implements OnInit {
   languages: any[] = []
   icActive: boolean = false
   selectedLanguage: any = {}
+  url: string = ''
 
   // pagination
   currentPage: number = 1;

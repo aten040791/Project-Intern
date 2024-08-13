@@ -49,7 +49,7 @@ router.group("/auth", (router) => {
   router.put("/newpassword", authController.newPassword);
 });
 
-router.group("/users", admin, (router) => {
+router.group("/users", (router) => {
   router.get("/get-user", userController.getUser);
   router.delete(
     "/delete",

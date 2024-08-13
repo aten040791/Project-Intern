@@ -40,7 +40,11 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item" [class.active]="activeSubItem === 'analytics'">
-          <a href="/home" class="menu-link" (click)="setActiveSub('analytics')">
+          <a
+            routerLink="/home"
+            class="menu-link"
+            (click)="setActiveSub('analytics')"
+          >
             <div data-i18n="Analytics">
               {{ "labels.analytics" | translate }}
             </div>

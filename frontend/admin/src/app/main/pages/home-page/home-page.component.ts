@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ToastsService } from '../../features/toasts/toasts.service';
+import { BaseService } from 'src/app/services/base.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -10,8 +12,13 @@ import { ToastsService } from '../../features/toasts/toasts.service';
 export class HomePageComponent {
 
   toastService = inject(ToastsService)
+  baseService = inject(BaseService)
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+    // this.baseService.setActive('/home')
+    // this.baseService.setSubActiveNav('/list')
     this.loadToast()
   }
 
