@@ -7,8 +7,5 @@ module.exports = {
     modulePaths: ["<rootDir>"],
     roots: ["<rootDir>"],
     rootDir: ".",
-    testMatch: [
-        "<rootDir>/modules/owner/tests/post.test.js",
-        "<rootDir>/modules/owner/tests/auth.test.js"
-    ],
+    testMatch: ["<rootDir>/modules/**/*.test.js"],
 };
