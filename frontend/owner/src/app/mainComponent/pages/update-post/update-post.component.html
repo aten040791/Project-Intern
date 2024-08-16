@@ -80,6 +80,9 @@
           </div>
         </div>
       </div>
+      <div class="back-to-top" (click)="scrollToTop()" *ngIf="showBackToTop">
+        <fa-icon [icon]="faArrowUp"></fa-icon>
+      </div>
     </div>
   </form>
 </div>

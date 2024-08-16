@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -6,7 +6,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CustomUploadAdapter } from '../../custom-upload-adapter';
 import { HttpClient } from '@angular/common/http';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFloppyDisk, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk, faXmark, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { CustomUploadImage } from '../../custom-upload-image';
 import { TranslationService } from '../../shared/i18n/translation.service';
 import { ToastsService } from '../../featrue/toasts/toasts.service';
@@ -25,6 +25,7 @@ export class CreatePostComponent implements OnInit {
   selectedLanguageText = '--Choose language--';
   previewUrl: string | ArrayBuffer | null = null;
   selectedTab: string = 'Vietnamese'; // Default selected tab
+  showBackToTop = false;
   userId = localStorage.getItem('user_id');
   languageIds: { [key: string]: string } = {};
   tabData: { [key: string]: { title: string, body: string } } = {
@@ -38,6 +39,7 @@ export class CreatePostComponent implements OnInit {
 
   faFloppyDisk = faFloppyDisk;
   faXmark = faXmark;
+  faArrowUp = faArrowUp;
   locale: string = '';
 
   constructor(
@@ -56,7 +58,7 @@ export class CreatePostComponent implements OnInit {
       category_id: ['', Validators.required]
     });
 
-    library.add(faFloppyDisk, faXmark);
+    library.add(faFloppyDisk, faXmark, faArrowUp);
   };
 
   ngOnInit(): void {
@@ -191,5 +193,14 @@ export class CreatePostComponent implements OnInit {
   updateLanguageId(): void {
     const languageId = this.languageIds[this.selectedTab] || '';
     this.postForm.get('language_id')?.setValue(languageId);
+  };
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.showBackToTop = window.pageYOffset > window.innerHeight;
+  };
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 }
