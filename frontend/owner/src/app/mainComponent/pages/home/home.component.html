@@ -78,7 +78,7 @@
                     </td>
                     <td>
                       <div class="d-flex justify-content-start align-items-center">
-                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 400px;">{{ getTranslationData(post.translations).title }}</span></div>
+                        <div class="d-flex flex-column"><span class="emp_name text-truncate" style="max-width: 400px;"><a routerLink="/update-post/{{ post.id }}">{{ getTranslationData(post.translations).title }}</a></span></div>
                       </div>
                     </td>
                     <td style="max-width: 200px;">{{ post.formattedDate }}</td>
@@ -95,7 +95,7 @@
                         <div class="dropdown-menu dropdown-menu-end m-0">
                           <a routerLink="/update-post/{{ post.id }}" class="dropdown-item">
                             <fa-icon [icon]="faEdit"></fa-icon>
-                            <span class="ms-1">{{ "buttons.update" | translate }}</span>
+                            <span class="ms-1">{{ "buttons.edit" | translate }}</span>
                           </a>
                           <a routerLink="/detail-post/{{ post.id }}" class="dropdown-item">
                             <fa-icon [icon]="faEye"></fa-icon>
